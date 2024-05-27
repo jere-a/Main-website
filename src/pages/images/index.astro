@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import ImageHolder from '../../components/ImageHolder.astro'
+
+import winterLandscape from '../../data/images/talvinen maisema.jpg'
+
+---
+
+<Layout title='Kuvat'>
+    <main>
+        <h1 class="text-gradient">Kuvat</h1>
+        <ul role="list" class="image-card-grid">
+            <ImageHolder
+                src={winterLandscape}
+                title='Talvinen Maisema Sillalta.'
+                body=''
+                alt=''
+            />
+        </ul>
+    </main>
+</Layout>
+
+<style>
+	h1 {
+		font-size: 4rem;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin-bottom: 1em;
+	}
+    .text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+    .image-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 2rem;
+		padding: 0;
+	}
+</style>
