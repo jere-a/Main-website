@@ -1,19 +1,38 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import { isOnline } from '../const';
 
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+
+const isProd = import.meta.env.PROD;
+const isDev = import.meta.env.DEV;
 ---
 
 <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="Åzze"
+        href={`${Astro.site}rss.xml`}
+    />
     <title>{title}</title>
     <ViewTransitions />
+    <!-- <script src="../js/main.js"></script> -->
+    {isOnline && <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=GTM-P6SH88WW"></script>
+    <script type="text/partytown">
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GTM-P6SH88WW');
+    </script>}
 </head>
