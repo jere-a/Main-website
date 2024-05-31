@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Alink from '../../components/alink.astro';
+import { getCollection } from 'astro:content';
+const blogEntries = await getCollection('blog');
+---
+<Layout title='Blogs' >
+<ul>
+    {blogEntries.map(post => (
+      <li>
+        <Alink href={`/blog/${post.slug}`}>{post.data.title}</Alink>
+      </li>
+    ))}
+  </ul>
+</Layout>

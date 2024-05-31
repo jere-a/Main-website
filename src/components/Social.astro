@@ -1,0 +1,22 @@
+---
+interface Props {
+	href: string;
+    platform: string;
+}
+
+const { href, platform } = Astro.props;
+
+const youtube = platform == "YT";
+
+---
+
+{youtube && <a class="yt" title="Go and see my Youtube channel" href={href}><slot/></a>}
+
+<style>
+    .yt {
+        background-color: rgba(183, 0, 0, 0.827);
+        border-radius: 10%;
+        color: white;
+        text-decoration: underline;
+    }
+</style>

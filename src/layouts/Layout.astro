@@ -1,24 +1,34 @@
 ---
 import { getLangFromUrl } from '../i18n/utils';
+import { SITE_TITLE } from '../const';
 import Head from '../components/Header.astro';
 import LanguagePicker from '../components/LanguagePicker.astro';
+import IBM_BIOS from '../data/fonts/WebPlus_IBM_BIOS.woff';
+import { isOnline } from '../const';
 
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+const combtitle = SITE_TITLE + " | " + title;
+
+const isProd = import.meta.env.PROD;
+const isDev = import.meta.env.DEV;
+
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang={lang}>
-	<Head title={title} />
+	<Head title={combtitle} />
 	<body>
 		<slot />
-		<footer>
-			<LanguagePicker />
-		</footer>
+		{isOnline && <div class="cf-turnstile" data-sitekey="0x4AAAAAAAbhEsfftzTNsmMO" data-theme="dark"></div>
+
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6SH88WW"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>}
+		<!-- End Google Tag Manager (noscript) -->
 	</body>
 </html>
 
@@ -51,4 +61,12 @@ const lang = getLangFromUrl(Astro.url);
 			Courier New,
 			monospace;
 	}
+
+	body {
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		font-size: 1.125rem;
+		line-height: 1.6;
+	}
 </style>
+
+{isOnline && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>}
