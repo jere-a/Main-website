@@ -1,0 +1,13 @@
+---
+
+interface Props {
+	href: string;
+    args?: ParameterDecorator;
+}
+
+const { href, args } = Astro.props;
+---
+
+<a href={href} {...args}><slot/></a>
+
+<style></style>

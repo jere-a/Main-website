@@ -9,51 +9,46 @@ import solidJs from "@astrojs/solid-js";
 import lit from "@astrojs/lit";
 import spotlightjs from "@spotlightjs/astro";
 import pageInsight from "astro-page-insight";
-import { VitePWA } from "vite-plugin-pwa";
 
 // Helper imports
 import { manifest } from "./utils/seoConfig";
+import react from "@astrojs/react";
+import tailwind from "@astrojs/tailwind";
+import sitemap from "@astrojs/sitemap";
 
+import playformCompress from "@playform/compress";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [partytown(), robotsTxt(), mdx(), vue(), svelte(), preact(), solidJs(), spotlightjs(), pageInsight()],
+  site: 'https://ozze.eu.org',
+  integrations: [robotsTxt({
+    host: 'ozze.eu.org',
+    transform(content) {
+      return `# Robots.txt file for search egines to crawl the website for indexing\n
+      # Created in the distant future (the year 2000) after\n
+      # the robotic uprising of the mid 90's which wiped out all humans.\n\n${content}`;
+    }
+  }), mdx(), vue(), svelte(), preact(), solidJs(), pageInsight(), react(), tailwind(), partytown(), sitemap(), playformCompress({
+    Image: false,
+  })],
   prefetch: {
     defaultStrategy: 'viewport',
     prefetchAll: true
   },
+
   i18n: {
     defaultLocale: "fi",
     locales: ["fi", "en"]
   },
+
   vite: {
-    plugins: [
-			VitePWA({
-				registerType: "autoUpdate",
-				manifest,
-				workbox: {
-				  globDirectory: 'dist',
-				  globPatterns: [
-				    '**/*.{js,css,svg,png,jpg,jpeg,gif,webp,woff,woff2,ttf,eot,ico}',
-				  ],
-				  // Don't fallback on document based (e.g. `/some-page`) requests
-				  // This removes an errant console.log message from showing up.
-				  navigateFallback: null,
-				},
-			})
-		],
-    ssr: {
-      noExternal: ['normalize.css']
-    },
-    css: {
-      transformer: "lightningcss"
-    },
     build: {
+      sourcemap: true,
       rollupOptions: {
         output: {
           entryFileNames: 'entry.[hash].mjs',
           chunkFileNames: 'chunks/chunk.[hash].mjs',
-          assetFileNames: 'assets/asset.[hash][extname]'
+          assetFileNames: 'assets/asset.[hash][extname]',
         }
       }
     }

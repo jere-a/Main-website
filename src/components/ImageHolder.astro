@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 
 interface Props {
 	title: string;
@@ -13,13 +13,23 @@ const { src, title, body, alt } = Astro.props;
 
 <li class="image-card">
     <div>
-    <Image
+<!--     <Image
         src={src}
         widths={[240, 540, 720, src.width]}
         sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${src.width}px`}
         alt={alt}
 		class="image"
-    />
+    /> -->
+
+	<Picture
+		src={src} 
+		alt={alt} 
+		widths={[240, 540, 720, src.width]}
+		sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${src.width}px`}
+		class="image"
+		formats={['avif', 'webp', 'jpg', 'png']}
+		quality={'max'}
+	/>
 	<br>
 		<h2>
 			{title}
@@ -57,7 +67,8 @@ const { src, title, body, alt } = Astro.props;
 		background-color: #23262d;
 		opacity: 0.8;
 	}
-	.image-card > div > img {
+	.image-card > div > picture > img,
+	.image-card > div > picture > source {
 		width: 100%;
 		height: auto;
 		margin: auto;
@@ -78,8 +89,6 @@ const { src, title, body, alt } = Astro.props;
 		/* These lines prevent the border box from clipping the blur effect */
 		padding: var(--padimg);
 		margin: calc(var(--padimg) * -1);
-		
-
 	}
     h2 {
 		margin: 0;

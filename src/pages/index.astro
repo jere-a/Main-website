@@ -1,15 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import Social from '../components/Social.astro';
 import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
-import 'normalize.css';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Welcome">
 	<main>
 		<svg
 			class="astro-a"
@@ -39,10 +39,10 @@ const translatePath = useTranslatedPath(lang);
 				</linearGradient>
 			</defs>
 		</svg>
-		<h1><span class="text-gradient">&#xC5;zze nettisivut</span></h1>
+		<h1><span class="text-gradient">&#xC5;zze nettisivu</span></h1>
 		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+			Olen tehnyt tämän sivun kun tuli kiinnostuksen kohteeksi tämän rakentaminen. 
+			Minut löytää <Social href='https://www.youtube.com/channel/UCNAVV2j-Bmuu9ApfTYwYAeA' platform='YT'>Youtube</Social>
 		</p>
 		<ul role="list" class="link-card-grid">
 			<Card
