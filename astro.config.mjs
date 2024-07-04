@@ -8,7 +8,6 @@ import preact from "@astrojs/preact";
 import solidJs from "@astrojs/solid-js";
 import lit from "@astrojs/lit";
 import spotlightjs from "@spotlightjs/astro";
-import pageInsight from "astro-page-insight";
 
 // Helper imports
 import { manifest } from "./utils/seoConfig";
@@ -28,7 +27,7 @@ export default defineConfig({
       # Created in the distant future (the year 2000) after\n
       # the robotic uprising of the mid 90's which wiped out all humans.\n\n${content}`;
     }
-  }), mdx(), vue(), svelte(), preact(), solidJs(), pageInsight(), react(), tailwind(), partytown(), sitemap(), playformCompress({
+  }), mdx(), vue(), svelte(), preact(), solidJs(), react(), tailwind(), partytown(), sitemap(), playformCompress({
     Image: false,
   })],
   prefetch: {
