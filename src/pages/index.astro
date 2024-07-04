@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import Social from '../components/Social.astro';
-import Hooks from '../components/hooks.astro';
 import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -53,7 +52,6 @@ const translatePath = useTranslatedPath(lang);
 			/>
 		</ul>
 	</main>
-	<Hooks/>
 </Layout>
 
 <style>
