@@ -23,7 +23,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.5.0",
     "@playform/compress": "^0.0.13",
-    "@sentry/astro": "^8.14.0",
+    "@sentry/astro": "^8.15.0",
     "@spotlightjs/astro": "^2.0.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
