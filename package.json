@@ -68,7 +68,7 @@
     "@types/easeljs": "^1.0.5",
     "@types/jquery": "^3.5.30",
     "@types/markdown-it": "^14.1.1",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "@types/offline-js": "^0.7.32",
     "@types/sanitize-html": "^2.11.0",
     "@types/zepto": "^1.0.36",
