@@ -1,6 +1,6 @@
 # Website created using astro
 
-To run the developer env:
+To run the developer enviroment:
 
 ```sh
 npm run dev
