@@ -10,7 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.8.1",
+    "@astrojs/check": "^0.8.2",
     "@astrojs/lit": "^4.3.0",
     "@astrojs/mdx": "^3.1.2",
     "@astrojs/partytown": "^2.1.1",
