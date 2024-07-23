@@ -2,11 +2,53 @@
 import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
 
+import '../styles/blog/blog.css';
+import '../styles/blog/markdown.css';
+
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title } = Astro.props;
+const { title, pubDate } = Astro.props;
+
+const formattedDate = pubDate?.getDay() + '-' + pubDate?.getMonth() + '-' + pubDate?.getFullYear();
 ---
 
 <Layout title={title}>
-    <slot/>
+	<main id="main">
+		<section class="blog-post">
+			<h1 class="title">{title}</h1>
+			<time class="publish-date">{formattedDate}</time>
+			<slot />
+		</section>
+	</main>
 </Layout>
+
+<style>
+	body {
+		display: grid;
+		min-height: 100vh;
+		grid-template-areas:
+			'header'
+			'main'
+			'footer';
+		grid-template-rows: 5rem minmax(0, 1fr) 5rem;
+		grid-template-columns: minmax(0, 1fr);
+	}
+	main {
+		grid-area: main;
+	}
+	.title {
+		font-size: 2.5em;
+		line-height: 1.2 !important;
+		margin: 0.25em 0 0;
+	}
+	.publish-date {
+		font-size: 0.875em;
+		color: var(--text-muted);
+		margin-bottom: 2rem;
+		display: block;
+	}
+	hr {
+		border-top: 1px solid #ddd;
+		margin: 1rem 0;
+	}
+</style>

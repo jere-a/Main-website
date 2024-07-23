@@ -1,72 +1,96 @@
 ---
-import { getLangFromUrl } from '../i18n/utils';
-import { SITE_TITLE } from '../const';
-import Head from '../components/Header.astro';
-import LanguagePicker from '../components/LanguagePicker.astro';
-import IBM_BIOS from '../data/fonts/WebPlus_IBM_BIOS.woff';
+import { getLangFromUrl } from '@/i18n/utils';
+import Head from '@/components/Header.astro';
+import NavMenu from '@/components/react/nav-menu';
+import Footer from '@/components/Footer.astro';
+import LanguagePicker from '@/components/LanguagePicker.astro';
+
+// Global CSS
+import '../global.css';
+
+import { ModeToggle } from '@/components/react/ModeToggle';
+
+// configs
 import { isOnline } from '../const';
+import { siteConfig } from '../config';
 
 interface Props {
-	title: string;
+	title: string | undefined;
 }
 
 const { title } = Astro.props;
-const combtitle = SITE_TITLE + " | " + title;
+const combtitle = siteConfig.title + ' | ' + title;
 
 const isProd = import.meta.env.PROD;
 const isDev = import.meta.env.DEV;
 
 const lang = getLangFromUrl(Astro.url);
+
+const q = Astro.url.searchParams.get('q') ?? undefined;
 ---
 
-<!DOCTYPE html>
-<html lang={lang}>
+<script is:inline>
+	const getThemePreference = () => {
+		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+			return localStorage.getItem('theme');
+		}
+		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	};
+	const isDark = getThemePreference() === 'dark';
+	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+
+	if (typeof localStorage !== 'undefined') {
+		const observer = new MutationObserver(() => {
+			const isDark = document.documentElement.classList.contains('dark');
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		});
+		observer.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ['class'],
+		});
+	}
+</script>
+
+<html class="dark" lang={lang}>
 	<Head title={combtitle} />
 	<body>
+		<div class="NavMenu">
+			<header>
+				<NavMenu><ModeToggle /></NavMenu>
+			</header>
+		</div>
 		<slot />
-		{isOnline && <div class="cf-turnstile" data-sitekey="0x4AAAAAAAbhEsfftzTNsmMO" data-theme="dark"></div>
-
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6SH88WW"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>}
+		{
+			isOnline && (
+				<>
+					<div
+						class="cf-turnstile"
+						data-sitekey="0x4AAAAAAAbhEsfftzTNsmMO"
+						data-theme="dark"
+					/>
+					<noscript>
+						<iframe
+							src="https://www.googletagmanager.com/ns.html?id=GTM-P6SH88WW"
+							height="0"
+							width="0"
+							style="display:none;visibility:hidden"
+						/>
+					</noscript>
+				</>
+			)
+		}
 		<!-- End Google Tag Manager (noscript) -->
+
+		{
+			isOnline && (
+				<script
+					is:inline
+					src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+					defer
+				/>
+			)
+		}
+
+		<Footer />
 	</body>
 </html>
-
-
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-
-	body {
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-		font-size: 1.125rem;
-		line-height: 1.6;
-	}
-</style>
-
-{isOnline && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>}

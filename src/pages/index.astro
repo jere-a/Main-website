@@ -1,9 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import Social from '../components/Social.astro';
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import Layout from '@/layouts/Layout.astro';
+import Card from '@/components/Card.astro';
+import Social from '@/components/Social.astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '@/i18n/utils';
+import astro_svg from '@/data/images/astro.svg';
+import Email from '@/components/links/Email.astro';
 
+import { CloudflareTrace } from '@/components/react/cloudflareTrace';
+
+// Language
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
@@ -39,17 +44,24 @@ const translatePath = useTranslatedPath(lang);
 				</linearGradient>
 			</defs>
 		</svg>
+
 		<h1><span class="text-gradient">&#xC5;zze nettisivu</span></h1>
 		<p class="instructions">
-			Olen tehnyt tämän sivun kun tuli kiinnostuksen kohteeksi tämän rakentaminen. 
-			Minut löytää <Social href='https://www.youtube.com/channel/UCNAVV2j-Bmuu9ApfTYwYAeA' platform='YT'>Youtube</Social>
+			Olen tehnyt tämän sivun kun tuli kiinnostuksen kohteeksi tämän rakentaminen. Minut
+			löytää <Social
+				href="https://www.youtube.com/channel/UCNAVV2j-Bmuu9ApfTYwYAeA"
+				platform="YT">Youtube</Social
+			> ja minulle voi myös lähettää palautetta osoitteeseen: <Email
+				href="mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4..."
+				>info@ozze.eu.org</Email
+			> tai kuulumisia vain.
 		</p>
 		<ul role="list" class="link-card-grid">
 			<Card
 				href={translatePath('/images/')}
 				title="Kuvat"
 				body={t('nav.images')}
-			/>
+			/><CloudflareTrace client:load />
 		</ul>
 	</main>
 </Layout>
