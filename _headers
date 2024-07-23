@@ -1,0 +1,6 @@
+/index.html
+  Link: <https://ozze.eu.org/index.html>; rel="canonical"
+/blog/*
+  Link: <https://ozze.eu.org/blog/*>; rel="canonical"
+/images/*
+  Link: <https://ozze.eu.org/images/*>; rel="canonical"
