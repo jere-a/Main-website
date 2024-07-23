@@ -3,13 +3,95 @@ import Layout from '../../layouts/Layout.astro';
 import Alink from '../../components/alink.astro';
 import { getCollection } from 'astro:content';
 const blogEntries = await getCollection('blog');
+
+import '@/styles/blog/blog.css';
 ---
-<Layout title='Blogs' >
-<ul>
-    {blogEntries.map(post => (
-      <li>
-        <Alink href={`/blog/${post.slug}`}>{post.data.title}</Alink>
-      </li>
-    ))}
-  </ul>
+
+<Layout title="Blogs">
+	<ul>
+		<!-- 		{
+			blogEntries.map((post) => (
+				<li>
+					<Alink href={`/blog/${post.slug}`}>{post.data.title}</Alink>
+				</li>
+			))
+		} -->
+
+		{
+			blogEntries.map((post) => {
+				const formattedDate =
+					post.data.pubDate?.getDay() +
+					'-' +
+					post.data.pubDate?.getMonth() +
+					'-' +
+					post.data.pubDate?.getFullYear();
+				return (
+					<li class="post">
+						<a class="box" href={`/blog/${post.slug}`}>
+							<div class="title">{post.data.title}</div>
+							<div class="publish-date">
+								<time datetime={post.data.pubDate?.toISOString()}>
+									{formattedDate}
+								</time>
+							</div>
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
 </Layout>
+
+<style>
+	ul {
+		list-style-type: none;
+		padding: unset;
+	}
+
+	.box {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    line-height: 1.5;
+		margin-bottom: 2rem;
+		border: 1px solid rgba(var(--accent-light), 25%);
+		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
+		padding: 1.5rem;
+		border-radius: 8px;
+	}
+
+	.post {
+		display: grid;
+		grid-template-columns: 1fr;
+		line-height: 1.5;
+	}
+
+	@media (min-width: 640px) {
+		.post {
+			grid-template-columns: 1fr auto;
+		}
+	}
+
+	.post + .post {
+		padding-top: 0.5rem;
+	}
+
+	.title a {
+		color: var(--text);
+		border-bottom: none;
+	}
+
+	.title a:hover {
+		color: var(--text-link);
+	}
+
+	.icon-realign {
+		margin-bottom: -1.5px;
+		margin-left: 2px;
+	}
+
+	.publish-date {
+		color: var(--text-muted);
+		font-size: 0.875rem;
+		font-style: italic;
+	}
+</style>
