@@ -6,8 +6,6 @@ import { getLangFromUrl, useTranslations, useTranslatedPath } from '@/i18n/utils
 import astro_svg from '@/data/images/astro.svg';
 import Email from '@/components/links/Email.astro';
 
-import { CloudflareTrace } from '@/components/react/cloudflareTrace';
-
 // Language
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -61,7 +59,7 @@ const translatePath = useTranslatedPath(lang);
 				href={translatePath('/images/')}
 				title="Kuvat"
 				body={t('nav.images')}
-			/><CloudflareTrace client:load />
+			/>
 		</ul>
 	</main>
 </Layout>
