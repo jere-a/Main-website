@@ -1,0 +1,43 @@
+---
+import ListItem from '../components/react/nav-Listitem';
+
+import Link from 'next/link';
+import { ModeToggle } from '@/components/react/ModeToggle';
+
+// import { Icons } from '@/components/icons';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu';
+---
+
+<div>
+  <NavigationMenu>
+    <NavigationMenuList>
+      <NavigationMenuItem>
+        <Link href="/" legacyBehavior passHref>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            Koti
+          </NavigationMenuLink>
+        </Link>
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <Link href="/images/" legacyBehavior passHref>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            Kuvat
+          </NavigationMenuLink>
+        </Link>
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <NavigationMenuLink>
+          <ModeToggle />
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+    </NavigationMenuList>
+  </NavigationMenu>
+</div>

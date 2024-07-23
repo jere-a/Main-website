@@ -3,24 +3,31 @@ import Layout from '../../layouts/Layout.astro';
 import ImageHolder from '../../components/ImageHolder.astro';
 
 import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
-
+import Big_root from '../../data/images/Iso kanto.jpg';
+import BlueSkye from '../../data/images/sininen taivas.jpg';
+import Sunflower from '../../data/images/auringon kukka 2.jpg';
 ---
 
-<Layout title='Kuvat'>
-    <main>
-        <h1 class="text-gradient">Kuvat</h1>
-        <ul role="list" class="image-card-grid">
-            <ImageHolder
-                src={winterLandscape}
-                title='Talvinen Maisema Sillalta.'
-                body=''
-                alt=''
-            />
-        </ul>
-    </main>
+<Layout title="Kuvat">
+	<main>
+		<h1 class="text-gradient">Kuvat</h1>
+		<p>Minun ottamiani kuvia eri paikoista.</p>
+		<ul role="list" class="image-card-grid">
+			<ImageHolder src={winterLandscape} title="Talvinen Maisema Sillalta." body="" alt="" />
+			<ImageHolder src={Big_root} title="Iso Kanto." body="" alt="" />
+			<ImageHolder src={BlueSkye} title="Sinine Taivas." body="" alt="" />
+			<ImageHolder src={Sunflower} title="Auringon kukka." body="" alt="" />
+		</ul>
+	</main>
 </Layout>
 
 <style>
+	p {
+		text-align: center;
+		font-size: 1.2rem;
+		line-height: 1;
+		margin-bottom: 1em;
+	}
 	h1 {
 		font-size: 4rem;
 		font-weight: 700;
@@ -28,17 +35,23 @@ import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
 		text-align: center;
 		margin-bottom: 1em;
 	}
-    .text-gradient {
+	.text-gradient {
 		background-image: var(--accent-gradient);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-size: 400%;
 		background-position: 0%;
 	}
-    .image-card-grid {
+	.image-card-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 2rem;
-		padding: 0;
+		/* grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr)); */
+		gap: 1.125rem;
+		padding-inline: 0.7rem;
+	}
+	@media all and (max-width: 767px) {
+		.image-card-grid {
+			grid-template-columns: none;
+			grid-template-rows: repeat(auto-fit, minmax(24ch, 1fr))
+		}
 	}
 </style>

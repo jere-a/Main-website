@@ -1,0 +1,38 @@
+<p class="ip"></p>
+
+<script>
+	import wretch from 'wretch';
+	import { siteConfig } from '@/config';
+
+	async function fetchData(): Promise<string> {
+		const text = await wretch(siteConfig.url + '/cdn-cgi/trace')
+			.get()
+			.text();
+
+		const lines = text.split('\n');
+		const result: { [key: string]: string } = {};
+
+		lines.forEach((line) => {
+			const [key, value] = line.split('=');
+			if (key && value) {
+				switch (key) {
+					case 'ip':
+					case 'uag':
+					case 'tls':
+					case 'loc':
+					case 'http':
+					case 'h':
+						result[key] = value;
+						break;
+				}
+			}
+		});
+
+		return result['ip'];
+	}
+
+	// Call fetchData and handle the result
+	fetchData()
+		.then((ip) => console.log(ip))
+		.catch((error) => console.error(error));
+</script>

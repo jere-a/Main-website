@@ -31,7 +31,7 @@ const isDev = import.meta.env.DEV;
     {isOnline && <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=GTM-P6SH88WW"></script>
     <script type="text/partytown">
         window.dataLayer = window.dataLayer || [];
-        window.gtag = function gtag(){dataLayer.push(arguments);}
+        function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'GTM-P6SH88WW');
     </script>}

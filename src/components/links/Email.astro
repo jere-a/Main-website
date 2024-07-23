@@ -1,0 +1,47 @@
+---
+/* function htmlEntities(string): string {
+	return string
+		.split('')
+		.map((char) => `&#${char.charCodeAt(0)};`)
+		.join('');
+} */
+
+interface Props {
+	href: string;
+	args?: ParameterDecorator;
+}
+
+const { href, args } = Astro.props;
+
+// Email
+import JScrewIt from 'jscrewit';
+
+// const output = JScrewIt.encode('mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4...');
+
+const email = btoa(JScrewIt.encode(href, { runAs: 'none' }));
+
+// Hardcoded right now but will change when needed to change
+const text = 'info@ozze.eu.org';
+
+const processed_text = text
+	.split('')
+	.reverse()
+	.map((char) => `&#${char.charCodeAt(0)};`)
+	.join('');
+---
+
+<a class="email-link" href={href} {...args}><slot /></a>
+
+<style>
+	.email-link {
+		background: linear-gradient(
+			90deg,
+			/* rgba(0, 0, 255, 0.6), */ rgba(255, 0, 0, 0.3),
+			rgba(47, 255, 0, 0.3)
+		);
+		/* 		-webkit-backdrop-filter: blur(50) saturate(2.2);
+		backdrop-filter: blur(50) saturate(2.2); */
+		border-radius: 5px;
+		text-decoration: underline;
+	}
+</style>
