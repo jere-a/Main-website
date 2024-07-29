@@ -46,7 +46,7 @@
     "picnic": "^7.1.0",
     "postcss": "^8.4.39",
     "preact": "^10.22.1",
-    "query-string": "^9.0.0",
+    "query-string": "^9.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.1",
