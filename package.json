@@ -67,7 +67,7 @@
     "@types/bootstrap": "^5.2.10",
     "@types/easeljs": "^1.0.5",
     "@types/jquery": "^3.5.30",
-    "@types/markdown-it": "^14.1.1",
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^20.14.10",
     "@types/offline-js": "^0.7.32",
     "@types/sanitize-html": "^2.11.0",
