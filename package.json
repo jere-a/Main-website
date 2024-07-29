@@ -63,7 +63,7 @@
     "vue": "^3.4.33"
   },
   "devDependencies": {
-    "@playwright/test": "^1.45.1",
+    "@playwright/test": "^1.45.3",
     "@types/bootstrap": "^5.2.10",
     "@types/easeljs": "^1.0.5",
     "@types/jquery": "^3.5.30",
