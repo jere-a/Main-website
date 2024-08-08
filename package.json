@@ -82,7 +82,7 @@
     "sanitize-html": "^2.13.0",
     "terser": "^5.31.3",
     "umbrellajs": "^3.3.3",
-    "vitest": "^2.0.4",
+    "vitest": "^2.0.5",
     "wretch": "^2.9.0",
     "zepto": "^1.2.0"
   }
