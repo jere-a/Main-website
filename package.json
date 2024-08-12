@@ -80,7 +80,7 @@
     "markdown-it": "^14.1.0",
     "multithreading": "^0.2.1",
     "sanitize-html": "^2.13.0",
-    "terser": "^5.31.3",
+    "terser": "^5.31.5",
     "umbrellajs": "^3.3.3",
     "vitest": "^2.0.5",
     "wretch": "^2.9.0",
