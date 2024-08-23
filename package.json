@@ -1,5 +1,5 @@
 {
-  "name": "@shared-configs",
+  "name": "shared-configs",
   "type": "module",
   "exports": {
     "./biome": "./biome.json"
