@@ -53,6 +53,10 @@ export default defineConfig({
 			Image: false,
 		}),
 	],
+	redirects: {
+		"/articles/[...slug]": "/blog/[...slug]",
+		"/articles": "/blog"
+	},
 	prefetch: {
 		defaultStrategy: 'viewport',
 		prefetchAll: true,

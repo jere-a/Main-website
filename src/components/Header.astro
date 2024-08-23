@@ -1,12 +1,18 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-import { isOnline } from '../const';
 
 interface Props {
 	title: string;
 }
 
+const isOnline = (): boolean => {
+    const cf_prod = import.meta.env.CLOUDFLARE_PRODUCTION;
+    if (cf_prod == "true") return true;
+    else return false
+}
+
 const { title } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const isProd = import.meta.env.PROD;
 const isDev = import.meta.env.DEV;
@@ -19,6 +25,7 @@ const isDev = import.meta.env.DEV;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
     <link
         rel="alternate"
         type="application/rss+xml"
@@ -28,11 +35,17 @@ const isDev = import.meta.env.DEV;
     <title>{title}</title>
     <ViewTransitions />
     <!-- <script src="../js/main.js"></script> -->
-    {isOnline && <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=GTM-P6SH88WW"></script>
+    {isProd &&  <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=GTM-P6SH88WW"></script>
     <script type="text/partytown">
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GTM-P6SH88WW');
+            const DNTValue = navigator.doNotTrack;
+            const gpcValue = navigator.globalPrivacyControl;
+            if (DNTValue === null || DNTValue == "0") {
+                if (!gpcValue) {
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'GTM-P6SH88WW');
+                }
+            }
     </script>}
 </head>

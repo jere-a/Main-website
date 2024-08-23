@@ -7,7 +7,7 @@ const blogEntries = await getCollection('blog');
 import '@/styles/blog/blog.css';
 ---
 
-<Layout title="Blogs">
+<Layout title="Blogs" activeNav="blog">
 	<ul>
 		<!-- 		{
 			blogEntries.map((post) => (
@@ -26,9 +26,11 @@ import '@/styles/blog/blog.css';
 					'-' +
 					post.data.pubDate?.getFullYear();
 				return (
-					<li class="post">
+					<li class="post animate__animated animate__bounceIn">
 						<a class="box" href={`/blog/${post.slug}`}>
-							<div class="title">{post.data.title}</div>
+							<div class="title" aria-label={post.data.title}>
+								{post.data.title}
+							</div>
 							<div class="publish-date">
 								<time datetime={post.data.pubDate?.toISOString()}>
 									{formattedDate}
@@ -49,9 +51,9 @@ import '@/styles/blog/blog.css';
 	}
 
 	.box {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    line-height: 1.5;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		line-height: 1.5;
 		margin-bottom: 2rem;
 		border: 1px solid rgba(var(--accent-light), 25%);
 		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));

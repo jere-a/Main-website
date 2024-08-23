@@ -12,14 +12,14 @@ interface Props {
 const { src, title, body, alt } = Astro.props;
 ---
 
-<li class="image-card">
+<li class="image-card animate__animated animate__bounceIn">
 	<div>
 		<Picture
 			src={src}
 			alt={alt}
 			widths={[240, 540, 720, 2500]}
 			sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1080px) 720px, 2500px`}
-			class="image"
+			class="image skeleton"
 			formats={['avif', 'webp', 'jpg', 'png']}
 			quality={'high'}
 		/>
@@ -63,8 +63,8 @@ const { src, title, body, alt } = Astro.props;
 	.image-card > div > picture > source {
 		width: 100%;
 		height: auto;
-    margin: auto;
-    justify-content: center;
+		margin: auto;
+		justify-content: center;
 		border-radius: 18px;
 	}
 	h2 {

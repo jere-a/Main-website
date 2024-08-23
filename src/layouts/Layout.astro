@@ -10,16 +10,24 @@ import '../global.css';
 
 import { ModeToggle } from '@/components/react/ModeToggle';
 
+import snow from '@/components/react/snowfall';
+
 // configs
-import { isOnline } from '../const';
 import { siteConfig } from '../config';
 
 interface Props {
 	title: string | undefined;
+	activeNav?: string;
 }
 
-const { title } = Astro.props;
+const { title, activeNav } = Astro.props;
 const combtitle = siteConfig.title + ' | ' + title;
+
+const isOnline = (): boolean => {
+	const cf_prod = import.meta.env.CLOUDFLARE_PRODUCTION;
+	if (cf_prod == "true") return true;
+	else return false;
+};
 
 const isProd = import.meta.env.PROD;
 const isDev = import.meta.env.DEV;
@@ -56,18 +64,22 @@ const q = Astro.url.searchParams.get('q') ?? undefined;
 	<body>
 		<div class="NavMenu">
 			<header>
-				<NavMenu><ModeToggle /></NavMenu>
+				<NavMenu active={activeNav}><ModeToggle client:visible /></NavMenu>
 			</header>
 		</div>
 		<slot />
 		{
-			isOnline && (
-				<>
+			isProd && (
 					<div
 						class="cf-turnstile"
 						data-sitekey="0x4AAAAAAAbhEsfftzTNsmMO"
 						data-theme="dark"
 					/>
+					<style>
+						.cf-turnstile {
+							visibility: hidden;
+						}
+					</style>
 					<noscript>
 						<iframe
 							src="https://www.googletagmanager.com/ns.html?id=GTM-P6SH88WW"
@@ -76,18 +88,32 @@ const q = Astro.url.searchParams.get('q') ?? undefined;
 							style="display:none;visibility:hidden"
 						/>
 					</noscript>
-				</>
 			)
 		}
 		<!-- End Google Tag Manager (noscript) -->
 
 		{
-			isOnline && (
-				<script
+			isProd && (
+/* 				<script
 					is:inline
 					src="https://challenges.cloudflare.com/turnstile/v0/api.js"
 					defer
-				/>
+				/> */
+				<script>
+					import fetchInject from 'fetch-inject';
+
+					const pageReady = new Promise((resolve, reject) => {
+						document.onreadystatechange = () => {
+							document.readyState === "complete" && resolve(document);
+						};
+					});
+
+					fetchInject(['https://challenges.cloudflare.com/turnstile/v0/api.js'],
+								pageReady).then(() => {
+									const elem = document.querySelector('.cf-turnstile');
+									if (elem) (elem as HTMLElement).style.visibility = 'visible';
+								});
+				</script>
 			)
 		}
 
