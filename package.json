@@ -114,6 +114,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
+    "@fullhuman/postcss-purgecss": "^6.0.0",
     "@playwright/test": "^1.46.1",
     "@types/bootstrap": "^5.2.10",
     "@types/easeljs": "^1.0.5",
