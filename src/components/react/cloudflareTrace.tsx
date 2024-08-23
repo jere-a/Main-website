@@ -13,7 +13,7 @@ export const CloudflareTrace = () => {
     });
 
     useEffect(() => {
-        fetchData().then(data => { setData(data); });
+        fetchData().then(data => { setData(data); }).catch(() => { return true; });
     }, []);
 
 
