@@ -3,7 +3,7 @@ export const siteConfig = {
     url: 'https://ozze.eu.org',
     oldSite: 'http://old.ozze.eu.org/index.html',
     title: "Åzze",
-    description: 'Tech Blog of a Web Developer & Site Reliability Engineer',
+    description: 'Pieni nettisivuni.',
     postsPerPage: 7,
     postsRecent: 5,
     author: {

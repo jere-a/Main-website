@@ -1,4 +1,4 @@
-@import '../node_modules/animate.css/animate.css';
+@import './styles/animate.css';
 @import './data/fonts/monocraft/stylesheet.css';
 
 body {
