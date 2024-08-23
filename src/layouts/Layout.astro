@@ -94,26 +94,11 @@ const q = Astro.url.searchParams.get('q') ?? undefined;
 
 		{
 			isProd && (
-/* 				<script
+				<script
 					is:inline
 					src="https://challenges.cloudflare.com/turnstile/v0/api.js"
 					defer
-				/> */
-				<script>
-					import fetchInject from 'fetch-inject';
-
-					const pageReady = new Promise((resolve, reject) => {
-						document.onreadystatechange = () => {
-							document.readyState === "complete" && resolve(document);
-						};
-					});
-
-					fetchInject(['https://challenges.cloudflare.com/turnstile/v0/api.js'],
-								pageReady).then(() => {
-									const elem = document.querySelector('.cf-turnstile');
-									if (elem) (elem as HTMLElement).style.visibility = 'visible';
-								});
-				</script>
+				/>
 			)
 		}
 
