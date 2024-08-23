@@ -89,6 +89,8 @@
     "postcss": "^8.4.41",
     "preact": "^10.23.2",
     "prettier-plugin-astro": "^0.14.1",
+    "purgecss-from-html": "^6.0.0",
+    "purgecss-from-js": "^1.0.0",
     "query-string": "^9.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

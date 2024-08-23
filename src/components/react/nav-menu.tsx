@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Link from 'next/link';
-import { cva } from 'class-variance-authority';
+// import { cva } from 'class-variance-authority';
 
-import 'animate.css';
+import '../../global.css';
 
 import {
   NavigationMenu,
