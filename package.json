@@ -32,8 +32,6 @@
     "@astrojs/sitemap": "^3.1.6",
     "@astrojs/solid-js": "^4.4.1",
     "@astrojs/svelte": "^5.7.0",
-    "@astrojs/solid-js": "^4.4.1",
-    "@astrojs/svelte": "^5.7.0",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/ts-plugin": "^1.10.1",
     "@astrojs/vue": "^4.5.0",
@@ -116,6 +114,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
+    "@fullhuman/postcss-purgecss": "^6.0.0",
     "@playwright/test": "^1.46.1",
     "@types/bootstrap": "^5.2.10",
     "@types/easeljs": "^1.0.5",
