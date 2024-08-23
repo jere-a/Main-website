@@ -8,12 +8,12 @@ import BlueSkye from '../../data/images/sininen taivas.jpg';
 import Sunflower from '../../data/images/auringon kukka 2.jpg';
 ---
 
-<Layout title="Kuvat">
+<Layout title="Kuvat" activeNav='kuvat'>
 	<main>
 		<h1 class="text-gradient">Kuvat</h1>
 		<p>Minun ottamiani kuvia eri paikoista.</p>
 		<ul role="list" class="image-card-grid">
-			<ImageHolder src={winterLandscape} title="Talvinen Maisema Sillalta." body="" alt="" />
+			<ImageHolder src={winterLandscape} title="Talvinen Maisema Sillalta." body="" alt="" transition:name='images' />
 			<ImageHolder src={Big_root} title="Iso Kanto." body="" alt="" />
 			<ImageHolder src={BlueSkye} title="Sinine Taivas." body="" alt="" />
 			<ImageHolder src={Sunflower} title="Auringon kukka." body="" alt="" />

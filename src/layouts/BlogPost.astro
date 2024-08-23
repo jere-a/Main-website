@@ -12,10 +12,10 @@ const { title, pubDate } = Astro.props;
 const formattedDate = pubDate?.getDay() + '-' + pubDate?.getMonth() + '-' + pubDate?.getFullYear();
 ---
 
-<Layout title={title}>
+<Layout title={title} activeNav='blog'>
 	<main id="main">
 		<section class="blog-post">
-			<h1 class="title">{title}</h1>
+			<h1 class="title" aria-label={title}>{title}</h1>
 			<time class="publish-date">{formattedDate}</time>
 			<slot />
 		</section>

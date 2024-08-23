@@ -6,6 +6,8 @@
 		.join('');
 } */
 
+import '@/global.css';
+
 interface Props {
 	href: string;
 	args?: ParameterDecorator;
@@ -18,19 +20,15 @@ import JScrewIt from 'jscrewit';
 
 // const output = JScrewIt.encode('mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4...');
 
-const email = btoa(JScrewIt.encode(href, { runAs: 'none' }));
+const email_enc = btoa(JScrewIt.encode("window.location.href='" + href + "'", { runAs: 'none' }));
+
+const email = "javascript:eval(eval(atob('" + email_enc + "')))";
 
 // Hardcoded right now but will change when needed to change
 const text = 'info@ozze.eu.org';
-
-const processed_text = text
-	.split('')
-	.reverse()
-	.map((char) => `&#${char.charCodeAt(0)};`)
-	.join('');
 ---
 
-<a class="email-link" href={href} {...args}><slot /></a>
+<a class="email-link rtl" href={email} title="Send Me email" {...args}><slot /></a>
 
 <style>
 	.email-link {
@@ -43,5 +41,10 @@ const processed_text = text
 		backdrop-filter: blur(50) saturate(2.2); */
 		border-radius: 5px;
 		text-decoration: underline;
+		font-family: 'monocraftregular', system-ui, sans-serif;
+	}
+
+	.rtl {
+		direction: rtl;
 	}
 </style>
