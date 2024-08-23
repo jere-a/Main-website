@@ -1,5 +1,5 @@
 // Type imports
-import type { ManifestOptions } from "vite-plugin-pwa"
+// import type { ManifestOptions } from "vite-plugin-pwa"
 
 /**
  * Defines the default SEO configuration for the website.
@@ -24,7 +24,7 @@ import type { ManifestOptions } from "vite-plugin-pwa"
 /**
  * Defines the configuration for PWA webmanifest.
  */
-export const manifest: Partial<ManifestOptions> = {
+/* export const manifest: Partial<ManifestOptions> = {
 	name: "Åzzen nettisivut", // Change this to your website's name.
 	short_name: "Åzze", // Change this to your website's short name.
 	description:
@@ -45,4 +45,4 @@ export const manifest: Partial<ManifestOptions> = {
 			purpose: "any maskable"
 		}
 	]
-}
+} */

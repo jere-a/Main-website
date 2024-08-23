@@ -1,0 +1,50 @@
+---
+/* function htmlEntities(string): string {
+	return string
+		.split('')
+		.map((char) => `&#${char.charCodeAt(0)};`)
+		.join('');
+} */
+
+import '@/global.css';
+
+interface Props {
+	href: string;
+	args?: ParameterDecorator;
+}
+
+const { href, args } = Astro.props;
+
+// Email
+import JScrewIt from 'jscrewit';
+
+// const output = JScrewIt.encode('mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4...');
+
+const email_enc = btoa(JScrewIt.encode("window.location.href='" + href + "'", { runAs: 'none' }));
+
+const email = "javascript:eval(eval(atob('" + email_enc + "')))";
+
+// Hardcoded right now but will change when needed to change
+const text = 'info@ozze.eu.org';
+---
+
+<a class="email-link rtl" href={email} title="Send Me email" {...args}><slot /></a>
+
+<style>
+	.email-link {
+		background: linear-gradient(
+			90deg,
+			/* rgba(0, 0, 255, 0.6), */ rgba(255, 0, 0, 0.3),
+			rgba(47, 255, 0, 0.3)
+		);
+		/* 		-webkit-backdrop-filter: blur(50) saturate(2.2);
+		backdrop-filter: blur(50) saturate(2.2); */
+		border-radius: 5px;
+		text-decoration: underline;
+		font-family: 'monocraftregular', system-ui, sans-serif;
+	}
+
+	.rtl {
+		direction: rtl;
+	}
+</style>

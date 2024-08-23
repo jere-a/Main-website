@@ -3,5 +3,3 @@
 
 export const SITE_TITLE = 'Åzze';
 export const SITE_DESCRIPTION = 'Frontend Developer. JavaScript Specialist';
-
-export const isOnline = true;
