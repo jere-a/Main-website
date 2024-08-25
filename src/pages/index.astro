@@ -14,7 +14,7 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<Layout title="Welcome" activeNav='koti'>
+<Layout title="Welcome" activeNav="koti">
 	<main>
 		<a
 			href="https://github.com/jere-a/Main-website"
@@ -80,7 +80,7 @@ const translatePath = useTranslatedPath(lang);
 				> ja minulle voi myös lähettää palautetta osoitteeseen: <Email
 					href="mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4..."
 					>info@ozze.eu.org</Email
-				> tai kuulumisia vain.
+				> tai kuulumisia vain. <span class="how_old"></span>
 			</p>
 		</section>
 		<section>
@@ -96,6 +96,35 @@ const translatePath = useTranslatedPath(lang);
 		</section>
 	</main>
 </Layout>
+
+<script>
+	import dayjs from 'dayjs';
+	import localizedFormat from 'dayjs/plugin/localizedFormat';
+	import relativeTime from 'dayjs/plugin/relativeTime';
+	import 'dayjs/locale/fi';
+	
+	const oldtext = document.querySelector('.how_old');
+	
+	const language = (long = false) => {
+		const lang = window.navigator.language.toLowerCase();
+		if (lang === 'fi' || lang === 'fi-fi') {
+			if (long === true) return 'suomi';
+			else return 'fi';
+		} else {
+			if (long === true) return 'english';
+			else return 'en';
+		}
+	};
+
+	dayjs.locale(language());
+	dayjs.extend(relativeTime);
+	dayjs.extend(localizedFormat);
+
+	if (oldtext) {
+		oldtext.textContent = `Tämä sivu on tällä hetkellä ${dayjs('2024-05-27').fromNow(true)} vanha`;
+	}
+
+</script>
 
 <style>
 	main {
