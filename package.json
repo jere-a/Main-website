@@ -24,7 +24,7 @@
     "@astrojs/alpinejs": "^0.4.0",
     "@astrojs/check": "^0.9.3",
     "@astrojs/lit": "^4.3.0",
-    "@astrojs/mdx": "^3.1.5",
+    "@astrojs/mdx": "^3.1.6",
     "@astrojs/partytown": "^2.1.1",
     "@astrojs/preact": "^3.5.1",
     "@astrojs/react": "^3.6.2",
