@@ -135,7 +135,7 @@
     "jotai": "^2.9.3",
     "markdown-it": "^14.1.0",
     "multithreading": "^0.2.1",
-    "pagefind": "^1.1.0",
+    "pagefind": "^1.1.1",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.0",
     "postcss-preset-env": "^9.6.0",
