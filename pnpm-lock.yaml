@@ -376,8 +376,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.31.6)
       wretch:
-        specifier: ^2.9.0
-        version: 2.9.0
+        specifier: ^2.10.0
+        version: 2.10.0
       zepto:
         specifier: ^1.2.0
         version: 1.2.0
@@ -7943,8 +7943,8 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  wretch@2.9.0:
-    resolution: {integrity: sha512-kKp1xWQO+Vh9I6RJq7Yers2KKrmF7LXB00c9knMDn3IdB7etcQOarrsHArpj1sZ1Dlav8ss6R1DuUpDSTqmQew==}
+  wretch@2.10.0:
+    resolution: {integrity: sha512-umAgGsgEfWVm2GT9Gl+Uyl2AI0q1P8WqXMGiDbSf5QImZW7bdnUbTUrgXYzYH+VmtlM6RqwJQH7JNizSNwt6kw==}
     engines: {node: '>=14'}
 
   ws@7.5.10:
@@ -17050,7 +17050,7 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  wretch@2.9.0: {}
+  wretch@2.10.0: {}
 
   ws@7.5.10: {}
 
