@@ -141,7 +141,7 @@
     "postcss-preset-env": "^9.6.0",
     "react-snowfall": "^2.1.0",
     "sanitize-html": "^2.13.0",
-    "terser": "^5.31.6",
+    "terser": "^5.32.0",
     "turbo": "^2.0.14",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5",
