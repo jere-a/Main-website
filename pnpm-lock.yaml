@@ -18,8 +18,8 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0(@webcomponents/template-shadowroot@0.2.1)(lit@3.2.0)
       '@astrojs/mdx':
-        specifier: ^3.1.5
-        version: 3.1.5(astro@4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.1)(sass@1.77.8)(terser@5.31.6)(typescript@5.5.4))
+        specifier: ^3.1.6
+        version: 3.1.6(astro@4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.1)(sass@1.77.8)(terser@5.31.6)(typescript@5.5.4))
       '@astrojs/partytown':
         specifier: ^2.1.1
         version: 2.1.1
@@ -466,8 +466,8 @@ packages:
   '@astrojs/markdown-remark@5.2.0':
     resolution: {integrity: sha512-vWGM24KZXz11jR3JO+oqYU3T2qpuOi4uGivJ9SQLCAI01+vEkHC60YJMRvHPc+hwd60F7euNs1PeOEixIIiNQw==}
 
-  '@astrojs/mdx@3.1.5':
-    resolution: {integrity: sha512-Fu6oShqcDpi0D1b2/3Pg3ao1I+Q2YqKhFsSsuDzn0YhdGrry5oUyABUyCyGq/OayP2P/34Vwj+GCQ/n9h8FlTQ==}
+  '@astrojs/mdx@3.1.6':
+    resolution: {integrity: sha512-YCEIvNgoQG3oVhe9codH4TX6zjvkl7KGla19yZO5RCnvjv2d9zyrfWqJ98I6/m18PbEY3k8Wjvha0IIf5eZ2sQ==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
     peerDependencies:
       astro: ^4.8.0
@@ -8164,7 +8164,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@3.1.5(astro@4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.1)(sass@1.77.8)(terser@5.31.6)(typescript@5.5.4))':
+  '@astrojs/mdx@3.1.6(astro@4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.1)(sass@1.77.8)(terser@5.31.6)(typescript@5.5.4))':
     dependencies:
       '@astrojs/markdown-remark': 5.2.0
       '@mdx-js/mdx': 3.0.1
