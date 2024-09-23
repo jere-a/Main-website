@@ -115,7 +115,7 @@
     "vue": "^3.4.38"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
+    "@biomejs/biome": "1.9.2",
     "@fullhuman/postcss-purgecss": "^6.0.0",
     "@playwright/test": "^1.46.1",
     "@types/bootstrap": "^5.2.10",
