@@ -138,7 +138,7 @@
     "pagefind": "^1.1.1",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.0",
-    "postcss-preset-env": "^9.6.0",
+    "postcss-preset-env": "^10.0.5",
     "react-snowfall": "^2.1.0",
     "sanitize-html": "^2.13.0",
     "terser": "^5.31.6",
