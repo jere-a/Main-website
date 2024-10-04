@@ -86,7 +86,7 @@
     "normalize.css": "^8.0.1",
     "offline-js": "^0.7.19",
     "picnic": "^7.1.0",
-    "postcss": "^8.4.41",
+    "postcss": "^8.4.45",
     "preact": "^10.23.2",
     "prettier-plugin-astro": "^0.14.1",
     "purgecss-from-html": "^6.0.0",
