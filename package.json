@@ -59,7 +59,7 @@
     "@zxcvbn-ts/language-fi": "^3.0.2",
     "alpinejs": "^3.14.1",
     "animate.css": "^4.1.1",
-    "astro": "^4.14.5",
+    "astro": "^4.15.10",
     "astro-embed": "^0.7.2",
     "astro-particles": "^2.10.0",
     "astro-robots-txt": "^1.0.0",
