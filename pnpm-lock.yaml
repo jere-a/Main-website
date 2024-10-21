@@ -42,8 +42,8 @@ importers:
         specifier: ^5.7.0
         version: 5.7.0(astro@4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.2)(sass@1.77.8)(terser@5.34.0)(typescript@5.5.4))(svelte@4.2.19)(typescript@5.5.4)(vite@5.4.8(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.34.0))
       '@astrojs/tailwind':
-        specifier: ^5.1.0
-        version: 5.1.0(astro@4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.2)(sass@1.77.8)(terser@5.34.0)(typescript@5.5.4))(tailwindcss@3.4.10)
+        specifier: ^5.1.2
+        version: 5.1.2(astro@4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.2)(sass@1.77.8)(terser@5.34.0)(typescript@5.5.4))(tailwindcss@3.4.10)
       '@astrojs/ts-plugin':
         specifier: ^1.10.1
         version: 1.10.1
@@ -518,10 +518,10 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.190
       typescript: ^5.3.3
 
-  '@astrojs/tailwind@5.1.0':
-    resolution: {integrity: sha512-BJoCDKuWhU9FT2qYg+fr6Nfb3qP4ShtyjXGHKA/4mHN94z7BGcmauQK23iy+YH5qWvTnhqkd6mQPQ1yTZTe9Ig==}
+  '@astrojs/tailwind@5.1.2':
+    resolution: {integrity: sha512-IvOF0W/dtHElcXvhrPR35nHmhyV3cfz1EzPitMGtU7sYy9Hci3BNK1To6FWmVuuNKPxza1IgCGetSynJZL7fOg==}
     peerDependencies:
-      astro: ^3.0.0 || ^4.0.0
+      astro: ^3.0.0 || ^4.0.0 || ^5.0.0-beta.0
       tailwindcss: ^3.0.24
 
   '@astrojs/telemetry@3.1.0':
@@ -8817,12 +8817,12 @@ snapshots:
       - supports-color
       - vite
 
-  '@astrojs/tailwind@5.1.0(astro@4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.2)(sass@1.77.8)(terser@5.34.0)(typescript@5.5.4))(tailwindcss@3.4.10)':
+  '@astrojs/tailwind@5.1.2(astro@4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.2)(sass@1.77.8)(terser@5.34.0)(typescript@5.5.4))(tailwindcss@3.4.10)':
     dependencies:
       astro: 4.14.5(@types/node@22.5.0)(less@4.2.0)(lightningcss@1.26.0)(rollup@2.79.2)(sass@1.77.8)(terser@5.34.0)(typescript@5.5.4)
-      autoprefixer: 10.4.20(postcss@8.4.41)
-      postcss: 8.4.41
-      postcss-load-config: 4.0.2(postcss@8.4.41)
+      autoprefixer: 10.4.20(postcss@8.4.47)
+      postcss: 8.4.47
+      postcss-load-config: 4.0.2(postcss@8.4.47)
       tailwindcss: 3.4.10
     transitivePeerDependencies:
       - ts-node
@@ -13345,6 +13345,16 @@ snapshots:
       postcss: 8.4.41
       postcss-value-parser: 4.2.0
 
+  autoprefixer@10.4.20(postcss@8.4.47):
+    dependencies:
+      browserslist: 4.23.3
+      caniuse-lite: 1.0.30001651
+      fraction.js: 4.3.7
+      normalize-range: 0.1.2
+      picocolors: 1.0.1
+      postcss: 8.4.47
+      postcss-value-parser: 4.2.0
+
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.0.0
@@ -16264,6 +16274,13 @@ snapshots:
       yaml: 2.5.0
     optionalDependencies:
       postcss: 8.4.41
+
+  postcss-load-config@4.0.2(postcss@8.4.47):
+    dependencies:
+      lilconfig: 3.1.2
+      yaml: 2.5.0
+    optionalDependencies:
+      postcss: 8.4.47
 
   postcss-logical@8.0.0(postcss@8.4.41):
     dependencies:
