@@ -1,0 +1,21 @@
+@import '../../data/fonts/creepster/stylesheet.css';
+@import '../../data/fonts/butcherman/stylesheet.css';
+
+.halloween {
+	font-family: creepster, var(--font-family);
+}
+
+.butcherman {
+	font-family: butcherman, var(--font-family);
+	font-weight: 300;
+	line-height: 1.4;
+	font-size: 1em;
+
+	position: relative;
+	width: 100%;
+	max-width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+
+	color: #f60;
+}

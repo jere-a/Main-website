@@ -1,0 +1,36 @@
+---
+interface Props {
+	unixTime: number;
+}
+
+const { unixTime } = Astro.props;
+---
+
+<time-unix data-unixTime={unixTime}>
+	<p class="timeto"></p>
+</time-unix>
+
+<script>
+	import dayjs from 'dayjs';
+	import 'dayjs/locale/fi';
+	import { language, query } from '@/ts/global';
+
+	dayjs.locale(language());
+
+	class timeto extends HTMLElement {
+		connectedCallback() {
+			query('.timeto').innerText = dayjs().to(
+				dayjs.unix(Number(this.dataset.unixTime)),
+				true
+			);
+		}
+	}
+	customElements.define('time-unix', timeto);
+</script>
+
+<style>
+	.timeto {
+		border-color: oklab(0.431937 0.00109309 -0.0132537 / 0.48);
+		border-radius: 10px;
+	}
+</style>

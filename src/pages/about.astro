@@ -1,0 +1,25 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="About">
+	<main>
+		<h1>Tietoja minusta</h1>
+		<p class="author">Jere Laitinen</p>
+	</main>
+</Layout>
+
+<style>
+	:root {
+		--author: oklch(99.7% 0 0);
+	}
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--author: oklch(52.5% 0 216);
+		}
+	}
+
+	.author {
+		color: var(--author);
+	}
+</style>

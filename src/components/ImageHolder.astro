@@ -7,9 +7,10 @@ interface Props {
 	body: string;
 	src: ImageMetadata;
 	alt: string;
+	class?: any;
 }
 
-const { src, title, body, alt } = Astro.props;
+const { class: className, src, title, body, alt } = Astro.props;
 ---
 
 <li class="image-card animate__animated animate__bounceIn">
@@ -19,19 +20,31 @@ const { src, title, body, alt } = Astro.props;
 			alt={alt}
 			widths={[240, 540, 720, 2500]}
 			sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1080px) 720px, 2500px`}
-			class="image skeleton"
+			class={`image skeleton ${className}`}
 			formats={['avif', 'webp', 'jpg', 'png']}
 			quality={'high'}
 		/>
 		<br />
-		<h2>
+		<h2 class="title">
 			{title}
 		</h2>
-		<p>
+		<p class="body">
 			{body}
 		</p>
 	</div>
 </li>
+
+<script>
+	import { dynImport } from '@/ts/dynamic-import';
+
+	document.addEventListener('astro:page-load', () => {
+		const holiday = dynImport.global.isHoliday(['h2.title', 'p.body']);
+
+		if (holiday.bool) {
+			holiday.script;
+		}
+	});
+</script>
 
 <style>
 	:root {

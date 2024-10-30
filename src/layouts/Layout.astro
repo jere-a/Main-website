@@ -1,48 +1,41 @@
 ---
 import { getLangFromUrl } from '@/i18n/utils';
-import Head from '@/components/Header.astro';
+import CommonHead from '@/components/CommonHead.astro';
 import NavMenu from '@/components/react/nav-menu';
-import Footer from '@/components/Footer.astro';
-import LanguagePicker from '@/components/LanguagePicker.astro';
+// import Footer from '@/components/Footer.astro';
 
-// Global CSS
-import '../global.css';
-
-import { ModeToggle } from '@/components/react/ModeToggle';
-
-import snow from '@/components/react/snowfall';
+// import { ModeToggle } from '@/components/react/ModeToggle';
 
 // configs
 import { siteConfig } from '../config';
 
+// CSS
+import '../global.css';
+import '../custom.css';
+import '../styles/animate.css';
+import '../styles/holidays/index.css';
+
 interface Props {
 	title: string | undefined;
+	isCopyright?: boolean; 
 	activeNav?: string;
 }
 
-const { title, activeNav } = Astro.props;
-const combtitle = siteConfig.title + ' | ' + title;
-
-const isOnline = (): boolean => {
-	const cf_prod = import.meta.env.CLOUDFLARE_PRODUCTION;
-	if (cf_prod == "true") return true;
-	else return false;
-};
+const { title, isCopyright, activeNav } = Astro.props;
 
 const isProd = import.meta.env.PROD;
 const isDev = import.meta.env.DEV;
 
 const lang = getLangFromUrl(Astro.url);
-
-const q = Astro.url.searchParams.get('q') ?? undefined;
 ---
 
-<script is:inline>
+<script>
 	const getThemePreference = () => {
-		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-			return localStorage.getItem('theme');
-		}
-		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		//if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+		//	return localStorage.getItem('theme');
+		//}
+		return 'dark';
+		// return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 	};
 	const isDark = getThemePreference() === 'dark';
 	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
@@ -60,26 +53,31 @@ const q = Astro.url.searchParams.get('q') ?? undefined;
 </script>
 
 <html class="dark" lang={lang}>
-	<Head title={combtitle} />
+	<head>
+		<CommonHead title={siteConfig.title + ' | ' + title}>
+			<Fragment slot="prefetch">
+				<link rel="dns-prefetch" href="//www.googletagmanager.com/" />
+				<link rel="dns-prefetch" href="//challenges.cloudflare.com/" />
+				<link rel="prefetch" href="https://www.googletagmanager.com/ns.html"/>
+				<link rel="prefetch" href="https://challenges.cloudflare.com/turnstile/v0/api.js"/>
+			</Fragment>
+		</CommonHead>
+		<slot name="head" />
+	</head>
 	<body>
 		<div class="NavMenu">
 			<header>
-				<NavMenu active={activeNav}><ModeToggle client:visible /></NavMenu>
+				<NavMenu active={activeNav}><!-- <ModeToggle client:visible /> --></NavMenu>
 			</header>
 		</div>
 		<slot />
 		{
 			isProd && (
 					<div
-						class="cf-turnstile"
+						style="visibility: hidden;"
 						data-sitekey="0x4AAAAAAAbhEsfftzTNsmMO"
 						data-theme="dark"
 					/>
-					<style>
-						.cf-turnstile {
-							visibility: hidden;
-						}
-					</style>
 					<noscript>
 						<iframe
 							src="https://www.googletagmanager.com/ns.html?id=GTM-P6SH88WW"
@@ -90,10 +88,8 @@ const q = Astro.url.searchParams.get('q') ?? undefined;
 					</noscript>
 			)
 		}
-		<!-- End Google Tag Manager (noscript) -->
-
 		{
-			isProd && (
+			false && (
 				<script
 					is:inline
 					src="https://challenges.cloudflare.com/turnstile/v0/api.js"
@@ -101,7 +97,5 @@ const q = Astro.url.searchParams.get('q') ?? undefined;
 				/>
 			)
 		}
-
-		<Footer />
 	</body>
 </html>

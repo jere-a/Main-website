@@ -10,16 +10,19 @@ export const ui = {
 		'nav.home': 'Koti',
 		'nav.about': 'Tietoja',
 		'nav.images': 'K\u00E4y katsomassa minun ottamiani kuvia.',
+		'nav.blog': 'K\u00E4y katsomassa blogiani.',
 		'nav.oldsite':
 			'K\u00E4y katsomassa mit\u00E4 olen tehnyt toisen sivun nettiin (Sit\u00E4 ei taida tulla en\u00E4\u00E4n p\u00E4ivitt\u00E4m\u00E4\u00E4n)',
-		'index.h1.title': '\u00C5zze Nettisivu',
+		'index.h1.title': '\u00C5zze',
 	},
 	en: {
 		'nav.home': 'Home',
 		'nav.about': 'About',
 		'nav.images': 'Come to see what images i have taken.',
-		'nav.oldsite': '',
-		'index.h1.title': '&#xC5;zze Website',
+		'nav.blog': 'Go check out my blog.',
+		'nav.oldsite':
+			"Go see what I've done on the other page's website (I don't think it will be updated anymore)",
+		'index.h1.title': '&#xC5;zze',
 	},
 } as const;
 
