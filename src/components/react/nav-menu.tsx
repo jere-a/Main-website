@@ -2,7 +2,6 @@ import * as React from 'react';
 import Link from 'next/link';
 
 import '../../global.css';
-import '@/theme.css';
 import '../../styles/animate.css';
 import '../../styles/holidays/index.css';
 
