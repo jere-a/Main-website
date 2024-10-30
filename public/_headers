@@ -1,6 +1,9 @@
 /index.html
   Link: <https://ozze.eu.org/index.html>; rel="canonical"
+  Link: <https://ozze.eu.org/index.html>; rel=preconnect
 /blog/*
   Link: <https://ozze.eu.org/blog/*>; rel="canonical"
+  Link: <https://ozze.eu.org/blog/>; rel=preconnect
 /images/*
   Link: <https://ozze.eu.org/images/*>; rel="canonical"
+  Link: <https://ozze.eu.org/images/>; rel=preconnect

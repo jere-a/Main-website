@@ -7,7 +7,7 @@
 } */
 
 import '@/global.css';
-
+import '@/data/fonts/monocraft/stylesheet.css';
 interface Props {
 	href: string;
 	args?: ParameterDecorator;
@@ -16,21 +16,46 @@ interface Props {
 const { href, args } = Astro.props;
 
 // Email
-import JScrewIt from 'jscrewit';
 
 // const output = JScrewIt.encode('mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4...');
 
-const email_enc = btoa(JScrewIt.encode("window.location.href='" + href + "'", { runAs: 'none' }));
+const email_enc = btoa("window.location.href='" + href + "'");
 
 const email = "javascript:eval(eval(atob('" + email_enc + "')))";
-
-// Hardcoded right now but will change when needed to change
-const text = 'info@ozze.eu.org';
 ---
 
-<a class="email-link rtl" href={email} title="Send Me email" {...args}><slot /></a>
+<a class="email-link email-font" href={email} title="Send Me email" {...args}><slot /></a>
+
+<script>
+	import { dynImport } from '@/ts/dynamic-import';
+	const query = dynImport.global.query;
+
+	const holiday = dynImport.global.isHoliday([query('.email-link')]);
+
+	if (holiday.bool) query('a.email-link').classList.remove('email-font');
+	holiday?.script;
+</script>
 
 <style>
+	.email-font {
+		font-family:
+			'monocraft',
+			ui-sans-serif,
+			system-ui,
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			Roboto,
+			'Helvetica Neue',
+			'Noto Sans',
+			'Liberation Sans',
+			sans-serif,
+			'Apple Color Emoji',
+			'Segoe UI Emoji',
+			'Segoe UI Symbol',
+			'Noto Color Emoji';
+	}
+
 	.email-link {
 		background: linear-gradient(
 			90deg,
@@ -41,10 +66,5 @@ const text = 'info@ozze.eu.org';
 		backdrop-filter: blur(50) saturate(2.2); */
 		border-radius: 5px;
 		text-decoration: underline;
-		font-family: 'monocraft', system-ui, sans-serif;
-	}
-
-	.rtl {
-		direction: rtl;
 	}
 </style>
