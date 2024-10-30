@@ -9,6 +9,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
-  }
+    },
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "allowUnreachableCode": false,
+  },
+  "exclude": ["dist/**"],
 }

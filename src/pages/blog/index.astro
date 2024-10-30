@@ -1,40 +1,61 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Alink from '../../components/alink.astro';
+import { ViewTransitions } from 'astro:transitions';
 import { getCollection } from 'astro:content';
 const blogEntries = await getCollection('blog');
 
-import '@/styles/blog/blog.css';
+/* import '@/styles/blog/blog.css'; */
+
+interface post {
+	body: string;
+	data: any;
+	slug: any;
+}
 ---
 
-<Layout title="Blogs" activeNav="blog">
+<Layout title="Blogs" activeNav="blog" isCopyright={false}>
+	<Fragment slot="head">
+		<ViewTransitions />
+	</Fragment>
 	<ul>
-		<!-- 		{
-			blogEntries.map((post) => (
-				<li>
-					<Alink href={`/blog/${post.slug}`}>{post.data.title}</Alink>
-				</li>
-			))
-		} -->
-
 		{
-			blogEntries.map((post) => {
-				const formattedDate =
-					post.data.pubDate?.getDay() +
-					'-' +
-					post.data.pubDate?.getMonth() +
-					'-' +
-					post.data.pubDate?.getFullYear();
+			blogEntries.map(async (post: post) => {
+				const formattedDate = () => {
+					const d =
+						post.data.pubDate?.getDay() +
+						'-' +
+						post.data.pubDate?.getMonth() +
+						'-' +
+						post.data.pubDate?.getFullYear();
+
+					return d.toString();
+				};
+
+				const formattedText = (text: string): string => {
+					return text
+						.replace(/import\s.*?from\s.*?;/g, '')
+						.replace(/<\s.*?\/\s.*?>;/g, '')
+						.substring(0, 300);
+				};
+
 				return (
-					<li class="post animate__animated animate__bounceIn">
+					<li class="posts  animated  bounceIn">
 						<a class="box" href={`/blog/${post.slug}`}>
 							<div class="title" aria-label={post.data.title}>
-								{post.data.title}
+								<h2 transition:name={`btitle${post.data.title}`}>
+									{post.data.title}
+								</h2>
 							</div>
 							<div class="publish-date">
-								<time datetime={post.data.pubDate?.toISOString()}>
-									{formattedDate}
+								<time
+									datetime={post.data.pubDate?.toISOString()}
+									transition:name={`btime${post.data.title}`}
+								>
+									{formattedDate()}
 								</time>
+							</div>
+							<div aria-label={post.data.content}>
+								<p class="text">{formattedText(post.body)}</p>
 							</div>
 						</a>
 					</li>
@@ -44,37 +65,58 @@ import '@/styles/blog/blog.css';
 	</ul>
 </Layout>
 
+<script>
+	// import { isHoliday } from '@/ts/global';
+	import { dynImport } from "@/ts/dynamic-import";
+
+	document.addEventListener('astro:page-load', () => {
+
+		const holiday = dynImport.global.isHoliday(['.publish-date', '.title', '.text']);
+
+		if (holiday.bool) {
+			holiday.script;
+		}
+	});
+</script>
+
 <style>
+	:root {
+		--line-height: 1.25;
+		scroll-behavior: smooth;
+	}
+
+	body {
+		padding: 0 2rem;
+		margin: auto;
+		max-width: 70ch;
+		text-align: left;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+	}
+
 	ul {
 		list-style-type: none;
 		padding: unset;
 	}
 
+	ul li {
+		margin-top: 0.4em;
+	}
+
 	.box {
 		display: grid;
-		grid-template-columns: 1fr auto;
-		line-height: 1.5;
-		margin-bottom: 2rem;
+		/* grid-template-rows: auto 1fr auto; */
+		line-height: var(--line-height);
 		border: 1px solid rgba(var(--accent-light), 25%);
 		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
-		padding: 1.5rem;
-		border-radius: 8px;
+		padding: 1.125rem;
+		border-radius: 10px;
 	}
 
-	.post {
+	.posts {
 		display: grid;
-		grid-template-columns: 1fr;
-		line-height: 1.5;
-	}
-
-	@media (min-width: 640px) {
-		.post {
-			grid-template-columns: 1fr auto;
-		}
-	}
-
-	.post + .post {
-		padding-top: 0.5rem;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		line-height: var(--line-height);
 	}
 
 	.title a {
@@ -95,5 +137,15 @@ import '@/styles/blog/blog.css';
 		color: var(--text-muted);
 		font-size: 0.875rem;
 		font-style: italic;
+	}
+
+	.text {
+		--max-lines: 3;
+
+		max-height: calc(var(--max-lines) * 1em * var(--line-height));
+		line-height: var(--line-height);
+		overflow: hidden;
+
+		color: oklch(68.69% 0 0);
 	}
 </style>

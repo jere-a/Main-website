@@ -5,7 +5,7 @@
 */
 
 /* ------ THEMING - Light Mode ------ */
-:root {
+/* :root {
 	--palette-primary: #4f46e5;
 
 	--text: #1e293b;
@@ -19,10 +19,10 @@
 
 	--border: #e2e8f0;
 	--background: #ffffff;
-}
+} */
 
 /* ------ THEMING - Dark Mode ------ */
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) { */
 	:root {
 		--palette-primary: #20bdff;
 
@@ -43,7 +43,7 @@
 	html {
 		color-scheme: dark;
 	}
-}
+/* } */
 
 /* ------ GLOBAL STYLES - START ------ */
 
@@ -72,7 +72,7 @@ b {
 a:not(.unset) {
 	color: var(--text-link);
 	text-decoration: none;
-	border-bottom: 1px solid #ccc;
+	/* border-bottom: 1px solid #ccc; */
 }
 
 nav a:not(.unset) {

@@ -1,7 +1,36 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import Layout from '@/layouts/Layout.astro';
 ---
 
 <Layout title="404 Not Found">
-    
+	<h1>404 Not Found</h1>
+	<p class="NotFound">Sivu jota yrität käyttää ei löytynyt.</p>
+	<br />
+	<hr />
+	<p class="info invisible"></p>
 </Layout>
+
+<script>
+	import { dynImport } from '@/ts/dynamic-import';
+	import { fetchData } from '@/ts/cloudflare-trace';
+
+	const data = await fetchData().then((data) => {
+		return data;
+	});
+
+	const url = window.location.href;
+	const param = window.location.search;
+	const pathname = window.location.pathname.substring(1, 10000);
+
+	const notshow = ['404', '404.html', '404.htm', '404/index.html', '404/index.htm'];
+
+	const query = dynImport.global.query;
+
+	if (!notshow.includes(pathname)) {
+		query('.NotFound').innerText = `Sivuun ${pathname}${param} ei saatu yhteyttä.`;
+	} else {
+		query('.NotFound').innerText =
+			`Sivu jota yrität käyttää on tarkoitettu näytettäväksi jos etsimääsi sivua ei löydy.`;
+	}
+	query('.info').innerText = `Yhteyttä yrittänyt ip osoite: ${data.ip}\nUserAgent: ${data.uag}`;
+</script>

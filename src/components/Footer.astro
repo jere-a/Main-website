@@ -1,14 +1,31 @@
 ---
 const year = new Date().getFullYear();
 
+interface Props {
+	isCopyright?: boolean;
+}
+
 const insert_year = () => {
 	if (year === 2024) return;
 	return `-${year}`;
 };
+
+const isCopyright = (): boolean => {
+	const { isCopyright } = Astro.props;
+	if (isCopyright == null) {
+		return true;
+	} else {
+		return isCopyright;
+	}
+};
 ---
 
 <footer>
-	<p style="text-align: center">
-		Tekijänoikeus &copy; 2024{insert_year} Jere E.L Kaikki oikeudet pidätetään
-	</p>
+	{
+		isCopyright() && (
+			<p style="text-align: center">
+				Tekijänoikeus &copy; 2024{insert_year} Jere E.L Kaikki oikeudet pidätetään
+			</p>
+		)
+	}
 </footer>

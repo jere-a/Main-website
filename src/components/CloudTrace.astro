@@ -5,11 +5,11 @@
 	import { siteConfig } from '@/config';
 
 	async function fetchData(): Promise<string> {
-		const text = await wretch(siteConfig.url + '/cdn-cgi/trace')
-			.get()
-			.text();
+		// const text = await wretch(siteConfig.url + '/cdn-cgi/trace').get().text();
 
-		const lines = text.split('\n');
+		const text = (await fetch(siteConfig.url + '/cdn-cgi/trace')).text()
+
+		const lines = (await text).split('\n');
 		const result: { [key: string]: string } = {};
 
 		lines.forEach((line) => {
