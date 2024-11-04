@@ -210,8 +210,8 @@ importers:
         specifier: ^3.7.1
         version: 3.7.1
       jscrewit:
-        specifier: ^2.38.0
-        version: 2.38.0
+        specifier: ^2.39.0
+        version: 2.39.0
       ldrs:
         specifier: ^1.0.2
         version: 1.0.2
@@ -5696,8 +5696,8 @@ packages:
   jsbn@0.1.1:
     resolution: {integrity: sha512-UVU9dibq2JcFWxQPA6KCqj5O42VOmAY3zQUfEKxU0KpTGXwNoCjkX1e13eHNvw/xPynt6pU0rZ1htjWTNTSXsg==}
 
-  jscrewit@2.38.0:
-    resolution: {integrity: sha512-JQAelkfkwERwZOJ+kddbK1ISu81XiEdgxwqqT5Q1r3/vTUPWLKTVaET0cR8i+vMmUqqC+3U6FamtyOT0G092cQ==}
+  jscrewit@2.39.0:
+    resolution: {integrity: sha512-3Qt+UE1dqesmekOsp6IGXF+GvAKkg9M5rL3gbCgKkzeXw+Mtk03bSn9TsneG/eexsWQhs5Hfkeow8LapqmVdug==}
     hasBin: true
 
   jsdom@25.0.1:
@@ -13241,7 +13241,7 @@ snapshots:
       unist-util-visit: 5.0.0
       vfile: 6.0.3
       vite: 5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.25.1)(sass@1.80.5)(terser@5.31.1)
-      vitefu: 1.0.3(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(sass@1.80.5)(terser@5.36.0))
+      vitefu: 1.0.3(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.25.1)(sass@1.80.5)(terser@5.31.1))
       which-pm: 3.0.0
       xxhash-wasm: 1.0.2
       yargs-parser: 21.1.1
@@ -15312,7 +15312,7 @@ snapshots:
 
   jsbn@0.1.1: {}
 
-  jscrewit@2.38.0: {}
+  jscrewit@2.39.0: {}
 
   jsdom@25.0.1:
     dependencies:
@@ -19054,6 +19054,10 @@ snapshots:
   vitefu@0.2.5(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(sass@1.80.5)(terser@5.36.0)):
     optionalDependencies:
       vite: 5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(sass@1.80.5)(terser@5.36.0)
+
+  vitefu@1.0.3(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.25.1)(sass@1.80.5)(terser@5.31.1)):
+    optionalDependencies:
+      vite: 5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.25.1)(sass@1.80.5)(terser@5.31.1)
 
   vitefu@1.0.3(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(sass@1.80.5)(terser@5.36.0)):
     optionalDependencies:
