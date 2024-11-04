@@ -39,7 +39,7 @@
     "@builder.io/qwik": "^1.9.1",
     "@nanostores/persistent": "^0.10.2",
     "@nanostores/react": "^0.7.3",
-    "@playform/compress": "^0.0.13",
+    "@playform/compress": "^0.1.6",
     "@qwikdev/astro": "^0.6.3",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
