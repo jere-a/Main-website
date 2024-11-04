@@ -65,7 +65,7 @@
     "alpinejs": "^3.14.3",
     "animate.css": "^4.1.1",
     "astro": "^4.16.7",
-    "astro-embed": "^0.7.4",
+    "astro-embed": "^0.8.0",
     "astro-fuse": "^1.0.1",
     "astro-google-analytics": "^1.0.3",
     "astro-particles": "^2.10.0",
