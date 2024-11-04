@@ -210,8 +210,8 @@ importers:
         specifier: ^3.7.1
         version: 3.7.1
       jscrewit:
-        specifier: ^2.38.0
-        version: 2.38.0
+        specifier: ^2.39.0
+        version: 2.39.0
       ldrs:
         specifier: ^1.0.2
         version: 1.0.2
@@ -5701,8 +5701,8 @@ packages:
   jsbn@0.1.1:
     resolution: {integrity: sha512-UVU9dibq2JcFWxQPA6KCqj5O42VOmAY3zQUfEKxU0KpTGXwNoCjkX1e13eHNvw/xPynt6pU0rZ1htjWTNTSXsg==}
 
-  jscrewit@2.38.0:
-    resolution: {integrity: sha512-JQAelkfkwERwZOJ+kddbK1ISu81XiEdgxwqqT5Q1r3/vTUPWLKTVaET0cR8i+vMmUqqC+3U6FamtyOT0G092cQ==}
+  jscrewit@2.39.0:
+    resolution: {integrity: sha512-3Qt+UE1dqesmekOsp6IGXF+GvAKkg9M5rL3gbCgKkzeXw+Mtk03bSn9TsneG/eexsWQhs5Hfkeow8LapqmVdug==}
     hasBin: true
 
   jsdom@25.0.1:
@@ -15323,7 +15323,7 @@ snapshots:
 
   jsbn@0.1.1: {}
 
-  jscrewit@2.38.0: {}
+  jscrewit@2.39.0: {}
 
   jsdom@25.0.1:
     dependencies:
