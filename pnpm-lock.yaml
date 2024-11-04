@@ -138,8 +138,8 @@ importers:
         specifier: ^4.16.7
         version: 4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3)
       astro-embed:
-        specifier: ^0.7.4
-        version: 0.7.4(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3))
+        specifier: ^0.8.0
+        version: 0.8.0(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3))
       astro-fuse:
         specifier: ^1.0.1
         version: 1.0.1(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3))(fuse.js@7.0.0)
@@ -460,6 +460,11 @@ packages:
     engines: {node: '>=10'}
     peerDependencies:
       ajv: '>=8'
+
+  '@astro-community/astro-embed-baseline-status@0.1.2':
+    resolution: {integrity: sha512-u+3BwXCSjBIVW29MGTbdusRhRBhqcjHyE6dgBCsUK/nZ0BohP1Nfih8dB7YltTVZxgECakKWQWoSHabDbYteyA==}
+    peerDependencies:
+      astro: ^4.0.0-beta || ^5.0.0-beta
 
   '@astro-community/astro-embed-integration@0.7.2':
     resolution: {integrity: sha512-R5eyiA01pj400skp6sJY4t01oXtTY+Huv2uR4eWUagaPgOOadu135+UkPXo38+LgZ5voYzZkaGwfTaZj4R0AFg==}
@@ -3938,8 +3943,8 @@ packages:
     peerDependencies:
       astro: ^2.0.0 || ^3.0.0-beta || ^4.0.0-beta || ^5.0.0-beta
 
-  astro-embed@0.7.4:
-    resolution: {integrity: sha512-meDmEpmwu1wcz1i1KT4yAPJhydq/C4iyh1Pn7sepSbtXF85C05nJoE0cTDJHf0cwM4zMoYTYDluqFIQIfsdhHA==}
+  astro-embed@0.8.0:
+    resolution: {integrity: sha512-zG7SjRKo2TT4LsZLQfttf+Yb9OJ2oty+/qj7SZ9RPPAo0olfbWgoXkAdrDHBJyvVMss9GCgCunIp/kqQ32t9ZA==}
     peerDependencies:
       astro: ^2.0.0 || ^3.0.0-beta || ^4.0.0-beta || ^5.0.0-beta
 
@@ -9134,6 +9139,11 @@ snapshots:
       jsonpointer: 5.0.1
       leven: 3.1.0
 
+  '@astro-community/astro-embed-baseline-status@0.1.2(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3))':
+    dependencies:
+      '@astro-community/astro-embed-utils': 0.1.3
+      astro: 4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3)
+
   '@astro-community/astro-embed-integration@0.7.2(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3))':
     dependencies:
       '@astro-community/astro-embed-link-preview': 0.2.2
@@ -13116,8 +13126,9 @@ snapshots:
       acorn: 8.14.0
       astro: 4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3)
 
-  astro-embed@0.7.4(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3)):
+  astro-embed@0.8.0(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3)):
     dependencies:
+      '@astro-community/astro-embed-baseline-status': 0.1.2(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3))
       '@astro-community/astro-embed-integration': 0.7.2(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3))
       '@astro-community/astro-embed-link-preview': 0.2.2
       '@astro-community/astro-embed-twitter': 0.5.8(astro@4.16.7(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(rollup@2.79.2)(sass@1.80.5)(terser@5.36.0)(typescript@5.6.3))
@@ -13241,7 +13252,7 @@ snapshots:
       unist-util-visit: 5.0.0
       vfile: 6.0.3
       vite: 5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.25.1)(sass@1.80.5)(terser@5.31.1)
-      vitefu: 1.0.3(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(sass@1.80.5)(terser@5.36.0))
+      vitefu: 1.0.3(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.25.1)(sass@1.80.5)(terser@5.31.1))
       which-pm: 3.0.0
       xxhash-wasm: 1.0.2
       yargs-parser: 21.1.1
@@ -19054,6 +19065,10 @@ snapshots:
   vitefu@0.2.5(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(sass@1.80.5)(terser@5.36.0)):
     optionalDependencies:
       vite: 5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(sass@1.80.5)(terser@5.36.0)
+
+  vitefu@1.0.3(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.25.1)(sass@1.80.5)(terser@5.31.1)):
+    optionalDependencies:
+      vite: 5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.25.1)(sass@1.80.5)(terser@5.31.1)
 
   vitefu@1.0.3(vite@5.4.10(@types/node@22.8.4)(less@4.2.0)(lightningcss@1.27.0)(sass@1.80.5)(terser@5.36.0)):
     optionalDependencies:
