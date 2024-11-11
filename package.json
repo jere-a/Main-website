@@ -64,7 +64,7 @@
     "@zxcvbn-ts/language-fi": "^3.0.2",
     "alpinejs": "^3.14.3",
     "animate.css": "^4.1.1",
-    "astro": "^4.16.7",
+    "astro": "^4.16.10",
     "astro-embed": "^0.8.0",
     "astro-fuse": "^1.0.1",
     "astro-google-analytics": "^1.0.3",
@@ -128,7 +128,7 @@
     "validator": "^13.12.0",
     "video.js": "^8.19.1",
     "videojs-contrib-quality-levels": "^4.1.0",
-    "vite": "^5.4.10",
+    "vite": "^5.4.11",
     "vite-plugin-pwa": "^0.20.5",
     "vite-react": "^3.0.0",
     "vue": "^3.5.12"
