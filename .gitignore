@@ -29,3 +29,7 @@ pnpm-debug.log*
 
 # Skip TurboRepo
 .turbo
+
+# skip stylify
+src/styles/page/
+src/styles/layout/
