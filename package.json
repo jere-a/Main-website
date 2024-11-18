@@ -73,7 +73,7 @@
     "astro-robots-txt": "^1.0.0",
     "astro-seo-metadata": "^0.6.0",
     "astrojs-service-worker": "^2.0.0",
-    "auth-astro": "^4.1.2",
+    "auth-astro": "^4.1.3",
     "autoprefixer": "^10.4.20",
     "biome": "^0.3.3",
     "bootstrap": "^5.3.3",
