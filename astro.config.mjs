@@ -151,22 +151,22 @@ export default defineConfig({
 	integrations: [
 		serviceWorker({
 			registration: { autoRegister: false },
-			workbox: { offlineGoogleAnalytics: true },
+			workbox: { offlineGoogleAnalytics: false },
 			swSrc: 'sw.js',
 		}),
 		mdx(), // vue({
 		//   include: '**/vue/*'
 		// }),
-		svelte({
-			include: '**/svelte/*',
-		}),
-		solidJs({
-			include: '**/solid/*',
-		}),
-		alpinejs(),
-		qwikdev({
-			include: '**/qwik/*',
-		}), //preact({
+		//svelte({
+		//	include: '**/svelte/*',
+		//}),
+		//solidJs({
+		//	include: '**/solid/*',
+		//}),
+		//alpinejs(),
+		//qwikdev({
+		//	include: '**/qwik/*',
+		//}), //preact({
 		//  include: '**/preact/*'
 		//}),
 		react({
