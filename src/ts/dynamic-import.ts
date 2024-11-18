@@ -4,5 +4,7 @@ export const dynImport = {
         query: (await import('@/ts/global')).query,
         isHoliday: (await import('@/ts/global')).isHoliday,
         holidayTimeTo: (await import('@/ts/global')).holidayTimeTo
-    }
+    },
+    jquery: (await import('@/ts/jquery')).jquery,
+    $: (await import('@/ts/jquery')).jquery,
 }
