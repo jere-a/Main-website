@@ -18,10 +18,10 @@ const { class: className, src, title, body, alt } = Astro.props;
 		<Picture
 			src={src}
 			alt={alt}
-			widths={[240, 540, 720, 2500]}
-			sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1080px) 720px, 2500px`}
+			widths={[240, 720, 2500]}
+			sizes={`(max-width: 360px) 240px, (max-width: 1080px) 720px, 2500px`}
 			class={`image skeleton ${className}`}
-			formats={['avif', 'webp', 'jpg', 'png']}
+			formats={['avif', 'webp']}
 			quality={'high'}
 		/>
 		<br />
