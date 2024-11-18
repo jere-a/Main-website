@@ -1,12 +1,17 @@
 @font-face {
     font-family: 'monocraft';
-    src: url('monocraft-webfont.eot');
-    src: url('monocraft-webfont.eot?#iefix') format('embedded-opentype'),
-         url('monocraft-webfont.woff2') format('woff2'),
-         url('monocraft-webfont.woff') format('woff'),
-         url('monocraft-webfont.ttf') format('truetype'),
-         url('monocraft-webfont.svg#monocraftregular') format('svg');
+    src: url('monocraft-webfont.woff2') format('woff2'),
+         url('monocraft-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
+}
 
+@font-face {
+    font-family: 'minecraft_seven_v2';
+    src: url('minecraft-seven_v2.25165468-webfont.woff2') format('woff2'),
+         url('minecraft-seven_v2.25165468-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }

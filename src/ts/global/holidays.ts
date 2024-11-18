@@ -1,14 +1,14 @@
 import dayjs from 'dayjs';
-import isBetween from 'dayjs/plugin/isBetween';
+//import isBetween from 'dayjs/plugin/isBetween';
 // import relativeTime from 'dayjs/plugin/relativeTime';
 // import localizedFormat from 'dayjs/plugin/localizedFormat';
 // import 'dayjs/locale/fi';
-import duration from 'dayjs/plugin/duration';
+//import duration from 'dayjs/plugin/duration';
 
-/* const dynamic_import = {
+const dynamic_import = {
 	duration: (await import('dayjs/plugin/duration')).default,
 	isBetween: (await import('dayjs/plugin/isBetween')).default,
-}; */
+};
 
 // holidays
 import { main_halloween } from '@/ts/holidays';
@@ -16,8 +16,8 @@ import { main_halloween } from '@/ts/holidays';
 // dayjs.extend(relativeTime);
 // dayjs.extend(localizedFormat);
 
-dayjs.extend(isBetween);
-dayjs.extend(duration);
+dayjs.extend(dynamic_import.isBetween);
+dayjs.extend(dynamic_import.duration);
 const today = dayjs();
 
 export function isHoliday(data?: (HTMLElement | string)[] | string[]) {
