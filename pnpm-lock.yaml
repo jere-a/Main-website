@@ -370,8 +370,8 @@ importers:
         specifier: ^4.11.0
         version: 4.11.0
       jotai:
-        specifier: ^2.10.2
-        version: 2.10.2(@types/react@18.3.12)(react@18.3.1)
+        specifier: ^2.10.3
+        version: 2.10.3(@types/react@18.3.12)(react@18.3.1)
       markdown-it:
         specifier: ^14.1.0
         version: 14.1.0
@@ -3413,30 +3413,13 @@ packages:
   '@types/zepto@1.0.36':
     resolution: {integrity: sha512-CKFmXsmv4fNYh2yWIT/t/X3hBj8zkNNuYp/9WWTZq9dXQ6pAUq5D7r329i+O+kXXYPwBVmCJh/simxepxIJNDw==}
 
-  '@typescript-eslint/scope-manager@8.14.0':
-    resolution: {integrity: sha512-aBbBrnW9ARIDn92Zbo7rguLnqQ/pOrUguVpbUwzOhkFg2npFDwTgPGqFqE0H5feXcOoJOfX3SxlJaKEVtq54dw==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
   '@typescript-eslint/scope-manager@8.15.0':
     resolution: {integrity: sha512-QRGy8ADi4J7ii95xz4UoiymmmMd/zuy9azCaamnZ3FM8T5fZcex8UfJcjkiEZjJSztKfEBe3dZ5T/5RHAmw2mA==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@typescript-eslint/types@8.14.0':
-    resolution: {integrity: sha512-yjeB9fnO/opvLJFAsPNYlKPnEM8+z4og09Pk504dkqonT02AyL5Z9SSqlE0XqezS93v6CXn49VHvB2G7XSsl0g==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript-eslint/types@8.15.0':
     resolution: {integrity: sha512-n3Gt8Y/KyJNe0S3yDCD2RVKrHBC4gTUcLTebVBXacPy091E6tNspFLKRXlk3hwT4G55nfr1n2AdFqi/XMxzmPQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@typescript-eslint/typescript-estree@8.14.0':
-    resolution: {integrity: sha512-OPXPLYKGZi9XS/49rdaCbR5j/S14HazviBlUQFvSKz3npr3NikF+mrgK7CFVur6XEt95DZp/cmke9d5i3vtVnQ==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   '@typescript-eslint/typescript-estree@8.15.0':
     resolution: {integrity: sha512-1eMp2JgNec/niZsR7ioFBlsh/Fk0oJbhaqO0jRyQBMgkz7RrFfkqF9lYYmBoGBaSiLnu8TAPQTwoTUiSTUW9dg==}
@@ -3446,10 +3429,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  '@typescript-eslint/visitor-keys@8.14.0':
-    resolution: {integrity: sha512-vG0XZo8AdTH9OE6VFRwAZldNc7qtJ/6NLGWak+BtENuEUXGZgFpihILPiBvKXvJ2nFu27XNGC6rKiwuaoMbYzQ==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript-eslint/visitor-keys@8.15.0':
     resolution: {integrity: sha512-h8vYOulWec9LhpwfAdZf2bjr8xIp0KNKnpgqSz0qqYYKAW/QZKw3ktRndbiAtUz4acH4QLQavwZBYCc0wulA/Q==}
@@ -5464,8 +5443,8 @@ packages:
   jose@5.9.6:
     resolution: {integrity: sha512-AMlnetc9+CV9asI19zHmrgS/WYsWUwCn2R7RzlbJWD7F9eWYUTGyBmU9o6PxngtLGOiDGPRu+Uc4fhKzbpteZQ==}
 
-  jotai@2.10.2:
-    resolution: {integrity: sha512-DqsBTlRglIBviuJLfK6JxZzpd6vKfbuJ4IqRCz70RFEDeZf46Fcteb/FXxNr1UnoxR5oUy3oq7IE8BrEq0G5DQ==}
+  jotai@2.10.3:
+    resolution: {integrity: sha512-Nnf4IwrLhNfuz2JOQLI0V/AgwcpxvVy8Ec8PidIIDeRi4KCFpwTFIpHAAcU+yCgnw/oASYElq9UY0YdUUegsSA==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -7215,9 +7194,6 @@ packages:
 
   regex-utilities@2.3.0:
     resolution: {integrity: sha512-8VhliFJAWRaUiVvREIiW2NXXTmHs4vMNnSzuJVhscgmGav3g9VDxLrQndI3dZZVVdp0ZO/5v0xmX516/7M9cng==}
-
-  regex@5.0.1:
-    resolution: {integrity: sha512-gIS00E8eHNWONxofNKOhtlkwBQj/K39ZJamnvMEFH3pNKc06Zz2jtFXF/4ldAaJTzQNhMJU7b5+C7tTq2ukV7Q==}
 
   regex@5.0.2:
     resolution: {integrity: sha512-/pczGbKIQgfTMRV0XjABvc5RzLqQmwqxLHdQao2RTXPk+pmTXB2P0IaUHYdYyk412YLwUIkaeMd5T+RzVgTqnQ==}
@@ -12106,34 +12082,12 @@ snapshots:
 
   '@types/zepto@1.0.36': {}
 
-  '@typescript-eslint/scope-manager@8.14.0':
-    dependencies:
-      '@typescript-eslint/types': 8.14.0
-      '@typescript-eslint/visitor-keys': 8.14.0
-
   '@typescript-eslint/scope-manager@8.15.0':
     dependencies:
       '@typescript-eslint/types': 8.15.0
       '@typescript-eslint/visitor-keys': 8.15.0
 
-  '@typescript-eslint/types@8.14.0': {}
-
   '@typescript-eslint/types@8.15.0': {}
-
-  '@typescript-eslint/typescript-estree@8.14.0(typescript@5.6.3)':
-    dependencies:
-      '@typescript-eslint/types': 8.14.0
-      '@typescript-eslint/visitor-keys': 8.14.0
-      debug: 4.3.7
-      fast-glob: 3.3.2
-      is-glob: 4.0.3
-      minimatch: 9.0.5
-      semver: 7.6.3
-      ts-api-utils: 1.4.0(typescript@5.6.3)
-    optionalDependencies:
-      typescript: 5.6.3
-    transitivePeerDependencies:
-      - supports-color
 
   '@typescript-eslint/typescript-estree@8.15.0(typescript@5.6.3)':
     dependencies:
@@ -12149,11 +12103,6 @@ snapshots:
       typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
-
-  '@typescript-eslint/visitor-keys@8.14.0':
-    dependencies:
-      '@typescript-eslint/types': 8.14.0
-      eslint-visitor-keys: 3.4.3
 
   '@typescript-eslint/visitor-keys@8.15.0':
     dependencies:
@@ -12722,7 +12671,7 @@ snapshots:
       unist-util-visit: 5.0.0
       vfile: 6.0.3
       vite: 5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1)
-      vitefu: 1.0.3(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0))
+      vitefu: 1.0.3(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1))
       which-pm: 3.0.0
       xxhash-wasm: 1.0.2
       yargs-parser: 21.1.1
@@ -14700,7 +14649,7 @@ snapshots:
 
   jose@5.9.6: {}
 
-  jotai@2.10.2(@types/react@18.3.12)(react@18.3.1):
+  jotai@2.10.3(@types/react@18.3.12)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.12
       react: 18.3.1
@@ -16903,8 +16852,6 @@ snapshots:
 
   regex-utilities@2.3.0: {}
 
-  regex@5.0.1: {}
-
   regex@5.0.2:
     dependencies:
       regex-utilities: 2.3.0
@@ -18332,6 +18279,10 @@ snapshots:
   vitefu@0.2.5(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0)):
     optionalDependencies:
       vite: 5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0)
+
+  vitefu@1.0.3(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1)):
+    optionalDependencies:
+      vite: 5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1)
 
   vitefu@1.0.3(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0)):
     optionalDependencies:
