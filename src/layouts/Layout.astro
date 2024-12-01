@@ -37,7 +37,7 @@ const lang = getLangFromUrl(Astro.url);
 		return 'dark';
 		// return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 	};
-	const isDark = getThemePreference() === 'dark';
+	const isDark = true;
 	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
 
 	if (typeof localStorage !== 'undefined') {
@@ -99,3 +99,8 @@ const lang = getLangFromUrl(Astro.url);
 		}
 	</body>
 </html>
+
+<script>
+  import { LetItGo } from "let-it-go";
+  const snow = new LetItGo();
+</script>
