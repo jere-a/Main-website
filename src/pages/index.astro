@@ -104,10 +104,8 @@ const translatePath = useTranslatedPath(lang);
 	import { language } from '@/ts/global';
 	import { dynImport } from '@/ts/dynamic-import';
 
-	//document.addEventListener('astro:page-load', () => {
-		/* const oldtext = document.querySelector('.how_old'); */
+	document.addEventListener('astro:page-load', () => {
 		const query = dynImport.global.query;
-
 		const holiday = dynImport.global.isHoliday([
 			query('.main'),
 			query('.instructions'),
@@ -123,14 +121,16 @@ const translatePath = useTranslatedPath(lang);
 			`Tämä sivu on tällä hetkellä ${dayjs('2024-05-27').fromNow(true)} vanha.`;
 
 		const time = () => {
-			const t = dynImport.global.holidayTimeTo(holiday.timeto).timeto;
+			const { days, hours, minutes, seconds } = dynImport.global.holidayTimeTo(
+				holiday.timeto
+			).timeto;
 
 			if (dayjs().isSame(holiday.timeto, 'day')) {
 				query('p.holidays').innerText =
 					`${dynImport.global.capitalize(holiday.holiday)} on tänään.`;
 			} else {
 				query('p.holidays').innerText =
-					`${dynImport.global.capitalize(holiday.holiday)} ${t.days} Päivää, ${t.hours} tuntia, ${t.minutes} minuuttia ja ${t.seconds} sekuntia.`;
+					`${dynImport.global.capitalize(holiday.holiday)} ${days} Päivää, ${hours} tuntia, ${minutes} minuuttia ja ${seconds} sekuntia.`;
 			}
 		};
 
@@ -139,7 +139,7 @@ const translatePath = useTranslatedPath(lang);
 			holiday.script;
 			setInterval(time, 1000);
 		}
-	//});
+	});
 </script>
 
 <style>
