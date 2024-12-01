@@ -123,7 +123,7 @@
     "use-sound": "^4.0.3",
     "validator": "^13.12.0",
     "video.js": "^8.19.1",
-    "vite": "^6.0.1",
+    "vite": "^6.0.0",
     "vite-plugin-pwa": "^0.20.5",
     "vite-react": "^3.0.0",
     "vue": "^3.5.13"
