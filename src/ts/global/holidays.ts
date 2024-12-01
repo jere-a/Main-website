@@ -1,9 +1,4 @@
 import dayjs from 'dayjs';
-//import isBetween from 'dayjs/plugin/isBetween';
-// import relativeTime from 'dayjs/plugin/relativeTime';
-// import localizedFormat from 'dayjs/plugin/localizedFormat';
-// import 'dayjs/locale/fi';
-//import duration from 'dayjs/plugin/duration';
 
 const dynamic_import = {
 	duration: (await import('dayjs/plugin/duration')).default,
@@ -18,33 +13,31 @@ import { main_halloween } from '@/ts/holidays';
 
 dayjs.extend(dynamic_import.isBetween);
 dayjs.extend(dynamic_import.duration);
+
 const today = dayjs();
 
 export function isHoliday(data?: (HTMLElement | string)[] | string[]) {
-	const days_in_december = dayjs(`${today.year()}-12-12`).daysInMonth();
+	const daysInDecember =
+		today.year() === today.year() ? today.date(12).daysInMonth() : today.date(12).daysInMonth();
 
-	if (dayjs().isBetween(`2024-10-1`, `2024-11-10`, 'day', '[]')) {
+	if (today.isBetween(`${today.year()}-10-1`, `${today.year()}-11-10`, 'day')) {
 		return {
 			bool: true,
 			holiday: 'halloween',
 			script: main_halloween(data),
-			timeto: `${today.year()}-10-31`,
+			timeto:
+				today.year() === today.year()
+					? dayjs(`${today.year()}-10-31`).format('YYYY-MM-DD')
+					: dayjs(`${today.year()}-10-31`).format('YYYY-MM-DD'),
 		};
 	} else if (
-		today.isBetween(
-			`${today.year()}-12-21`,
-			`${today.year()}-12-${days_in_december}`,
-			'day',
-			'[]'
-		)
+		today.isBetween(`${today.year()}-12-21`, `${today.year()}-12-${daysInDecember}`, 'day')
 	) {
 		return {
 			bool: true,
-			holiday: 'chrismas',
+			holiday: 'christmas',
 		};
-	} else if (
-		today.isBetween(`${today.year()}-12-20`, `${today.year() + 1}-00-10 00:00`, 'day', '[]')
-	) {
+	} else if (today.isBetween(`${today.year()}-12-20`, `${today.year() + 1}-01-10`, 'day')) {
 		return {
 			bool: true,
 			holiday: 'newyear',
