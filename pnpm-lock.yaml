@@ -209,6 +209,9 @@ importers:
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
+      let-it-go:
+        specifier: ^1.1.0
+        version: 1.1.0
       lightningcss:
         specifier: ^1.28.1
         version: 1.28.1
@@ -269,6 +272,9 @@ importers:
       react-router-dom:
         specifier: ^7.0.1
         version: 7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-snowfall:
+        specifier: ^2.2.0
+        version: 2.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
@@ -387,9 +393,6 @@ importers:
       postcss-preset-env:
         specifier: ^9.6.0
         version: 9.6.0(postcss@8.4.49)
-      react-snowfall:
-        specifier: ^2.1.1
-        version: 2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       sanitize-html:
         specifier: ^2.13.1
         version: 2.13.1
@@ -5563,6 +5566,10 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  let-it-go@1.1.0:
+    resolution: {integrity: sha512-STi9QnLD0e9+1WZfSlw1m/GUTrrZUKsbopji2S9cZp5OVp9SWoU/qX3cMcqMNGIer7OmaFw+t4TEn6ki72ZTHw==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+
   leven@3.1.0:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
     engines: {node: '>=6'}
@@ -7123,8 +7130,8 @@ packages:
       react-dom:
         optional: true
 
-  react-snowfall@2.1.1:
-    resolution: {integrity: sha512-29F2U+skZc8uYYYzVP2Ub4mbc5nPH+0jYr1yXDysaPCnHdl9nVUN3h/ygg6PYw2LH53q6ZQCNfj30kVliaPvBg==}
+  react-snowfall@2.2.0:
+    resolution: {integrity: sha512-dRk7vEHq/ZUOG+JHk2k/hH3HmliOWGXr4rKRDeW4mjWuHeI1r5h0Lc1r2jnTtUS1im702d6tCmNGymlNTdhXYg==}
     peerDependencies:
       react: "^16.8 ||\_17.x || 18.x"
       react-dom: ^16.8 || 17.x || 18.x
@@ -12655,7 +12662,7 @@ snapshots:
       unist-util-visit: 5.0.0
       vfile: 6.0.3
       vite: 5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1)
-      vitefu: 1.0.3(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1))
+      vitefu: 1.0.3(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0))
       which-pm: 3.0.0
       xxhash-wasm: 1.0.2
       yargs-parser: 21.1.1
@@ -14766,6 +14773,8 @@ snapshots:
       needle: 3.3.1
       source-map: 0.6.1
 
+  let-it-go@1.1.0: {}
+
   leven@3.1.0: {}
 
   levn@0.4.1:
@@ -16755,7 +16764,7 @@ snapshots:
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
 
-  react-snowfall@2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-snowfall@2.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -18269,10 +18278,6 @@ snapshots:
   vitefu@0.2.5(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0)):
     optionalDependencies:
       vite: 5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0)
-
-  vitefu@1.0.3(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1)):
-    optionalDependencies:
-      vite: 5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1)
 
   vitefu@1.0.3(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0)):
     optionalDependencies:

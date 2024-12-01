@@ -32,8 +32,10 @@ const email = "javascript:eval(eval(atob('" + email_enc + "')))";
 
 	const holiday = dynImport.global.isHoliday([query('.email-link')]);
 
-	if (holiday.bool) query('a.email-link').classList.remove('email-font');
-	holiday?.script;
+	if (holiday.bool) {
+		query('a.email-link').classList.remove('email-font');
+		holiday?.script;
+	}
 </script>
 
 <style>
