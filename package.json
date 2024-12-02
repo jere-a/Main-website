@@ -130,7 +130,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@fullhuman/postcss-purgecss": "^6.0.0",
+    "@fullhuman/postcss-purgecss": "^7.0.2",
     "@playwright/test": "^1.48.2",
     "@types/bootstrap": "^5.2.10",
     "@types/easeljs": "^1.0.5",
