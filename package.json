@@ -38,7 +38,7 @@
     "@astrojs/vue": "^4.5.2",
     "@builder.io/qwik": "^1.10.0",
     "@nanostores/persistent": "^0.10.2",
-    "@nanostores/react": "^0.7.3",
+    "@nanostores/react": "^0.8.2",
     "@playform/compress": "^0.0.13",
     "@qwikdev/astro": "^0.6.3",
     "@radix-ui/react-dialog": "^1.1.2",
