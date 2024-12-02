@@ -134,7 +134,6 @@
     "@biomejs/biome": "1.9.4",
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@playwright/test": "^1.49.0",
-    "@putout/plugin-remove-unused-variables": "^10.1.0",
     "@types/bootstrap": "^5.2.10",
     "@types/easeljs": "^1.0.5",
     "@types/fs-extra": "^11.0.4",
