@@ -1,5 +1,6 @@
 ---
 import { SEOMetadata } from 'astro-seo-metadata';
+import { ViewTransitions } from 'astro:transitions';
 import { siteConfig } from '@/config';
 
 interface Props {
@@ -44,6 +45,7 @@ const isDev = import.meta.env.DEV;
 <link rel="canonical" href={canonicalURL} /> -->
 <link rel="alternate" type="application/rss+xml" title="Åzze" href={`${Astro.site}rss.xml`} />
 <title>{title}</title>
+<ViewTransitions />
 <!-- <script src="../js/main.js"></script> -->
 {isProd &&  <script is:inline type="text/partytown" defer src="https://www.googletagmanager.com/gtag/js?id=GTM-P6SH88WW"></script>
 <script is:inline type="text/partytown" defer>(() => {function g(){dataLayer.push(arguments)}window.dataLayer = window.dataLayer || [];g('js', new Date);g('config', 'GTM-P6SH88WW')})()</script>}
