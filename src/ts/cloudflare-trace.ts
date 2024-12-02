@@ -1,4 +1,3 @@
-import wretch from 'wretch';
 import { siteConfig } from '@/config';
 
 export type ParsedData = {

@@ -1,43 +1,56 @@
 ---
-import ListItem from '../components/react/nav-Listitem';
+import { cn } from '@/lib/utils';
 
-import Link from 'next/link';
-import { ModeToggle } from '@/components/react/ModeToggle';
+// css
+import '@/global.css';
+import '@/styles/animate.css';
+import '@/styles/holidays/index.css';
 
-// import { Icons } from '@/components/icons';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
+interface Props {
+	active: string | undefined;
+}
+const { active } = Astro.props;
+
+const navigationMenuTriggerStyle = cn(
+	'group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50'
+);
+const activefunc = (active: string | undefined, activetab: string | undefined): string => {
+		return active == activetab ? 'bg-blue-950' : '';
+};
+
+const links: { href: string, class?: string | null | undefined, active?: string, name?: string }[] = [
+  {
+    href: '/',
+    class: `${`${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`}`,
+    active: 'koti',
+    name: 'Koti'
+  },
+  {
+    href: '/images/',
+    class: `${`${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`}`,
+    active: 'kuvat',
+    name: 'Kuvat'
+  },
+  {
+    href: '/blog/',
+    class: `${`${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`}`,
+    active: 'blog',
+    name: 'Blog'
+  }
+];
 ---
 
-<div>
-  <NavigationMenu>
-    <NavigationMenuList>
-      <NavigationMenuItem>
-        <Link href="/" legacyBehavior passHref>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-            Koti
-          </NavigationMenuLink>
-        </Link>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <Link href="/images/" legacyBehavior passHref>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-            Kuvat
-          </NavigationMenuLink>
-        </Link>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink>
-          <ModeToggle />
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-    </NavigationMenuList>
-  </NavigationMenu>
+<div class={cn('relative z-10 flex max-w-max flex-1 items-center justify-center')}>
+	<div class={cn('group flex flex-1 list-none items-center justify-center space-x-1')}>
+	    <ul class={cn("justify-center items-center group flex flex-1 list-none space-x-1")} data-orientation="horizontal" dir="ltr">
+			{links.map(item => (
+			    <li>
+			        <a href={item.href} class={cn(`${item.class} ${activefunc(active, item.active)}`)}> {item.name} </a>
+				</li>
+			))}
+			<li>
+			    <slot />
+			</li>
+		</ul>
+	</div>
 </div>

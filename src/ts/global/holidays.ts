@@ -1,43 +1,39 @@
 import dayjs from 'dayjs';
-
-const dynamic_import = {
-	duration: (await import('dayjs/plugin/duration')).default,
-	isBetween: (await import('dayjs/plugin/isBetween')).default,
-};
+import isBetween from 'dayjs/plugin/isBetween';
+import { holiday, defaultLang, useTranslations } from '@/i18n';
+import { language } from './globals';
 
 // holidays
-import { main_halloween } from '@/ts/holidays';
+import * as holidays from '@/ts/holidays';
 
-// dayjs.extend(relativeTime);
-// dayjs.extend(localizedFormat);
-
-dayjs.extend(dynamic_import.isBetween);
-dayjs.extend(dynamic_import.duration);
-
+dayjs.extend(isBetween);
 const today = dayjs();
+const trans = useTranslations(language() in holiday ? language() as keyof typeof holiday : defaultLang);
 
 export function isHoliday(data?: (HTMLElement | string)[] | string[]) {
 	const daysInDecember =
 		today.year() === today.year() ? today.date(12).daysInMonth() : today.date(12).daysInMonth();
-
-	if (today.isBetween(`${today.year()}-10-1`, `${today.year()}-11-10`, 'day')) {
+	
+	if (today.isBetween(`${today.year()}-10-01`, `${today.year()}-11-10`, 'day', '[]')) {
 		return {
 			bool: true,
 			holiday: 'halloween',
-			script: main_halloween(data),
+			script: holidays.main_halloween(data),
 			timeto:
 				today.year() === today.year()
 					? dayjs(`${today.year()}-10-31`).format('YYYY-MM-DD')
 					: dayjs(`${today.year()}-10-31`).format('YYYY-MM-DD'),
 		};
 	} else if (
-		today.isBetween(`${today.year()}-12-21`, `${today.year()}-12-${daysInDecember}`, 'day')
+		today.isBetween(`${today.year()}-11-30`, `${today.year()}-12-${daysInDecember}`, 'day', '[]')
 	) {
 		return {
 			bool: true,
-			holiday: 'christmas',
+			holiday: `${trans('holiday.christmas')}`,
+			script: holidays.christmas(),
+			timeto: today.year() === today.year() ? dayjs(`${today.year()}-12-24`).format('YYYY-MM-DD') : dayjs(`${today.year()}-12-24`).format('YYYY-MM-DD')
 		};
-	} else if (today.isBetween(`${today.year()}-12-20`, `${today.year() + 1}-01-10`, 'day')) {
+	} else if (today.isBetween(`${today.year()}-12-20`, `${today.year() + 1}-01-10`, 'day', '[]')) {
 		return {
 			bool: true,
 			holiday: 'newyear',
@@ -54,20 +50,12 @@ export function holidayTimeTo(targetdate: string | undefined) {
 	const time = (
 		targetDate: string | undefined = `${today.year()}-${today.month()}-${today.day()}`
 	) => {
-		// Create a duration object from the difference
-		const timeDuration = dayjs.duration(dayjs(targetDate).diff(dayjs()));
-
-		// Extract days, hours, minutes, and seconds from the duration
-		const days = Math.floor(timeDuration.asDays());
-		const hours = timeDuration.hours();
-		const minutes = timeDuration.minutes();
-		const seconds = timeDuration.seconds();
-
+	  const time = dayjs(targetDate).diff(dayjs());
 		return {
-			days,
-			hours,
-			minutes,
-			seconds,
+			days: Math.floor(time / (1000 * 60 * 60 * 24)),
+			hours: Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+			minutes: Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)),
+			seconds: Math.floor((time % (1000 * 60)) / 1000),
 		};
 	};
 

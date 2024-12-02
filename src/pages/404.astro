@@ -11,23 +11,15 @@ import Layout from '@/layouts/Layout.astro';
 </Layout>
 
 <script>
-	import { dynImport } from '@/ts/dynamic-import';
 	import { fetchData } from '@/ts/cloudflare-trace';
+	import { query } from '@/ts/global';
 
-	const data = await fetchData().then((data) => {
-		return data;
-	});
-
-	const url = window.location.href;
-	const param = window.location.search;
-	const pathname = window.location.pathname.substring(1, 10000);
-
+	const data = await fetchData().then(a => a);
+	const { pathname, search } = window.location;
 	const notshow = ['404', '404.html', '404.htm', '404/index.html', '404/index.htm'];
 
-	const query = dynImport.global.query;
-
 	if (!notshow.includes(pathname)) {
-		query('.NotFound').innerText = `Sivuun ${pathname}${param} ei saatu yhteyttä.`;
+		query('.NotFound').innerText = `Sivuun ${pathname}${search} ei saatu yhteyttä.`;
 	} else {
 		query('.NotFound').innerText =
 			`Sivu jota yrität käyttää on tarkoitettu näytettäväksi jos etsimääsi sivua ei löydy.`;
