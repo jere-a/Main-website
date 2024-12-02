@@ -203,18 +203,13 @@ export default defineConfig({
 			/* sourcemap: true, */
 			rollupOptions: {
 				output: {
-					entryFileNames: 'entry.[hash].[name].mjs',
-					chunkFileNames: 'chunks/chunk.[hash].[name].mjs',
-					assetFileNames: 'assets/asset.[hash].[name][extname]',
+					entryFileNames: 'entry.[hash].mjs',
+					chunkFileNames: 'chunks/chunk.[hash].mjs',
+					assetFileNames: 'assets/asset.[hash][extname]',
 					compact: true,
 				},
 			},
 		},
-		plugins: [
-		  visualizer({
-        emitFile: true,
-        filename: "stats.html",
-      })
-		]
+		//plugins: [visualizer({ emitFile: true, filename: "stats.html" })]
 	},
 });
