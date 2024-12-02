@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@astrojs/alpinejs':
         specifier: ^0.4.0
-        version: 0.4.0(@types/alpinejs@3.13.10)(alpinejs@3.14.3)
+        version: 0.4.0(@types/alpinejs@3.13.11)(alpinejs@3.14.6)
       '@astrojs/check':
         specifier: ^0.9.4
         version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.7.2)
@@ -96,8 +96,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0
       '@types/alpinejs':
-        specifier: ^3.13.10
-        version: 3.13.10
+        specifier: ^3.13.11
+        version: 3.13.11
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.12
@@ -123,8 +123,8 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2
       alpinejs:
-        specifier: ^3.14.3
-        version: 3.14.3
+        specifier: ^3.14.6
+        version: 3.14.6
       animate.css:
         specifier: ^4.1.1
         version: 4.1.1
@@ -3381,8 +3381,8 @@ packages:
   '@types/acorn@4.0.6':
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
 
-  '@types/alpinejs@3.13.10':
-    resolution: {integrity: sha512-ah53tF6mWuuwerpDE7EHwbZErNDJQlsLISPqJhYj2RZ9nuTYbRknSkqebUd3igkhLIZKkPa7IiXjSn9qsU9O2w==}
+  '@types/alpinejs@3.13.11':
+    resolution: {integrity: sha512-3KhGkDixCPiLdL3Z/ok1GxHwLxEWqQOKJccgaQL01wc0EVM2tCTaqlC3NIedmxAXkVzt/V6VTM8qPgnOHKJ1MA==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -3803,8 +3803,8 @@ packages:
   ajv@8.17.1:
     resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
 
-  alpinejs@3.14.3:
-    resolution: {integrity: sha512-cL8JBEDAm4UeVjTN5QnFl8QgMGUwxFn1GvQvu3RtfAHUrAPRahGihrsWpKnEK9L0QMqsAPk/R8MylMWKHaK33A==}
+  alpinejs@3.14.6:
+    resolution: {integrity: sha512-8Abdd6u8oVurOChPqWCHS2Lr3C9g4+zb/kL1vNPykK/2dVkb3giTcpQ1wykzzWmX7wbTvWLnHX3I3CPPnnAMCA==}
 
   animate.css@4.1.1:
     resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==}
@@ -9029,10 +9029,10 @@ snapshots:
       astro: 4.16.16(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.28.1)(rollup@2.79.2)(sass@1.81.0)(terser@5.36.0)(typescript@5.7.2)
       lite-youtube-embed: 0.3.3
 
-  '@astrojs/alpinejs@0.4.0(@types/alpinejs@3.13.10)(alpinejs@3.14.3)':
+  '@astrojs/alpinejs@0.4.0(@types/alpinejs@3.13.11)(alpinejs@3.14.6)':
     dependencies:
-      '@types/alpinejs': 3.13.10
-      alpinejs: 3.14.3
+      '@types/alpinejs': 3.13.11
+      alpinejs: 3.14.6
 
   '@astrojs/check@0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.7.2)':
     dependencies:
@@ -12159,7 +12159,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.6
 
-  '@types/alpinejs@3.13.10': {}
+  '@types/alpinejs@3.13.11': {}
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -12723,7 +12723,7 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
-  alpinejs@3.14.3:
+  alpinejs@3.14.6:
     dependencies:
       '@vue/reactivity': 3.1.5
 
@@ -18629,6 +18629,7 @@ snapshots:
   vitefu@0.2.5(vite@6.0.1(@types/node@22.9.0)(jiti@1.21.6)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0)(yaml@2.6.0)):
     optionalDependencies:
       vite: 6.0.1(@types/node@22.9.0)(jiti@1.21.6)(less@4.2.0)(lightningcss@1.28.1)(sass@1.81.0)(terser@5.36.0)(yaml@2.6.0)
+
   vitefu@1.0.4(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1)):
     optionalDependencies:
       vite: 5.4.11(@types/node@22.9.0)(less@4.2.0)(lightningcss@1.25.1)(sass@1.81.0)(terser@5.31.1)
