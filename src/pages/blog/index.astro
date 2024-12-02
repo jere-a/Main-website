@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { ViewTransitions } from 'astro:transitions';
 import { getCollection } from 'astro:content';
 const blogEntries = await getCollection('blog');
 
@@ -14,9 +13,6 @@ interface post {
 ---
 
 <Layout title="Blogs" activeNav="blog" isCopyright={false}>
-	<Fragment slot="head">
-		<ViewTransitions />
-	</Fragment>
 	<ul>
 		{
 			blogEntries.map(async (post: post) => {
@@ -66,12 +62,12 @@ interface post {
 </Layout>
 
 <script>
-	// import { isHoliday } from '@/ts/global';
-	import { dynImport } from "@/ts/dynamic-import";
+	//import { isHoliday } from '@/ts/global';
+	//import { dynImport } from "@/ts/dynamic-import";
 
-	document.addEventListener('astro:page-load', () => {
-
-		const holiday = dynImport.global.isHoliday(['.publish-date', '.title', '.text']);
+	document.addEventListener('astro:page-load', async function() {
+	    const { isHoliday } = (await import('@/ts/global'));
+		const holiday = isHoliday(['.publish-date', '.title', '.text']);
 
 		if (holiday.bool) {
 			holiday.script;

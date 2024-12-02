@@ -1,4 +1,5 @@
 import wretch from 'wretch';
+import { l } from '@/ts/global';
 import { siteConfig } from '@/config';
 
 const onlineCheck = (): boolean => {
@@ -6,7 +7,7 @@ const onlineCheck = (): boolean => {
 	wretch(`${siteConfig.url}/online.txt`)
 		.get()
 		.notFound((error) => {
-			console.log(`Error conneting to online: ${error.message}`);
+			l(`Error conneting to online: ${error.message}`);
 		})
 		.json((r) => {
 			if (r.online != undefined || r.online != null) online = true;

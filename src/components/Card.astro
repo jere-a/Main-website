@@ -21,10 +21,12 @@ const { href, title, body } = Astro.props;
 </li>
 
 <script>
-	import { dynImport } from '@/ts/dynamic-import';
+    //import { query, isHoliday } from "@/ts/global";
+	//import { dynImport } from '@/ts/dynamic-import';
 
-	document.addEventListener('astro:page-load', () => {
-		const holiday = dynImport.global.isHoliday(['h2.title', 'p.body']);
+	document.addEventListener('DOMContentLoaded', async function() {
+	    const { query, isHoliday } = (await import('@/ts/global'));
+		const holiday = isHoliday(['h2.title', 'p.body']);
 
 		if (holiday.bool) {
 			holiday.script;

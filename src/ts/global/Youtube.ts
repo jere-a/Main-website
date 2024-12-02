@@ -1,4 +1,5 @@
 import { siteConfig } from '@/config';
+import { l } from '@/ts/global';
 import wretch from 'wretch';
 
 export const latestVideo = async () => {
@@ -12,7 +13,7 @@ export const latestVideo = async () => {
 		.json((json: any) => {
 			return json;
 		})
-		.catch((error: string) => console.log('error', error));
+		.catch((error: string) => l('error', error));
 
 	const link: string = reqRes.items[0].link;
 	const title: string = reqRes.items[0].title;

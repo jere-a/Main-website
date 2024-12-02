@@ -1,3 +1,2 @@
-export {
-    main_halloween,
-} from "./halloween";
+export { christmas } from './christmas';
+export { main_halloween } from './halloween';

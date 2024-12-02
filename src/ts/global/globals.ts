@@ -54,3 +54,5 @@ export const injectCSS = (css: string): HTMLStyleElement => {
 export function capitalize(string: string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export const l = (message?: any, ...optionalParams: any[]) => console.log(message, ...optionalParams);

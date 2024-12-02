@@ -5,7 +5,6 @@ import Social from '@/components/Social.astro';
 import { getLangFromUrl, useTranslations, useTranslatedPath } from '@/i18n/utils';
 import Email from '@/components/links/Email.astro';
 import { siteConfig } from '@/config';
-import { ViewTransitions } from 'astro:transitions';
 
 // Language
 const lang = getLangFromUrl(Astro.url);
@@ -14,9 +13,6 @@ const translatePath = useTranslatedPath(lang);
 ---
 
 <Layout title="Welcome" activeNav="koti">
-	<Fragment slot="head">
-		<ViewTransitions />
-	</Fragment>
 	<main>
 		<a href="https://git.new/I3vys7Q" class="github-corner" aria-label="View source on GitHub">
 			<svg
@@ -97,16 +93,25 @@ const translatePath = useTranslatedPath(lang);
 </Layout>
 
 <script>
-	import dayjs from 'dayjs';
+	//import dayjs from 'dayjs';
 	// import localizedFormat from 'dayjs/plugin/localizedFormat';
-	import relativeTime from 'dayjs/plugin/relativeTime';
-	import 'dayjs/locale/fi';
-	import { language } from '@/ts/global';
-	import { dynImport } from '@/ts/dynamic-import';
+	//import relativeTime from 'dayjs/plugin/relativeTime';
+	//import 'dayjs/locale/fi';
+	//import { language, isHoliday, query, holidayTimeTo, capitalize } from '@/ts/global';
+	//import { dynImport } from '@/ts/dynamic-import';
 
-	document.addEventListener('astro:page-load', () => {
-		const query = dynImport.global.query;
-		const holiday = dynImport.global.isHoliday([
+	document.addEventListener('astro:page-load', async () => {
+		const { language, isHoliday, query, holidayTimeTo, capitalize } = await import(
+			'@/ts/global'
+		);
+		if (language()) {
+		  (await import('dayjs/locale/fi')).default;
+		}
+		const dayjs = (await import('dayjs')).default;
+		const relativeTime = (await import('dayjs/plugin/relativeTime')).default;
+
+		//const query = dynImport.global.query;
+		const holiday = isHoliday([
 			query('.main'),
 			query('.instructions'),
 			query('p.holidays'),
@@ -121,20 +126,19 @@ const translatePath = useTranslatedPath(lang);
 			`Tämä sivu on tällä hetkellä ${dayjs('2024-05-27').fromNow(true)} vanha.`;
 
 		const time = () => {
-			const { days, hours, minutes, seconds } = dynImport.global.holidayTimeTo(
-				holiday.timeto
-			).timeto;
+			const { days, hours, minutes, seconds } = holidayTimeTo(holiday.timeto).timeto;
 
 			if (dayjs().isSame(holiday.timeto, 'day')) {
-				query('p.holidays').innerText =
-					`${dynImport.global.capitalize(holiday.holiday)} on tänään.`;
+				query('p.holidays').innerText = `${capitalize(holiday.holiday)} on tänään.`;
+			} else if (days < 0 || hours < 0 || minutes < 0 || seconds < 0) {
+			    query('p.holidays').innerText = `${capitalize(holiday.holiday)} oli jo ${days} päivää ja ${hours} tuntia sitten.`
 			} else {
 				query('p.holidays').innerText =
-					`${dynImport.global.capitalize(holiday.holiday)} ${days} Päivää, ${hours} tuntia, ${minutes} minuuttia ja ${seconds} sekuntia.`;
+					`${capitalize(holiday.holiday)} ${days} Päivää, ${hours} tuntia, ${minutes} minuuttia ja ${seconds} sekuntia.`;
 			}
 		};
 
-		if (holiday.bool != false && holiday.bool != null && holiday.bool != undefined) {
+		if (holiday.bool) {
 			query('p.holidays').classList.remove('hidden');
 			holiday.script;
 			setInterval(time, 1000);

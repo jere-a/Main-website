@@ -1,25 +1,25 @@
-import { queryAll } from '@/ts/global';
-
-let halloween_once = false;
+import { l } from '@/ts/global';
+const queryAll = (q: string, c = document) => c.querySelectorAll(q);
 
 export const main_halloween = (elements: (HTMLElement | string)[] | string[] | undefined) => {
-	if (elements !== undefined) {
+	if (Array.isArray(elements)) {
 		elements.forEach((e) => {
-			if (typeof e != 'string') {
+			if (typeof e !== 'string') {
 				e.classList.add('halloween');
-				if (e.classList.contains('halloween-time')) {
-					e.classList.add('butcherman');
-				}
+					if (e.classList.contains('halloween-time')) {
+						e.classList.add('butcherman');
+					}
 			} else {
-				queryAll(e).forEach((e) => {
-					e.classList.add('halloween');
-				});
+				const elementsToModify = queryAll(e);
+				elementsToModify.forEach((element) => element.classList.add('halloween'));
 			}
 		});
 	}
 
-	if (!halloween_once) {
-		console.log('Halloween 👻');
-		halloween_once = true;
-	}
+		if (!main_halloween.once) {
+				l('Halloween 👻');
+				main_halloween.once = true;
+		}
 };
+
+main_halloween.once = false;

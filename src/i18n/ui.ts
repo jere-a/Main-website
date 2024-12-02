@@ -14,6 +14,7 @@ export const ui = {
 		'nav.oldsite':
 			'K\u00E4y katsomassa mit\u00E4 olen tehnyt toisen sivun nettiin (Sit\u00E4 ei taida tulla en\u00E4\u00E4n p\u00E4ivitt\u00E4m\u00E4\u00E4n)',
 		'index.h1.title': '\u00C5zze',
+		'holiday.christmas': 'Joulu'
 	},
 	en: {
 		'nav.home': 'Home',
@@ -23,7 +24,17 @@ export const ui = {
 		'nav.oldsite':
 			"Go see what I've done on the other page's website (I don't think it will be updated anymore)",
 		'index.h1.title': '&#xC5;zze',
+		'holiday.christmas': 'Christmas'
 	},
 } as const;
+
+export const holiday = {
+  fi: {
+    'holiday.christmas': 'Joulu'
+  },
+  en: {
+    'holiday.christmas': 'Christmas'
+  }
+}
 
 export const showDefaultLang = false;

@@ -27,15 +27,19 @@ const email = "javascript:eval(eval(atob('" + email_enc + "')))";
 <a class="email-link email-font" href={email} title="Send Me email" {...args}><slot /></a>
 
 <script>
-	import { dynImport } from '@/ts/dynamic-import';
-	const query = dynImport.global.query;
+    //import { query, isHoliday } from "@/ts/global";
+	//import { dynImport } from '@/ts/dynamic-import';
+	//const query = dynImport.global.query;
+	document.addEventListener('DOMContentLoaded', async function() {
+	    const { query, isHoliday } = (await import('@/ts/global'));
+	
+		const holiday = isHoliday([query('.email-link')]);
 
-	const holiday = dynImport.global.isHoliday([query('.email-link')]);
-
-	if (holiday.bool) {
-		query('a.email-link').classList.remove('email-font');
-		holiday?.script;
-	}
+		if (holiday.bool) {
+			query('a.email-link').classList.remove('email-font');
+			holiday?.script;
+		}
+	});
 </script>
 
 <style>
