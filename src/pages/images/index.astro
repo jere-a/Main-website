@@ -64,14 +64,15 @@ import Sunflower from '../../data/images/auringon kukka 2.jpg';
 
 <script>
 	// import { dynImport } from '@/ts/global/dynamic_import.ts';
-	// import { isHoliday } from '@/ts/global';
-	import { dynImport } from '@/ts/dynamic-import';
+	//import { isHoliday, query } from '@/ts/global';
+	//import { dynImport } from '@/ts/dynamic-import';
 
-	document.addEventListener('astro:page-load', () => {
+	document.addEventListener('astro:page-load', async function() {
+	    const { isHoliday, query } = (await import('@/ts/global'));
 		/* const oldtext = document.querySelector('.how_old'); */
-		const query = dynImport.global.query;
+		//const query = dynImport.global.query;
 
-		const holiday = dynImport.global.isHoliday([
+		const holiday = isHoliday([
 			query('.text-gradient'),
 			query('.images'),
 			query('p'),

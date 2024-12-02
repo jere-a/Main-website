@@ -1,12 +1,7 @@
-import { defineConfig } from 'astro/config';
-import partytown from '@astrojs/partytown';
 import mdx from '@astrojs/mdx';
-import vue from '@astrojs/vue';
-import svelte from '@astrojs/svelte';
-import preact from '@astrojs/preact';
-import solidJs from '@astrojs/solid-js';
-import lit from '@astrojs/lit';
+import partytown from '@astrojs/partytown';
 import purgecss from 'astro-purgecss';
+import { defineConfig } from 'astro/config';
 
 import serviceWorker from 'astrojs-service-worker';
 
@@ -15,18 +10,17 @@ import { siteConfig } from './src/config';
 
 // Helper imports
 import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import tailwind from '@astrojs/tailwind';
 import playformCompress from '@playform/compress';
-import qwikdev from '@qwikdev/astro';
 
-import alpinejs from '@astrojs/alpinejs';
+import { visualizer } from "rollup-plugin-visualizer";
 
 import stylify from '@stylify/astro';
 import { hooks } from '@stylify/bundler';
 import fastGlob from 'fast-glob';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 import { fileURLToPath } from 'url';
 
 const pagesDir = 'src/pages';
@@ -169,9 +163,9 @@ export default defineConfig({
 		//}), //preact({
 		//  include: '**/preact/*'
 		//}),
-		react({
-			include: ['**/react/*', '**/components/ui/*'],
-		}),
+		//react({
+		//	include: ['**/react/*', '**/components/ui/*'],
+		//}),
 		tailwind(),
 		stylifyIntegration,
 		purgecss({
@@ -199,10 +193,6 @@ export default defineConfig({
 		'/articles/[...slug]': '/blog/[...slug]',
 		'/articles': '/blog',
 	},
-	prefetch: {
-		defaultStrategy: 'viewport',
-		prefetchAll: true,
-	},
 	i18n: {
 		defaultLocale: 'fi',
 		locales: ['fi', 'en'],
@@ -220,5 +210,6 @@ export default defineConfig({
 				},
 			},
 		},
+		//plugins: [visualizer({ emitFile: true, filename: "stats.html" })]
 	},
 });
