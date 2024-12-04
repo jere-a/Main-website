@@ -62,7 +62,7 @@
     "@zxcvbn-ts/language-fi": "^3.0.2",
     "alpinejs": "^3.14.5",
     "animate.css": "^4.1.1",
-    "astro": "^4.16.16",
+    "astro": "^5.0.0",
     "astro-embed": "^0.9.0",
     "astro-fuse": "^1.0.1",
     "astro-google-analytics": "^1.0.3",
