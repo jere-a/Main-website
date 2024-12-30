@@ -1,45 +1,39 @@
 ---
-import Layout from '../../layouts/Layout.astro';
 import ImageHolder from '../../components/ImageHolder.astro';
+import Layout from '../../layouts/Layout.astro';
 
-import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
+import Ghost from '../../data/images/Aamuinen usva.jpg';
+import Sunflower from '../../data/images/auringon kukka 2.jpg';
 import Big_root from '../../data/images/Iso kanto.jpg';
 import BlueSky from '../../data/images/sininen taivas.jpg';
-import Sunflower from '../../data/images/auringon kukka 2.jpg';
+import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
 ---
 
 <Layout title="Kuvat" activeNav="kuvat">
 	<main>
-		<h1 class="text-gradient">Kuvat</h1>
-		<p>Minun ottamiani kuvia eri paikoista.</p>
+		<h1 class="text-gradient text-center">Kuvat</h1>
+		<p class="text-center">Minun ottamiani kuvia eri paikoista.</p>
 		<ul role="list" class="image-card-grid">
-			<ImageHolder
-				src={winterLandscape}
-				title="Talvinen Maisema Sillalta."
-				body=""
-				alt=""
-				class="images"
-			/>
-			<ImageHolder src={Big_root} title="Iso Kanto." body="" alt="" class="images" />
-			<ImageHolder src={BlueSky} title="Sinine Taivas." body="" alt="" class="images" />
-			<ImageHolder src={Sunflower} title="Auringon kukka." body="" alt="" class="images" />
+			<ImageHolder src={winterLandscape} title="Talvinen Maisema Sillalta." class="images" />
+			<ImageHolder src={Big_root} title="Iso Kanto." class="images" />
+			<ImageHolder src={BlueSky} title="Sinine Taivas." class="images" />
+			<ImageHolder src={Sunflower} title="Auringon kukka." class="images" />
+			<ImageHolder src={Ghost} title="Aamuinen usva." class="images" />
 		</ul>
 	</main>
 </Layout>
 
 <style>
 	p {
-		text-align: center;
 		font-size: 1.2rem;
 		line-height: 1;
-		margin-bottom: 1em;
+		@apply mb-2;
 	}
 	h1 {
 		font-size: 4rem;
 		font-weight: 700;
 		line-height: 1;
-		text-align: center;
-		margin-bottom: 1em;
+		@apply mb-4;
 	}
 	.text-gradient {
 		background-image: var(--accent-gradient);
@@ -55,10 +49,10 @@ import Sunflower from '../../data/images/auringon kukka 2.jpg';
 
 	.image-card-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		justify-items: center;
 		gap: 0.25rem;
-		padding-inline: 0.7rem;
+		@apply p-1;
 	}
 </style>
 
@@ -67,17 +61,17 @@ import Sunflower from '../../data/images/auringon kukka 2.jpg';
 	//import { isHoliday, query } from '@/ts/global';
 	//import { dynImport } from '@/ts/dynamic-import';
 
-	document.addEventListener('astro:page-load', async function() {
-	    const { isHoliday, query } = (await import('@/ts/global'));
+	document.addEventListener('astro:page-load', async function () {
+		const { isHoliday, query } = await import('@/ts/global');
 		/* const oldtext = document.querySelector('.how_old'); */
 		//const query = dynImport.global.query;
 
-		const holiday = isHoliday([
+		const holiday = (await isHoliday([
 			query('.text-gradient'),
 			query('.images'),
 			query('p'),
 			'.navItem',
-		]);
+		]));
 
 		if (holiday.bool) {
 			holiday.script;
