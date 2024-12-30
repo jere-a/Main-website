@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl } from '@/i18n/utils';
+import { getLocale } from "astro-i18n-aut";
 import CommonHead from '@/components/CommonHead.astro';
 import NavMenu from '@/components/nav-menu.astro';
 // import Footer from '@/components/Footer.astro';
@@ -10,9 +10,6 @@ import NavMenu from '@/components/nav-menu.astro';
 import { siteConfig } from '../config';
 
 // CSS
-import '../global.css';
-import '../custom.css';
-import '../styles/animate.css';
 import '../styles/holidays/index.css';
 
 interface Props {
@@ -21,36 +18,13 @@ interface Props {
 	activeNav?: string;
 }
 
-const { title, isCopyright, activeNav } = Astro.props;
-
-const isProd = import.meta.env.PROD;
-const isDev = import.meta.env.DEV;
-
-const lang = getLangFromUrl(Astro.url);
+const { title, activeNav } = Astro.props;
+const lang = getLocale(Astro.url);
 ---
-
-<script>
-	const getThemePreference = () => {
-		//if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-		//	return localStorage.getItem('theme');
-		//}
-		return 'dark';
-		// return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-	};
-	const isDark = true;
-	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
-</script>
 
 <html class="dark" lang={lang}>
 	<head>
-		<CommonHead title={siteConfig.title + ' | ' + title}>
-			<Fragment slot="prefetch">
-				<link rel="dns-prefetch" href="//www.googletagmanager.com/" />
-				<link rel="dns-prefetch" href="//challenges.cloudflare.com/" />
-				<link rel="prefetch" href="https://www.googletagmanager.com/ns.html"/>
-				<link rel="prefetch" href="https://challenges.cloudflare.com/turnstile/v0/api.js"/>
-			</Fragment>
-		</CommonHead>
+		<CommonHead title={siteConfig.title + ' | ' + title}></CommonHead>
 		<slot name="head" />
 	</head>
 	<body>
