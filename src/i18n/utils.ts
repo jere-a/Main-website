@@ -6,14 +6,24 @@ export function getLangFromUrl(url: URL) {
 	return defaultLang;
 }
 
-export function useTranslations(lang: keyof typeof ui) {
+export function useTranslations(lang: string) {
 	return function t(key: keyof (typeof ui)[typeof defaultLang]) {
-	  return ui[lang][key] || ui[defaultLang][key];
+	  const validLang = (lang in ui ? lang : defaultLang) as keyof typeof ui;
+	  return ui[validLang][key] || ui[defaultLang][key];
 	};
 }
 
-export function useTranslatedPath(lang: keyof typeof ui) {
+export function useTranslatedPath(lang: string) {
 	return function translatePath(path: string, l: string = lang) {
-		return !showDefaultLang && l === defaultLang ? path : `/${l}${path}`;
+	  const validLang = (lang in ui ? lang : defaultLang) as keyof typeof ui;
+		return !showDefaultLang && l === defaultLang ? path : `/${validLang}${path}`;
 	};
+}
+
+export function iterator(data: any) {
+  const iterator: any = {};
+  iterator[Symbol.iterator] = function* () {
+    yield data;
+  };
+  return [...iterator];
 }

@@ -1,11 +1,21 @@
+import LetItGo from 'let-it-go/src';
 import { l } from '@/ts/global';
+import '@/styles/holidays/christmas.css';
 
 export const christmas = async function() {
-  new (await import('let-it-go/src')).default()
-    
-  if (!!christmas.once) {
-    l('Christmas');
+  if (!christmas.once) {
     christmas.once = true;
+    new LetItGo();
+    
+    const lightrope = document.createElement('ul');
+    lightrope.className = 'lightrope';
+    for (let i = 0; i < 42; i++) {
+      const listItem = document.createElement('li');
+      lightrope.appendChild(listItem);
+    }
+    document.body?.insertBefore(lightrope, document.body.firstChild) || console.error('Document body is not ready.');
+    
+    l('Christmas');
   }
 };
 

@@ -20,20 +20,6 @@ const { href, title, body } = Astro.props;
 	</a>
 </li>
 
-<script>
-    //import { query, isHoliday } from "@/ts/global";
-	//import { dynImport } from '@/ts/dynamic-import';
-
-	document.addEventListener('DOMContentLoaded', async function() {
-	    const { query, isHoliday } = (await import('@/ts/global'));
-		const holiday = isHoliday(['h2.title', 'p.body']);
-
-		if (holiday.bool) {
-			holiday.script;
-		}
-	});
-</script>
-
 <style>
 	.link-card {
 		list-style: none;

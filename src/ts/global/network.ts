@@ -2,24 +2,32 @@ import wretch from 'wretch';
 import { l } from '@/ts/global';
 import { siteConfig } from '@/config';
 
-const onlineCheck = (): boolean => {
-	let online = false;
-	wretch(`${siteConfig.url}/online.txt`)
-		.get()
-		.notFound((error) => {
-			l(`Error conneting to online: ${error.message}`);
+const onlineCheck = async (): Promise<boolean> => {
+	const onlineCheckStatus = async () => {
+	  new Promise<boolean>(resolve => {
+   	  wretch(`${siteConfig.url}/online.txt`)
+    		.get()
+    		.fetchError((error) => {
+     			l(`Error connecting to online: ${error.message}`);
+          resolve(false);
+    		})
+    		.json((r) => {
+     			if (r.online != undefined || r.online != null) {
+              resolve(true);
+          };
+          resolve(false);
+    		});
 		})
-		.json((r) => {
-			if (r.online != undefined || r.online != null) online = true;
-		});
+	}
+  const resolve = (await new Promise<boolean>(() => {
+    onlineCheckStatus().then(e => {
+      return e;
+    })
+  }));
 
-	return online;
+  return resolve;
 };
 
-export const isOnline = (): boolean => {
-    if (window.navigator.onLine || onlineCheck()) {
-		return true;
-	} else {
-		return false;
-	}
+export const isOnline = async (): Promise<boolean> => {
+  return window.navigator.onLine || (await onlineCheck());
 };

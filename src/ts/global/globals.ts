@@ -51,6 +51,13 @@ export const injectCSS = (css: string): HTMLStyleElement => {
 	return el;
 };
 
+export function addCSSFromURL(url: string): void {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = url;
+    document.head.appendChild(link);
+}
+
 export function capitalize(string: string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }

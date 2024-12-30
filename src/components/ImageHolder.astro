@@ -4,20 +4,26 @@ import '@/global.css';
 
 interface Props {
 	title: string;
-	body: string;
+	body?: string;
 	src: ImageMetadata;
-	alt: string;
+	alt?: string;
 	class?: any;
 }
 
 const { class: className, src, title, body, alt } = Astro.props;
+
+const altfunc = (): string => {
+	if (alt !== undefined) return alt;
+	else if (alt == undefined) return title;
+	else return "";
+};
 ---
 
 <li class="image-card animate__animated animate__bounceIn">
 	<div>
 		<Picture
 			src={src}
-			alt={alt}
+			alt={altfunc()}
 			widths={[240, 720, 2500]}
 			sizes={`(max-width: 360px) 240px, (max-width: 1080px) 720px, 2500px`}
 			class={`image skeleton ${className}`}
@@ -28,23 +34,13 @@ const { class: className, src, title, body, alt } = Astro.props;
 		<h2 class="title">
 			{title}
 		</h2>
-		<p class="body">
-			{body}
-		</p>
+		{body !== undefined && <p class="body">{body}</p>}
 	</div>
 </li>
 
 <script>
-    import { isHoliday } from "@/ts/global";
-	//import { dynImport } from '@/ts/dynamic-import';
-
-	document.addEventListener('astro:page-load', () => {
-		const holiday = isHoliday(['h2.title', 'p.body']);
-
-		if (holiday.bool) {
-			holiday.script;
-		}
-	});
+  import { mainAllComponents } from "@/ts/components";
+  mainAllComponents('imghold');
 </script>
 
 <style>

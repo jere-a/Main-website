@@ -11,17 +11,16 @@ const { unixTime } = Astro.props;
 </time-unix>
 
 <script>
-	import dayjs from 'dayjs';
-	import 'dayjs/locale/fi';
 	import { language, query } from '@/ts/global';
 
-	dayjs.locale(language());
-
 	class timeto extends HTMLElement {
-		connectedCallback() {
-			query('.timeto').innerText = dayjs().to(
-				dayjs.unix(Number(this.dataset.unixTime)),
-				true
+		async connectedCallback() {
+			query('.timeto').innerText = (await import('date-fns/formatDistanceStrict')).formatDistanceStrict(
+				(await import('date-fns/fromUnixTime')).fromUnixTime(Number(this.dataset.unixTime)),
+				new Date(),
+				{
+				  locale: language() == 'fi' ? (await import('date-fns/locale/fi')).fi : undefined
+				}
 			);
 		}
 	}

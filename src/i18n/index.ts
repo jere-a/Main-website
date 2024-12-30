@@ -1,6 +1,7 @@
 export {
-    defaultLang, holiday, languages, showDefaultLang, ui
+    defaultLang, languages, showDefaultLang, ui
 } from "./ui";
 export {
-    getLangFromUrl, useTranslatedPath, useTranslations
+    getLangFromUrl, iterator, useTranslatedPath, useTranslations
 } from "./utils";
+

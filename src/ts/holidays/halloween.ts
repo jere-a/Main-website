@@ -1,4 +1,6 @@
 import { l } from '@/ts/global';
+import '@/styles/holidays/halloween.css';
+
 const queryAll = (q: string, c = document) => c.querySelectorAll(q);
 
 export const main_halloween = (elements: (HTMLElement | string)[] | string[] | undefined) => {

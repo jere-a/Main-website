@@ -1,21 +1,17 @@
 ---
-import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { getLocale } from "astro-i18n-aut";
+
+const lang: string = getLocale(Astro.url);
 const blogEntries = await getCollection('blog');
-
-/* import '@/styles/blog/blog.css'; */
-
-interface post {
-	body: string;
-	data: any;
-	slug: any;
-}
 ---
 
 <Layout title="Blogs" activeNav="blog" isCopyright={false}>
 	<ul>
 		{
-			blogEntries.map(async (post: post) => {
+			blogEntries.map(async (post: any) => {
+			    const [postLang, ..._]: string[] = post.id.split('/');
 				const formattedDate = () => {
 					const d =
 						post.data.pubDate?.getDay() +
@@ -33,10 +29,9 @@ interface post {
 						.replace(/<\s.*?\/\s.*?>;/g, '')
 						.substring(0, 300);
 				};
-
-				return (
+				if (lang === postLang) return (
 					<li class="posts  animated  bounceIn">
-						<a class="box" href={`/blog/${post.slug}`}>
+						<a class="box" href={`/blog/${post.id}/`}>
 							<div class="title" aria-label={post.data.title}>
 								<h2 transition:name={`btitle${post.data.title}`}>
 									{post.data.title}
@@ -67,7 +62,7 @@ interface post {
 
 	document.addEventListener('astro:page-load', async function() {
 	    const { isHoliday } = (await import('@/ts/global'));
-		const holiday = isHoliday(['.publish-date', '.title', '.text']);
+		const holiday = (await isHoliday(['.publish-date', '.title', '.text']));
 
 		if (holiday.bool) {
 			holiday.script;
@@ -82,17 +77,20 @@ interface post {
 	}
 
 	body {
-		padding: 0 2rem;
 		margin: auto;
-		max-width: 70ch;
 		text-align: left;
 		word-wrap: break-word;
 		overflow-wrap: break-word;
+	}
+	
+	.NavMenu {
+	   @apply self-center
 	}
 
 	ul {
 		list-style-type: none;
 		padding: unset;
+		@apply self-center
 	}
 
 	ul li {

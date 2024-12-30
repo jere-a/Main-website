@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { useTranslations, useTranslatedPath } from '@/i18n/utils';
+import { getLocale } from "astro-i18n-aut";
+
+// Language
+const lang = getLocale(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<Layout title={t('settings.title')}></Layout>

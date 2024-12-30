@@ -1,15 +1,23 @@
 ---
 import { cn } from '@/lib/utils';
+import { getLocale } from "astro-i18n-aut";
+import { useTranslations } from '@/i18n/utils';
 
 // css
 import '@/global.css';
-import '@/styles/animate.css';
 import '@/styles/holidays/index.css';
 
 interface Props {
 	active: string | undefined;
 }
 const { active } = Astro.props;
+const lang = getLocale(Astro.url);
+const t = useTranslations(lang);
+
+const pageLang = (lang: string): string => {
+    if (lang.startsWith(`/${lang}/`)) return `/${lang}`;
+      else return '';
+}
 
 const navigationMenuTriggerStyle = cn(
 	'group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50'
@@ -20,22 +28,22 @@ const activefunc = (active: string | undefined, activetab: string | undefined): 
 
 const links: { href: string, class?: string | null | undefined, active?: string, name?: string }[] = [
   {
-    href: '/',
+    href: `${pageLang(lang)}/`,
     class: `${`${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`}`,
     active: 'koti',
-    name: 'Koti'
+    name: t('nav.home')
   },
   {
-    href: '/images/',
+    href: `${pageLang(lang)}/images/`,
     class: `${`${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`}`,
     active: 'kuvat',
-    name: 'Kuvat'
+    name: t('nav.images')
   },
   {
-    href: '/blog/',
+    href: `${pageLang(lang)}/blog/`,
     class: `${`${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`}`,
     active: 'blog',
-    name: 'Blog'
+    name: t('nav.blog')
   }
 ];
 ---
