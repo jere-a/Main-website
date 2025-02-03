@@ -46,7 +46,7 @@
     "@radix-ui/react-navigation-menu": "^1.2.4",
     "@radix-ui/react-select": "^2.1.5",
     "@radix-ui/react-slot": "^1.1.1",
-    "@sentry/astro": "^8.54.0",
+    "@sentry/astro": "^8.49.0",
     "@spotlightjs/astro": "^2.4.3",
     "@stylify/astro": "^0.6.2",
     "@stylify/bundler": "^0.7.0",
