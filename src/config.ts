@@ -20,4 +20,14 @@ export const siteConfig = {
 			github: 'jere-a',
 		},
 	},
+	params: {
+	  cookies: {
+	    cookiesEnabled: true,
+			expire_days: 2
+		},
+		functions: {
+		  holidayEffects: true,
+			howOldSite: true
+		}
+	}
 };
