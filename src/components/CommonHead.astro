@@ -37,7 +37,7 @@ const isDev = import.meta.env.DEV;
 <meta charset="UTF-8" />
 <!-- <link rel="sitemap" href="/sitemap-index.xml" /> -->
 <meta name="viewport" content="width=device-width" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src data:; connect-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; img-src 'self' data:; connect-src 'self'">
 <link rel="dns-prefetch" href="//ozze.eu.org/" />
 <link rel="dns-prefetch" href="//old.ozze.eu.org/" />
 <slot name="prefetch"/>
