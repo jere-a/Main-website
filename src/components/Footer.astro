@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import humanstxt from '@/data/img/humanstxt-transparent-1ink.png';
+
 const year = new Date().getFullYear();
 
 interface Props {
@@ -23,8 +26,8 @@ const isCopyright = (): boolean => {
 <footer>
 	{
 		isCopyright() && (
-			<p style="text-align: center">
-				Tekijänoikeus &copy; 2024{insert_year} Jere E.L Kaikki oikeudet pidätetään
+			<p class="text-center">
+				Tekijänoikeus &copy; 2024{insert_year} Jere L 
 			</p>
 		)
 	}
