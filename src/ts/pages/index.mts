@@ -26,13 +26,6 @@ const main = async () => {
 			})();
     };
 
-		if (siteConfig.params.functions.howOldSite) {
-			query('.how_old').textContent =
-				` Tämä sivu on tällä hetkellä ${formatDistanceToNowStrict(new Date(2024, 5, 27), {
-					locale: language() === 'fi' ? fi : enUS,
-				})} vanha.`;
-    };
-
 		if (siteConfig.params.functions.holidayEffects) {
 			const holiday = await isHoliday([
 				query('.main'),
