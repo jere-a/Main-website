@@ -31,7 +31,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/solid-js": "^5.0.4",
     "@astrojs/svelte": "^7.0.4",
-    "@astrojs/tailwind": "^5.1.5",
+    "@astrojs/tailwind": "^6.0.0",
     "@astrojs/ts-plugin": "^1.10.4",
     "@astrojs/vue": "^5.0.6",
     "@builder.io/qwik": "^1.12.0",
