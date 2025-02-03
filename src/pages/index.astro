@@ -2,8 +2,8 @@
 import Layout from '@/layouts/Layout.astro';
 import Card from '@/components/Card.astro';
 import Social from '@/components/Social.astro';
-import { useTranslations, useTranslatedPath} from '@/i18n/utils';
-import { getLocale } from "astro-i18n-aut";
+import { useTranslations, useTranslatedPath } from '@/i18n/utils';
+import { getLocale } from 'astro-i18n-aut';
 import Email from '@/components/links/Email.astro';
 import { siteConfig } from '@/config';
 
@@ -11,11 +11,27 @@ import { siteConfig } from '@/config';
 const lang = getLocale(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
+
+// Set page age in static build
+import { formatDistanceToNowStrict } from 'date-fns/formatDistanceToNowStrict';
+import { enUS, fi } from 'date-fns/locale';
+
+let pageAge: string = '';
+
+if (siteConfig.params.functions.howOldSite) {
+	pageAge = formatDistanceToNowStrict(new Date(2024, 5, 27), {
+		locale: lang === 'fi' ? fi : enUS,
+	});
+}
 ---
 
 <Layout title={t('index.title')} activeNav="koti">
 	<main>
-		<a href="https://git.new/I3vys7Q" class="github-corner z-0" aria-label="View source on GitHub">
+		<a
+			href="https://git.new/I3vys7Q"
+			class="github-corner z-0"
+			aria-label="View source on GitHub"
+		>
 			<svg
 				width="80"
 				height="80"
@@ -67,16 +83,32 @@ const translatePath = useTranslatedPath(lang);
 			>
 		</h1>
 		<section>
-			<p class="holidays absolute invisible block halloween-time animate__animated animate__bounceIn"></p>
+			<p
+				class="holidays absolute invisible block halloween-time animate__animated animate__bounceIn"
+			>
+			</p>
 			<p class="instructions animate__animated animate__bounceIn z-0">
 				Olen tehnyt tämän sivun kun tuli kiinnostuksen kohteeksi tämän rakentaminen. Minut
 				löytää <Social href="https://ggl.link/3bM14PP" platform="YT">Youtubesta</Social> ja minulle
 				voi myös lähettää palautetta osoitteeseen: <Email
 					href="mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4..."
 					>info@ozze.eu.org</Email
-				>
-				<span class="how_old font z-0"></span>
+				> Tämä sivu on tällä hetkellä
+				<span class="how_old font z-0"><Fragment set:text={pageAge} /></span> vanha.
 			</p>
+			<script>
+				import { siteConfig } from '@/config';
+				import { query, language } from '@/ts/global';
+				import { formatDistanceToNowStrict } from 'date-fns/formatDistanceToNowStrict';
+				import { enUS, fi } from 'date-fns/locale';
+
+				if (siteConfig.params.functions.howOldSite) {
+					query('.how_old').textContent = formatDistanceToNowStrict(
+						new Date(2024, 5, 27),
+						{ locale: language() === 'fi' ? fi : enUS }
+					);
+				}
+			</script>
 		</section>
 		<section>
 			<ul role="list" class="link-grid animate__animated animate__bounceIn z-0">
@@ -87,53 +119,63 @@ const translatePath = useTranslatedPath(lang);
 					transition:name="images"
 				/>
 				<Card href={siteConfig.oldSite} title="Vanha Nettisivu" body={t('nav.oldsite')} />
-				<Card href={translatePath('/blog/')} title={t('nav.blog')} body={t('nav.blog.desc')} />
+				<Card
+					href={translatePath('/blog/')}
+					title={t('nav.blog')}
+					body={t('nav.blog.desc')}
+				/>
 			</ul>
 		</section>
+		<div id="js-cookie-box" class="cookie-box cookie-box-hide">
+			This site uses cookies. By continuing to use this website, you agree to their use. <span
+				id="js-cookie-button"
+				class="btn btn-sm btn-primary rounded ml-2">I Accept</span
+			>
+		</div>
 	</main>
 </Layout>
 <script src="@/ts/pages/index.mts"></script>
 <style>
-    main {
-    	margin: auto;
-    	width: 800px;
-    	max-width: calc(100% - 2rem);
-    	color: white;
-    	font-size: 20px;
-    	line-height: 1.6;
-    }
-    .astro-a {
-    	position: absolute;
-    	top: -32px;
-    	left: 50%;
-    	transform: translatex(-50%);
-    	width: 220px;
-    	height: auto;
-    	z-index: -1;
-    }
-    h1 {
-    	font-size: 4rem;
-    	font-weight: 700;
-    	line-height: 1;
-    	text-align: center;
-    	margin-bottom: 1em;
-    }
-    .text-gradient {
-    	background-image: var(--accent-gradient);
-    	-webkit-background-clip: text;
-    	-webkit-text-fill-color: transparent;
-    	background-size: 400%;
-    	background-position: 0%;
-    }
-    .instructions {
-    	margin-bottom: 0.5rem;
-    	border: 1px solid rgba(var(--accent-light), 25%);
-    	background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
-    	padding: 1.5rem;
-    	border-radius: 8px;
-    	max-width: max-content;
-    }
-    	/* .instructions code {
+	main {
+		margin: auto;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+	}
+	.astro-a {
+		position: absolute;
+		top: -32px;
+		left: 50%;
+		transform: translatex(-50%);
+		width: 220px;
+		height: auto;
+		z-index: -1;
+	}
+	h1 {
+		font-size: 4rem;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin-bottom: 1em;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		margin-bottom: 0.5rem;
+		border: 1px solid rgba(var(--accent-light), 25%);
+		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
+		padding: 1.5rem;
+		border-radius: 8px;
+		max-width: max-content;
+	}
+	/* .instructions code {
     	font-size: 0.8em;
     	font-weight: bold;
     	background: rgba(var(--accent-light), 12%);
@@ -144,36 +186,53 @@ const translatePath = useTranslatedPath(lang);
     .instructions strong {
     	color: rgb(var(--accent-light));
     } */
-    .link-grid {
-    	display: grid;
-    	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    	gap: 0.5rem;
-    	padding: 0;
-    }
-    
-    .github-corner:hover .octo-arm {
-    	animation: octocat-wave 560ms ease-in-out;
-    }
-    @keyframes octocat-wave {
-    	0%,
-    	100% {
-    		transform: rotate(0);
-    	}
-    	20%,
-    	60% {
-    		transform: rotate(-25deg);
-    	}
-    	40%,
-    	80% {
-    		transform: rotate(10deg);
-    	}
-    }
-    @media (max-width: 500px) {
-    	.github-corner:hover .octo-arm {
-    		animation: none;
-    	}
-    	.github-corner .octo-arm {
-    		animation: octocat-wave 560ms ease-in-out;
-    	}
-    }
+	.link-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 0.5rem;
+		padding: 0;
+	}
+
+	.github-corner:hover .octo-arm {
+		animation: octocat-wave 560ms ease-in-out;
+	}
+	@keyframes octocat-wave {
+		0%,
+		100% {
+			transform: rotate(0);
+		}
+		20%,
+		60% {
+			transform: rotate(-25deg);
+		}
+		40%,
+		80% {
+			transform: rotate(10deg);
+		}
+	}
+	@media (max-width: 500px) {
+		.github-corner:hover .octo-arm {
+			animation: none;
+		}
+		.github-corner .octo-arm {
+			animation: octocat-wave 560ms ease-in-out;
+		}
+	}
+
+	.cookie-box {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		text-align: center;
+		z-index: 9999;
+		padding: 1rem 2rem;
+		background: #152035;
+		transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+		color: #fdfdfd;
+	}
+
+	.cookie-box-hide {
+		display: none;
+	}
 </style>
