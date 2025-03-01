@@ -2,33 +2,38 @@
 import { Image } from 'astro:assets';
 import humanstxt from '@/data/img/humanstxt-transparent-1ink.png';
 
-const year = new Date().getFullYear();
 
 interface Props {
 	isCopyright?: boolean;
 }
 
-const insert_year = () => {
-	if (year === 2024) return;
-	return `-${year}`;
-};
-
 const isCopyright = (): boolean => {
 	const { isCopyright } = Astro.props;
-	if (isCopyright == null) {
+	if (isCopyright === null || isCopyright === undefined) {
 		return true;
 	} else {
-		return isCopyright;
+		return isCopyright === true;
 	}
 };
+
+const copyrightText = `Tekijänoikeus \u00A9; 2024-${new Date().getFullYear()} Jere L`;
 ---
 
 <footer>
 	{
 		isCopyright() && (
-			<p class="text-center">
-				Tekijänoikeus &copy; 2024{insert_year} Jere L 
-			</p>
+			<p class="text-center copyright" data-value={copyrightText}>{copyrightText}</p>
 		)
 	}
 </footer>
+
+<script>
+    const target = document.querySelector('.copyright') as HTMLElement;
+    target.addEventListener('mouseover', () => {
+      import('@/ts/hacker-text').then(({ default: hackerText }) => {
+          if (target.dataset.value) {
+              hackerText(target, target.dataset.value, true);
+          }
+      });
+    });
+</script>

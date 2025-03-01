@@ -22,7 +22,7 @@ export const siteConfig = {
 	},
 	params: {
 	  cookies: {
-	    cookiesEnabled: true,
+	    cookiesEnabled: false,
 			expire_days: 2
 		},
 		functions: {

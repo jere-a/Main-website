@@ -1,19 +1,20 @@
-export { email } from './comp/Email';
-export { imghold } from './comp/ImageHolder';
+import { query, isHoliday } from '@/ts/global';
+// const { IsHolidayBool } = (await import('@/ts/stores'));
+import { IsHolidayBool } from '@/ts/stores';
+import { email, imghold } from './comp';
+import global from '@/ts/global-code';
 
-const { query, isHoliday } = (await import('@/ts/global'));
-const { IsHolidayBool } = (await import('@/ts/stores'));
 const holidayfunc = async (data?: any) => {
   (await isHoliday(data));
 };
-import { email, imghold } from '.';
 
-export const mainAllComponents = (component: string) => {
+export const mainAllComponents = async (component: string) => {
+  global();
   IsHolidayBool.subscribe(holiday => {
 	if (holiday.bool) {
 	  switch (component) {
 			case 'email':
-        email(holiday, query);
+        email(holiday);
         break;
       case 'imghold':
         imghold(holidayfunc(['h2.title', 'p.body']));

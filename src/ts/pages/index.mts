@@ -1,17 +1,18 @@
 import { siteConfig } from '@/config';
-import Cookies from 'js-cookie';
+import { capitalize, holidayTimeTo, isHoliday, query } from '@/ts/global';
 
 const main = async () => {
 	if (!main.once) {
 		main.once = true;
-		const { language, isHoliday, query, holidayTimeTo, capitalize } = await import(
-			'@/ts/global'
-		);
-		const { formatDistanceToNowStrict, isEqual } = await import('date-fns');
-		const { enUS, fi } = await import('date-fns/locale');
-
+		//const { language, isHoliday, query, holidayTimeTo, capitalize } = await import(
+		//	'@/ts/global'
+		//);
+		// const { formatDistanceToNowStrict, isEqual } = await import('date-fns');
+		// const { enUS, fi } = await import('date-fns/locale');
+		
 		if (siteConfig.params.cookies.cookiesEnabled) {
-			(function () {
+			(async function () {
+			  const Cookies = (await import('js-cookie')).default;
 				const cookieBox = query('#js-cookie-box');
 				const cookieButton = query('#js-cookie-button');
 				if (Cookies.get('cookie-box') !== '1') {
@@ -34,11 +35,16 @@ const main = async () => {
 				'.navItem',
 			]);
 
-			const updateHolidayMessage = async () => {
+			const updateHolidayMessage = () => {
 				let { days, hours, minutes, seconds } = holidayTimeTo(holiday.timeto);
 				let msg: string;
 
-				if (isEqual(Date.parse(holiday.timeto), new Date())) {
+				const now = new Date();
+				const holidayDate = new Date(holiday.timeto);
+
+				if (holidayDate.getFullYear() === now.getFullYear()
+					&& holidayDate.getMonth() === now.getMonth()
+					&& holidayDate.getDate() === now.getDate()) {
 					msg = `${capitalize(holiday.holiday)} on tänään.`;
 				} else if (days < 0) {
 					msg = `${capitalize(holiday.holiday)} oli jo ${Math.abs(days)} päivää ja ${Math.abs(hours)} tuntia sitten.`;

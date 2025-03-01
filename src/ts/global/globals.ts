@@ -62,4 +62,12 @@ export function capitalize(string: string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+export function addGlobalEventListener(event: any, selector: string | undefined | null, callback: EventListener) {
+  document.addEventListener(event, e => {
+    if (e.target === null) return;
+    const target = e.target as HTMLElement;
+    if (selector === undefined || selector === null || target.matches(selector)) callback(e);
+  })
+}
+
 export const l = (message?: any, ...optionalParams: any[]) => console.log(message, ...optionalParams);

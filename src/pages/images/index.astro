@@ -48,8 +48,10 @@ import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
 	}
 
 	.image-card-grid {
+	    --grid-min-col-size: 300px;
+	
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
 		justify-items: center;
 		gap: 0.25rem;
 		@apply p-1;
@@ -58,11 +60,11 @@ import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
 
 <script>
 	// import { dynImport } from '@/ts/global/dynamic_import.ts';
-	//import { isHoliday, query } from '@/ts/global';
+	import { isHoliday, query } from '@/ts/global';
 	//import { dynImport } from '@/ts/dynamic-import';
 
 	document.addEventListener('astro:page-load', async function () {
-		const { isHoliday, query } = await import('@/ts/global');
+		// const { isHoliday, query } = await import('@/ts/global');
 		/* const oldtext = document.querySelector('.how_old'); */
 		//const query = dynImport.global.query;
 
