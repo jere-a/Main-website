@@ -6,6 +6,7 @@ import react from '@astrojs/react';
 import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
 
 import serviceWorker from 'astrojs-service-worker';
+import AstroPWA from '@vite-pwa/astro'
 
 // Rollup
 import { nodeResolve } from '@rollup/plugin-node-resolve';
@@ -50,6 +51,15 @@ export default defineConfig({
 		//react({
 		//	include: ['**/react/*', '**/components/ui/*'],
 		//}),
+		AstroPWA({
+		  strategies: 'injectManifest',
+			srcDir: '.',
+			filename: 'sw.js',
+			manifest: {
+			  name: "Åzze's website",
+				short_name: 'Åzze',
+			}
+		}),
 		purgecss({
 			keyframes: false,
 			safelist: {
@@ -79,17 +89,18 @@ export default defineConfig({
       },
       filter: filterSitemapByDefaultLocale({ defaultLocale }),
     }),
-		serviceWorker({
-			registration: { autoRegister: false },
-			workbox: { offlineGoogleAnalytics: false, disableDevLogs: true },
-			swSrc: 'sw.js',
-		}),
+		//serviceWorker({
+		//	registration: { autoRegister: true },
+		//	workbox: { offlineGoogleAnalytics: false, disableDevLogs: true },
+		//	swSrc: 'sw.js',
+		//}),
 		playformCompress({
       Image: false,
 		}),
 	],
 	build: {
-	  format: 'directory'
+	  format: 'directory',
+    inlineStylesheets: 'always'
 	},
 	trailingSlash: 'always',
 	//i18n: {
@@ -98,7 +109,6 @@ export default defineConfig({
 	//},
 	vite: {
 		build: {
-			assetsInlineLimit: 4096*1.5,
 			sourcemap: true,
 			cssMinify: 'lightningcss',
 			minify: 'terser',
@@ -126,7 +136,7 @@ export default defineConfig({
 			},
 		},
 		plugins: [nodeResolve({ browser: true }), strip(), terser(), 
-		  visualizer({ emitFile: true, filename: "stats.html" })
+		  //visualizer({ emitFile: true, filename: "stats.html" })
 		]
 	},
 });

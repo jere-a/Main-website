@@ -7,7 +7,6 @@
 } */
 
 import '@/global.css';
-import '@/data/fonts/monocraft/stylesheet.css';
 interface Props {
 	href: string;
 	args?: ParameterDecorator;
@@ -19,21 +18,23 @@ const { href, args } = Astro.props;
 
 // const output = JScrewIt.encode('mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4...');
 
-const email_enc = btoa("window.location.href='" + href + "'");
+// const email_enc = btoa("window.location.href='" + href + "'");
 
-const email = "javascript:eval(eval(atob('" + email_enc + "')))";
+// const email = "javascript:eval(eval(atob('" + email_enc + "')))";
 ---
 
-<a class="email-link email-font" href={email} title="Send Me email" {...args}><slot /></a>
+<a class="email-link email-font" href={href} title="Send Me email" {...args}><slot /></a>
 
 <script>
   import { mainAllComponents } from '@/ts/components';
-  mainAllComponents('email');
+  const main = () => { mainAllComponents('email'); };
+
+  document.addEventListener('DOMContentLoaded', main);
+  document.addEventListener('astro:page-load', main);
 </script>
 <style>
 	.email-font {
 		font-family:
-			'monocraft',
 			ui-sans-serif,
 			system-ui,
 			-apple-system,

@@ -4,10 +4,6 @@
 		'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-.astro-route-announcer {
-	display: none;
-}
-
 body {
 	min-height: 100vh;
 	margin: 0;
