@@ -10,7 +10,6 @@ export type ParsedData = {
 };
 
 export async function fetchData(): Promise<ParsedData> {
-	// const text = await wretch(siteConfig.url + '/cdn-cgi/trace').get().text();
 	
 	const text = (await fetch(siteConfig.url + '/cdn-cgi/trace')).text()
 

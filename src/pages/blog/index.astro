@@ -57,11 +57,11 @@ const blogEntries = await getCollection('blog');
 </Layout>
 
 <script>
-	//import { isHoliday } from '@/ts/global';
+	import { isHoliday } from '@/ts/global';
 	//import { dynImport } from "@/ts/dynamic-import";
 
 	document.addEventListener('astro:page-load', async function() {
-	    const { isHoliday } = (await import('@/ts/global'));
+	    // const { isHoliday } = (await import('@/ts/global'));
 		const holiday = (await isHoliday(['.publish-date', '.title', '.text']));
 
 		if (holiday.bool) {

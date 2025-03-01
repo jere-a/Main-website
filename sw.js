@@ -5,7 +5,7 @@ import { registerRoute, NavigationRoute, Route } from 'workbox-routing';
 import { precacheAndRoute } from 'workbox-precaching';
 
 // Precache the manifest
-precacheAndRoute(self.__WB_MANIFEST);
+precacheAndRoute(self.__WB_MANIFEST, { directoryIndex: 'index.html', cleanURLs: true });
 
 // Enable navigation preload
 navigationPreload.enable();

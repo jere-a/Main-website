@@ -14,13 +14,20 @@ const translatePath = useTranslatedPath(lang);
 
 // Set page age in static build
 import { formatDistanceToNowStrict } from 'date-fns/formatDistanceToNowStrict';
-import { enUS, fi } from 'date-fns/locale';
 
 let pageAge: string = '';
 
+async function setLocale(lan: string) {
+	if (lan === 'fi') {
+	   return (await import(`date-fns/locale/fi`)).fi;
+	} else {
+	   return (await import(`date-fns/locale/en-US`)).enUS;
+	}
+}
+
 if (siteConfig.params.functions.howOldSite) {
 	pageAge = formatDistanceToNowStrict(new Date(2024, 5, 27), {
-		locale: lang === 'fi' ? fi : enUS,
+		locale: lang === 'fi' ? await setLocale(lang) : await setLocale('en-US'),
 	});
 }
 ---
@@ -93,22 +100,56 @@ if (siteConfig.params.functions.howOldSite) {
 				voi myös lähettää palautetta osoitteeseen: <Email
 					href="mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4..."
 					>info@ozze.eu.org</Email
-				> Tämä sivu on tällä hetkellä
-				<span class="how_old font z-0"><Fragment set:text={pageAge} /></span> vanha.
+				>{siteConfig.params.functions.howOldSite && <span>Tämä sivu on tällä hetkellä 
+				<span data-language={lang} class="how_old font z-0"><Fragment set:text={pageAge} /></span> vanha.</span>}
 			</p>
-			<script>
-				import { siteConfig } from '@/config';
-				import { query, language } from '@/ts/global';
-				import { formatDistanceToNowStrict } from 'date-fns/formatDistanceToNowStrict';
-				import { enUS, fi } from 'date-fns/locale';
-
-				if (siteConfig.params.functions.howOldSite) {
-					query('.how_old').textContent = formatDistanceToNowStrict(
-						new Date(2024, 5, 27),
-						{ locale: language() === 'fi' ? fi : enUS }
-					);
-				}
-			</script>
+			{siteConfig.params.functions.howOldSite && <script>
+				const pageAge = (await import('@/ts/global').then((module) => module.query('.how_old')));
+				document.addEventListener('load', async () => {
+   					if (pageAge && pageAge.dataset.language) {
+         			const locales = {
+           			    fi: (n: number, units: string | undefined) => {
+                 			switch (units) {
+                   			    case 'year':
+                       			    return n === 1 ? ` ${n} vuosi` : `${n} vuotta`;
+                             	case 'month':
+                             		return n === 1 ? ` ${n} kuukausi` : `${n} kuukautta`;
+                          		default:
+                             		return '';
+         					}
+               			},
+               			enUS: (n: number, units: string | undefined) => {
+                 			switch (units) {
+                   			    case 'year':
+                       			    return n === 1 ? ` ${n} year` : `${n} years`;
+                             	case 'month':
+                             		return n === 1 ? ` ${n} month` : `${n} months`;
+                          		default:
+                             		return '';
+         					}
+               			},
+         			};
+          
+         			function timeAgo(date: Date, localeStr: string): string {
+           			    const n = (Date.now() - date.getTime()) / 1000;
+               			let units;
+          
+               			if (n >= 31536000) {
+         					// Year
+         					units = 'year';
+         				} else if (n >= 2592000) {
+         					// Month
+         					units = 'month';
+         				}
+          
+         				return localeStr === 'fi' ? locales.fi(Math.floor(n), units) : locales.enUS(Math.floor(n), units) || '';
+         			}
+         			const timeAgoString = timeAgo(new Date(2024, 5, 27), pageAge.dataset.language);
+          
+         			pageAge.textContent = timeAgoString;
+					}
+				});
+			</script>}
 		</section>
 		<section>
 			<ul role="list" class="link-grid animate__animated animate__bounceIn z-0">
@@ -135,6 +176,10 @@ if (siteConfig.params.functions.howOldSite) {
 	</main>
 </Layout>
 <script src="@/ts/pages/index.mts"></script>
+<script>
+  import global from '@/ts/global-code';
+  global();
+</script>
 <style>
 	main {
 		margin: auto;
