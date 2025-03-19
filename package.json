@@ -63,7 +63,7 @@
     "@zxcvbn-ts/language-en": "^3.0.2",
     "@zxcvbn-ts/language-fi": "^3.0.2",
     "animate.css": "^4.1.1",
-    "astro": "^5.4.1",
+    "astro": "^5.0.0",
     "astro-embed": "^0.9.0",
     "astro-i18n-aut": "^0.7.3",
     "astro-purgecss": "^4.9.0",
