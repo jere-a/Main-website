@@ -72,7 +72,6 @@
     "astrojs-service-worker": "^2.0.0",
     "auth-astro": "^4.2.0",
     "autoprefixer": "^10.4.21",
-    "biome": "^0.3.3",
     "bootstrap": "^5.3.5",
     "bowser": "^2.11.0",
     "class-variance-authority": "^0.7.1",
