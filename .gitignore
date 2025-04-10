@@ -31,6 +31,10 @@ pnpm-debug.log*
 # Skip TurboRepo
 .turbo
 
+# Docker build
+.dockerignore
+dockerfile
+
 # skip stylify
 src/styles/page/
 src/styles/layout/
