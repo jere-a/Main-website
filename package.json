@@ -19,7 +19,9 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.5",
@@ -132,7 +134,8 @@
     "vite-plugin-pwa": "^0.21.2",
     "vite-react": "^3.0.0",
     "vue": "^3.5.13",
-    "workbox-window": "^7.3.0"
+    "workbox-window": "^7.3.0",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -179,5 +182,6 @@
     "workbox-strategies": "^7.3.0",
     "wretch": "^2.11.0"
   },
-  "packageManager": "pnpm@10.8.0"
+  "packageManager": "pnpm@10.8.0",
+  "snyk": true
 }

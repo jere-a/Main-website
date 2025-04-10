@@ -1,0 +1,10 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:lodash:20180130':
+    - biome > inquirer-promise > inquirer > lodash:
+        patched: '2025-04-10T17:36:30.054Z'
+        id: 'npm:lodash:20180130'
+        path: biome > inquirer-promise > inquirer > lodash
