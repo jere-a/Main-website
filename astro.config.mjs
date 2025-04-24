@@ -17,6 +17,8 @@ import terser from '@rollup/plugin-terser';
 // import siteConfig
 import { siteConfig } from './src/config';
 
+import compressor from "astro-compressor";
+
 // Helper imports
 import sitemap from '@astrojs/sitemap';
 import playformCompress from '@playform/compress';
@@ -122,7 +124,9 @@ export default defineConfig({
     //}),
     playformCompress({
       Image: false,
-    })],
+    }),
+    compressor({ gzip: true, brotli: false })
+  ],
   build: {
     format: 'directory',
   },
