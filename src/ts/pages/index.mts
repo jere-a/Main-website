@@ -9,23 +9,6 @@ const main = async () => {
 		//);
 		// const { formatDistanceToNowStrict, isEqual } = await import('date-fns');
 		// const { enUS, fi } = await import('date-fns/locale');
-		
-		if (siteConfig.params.cookies.cookiesEnabled) {
-			(async function () {
-			  const Cookies = (await import('js-cookie')).default;
-				const cookieBox = query('#js-cookie-box');
-				const cookieButton = query('#js-cookie-button');
-				if (Cookies.get('cookie-box') !== '1') {
-					cookieBox.classList.remove('cookie-box-hide');
-					cookieButton.onclick = function () {
-						Cookies.set('cookie-box', '1', {
-							expires: siteConfig.params.cookies.expire_days,
-						});
-						cookieBox.classList.add('cookie-box-hide');
-					};
-				}
-			})();
-    };
 
 		if (siteConfig.params.functions.holidayEffects) {
 			const holiday = await isHoliday([

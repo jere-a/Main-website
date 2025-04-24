@@ -1,6 +1,5 @@
 import { siteConfig } from '@/config';
 import { l } from '@/ts/global';
-import wretch from 'wretch';
 
 export const latestVideo = async () => {
 	const channelURL = encodeURIComponent(
@@ -8,11 +7,8 @@ export const latestVideo = async () => {
 	);
 	const reqURL = `https://api.rss2json.com/v1/api.json?rss_url=${channelURL}`;
 
-	const reqRes = await wretch(reqURL)
-		.get()
-		.json((json: any) => {
-			return json;
-		})
+	const reqRes = await fetch(reqURL)
+		.then(response => response.json())
 		.catch((error: string) => l('error', error));
 
 	const link: string = reqRes.items[0].link;
