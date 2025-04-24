@@ -64,7 +64,7 @@ const { lang, time } = Astro.props;
 			const timeDay = this.dataset.timeday;
 			if (this && lang && timeyear && timeMonth && timeDay) {
 				const timeAgoString = timeAgo(new Date(parseInt(timeyear), parseInt(timeMonth), parseInt(timeDay)), lang);
-				this.textContent = 'Tämä sivu on tällä hetkellä ' + timeAgoString + ' vanha';
+				this.textContent = ' Tämä sivu on tällä hetkellä ' + timeAgoString + ' vanha';
 			}
 		}
 	}
