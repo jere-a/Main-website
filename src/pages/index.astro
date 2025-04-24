@@ -8,6 +8,8 @@ import { getLocale } from 'astro-i18n-aut';
 import Email from '@/components/links/Email.astro';
 import { siteConfig } from '@/config';
 
+const giturl = siteConfig.urls.giturl || 'https://git.new/I3vys7Q';
+
 // Language
 const lang = getLocale(Astro.url);
 const t = useTranslations(lang);
@@ -17,7 +19,7 @@ const translatePath = useTranslatedPath(lang);
 <Layout title={t('index.title')} activeNav="koti">
 	<main>
 		<a
-			href="https://git.new/I3vys7Q"
+			href={giturl}
 			class="github-corner z-0"
 			aria-label="View source on GitHub"
 		>

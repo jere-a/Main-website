@@ -20,6 +20,9 @@ export const siteConfig = {
       github: 'jere-a',
     },
   },
+  urls: {
+    giturl: 'https://ozze.eu.org/git',
+  },
   params: {
     cookies: {
       cookiesEnabled: false,
