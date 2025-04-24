@@ -1,0 +1,73 @@
+---
+interface Props {
+	lang: string;
+	time: [year: number, month: number, day: number];
+}
+
+const { lang, time } = Astro.props;
+---
+
+<how-old-site data-language={lang} data-timeyear={`${time[0]}`} data-timemonth={`${time[1]}`} data-timeday={`${time[2]}`}></how-old-site>
+
+<script>
+	const locales = {
+		fi: (timeMonths: number) => {
+			if (timeMonths > 12) {
+				switch (timeMonths) {
+					case 12:
+						return `${timeMonths % 12} vuosi`;
+					default:
+						return `${timeMonths % 12} vuotta`;
+				}
+			} else {
+				switch (timeMonths) {
+					case 1:
+						return `${timeMonths} kuukausi`;
+					default:
+						return `${timeMonths} kuukautta`;
+				}
+			}
+		},
+		enUS: (timeMonths: number) => {
+		    if (timeMonths > 12) {
+       			switch (timeMonths) {
+        		    case 12:
+       					return `${timeMonths % 12} year`;
+                    default:
+       					return `${timeMonths % 12} years`;
+       			}
+            }
+            else {
+                switch (timeMonths) {
+                    case 1:
+                        return `${timeMonths} month`;
+                    default:
+                        return `${timeMonths} months`;
+                }
+            }
+		}
+	};
+
+	function timeAgo(date: Date, localeStr: string): string {
+	    let timeMonths = Math.floor((Date.now() - date.getTime()) / 1000 / 60 / 60 / 24 / 30);
+
+		return localeStr === 'fi'
+			? locales.fi(timeMonths)
+			: locales.enUS(timeMonths) || '';
+	}
+
+	class HowOldSite extends HTMLElement {
+		connectedCallback() {
+		    const lang = this.dataset.language;
+			const timeyear = this.dataset.timeyear;
+			const timeMonth = this.dataset.timemonth;
+			const timeDay = this.dataset.timeday;
+			if (this && lang && timeyear && timeMonth && timeDay) {
+				const timeAgoString = timeAgo(new Date(parseInt(timeyear), parseInt(timeMonth), parseInt(timeDay)), lang);
+				this.textContent = 'Tämä sivu on tällä hetkellä ' + timeAgoString + ' vanha';
+			}
+		}
+	}
+
+	customElements.define('how-old-site', HowOldSite);
+</script>

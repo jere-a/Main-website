@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Card from '@/components/Card.astro';
 import Social from '@/components/Social.astro';
+import HowOldSite from '@/components/howOldSite.astro';
 import { useTranslations, useTranslatedPath } from '@/i18n/utils';
 import { getLocale } from 'astro-i18n-aut';
 import Email from '@/components/links/Email.astro';
@@ -11,25 +12,6 @@ import { siteConfig } from '@/config';
 const lang = getLocale(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
-
-// Set page age in static build
-import { formatDistanceToNowStrict } from 'date-fns/formatDistanceToNowStrict';
-
-let pageAge: string = '';
-
-async function setLocale(lan: string) {
-	if (lan === 'fi') {
-	   return (await import(`date-fns/locale/fi`)).fi;
-	} else {
-	   return (await import(`date-fns/locale/en-US`)).enUS;
-	}
-}
-
-if (siteConfig.params.functions.howOldSite) {
-	pageAge = formatDistanceToNowStrict(new Date(2024, 5, 27), {
-		locale: lang === 'fi' ? await setLocale(lang) : await setLocale('en-US'),
-	});
-}
 ---
 
 <Layout title={t('index.title')} activeNav="koti">
@@ -100,56 +82,7 @@ if (siteConfig.params.functions.howOldSite) {
 				voi myös lähettää palautetta osoitteeseen: <Email
 					href="mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4..."
 					>info@ozze.eu.org</Email
-				>{siteConfig.params.functions.howOldSite && <span>Tämä sivu on tällä hetkellä 
-				<span data-language={lang} class="how_old font z-0"><Fragment set:text={pageAge} /></span> vanha.</span>}
-			</p>
-			{siteConfig.params.functions.howOldSite && <script>
-				const pageAge = (await import('@/ts/global').then((module) => module.query('.how_old')));
-				document.addEventListener('load', async () => {
-   					if (pageAge && pageAge.dataset.language) {
-         			const locales = {
-           			    fi: (n: number, units: string | undefined) => {
-                 			switch (units) {
-                   			    case 'year':
-                       			    return n === 1 ? ` ${n} vuosi` : `${n} vuotta`;
-                             	case 'month':
-                             		return n === 1 ? ` ${n} kuukausi` : `${n} kuukautta`;
-                          		default:
-                             		return '';
-         					}
-               			},
-               			enUS: (n: number, units: string | undefined) => {
-                 			switch (units) {
-                   			    case 'year':
-                       			    return n === 1 ? ` ${n} year` : `${n} years`;
-                             	case 'month':
-                             		return n === 1 ? ` ${n} month` : `${n} months`;
-                          		default:
-                             		return '';
-         					}
-               			},
-         			};
-          
-         			function timeAgo(date: Date, localeStr: string): string {
-           			    const n = (Date.now() - date.getTime()) / 1000;
-               			let units;
-          
-               			if (n >= 31536000) {
-         					// Year
-         					units = 'year';
-         				} else if (n >= 2592000) {
-         					// Month
-         					units = 'month';
-         				}
-          
-         				return localeStr === 'fi' ? locales.fi(Math.floor(n), units) : locales.enUS(Math.floor(n), units) || '';
-         			}
-         			const timeAgoString = timeAgo(new Date(2024, 5, 27), pageAge.dataset.language);
-          
-         			pageAge.textContent = timeAgoString;
-					}
-				});
-			</script>}
+				> <HowOldSite lang={lang} time={[2024, 5, 27]} />
 		</section>
 		<section>
 			<ul role="list" class="link-grid animate__animated animate__bounceIn z-0">
@@ -167,12 +100,6 @@ if (siteConfig.params.functions.howOldSite) {
 				/>
 			</ul>
 		</section>
-		<div id="js-cookie-box" class="cookie-box cookie-box-hide">
-			This site uses cookies. By continuing to use this website, you agree to their use. <span
-				id="js-cookie-button"
-				class="btn btn-sm btn-primary rounded ml-2">I Accept</span
-			>
-		</div>
 	</main>
 </Layout>
 <script src="@/ts/pages/index.mts"></script>
@@ -262,22 +189,5 @@ if (siteConfig.params.functions.howOldSite) {
 		.github-corner .octo-arm {
 			animation: octocat-wave 560ms ease-in-out;
 		}
-	}
-
-	.cookie-box {
-		position: fixed;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		text-align: center;
-		z-index: 9999;
-		padding: 1rem 2rem;
-		background: #152035;
-		transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
-		color: #fdfdfd;
-	}
-
-	.cookie-box-hide {
-		display: none;
 	}
 </style>
