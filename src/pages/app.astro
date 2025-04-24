@@ -1,0 +1,8 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import AppReact from '@/components/react/App/app.jsx';
+---
+
+<Layout title='App' isNavbar={false} isFooter={false}>
+    <AppReact client:load />
+</Layout>

@@ -1,11 +1,15 @@
 // public/sw.js
+import { clientsClaim } from 'workbox-core';
 import * as navigationPreload from 'workbox-navigation-preload';
+import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
+import { NavigationRoute, registerRoute, Route } from 'workbox-routing';
 import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
-import { registerRoute, NavigationRoute, Route } from 'workbox-routing';
-import { precacheAndRoute } from 'workbox-precaching';
 
 // Precache the manifest
 precacheAndRoute(self.__WB_MANIFEST, { directoryIndex: 'index.html', cleanURLs: true });
+
+// Clean up outdated caches
+cleanupOutdatedCaches();
 
 // Enable navigation preload
 navigationPreload.enable();
@@ -16,27 +20,30 @@ navigationPreload.enable();
 const navigationRoute = new NavigationRoute(
 	new NetworkFirst({
 		cacheName: 'navigations',
+		networkTimeoutSeconds: 3,
 	})
 );
 
 // Register the navigation route
 registerRoute(navigationRoute);
 
-const networkFirst = new Route(
+registerRoute(new NavigationRoute(createHandlerBoundToURL('/404')))
+
+
+registerRoute(
 	({ request }) => {
 		return ['style', 'script', 'document', 'worker', 'embed', 'track', 'serviceworker', 'sharedworker'].includes(request.destination);
 	},
 	new NetworkFirst({
 		cacheName: 'assets',
+		networkTimeoutSeconds: 3,
 	})
 );
-
-registerRoute(networkFirst);
 
 // Create a route for image, script, or style requests that use a
 // stale-while-revalidate strategy. This route will be unaffected
 // by navigation preload.
-const staticAssetsRoute = new Route(
+registerRoute(
 	({ request }) => {
 		return ['image', 'audio', 'font'].includes(request.destination);
 	},
@@ -45,5 +52,6 @@ const staticAssetsRoute = new Route(
 	})
 );
 
-// Register the route handling static assets
-registerRoute(staticAssetsRoute);
+// Ensure the new service worker takes control immediately
+self.skipWaiting();
+clientsClaim();
