@@ -38,7 +38,7 @@
     "@builder.io/qwik": "^1.13.0",
     "@fingerprintjs/fingerprintjs": "^4.6.2",
     "@nanostores/persistent": "^0.10.2",
-    "@nanostores/react": "^0.8.4",
+    "@nanostores/react": "^1.0.0",
     "@playform/compress": "^0.1.9",
     "@qwikdev/astro": "^0.6.3",
     "@radix-ui/react-dialog": "^1.1.11",
