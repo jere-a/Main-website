@@ -118,7 +118,7 @@
     "react-router-dom": "^7.5.1",
     "react-snowfall": "^2.2.0",
     "sass": "^1.87.0",
-    "sharp": "^0.33.5",
+    "sharp": "^0.34.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "solid-js": "^1.9.5",
