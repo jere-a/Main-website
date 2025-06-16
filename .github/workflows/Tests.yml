@@ -17,6 +17,9 @@ jobs:
       - name: Cache
         uses: actions/cache@v4.2.3
         with:
+          path: |
+            .astro
+            node_modules
           key: build
       - name: Use pnpm Version 10.x.x
         uses: pnpm/action-setup@v4
