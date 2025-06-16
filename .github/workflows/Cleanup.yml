@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+permissions:
+  actions: write
+  contents: write
+
 jobs:
   workflow-cleanup:
     runs-on: ubuntu-latest
