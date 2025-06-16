@@ -1,63 +1,81 @@
 import { language } from './globals';
 
-class date extends Date {
-  isBetween(startDate: string, endDate: string): boolean {
-    const startDateValue = new Date(startDate);
-    const endDateValue = new Date(endDate);
-
-    return this >= startDateValue && this <= endDateValue;
+class ExtendedDate extends Date {
+  isBetween(start: string, end: string): boolean {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    return this >= startDate && this <= endDate;
   }
 }
 
-const today = new date();
+const today = new ExtendedDate();
 const currentYear = today.getFullYear();
-const trans = await import('@/i18n').then(module => module.useTranslations(language() in module.ui ? language() : module.defaultLang));
+
+const trans = await import('@/i18n').then(({useTranslations, ui , defaultLang}) =>
+  useTranslations(language() in ui ? language() : defaultLang)
+);
+
+const getFormattedDate = (month: number, day: number, year: number = currentYear) => `${year}-${month}-${day}`;
+
+const holidays = [
+  {
+    name: 'halloween',
+    from: getFormattedDate(10, 1),
+    to: getFormattedDate(11, 10),
+    scriptImport: () => import('@/ts/global/holidays/halloween').then(m => m.main_halloween),
+    changeFont: true,
+    timeto: getFormattedDate(10, 31),
+  },
+  {
+    name: () => trans('holiday.christmas'),
+    from: getFormattedDate(11, 30),
+    to: getFormattedDate(2, 31, currentYear + 1),
+    scriptImport: () => import('@/ts/global/holidays/christmas').then(m => m.christmas),
+    changeFont: false,
+    timeto: getFormattedDate(12, 24),
+  },
+  {
+    name: () => trans('holiday.newyear'),
+    from: getFormattedDate(12, 26),
+    to: getFormattedDate(1, 8, currentYear + 1),
+    scriptImport: () => import('@/ts/global/holidays/newYear').then(m => m.newYear),
+    changeFont: false,
+    timeto: getFormattedDate(12, 31),
+  },
+];
 
 export async function isHoliday(data?: (HTMLElement | string)[] | string[]) {
-  const getFormattedDate = (month: number, day: number, year: number = currentYear) => `${year}-${month}-${day}`;
 
   const holidayParams = (new URL(window.location.href).searchParams.get('h') || '').toLowerCase();
 
-  switch (true) {
-    case today.isBetween(getFormattedDate(10, 1), getFormattedDate(11, 10)):
-      return { 
-        bool: true,
-        holiday: 'halloween', 
-        script: import('@/ts/global/holidays/halloween').then(module => module.main_halloween),
-        changeFont: true,
-        timeto: `${getFormattedDate(10, 31)}`
-      };
-    case today.isBetween(getFormattedDate(11, 30), getFormattedDate(2, 31, currentYear + 1)):
-      return { 
-        bool: true,
-        holiday: trans('holiday.christmas'), 
-        script: import('@/ts/global/holidays/christmas').then(module => module.christmas),
-        timeto: `${getFormattedDate(12, 24)}`
-      };
-    case today.isBetween(getFormattedDate(12, 26), getFormattedDate(1, 8, currentYear + 1)):
-      return { 
-        bool: true,
-        holiday: trans('holiday.newyear'), 
-        script: import('@/ts/global/holidays/newYear').then(module => module.newYear),
-        timeto: `${getFormattedDate(12, 31)}`
-      };
-    default:
+  for (const holiday of holidays) {
+    if (today.isBetween(holiday.from, holiday.to)) {
       return {
-        bool: false,
-        holiday: '',
-        timeto: ''
-      }
+        bool: true,
+        holiday: typeof holiday.name === 'function' ? holiday.name() : holiday.name,
+        script: holiday.scriptImport(),
+        changeFont: holiday.changeFont ?? false,
+        timeto: holiday.timeto,
+      };
+    }
   }
+
+  return {
+    bool: false,
+    holiday: '',
+    timeto: '',
+  };
 }
 
 export function holidayTimeTo(targetDate: string = `${currentYear}-${today.getMonth() + 1}-${today.getDate()}`) {
-  let diff: number = new Date(targetDate).getTime() - today.getTime();
-  let toDuration = (ms: number) => ({
+  const diff = new Date(targetDate).getTime() - today.getTime();
+  
+  const msToDuration = (ms: number) => ({
     days: Math.floor(ms / (1000 * 60 * 60 * 24)),
     hours: Math.floor((ms / (1000 * 60 * 60)) % 24),
     minutes: Math.floor((ms / (1000 * 60)) % 60),
     seconds: Math.floor((ms / 1000) % 60),
   });
 
-  return toDuration(diff);
+  return msToDuration(diff);
 }
