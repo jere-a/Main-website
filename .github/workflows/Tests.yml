@@ -16,5 +16,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Use pnpm Version 10.x.x
         uses: pnpm/action-setup@v4
+      - run: pnpm install
       - run: pnpm run build
       - run: pnpm run test
