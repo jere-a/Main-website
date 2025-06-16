@@ -49,7 +49,7 @@
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
     "@sentry/astro": "^9.29.0",
-    "@spotlightjs/astro": "^2.4.3",
+    "@spotlightjs/astro": "^3.2.4",
     "@stylify/astro": "^0.6.2",
     "@stylify/bundler": "^0.7.0",
     "@types/alpinejs": "^3.13.11",
