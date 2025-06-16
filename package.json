@@ -179,7 +179,7 @@
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.2",
     "postcss-preset-env": "^10.2.3",
-    "quicklink": "^2.3.0",
+    "quicklink": "^3.0.1",
     "rollup-plugin-visualizer": "^5.14.0",
     "sanitize-html": "^2.17.0",
     "terser": "^5.42.0",
