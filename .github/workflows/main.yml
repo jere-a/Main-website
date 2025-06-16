@@ -1,0 +1,18 @@
+name: Clean
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  workflow-cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete old workflow runs
+        uses: Mattraks/delete-workflow-runs@v2.0.6
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 3
+          keep_minimum_runs: 0
