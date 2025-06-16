@@ -8,16 +8,26 @@
   "browserslist": [
     ">= 0.1% and not dead and fully supports es6-module and since 2000",
     "last 2 major versions",
-    "unreleased versions",
-    "maintained node versions"
+    "unreleased versions"
+  ],
+  "size-limit": [
+    {
+      "path": "dist/**/*.js",
+      "limit": "2 s"
+    }
   ],
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "check-types": "tsc --noEmit",
-    "test": "vitest",
+    "test:vitest": "vitest run",
+    "test:size": "size-limit",
+    "test:coverage": "vitest run --coverage",
+    "test:check": "astro check",
+    "test": "pnpm run /^test:/",
+    "vitest": "vitest",
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -119,6 +129,7 @@
     "react-snowfall": "^2.2.0",
     "sass": "^1.89.2",
     "sharp": "^0.33.5",
+    "size-limit": "^11.2.0",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "solid-js": "^1.9.7",
@@ -145,6 +156,7 @@
     "@rollup/plugin-strip": "^3.0.4",
     "@rollup/plugin-swc": "^0.4.0",
     "@rollup/plugin-terser": "^0.4.4",
+    "@size-limit/preset-big-lib": "^11.2.0",
     "@swc/core": "^1.12.1",
     "@types/bootstrap": "^5.2.10",
     "@types/easeljs": "^1.0.5",
@@ -180,7 +192,7 @@
     "workbox-routing": "^7.3.0",
     "workbox-strategies": "^7.3.0",
     "wretch": "^2.11.0",
-    "zod": "4.0.0-beta.20250412T085909"
+    "zod": "^3.25.64"
   },
   "packageManager": "pnpm@10.12.1"
 }
