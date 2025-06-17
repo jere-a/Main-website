@@ -1,4 +1,4 @@
-import bowser from 'bowser';
+//import bowser from 'bowser';
 
 export function detectTouchscreen(): boolean {
 	let result = false;
@@ -19,9 +19,9 @@ export function detectTouchscreen(): boolean {
 }
 
 export const isMobile = (): boolean => {
-	const browser = bowser.parse(window.navigator.userAgent);
+	//const browser = bowser.parse(window.navigator.userAgent);
 
-	if (
+	/*if (
 		typeof browser.platform.type === 'string' &&
 		browser.platform.type != 'desktop' &&
 		detectTouchscreen()
@@ -29,5 +29,6 @@ export const isMobile = (): boolean => {
 		return true;
 	} else {
 		return false;
-	}
+		}*/
+	return false;
 };
