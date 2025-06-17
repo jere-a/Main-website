@@ -15,16 +15,17 @@ interface Props {
 	title: string | undefined;
 	isNavbar?: boolean;
 	isFooter?: boolean;
+	isDark?: boolean;
 	isCSS?: boolean;
 	isCopyright?: boolean;
 	activeNav?: string;
 }
 
-const { title, isNavbar = true, isFooter = true, isCSS = true, activeNav } = Astro.props;
+const { title, isNavbar = true, isFooter = true, isDark = true, isCSS = true, activeNav } = Astro.props;
 const lang = getLocale(Astro.url);
 ---
 
-<html class="dark" lang={lang}>
+<html class:list={[{dark: isDark}]} lang={lang}>
 	<head>
 		<CommonHead title={siteConfig.title + ' | ' + title}></CommonHead>
 		<slot name="head" />
