@@ -12,7 +12,7 @@ on:
     branches: ["master"]
 
 jobs:
-  build:
+  Tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,3 +28,8 @@ jobs:
       - run: pnpm install
       - run: pnpm run build
       - run: pnpm run test
+      - name: Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: pnpm run preview --host
+          browser: chrome
