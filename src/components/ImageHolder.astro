@@ -21,15 +21,25 @@ const altfunc = (): string => {
 
 <li class="image-card animate__animated animate__bounceIn">
 	<div>
-		<Picture
-			src={src}
-			alt={altfunc()}
-			widths={[240, 720, 2500]}
-			sizes={`(max-width: 360px) 240px, (max-width: 1080px) 720px, 2500px`}
-			class={`image skeleton ${className}`}
-			formats={['avif', 'webp']}
-			quality={'high'}
-		/>
+        <div class="lazy-image">
+      		<Picture
+      			src={src}
+      			alt={altfunc()}
+      			width={20}
+      			class={`image skeleton placeholder ${className}`}
+      			formats={['avif', 'webp']}
+      			quality={'low'}
+      		/>
+            <Picture
+    			src={src}
+    			alt={altfunc()}
+    			widths={[240, 720, 2500]}
+    			sizes={`(max-width: 360px) 240px, (max-width: 1080px) 720px, 2500px`}
+    			class={`image full-image ${className}`}
+    			formats={['avif', 'webp']}
+    			quality={'high'}
+    		/>
+        </div>
 		<br />
 		<h2 class="title">
 			{title}
@@ -39,7 +49,24 @@ const altfunc = (): string => {
 </li>
 
 <script>
-  import { mainAllComponents } from "@/ts/components";
+  import { queryAll } from '@/ts/global';
+  import { mainAllComponents } from '@/ts/components';
+  
+  const images = queryAll(".lazy-image");
+  
+  images.forEach((imageContainer: any) => {
+    function loaded() {
+      imageContainer.classList.add("loaded");
+    }
+    const img = imageContainer.querySelector("img.full-image") as HTMLImageElement;
+    
+    if (img.complete) {
+      loaded();
+    } else {
+      img.addEventListener("load", loaded);
+    }
+  });
+
   mainAllComponents('imghold');
 </script>
 
@@ -86,7 +113,58 @@ const altfunc = (): string => {
 		margin-top: 0.5rem;
 		margin-bottom: 0;
 	}
+    
+	.lazy-image {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .lazy-image img.placeholder {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(10px);
+        transition: opacity 250ms ease-in-out;
+    }
+    
+    .lazy-image img.full-image {
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
+    }
+    
+    .lazy-image.loaded img.placeholder {
+        opacity: 0;
+    }
+    
+    .lazy-image.loaded img.full-image {
+        opacity: 1;
+    }
 
+    .lazy-image img.placeholder::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      animation: pulse 2.5s infinite;
+      background-color: white;
+    }
+    
+    @keyframes pulse {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    
 	/* 	.image-card:is(:hover, :focus-within) {
 		background-position: 0;
 		background-image: var(--accent-gradient);
