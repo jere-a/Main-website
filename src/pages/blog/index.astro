@@ -1,10 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 import { getLocale } from "astro-i18n-aut";
 
 const lang: string = getLocale(Astro.url);
-const blogEntries = await getCollection('blog');
+const blogEntries = await getCollection("blog");
 ---
 
 <Layout title="Blogs" activeNav="blog" isCopyright={false}>
@@ -30,24 +30,13 @@ const blogEntries = await getCollection('blog');
 						.substring(0, 300);
 				};
 				if (lang === postLang) return (
-					<li class="posts  animated  bounceIn">
-						<a class="box" href={`/blog/${post.id}/`}>
-							<div class="title" aria-label={post.data.title}>
-								<h2 transition:name={`btitle${post.data.title}`}>
-									{post.data.title}
-								</h2>
-							</div>
-							<div class="publish-date">
-								<time
-									datetime={post.data.pubDate?.toISOString()}
-									transition:name={`btime${post.data.title}`}
-								>
-									{formattedDate()}
-								</time>
-							</div>
-							<div aria-label={post.data.content}>
-								<p class="text">{formattedText(post.body)}</p>
-							</div>
+					<li class="posts animated bounceIn">
+						<a class="box" href={`/blog/${post.id}`}>
+              <h2 class="title" aria-label={post.data.title} transition:name={`btitle${post.data.title}`}>
+								{post.data.title}
+							</h2>
+							<time datetime={post.data.pubDate?.toISOString()} transition:name={`btime${post.data.title}`}>{formattedDate}</time>
+              <p aria-label={post.data.content} class="text" transition:name={`bcontent${post.data.title}`} >{formattedText(post.body)}</p>
 						</a>
 					</li>
 				);

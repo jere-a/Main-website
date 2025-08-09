@@ -1,4 +1,1 @@
-export {
-    jquery,
-    $,
-} from "./basic";
+export { $ } from "./basic";

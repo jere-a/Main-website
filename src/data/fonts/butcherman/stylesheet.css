@@ -1,12 +1,12 @@
 @font-face {
-    font-family: 'butcherman';
-    src: url('butcherman-regular-webfont.eot');
-    src: url('butcherman-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('butcherman-regular-webfont.woff2') format('woff2'),
-         url('butcherman-regular-webfont.woff') format('woff'),
-         url('butcherman-regular-webfont.ttf') format('truetype'),
-         url('butcherman-regular-webfont.svg#butchermanregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
+  font-family: "butcherman";
+  src: url("butcherman-regular-webfont.eot");
+  src:
+    url("butcherman-regular-webfont.eot?#iefix") format("embedded-opentype"),
+    url("butcherman-regular-webfont.woff2") format("woff2"),
+    url("butcherman-regular-webfont.woff") format("woff"),
+    url("butcherman-regular-webfont.ttf") format("truetype"),
+    url("butcherman-regular-webfont.svg#butchermanregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }

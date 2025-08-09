@@ -6,14 +6,14 @@ interface Props {
 
 const { href, platform } = Astro.props;
 
-const youtube = platform == 'YT';
+const youtube = platform === "YT";
 ---
 
 {
   youtube && (
-    <a class="yt" title="Go and see my Youtube channel" href={href}>
-      <slot />
-    </a>
+  <a class="yt" title="Go and see my Youtube channel" href={href}>
+    <slot />
+  </a>
   )
 }
 
