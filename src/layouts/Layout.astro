@@ -43,7 +43,7 @@ const lang = getLocale(Astro.url).toLowerCase();
 	</head>
   <body>
     {
-    false && <SplashCursor client:idle client:only="react" /> 
+    isSplash && <SplashCursor client:idle client:only="react" /> 
     }
 	  { isNavbar && (
     	<div class="NavMenu">
@@ -89,7 +89,6 @@ const lang = getLocale(Astro.url).toLowerCase();
 
 <style>
   body {
-    overflow: hidden;
     margin: 0rem;
   }
 
