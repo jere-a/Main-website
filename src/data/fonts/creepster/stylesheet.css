@@ -1,12 +1,12 @@
 @font-face {
-    font-family: 'creepster';
-    src: url('creepster-regular-webfont.eot');
-    src: url('creepster-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('creepster-regular-webfont.woff2') format('woff2'),
-         url('creepster-regular-webfont.woff') format('woff'),
-         url('creepster-regular-webfont.ttf') format('truetype'),
-         url('creepster-regular-webfont.svg#creepsterregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
+  font-family: "creepster";
+  src: url("creepster-regular-webfont.eot");
+  src:
+    url("creepster-regular-webfont.eot?#iefix") format("embedded-opentype"),
+    url("creepster-regular-webfont.woff2") format("woff2"),
+    url("creepster-regular-webfont.woff") format("woff"),
+    url("creepster-regular-webfont.ttf") format("truetype"),
+    url("creepster-regular-webfont.svg#creepsterregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }

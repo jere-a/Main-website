@@ -1,18 +1,16 @@
-const postcssPresetEnv = require('postcss-preset-env');
-const tailwindNesting = require('tailwindcss/nesting');
-const atomizer = require('postcss-atomizer');
-const postcssPrefixer = require('postcss-prefixer');
+const combineSelectors = require("postcss-combine-duplicated-selectors");
 
 module.exports = {
-	plugins: [
-		require('postcss-import'),
-		tailwindNesting('postcss-nesting'),
-		require('tailwindcss'),
-		atomizer(),
-		require('autoprefixer'),
-		postcssPresetEnv({
-			features: { 'nesting-rules': false, 'custom-properties': true },
-		}),
-		require('cssnano'),
-	],
+  plugins: [
+    require("@tailwindcss/postcss"),
+    require("postcss-import"),
+    require("autoprefixer"),
+    combineSelectors({
+      removeDuplicatedProperties: true,
+      removeDuplicatedValues: true,
+    }),
+    require("cssnano")({
+      preset: "advanced",
+    }),
+  ],
 };

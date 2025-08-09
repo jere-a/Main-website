@@ -1,15 +1,19 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: <lot of them and lazy> */
 export function toUnicode(str: string) {
   return str
-    .split('')
+    .split("")
     .map((char) => {
       const code = char.charCodeAt(0).toString(16).toUpperCase();
       // Pad with zeros to ensure it's 4 digits
-      return `\\u${'0'.repeat(4 - code.length) + code}`;
+      return `\\u${"0".repeat(4 - code.length) + code}`;
     })
-    .join('');
+    .join("");
 }
 
-export const language = (only_fi: boolean = true, lang: string = window.navigator.language) => {
+export const language = (
+  only_fi: boolean = true,
+  lang: string = window.navigator.language,
+) => {
   if (only_fi) {
     return "fi";
   } else {
@@ -17,7 +21,10 @@ export const language = (only_fi: boolean = true, lang: string = window.navigato
   }
 };
 
-export function throttle(cb: Function, delay = 1000) {
+export function throttle(
+  cb: (...args: any) => void | Promise<void>,
+  delay = 1000,
+) {
   let shouldWait = false;
   let waitingArgs: any;
   const timeoutFunc = () => {
@@ -44,29 +51,42 @@ export function throttle(cb: Function, delay = 1000) {
 }
 
 export const injectCSS = (css: string): HTMLStyleElement => {
-  let el = document.createElement('style');
+  const el = document.createElement("style");
   el.innerText = css;
   document.head.appendChild(el);
   return el;
 };
 
 export function addCSSFromURL(url: string): void {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
   link.href = url;
   document.head.appendChild(link);
 }
 
-export function capitalize(string: string): string {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+export function catchErrorTyped<T, E extends new (message?: string) => Error>(
+  promise: Promise<T>,
+  errorsToCatch: E[],
+): Promise<[undefined, T] | [InstanceType<E>]> {
+  return promise
+    .then((data) => {
+      return [undefined, data] as [undefined, T];
+    })
+    .catch((error) => {
+      if (errorsToCatch === undefined) {
+        return [error];
+      }
+
+      if (errorsToCatch.some((e) => error instanceof e)) {
+        return [error];
+      }
+
+      throw error;
+    });
 }
 
-export function addGlobalEventListener(event: any, selector: string | undefined | null, callback: EventListener) {
-  document.addEventListener(event, e => {
-    if (e.target === null) return;
-    const target = e.target as HTMLElement;
-    if (selector === undefined || selector === null || target.matches(selector)) callback(e);
-  })
+export function capitalize(string: string): string {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 /**
@@ -77,7 +97,7 @@ export function addGlobalEventListener(event: any, selector: string | undefined 
  * @returns The converted string where non-ASCII characters are replaced with Unicode escapes.
  */
 export function convertToUnicodeEscape(input: string): string {
-  let output = '';
+  let output = "";
   for (const char of input) {
     const charCode = char.charCodeAt(0);
     // If the character is a basic ASCII character (0-127), append it unchanged.
@@ -85,7 +105,7 @@ export function convertToUnicodeEscape(input: string): string {
       output += char;
     } else {
       // Convert char code to hexadecimal and pad it to 4 digits.
-      const hex = charCode.toString(16).padStart(4, '0');
+      const hex = charCode.toString(16).padStart(4, "0");
       // Append the unicode escape sequence.
       output += `\\u${hex}`;
     }
@@ -93,4 +113,5 @@ export function convertToUnicodeEscape(input: string): string {
   return output;
 }
 
-export const l = (message?: any, ...optionalParams: any[]) => console.log(message, ...optionalParams);
+export const l = (message?: any, ...optionalParams: any[]) =>
+  console.log(message, ...optionalParams);

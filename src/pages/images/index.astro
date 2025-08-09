@@ -1,40 +1,53 @@
 ---
-import ImageHolder from '../../components/ImageHolder.astro';
-import Layout from '../../layouts/Layout.astro';
+import ImageHolder from "../../components/ImageHolder.astro";
+import Layout from "../../layouts/Layout.astro";
 
-import Ghost from '../../data/images/Aamuinen usva.jpg';
-import Sunflower from '../../data/images/auringon kukka 2.jpg';
-import Big_root from '../../data/images/Iso kanto.jpg';
-import BlueSky from '../../data/images/sininen taivas.jpg';
-import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
+import Ghost from "../../data/images/Aamuinen usva.jpg";
+import Sunflower from "../../data/images/auringon kukka 2.jpg";
+import Big_root from "../../data/images/Iso kanto.jpg";
+import BlueSky from "../../data/images/sininen taivas.jpg";
+import winterLandscape from "../../data/images/talvinen maisema 2.jpg";
+
+const images: {
+  src: ImageMetadata;
+  title: string;
+}[] = [
+  {
+    src: winterLandscape,
+    title: "Talvinen Maisema Sillalta.",
+  },
+  {
+    src: Big_root,
+    title: "Iso Kanto.",
+  },
+  {
+    src: BlueSky,
+    title: "Sininen Taivas.",
+  },
+  {
+    src: Sunflower,
+    title: "Auringon kukka.",
+  },
+  {
+    src: Ghost,
+    title: "Aamuinen usva.",
+  },
+];
 ---
 
 <Layout title="Kuvat" activeNav="kuvat">
-	<main>
-		<h1 class="text-gradient text-center">Kuvat</h1>
-		<p class="text-center">Minun ottamiani kuvia eri paikoista.</p>
-		<ul role="list" class="image-card-grid">
-			<ImageHolder src={winterLandscape} title="Talvinen Maisema Sillalta." class="images" />
-			<ImageHolder src={Big_root} title="Iso Kanto." class="images" />
-			<ImageHolder src={BlueSky} title="Sininen Taivas." class="images" />
-			<ImageHolder src={Sunflower} title="Auringon kukka." class="images" />
-			<ImageHolder src={Ghost} title="Aamuinen usva." class="images" />
-		</ul>
-	</main>
+	<h1 transition:name="hero_text" class="text-gradient text-center mb-4 text-[4rem] font-bold leading-none">Kuvat</h1>
+	<p class="text-center mb-2 text-[1.2rem] leading-none">Minun ottamiani kuvia eri paikoista.</p>
+  <ul role="list" class="image-card-grid">
+    {images.map(image => (
+      <li>
+        <ImageHolder src={image.src} title={image.title}/>
+      </li>
+    ))}
+	</ul>
 </Layout>
 
 <style>
-	p {
-		font-size: 1.2rem;
-		line-height: 1;
-		@apply mb-2;
-	}
-	h1 {
-		font-size: 4rem;
-		font-weight: 700;
-		line-height: 1;
-		@apply mb-4;
-	}
 	.text-gradient {
 		background-image: var(--accent-gradient);
 		-webkit-background-clip: text;
@@ -43,40 +56,47 @@ import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
 		background-position: 0%;
 	}
 
-	.images {
-		aspect-ratio: auto;
-	}
-
 	.image-card-grid {
 	    --grid-min-col-size: 300px;
 	
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
 		justify-items: center;
-		gap: 0.25rem;
-		@apply p-1;
-	}
+    gap: 0.2rem;
+  }
 </style>
 
 <script>
 	// import { dynImport } from '@/ts/global/dynamic_import.ts';
-	import { isHoliday, query } from '@/ts/global';
+  import { isHoliday, query, queryAll } from '@/ts/global';
+  import { $ } from '@/ts/jquery';
+  import global from '@/ts/global-code';
 	//import { dynImport } from '@/ts/dynamic-import';
 
-	document.addEventListener('astro:page-load', async function () {
-		// const { isHoliday, query } = await import('@/ts/global');
-		/* const oldtext = document.querySelector('.how_old'); */
-		//const query = dynImport.global.query;
+  global();
+	// const { isHoliday, query } = await import('@/ts/global');
+	/* const oldtext = document.querySelector('.how_old'); */
+  //const query = dynImport.global.query;
+  const observer = new IntersectionObserver(observerFn);
+  function observerFn (entries: any) {
+    for (const entry of entries) {
+      entry.loading = "eager";
+    }
+  }
+  $('ul li picture img').each((e) => {
+    if (e instanceof Element) {
+      observer.observe(e);
+    }
+  })
 
-		const holiday = (await isHoliday([
-			query('.text-gradient'),
-			query('.images'),
-			query('p'),
-			'.navItem',
-		]));
+	const holiday = (await isHoliday([
+		query('.text-gradient'),
+		query('.images'),
+		query('p'),
+		'.navItem',
+	]));
 
-		if (holiday.bool) {
-			holiday.script;
-		}
-	});
+	if (holiday.bool) {
+		holiday.script;
+	}
 </script>

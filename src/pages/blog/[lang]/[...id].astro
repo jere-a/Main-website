@@ -1,6 +1,6 @@
 ---
-import { getCollection, render } from 'astro:content';
-import BlogPost from '../../../layouts/BlogPost.astro';
+import { getCollection, render } from "astro:content";
+import BlogPost from "../../../layouts/BlogPost.astro";
 
 //export async function getStaticPaths() {
 //	return blogEntries.map((entry) => ({
@@ -10,13 +10,13 @@ import BlogPost from '../../../layouts/BlogPost.astro';
 //}
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
+  const blogEntries = await getCollection("blog");
 
-  const paths = blogEntries.map(entry => {
-    const [lang, ..._] = entry.id.split('/');
+  const paths = blogEntries.map((entry) => {
+    const [lang, ..._] = entry.id.split("/");
     return { params: { lang, id: entry.id.slice(3) }, props: entry };
   });
-  
+
   return paths;
 }
 
@@ -26,5 +26,5 @@ const { Content } = await render(entry);
 ---
 
 <BlogPost {...entry.data}>
-	<Content />
+	<Content transition:name={`bcontent${entry.data.title}`}  />
 </BlogPost>

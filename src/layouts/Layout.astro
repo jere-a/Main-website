@@ -1,47 +1,61 @@
 ---
 import { getLocale } from "astro-i18n-aut";
-import CommonHead from '@/components/CommonHead.astro';
-import NavMenu from '@/components/nav-menu.astro';
-import Cookies from '@/components/cookies.astro';
-import Footer from '@/components/Footer.astro';
-import ReloadPrompt from '../components/ReloadPrompt.astro';
+import CommonHead from "@/components/CommonHead.astro";
+import NavMenu from "@/components/nav-menu.astro";
+import Cookies from "@/components/cookies.astro";
+import Footer from "@/components/Footer.astro";
+import ReloadPrompt from "../components/ReloadPrompt.astro";
+import SplashCursor from "@/components/ui/SplashCursor";
 
 // import { ModeToggle } from '@/components/react/ModeToggle';
 
 // configs
-import { siteConfig } from '../config';
+import { siteConfig } from "../config";
 
 interface Props {
-	title: string | undefined;
-	isNavbar?: boolean;
-	isFooter?: boolean;
-	isDark?: boolean;
-	isCSS?: boolean;
-	isCopyright?: boolean;
-	activeNav?: string;
+  title?: string;
+  isNavbar?: boolean;
+  isFooter?: boolean;
+  isDark?: boolean;
+  isCSS?: boolean;
+  isSplash?: boolean;
+  isCopyright?: boolean;
+  activeNav?: string;
 }
 
-const { title, isNavbar = true, isFooter = true, isDark = true, isCSS = true, activeNav } = Astro.props;
-const lang = getLocale(Astro.url);
+const {
+  title,
+  isNavbar = true,
+  isFooter = true,
+  isDark = true,
+  isCSS = true,
+  isSplash = true,
+  activeNav,
+} = Astro.props;
+const lang = getLocale(Astro.url).toLowerCase();
 ---
 
 <html class:list={[{dark: isDark}]} lang={lang}>
 	<head>
-		<CommonHead title={siteConfig.title + ' | ' + title}></CommonHead>
-		<slot name="head" />
+    <CommonHead title={title}>
+    </CommonHead>
+    <slot name="head" />
 	</head>
-	<body>
-	    { isNavbar && (
-    		<div class="NavMenu">
-   			<header>
-    				<NavMenu active={activeNav}></NavMenu>
-   			</header>
-    		</div>
-		)}
-		<slot />
+  <body>
+    {
+    isSplash && <SplashCursor client:idle client:only="react" /> 
+    }
+	  { isNavbar && (
+    	<div class="NavMenu">
+   		  <header>
+    			<NavMenu active={activeNav} transition:persist></NavMenu>
+   		  </header>
+    	</div>
+    )}
+    <slot />
 		{siteConfig.params.cookies.cookiesEnabled && <Cookies/>}
 		<ReloadPrompt />
-		{ isFooter && <Footer /> }
+		{ isFooter && <Footer transition:persist /> }
 		{
 			false && (
 					<div
@@ -67,6 +81,29 @@ const lang = getLocale(Astro.url);
 					defer
 				/>
 			)
-		}
+      }
+    <script src="../ts/pages/layout.mts"></script>
 	</body>
 </html>
+
+
+<style>
+  body {
+    overflow: hidden;
+    margin: 0rem;
+  }
+
+  @keyframes rotate {
+    from {
+      rotate: 0deg;
+    }
+  
+    50% {
+      scale: 1 1.5;
+    }
+  
+    to {
+      rotate: 360deg;
+    }
+  }
+</style>

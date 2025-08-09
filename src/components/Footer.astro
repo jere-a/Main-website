@@ -1,19 +1,18 @@
 ---
-import { Image } from 'astro:assets';
-import humanstxt from '@/data/img/humanstxt-transparent-1ink.png';
-
+import { Image } from "astro:assets";
+import humanstxt from "@/data/img/humanstxt-transparent-1ink.png";
 
 interface Props {
-	isCopyright?: boolean;
+  isCopyright?: boolean;
 }
 
 const isCopyright = (): boolean => {
-	const { isCopyright } = Astro.props;
-	if (isCopyright === null || isCopyright === undefined) {
-		return true;
-	} else {
-		return isCopyright === true;
-	}
+  const { isCopyright } = Astro.props;
+  if (isCopyright === null || isCopyright === undefined) {
+    return true;
+  } else {
+    return isCopyright === true;
+  }
 };
 
 const copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} Jere L`;
@@ -22,18 +21,20 @@ const copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} Je
 <footer>
 	{
 		isCopyright() && (
-			<p class="text-center copyright" data-value={copyrightText}>{copyrightText}</p>
+			<p class="text-center copyright" transition:name="copyright" data-value={copyrightText}>{copyrightText}</p>
 		)
 	}
 </footer>
 
 <script>
-    const target = document.querySelector('.copyright') as HTMLElement;
-    target.addEventListener('mouseover', () => {
-      import('@/ts/hacker-text').then(({ default: hackerText }) => {
-          if (target.dataset.value) {
-              hackerText(target, target.dataset.value, true);
-          }
-      });
+  import { query } from '@/ts/global';
+
+  const target = query(".copyright");
+  target.addEventListener('mouseover', () => {
+    import('@/ts/hacker-text').then(({ default: hackerText }) => {
+      if (target.dataset.value) {
+        hackerText(target, target.dataset.value, true);
+      }
     });
+  });
 </script>
