@@ -1,28 +1,25 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import Layout from './Layout.astro';
+import type { CollectionEntry } from "astro:content";
+import Layout from "./Layout.astro";
 
-import '../styles/blog/blog.css';
-import '../styles/blog/markdown.css';
+import "../styles/blog/blog.css";
+import "../styles/blog/markdown.css";
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<"blog">["data"];
 
 const { title, pubDate } = Astro.props;
-
-const formattedDate = pubDate?.getDay() + '-' + pubDate?.getMonth() + '-' + pubDate?.getFullYear();
+const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.getFullYear()}`;
 ---
 
-<Layout title={title} activeNav="blog">
-	<main id="main">
-		<section class="blog-post">
-			<a href="/blog/" class="link-back">Goto Blogs.</a>
-			<h1 class="title" aria-label={title} transition:name={`btitle${title}`}>
-				{title}
-			</h1>
-			<time class="publish-date" transition:name={`btime${title}`}>{formattedDate}</time>
-			<slot />
-		</section>
-	</main>
+<Layout title={title} activeNav="blog" isSplash={false}>
+	<section class="blog-post">
+		<a href="/blog" class="link-back">Goto Blogs.</a>
+		<h1 class="title" aria-label={title} transition:name={`btitle${title}`}>
+			{title}
+		</h1>
+		<time class="publish-date" transition:name={`btime${title}`}>{formattedDate}</time>
+		<slot />
+	</section>
 </Layout>
 
 <style>
@@ -36,7 +33,7 @@ const formattedDate = pubDate?.getDay() + '-' + pubDate?.getMonth() + '-' + pubD
 		grid-template-rows: 5rem minmax(0, 1fr) 5rem;
 		grid-template-columns: minmax(0, 1fr);
 	}
-	main {
+	section {
 		grid-area: main;
 	}
 
@@ -67,12 +64,16 @@ const formattedDate = pubDate?.getDay() + '-' + pubDate?.getMonth() + '-' + pubD
 
 	a.link-back {
 		color: grey;
-	}
+  }
+
+  .blog-post {
+    justify-content: center;
+  }
 
 	.title {
 		font-size: 2.5em;
 		line-height: 1.2 !important;
-		margin: 0.25em 0 0;
+		margin: 0;
 	}
 	.publish-date {
 		font-size: 0.875em;
@@ -82,6 +83,6 @@ const formattedDate = pubDate?.getDay() + '-' + pubDate?.getMonth() + '-' + pubD
 	}
 	hr {
 		border-top: 1px solid #ddd;
-		margin: 1rem 0;
+		margin: 0;
 	}
 </style>

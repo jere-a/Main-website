@@ -1,23 +1,25 @@
-import { siteConfig } from '@/config';
-import { addGlobalEventListener } from '@/ts/global';
+import { navigate } from "astro:transitions/client";
+import { siteConfig } from "@/config";
+import { $ } from "@/ts/jquery";
+import { PrefersReducedMotion, l } from "./global";
 
 const main = () => {
-  if (siteConfig.params.functions.quicklink) {
-    import('quicklink').then(({ listen }) => {
-      listen({ prerender: true });
+  $(document).on("astro:page-load", () => {
+    $("a").on("mousedown", function (e) {
+      e.preventDefault();
+      navigate($(this).attr("href"));
     });
-  }
-  
-  function handleMouseDown(event: Event) {
-    if (event.currentTarget instanceof HTMLAnchorElement && event.currentTarget.href) {
-      event.preventDefault();
-      window.location.href = event.currentTarget.href;
+    if (siteConfig.params.functions.quicklink) {
+      import("quicklink").then(({ listen }) => {
+        listen({ prerender: true });
+      });
     }
-  }
-  
-  ['mousedown', 'touchstart', 'pointerdown'].forEach((action) => {
-    addGlobalEventListener(action, 'a', handleMouseDown);
+    console.log("who");
   });
 };
+
+export function init() {
+  PrefersReducedMotion();
+}
 
 export default main;

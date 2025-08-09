@@ -1,50 +1,55 @@
 ---
-import { cn } from '@/lib/utils';
 import { getLocale } from "astro-i18n-aut";
-import { useTranslations } from '@/i18n/utils';
+import { useTranslations } from "@/i18n/utils";
+import { cn } from "@/lib/utils";
 
 // css
-import '@/global.css';
-import '@/styles/holidays/index.css';
+import "@/global.css";
+import "@/styles/holidays/index.css";
 
 interface Props {
-	active: string | undefined;
+  active: string | undefined;
 }
 const { active } = Astro.props;
 const lang = getLocale(Astro.url);
 const t = useTranslations(lang);
 
 const pageLang = (lang: string): string => {
-    if (lang.startsWith(`/${lang}/`)) return `/${lang}`;
-      else return '';
-}
-
-const navigationMenuTriggerStyle = cn(
-	'group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50'
-);
-const activefunc = (active: string | undefined, activetab: string | undefined): string => {
-		return active == activetab ? 'bg-blue-950' : '';
+  if (lang.startsWith(`/${lang}/`)) return `/${lang}`;
+  else return "";
 };
 
-const links: { href: string, class?: string | null | undefined, active?: string, name?: string }[] = [
+const navigationMenuTriggerStyle =
+  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50";
+const activefunc = (
+  active: string | undefined,
+  activetab: string | undefined,
+): string => {
+  return active === activetab ? "bg-blue-950 active" : "";
+};
+
+const default_class_links = `${navigationMenuTriggerStyle} navItem navmenulink animate__animated animate__bounceIn`;
+
+const links: {
+  href: string;
+  active?: string;
+  name?: string;
+}[] = [
   {
     href: `${pageLang(lang)}/`,
-    class: `${`${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`}`,
-    active: 'koti',
-    name: t('nav.home')
+    active: "koti",
+    name: t("nav.home"),
   },
   {
-    href: `${pageLang(lang)}/images/`,
-    class: `${`${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`}`,
-    active: 'kuvat',
-    name: t('nav.images')
+    href: `${pageLang(lang)}/images`,
+    active: "kuvat",
+    name: t("nav.images"),
   },
   {
-    href: `${pageLang(lang)}/blog/`,
-    class: `${`${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`}`,
-    active: 'blog',
-    name: t('nav.blog')
-  }
+    href: `${pageLang(lang)}/blog`,
+    active: "blog",
+    name: t("nav.blog"),
+  },
 ];
 ---
 
@@ -52,8 +57,8 @@ const links: { href: string, class?: string | null | undefined, active?: string,
 	<div class={cn('group flex flex-1 list-none items-center justify-center space-x-1')}>
 	    <ul class={cn("justify-center items-center group flex flex-1 list-none space-x-1")} data-orientation="horizontal" dir="ltr">
 			{links.map(item => (
-			    <li>
-			        <a href={item.href} class={cn(`${item.class} ${activefunc(active, item.active)}`)}> {item.name} </a>
+			  <li class="card">
+        <a href={item.href} class={cn(default_class_links, activefunc(active, item.active))}> {item.name} </a> 
 				</li>
 			))}
 			<li>
@@ -62,3 +67,43 @@ const links: { href: string, class?: string | null | undefined, active?: string,
 		</ul>
 	</div>
 </div>
+<style>
+  .navmenulink {
+    width: 4.8rem;
+  }
+
+
+  li + li {
+    margin-left: 0.1rem;
+  }
+
+  .card {
+    --border-width: 1px;
+    border-radius: 0.25rem;
+    position: relative;
+    transition: filter 150ms ease-in-out;
+
+    background: hsl(from var(--surface-3) h s l / 0.25);
+    backdrop-filter: blur(20px);
+  }
+
+  .card:hover {
+    cursor: pointer;
+    filter: brightness(180%) saturate(150%);
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    border: var(--border-width) solid transparent;
+    background: linear-gradient(var(--border-1), var(--border-2)) border-box;
+    mask: linear-gradient(black, black) border-box,
+      linear-gradient(black, black) padding-box;
+    mask-composite: subtract;
+  }
+
+</style>
+

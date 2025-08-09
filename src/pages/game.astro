@@ -1,0 +1,17 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<script>
+  import { Peer } from "https://esm.sh/peerjs@1.5.5"
+
+  var peer = new Peer();
+
+  function server() {
+    peer.on('connection', conn => {
+      conn.on('data', data => {
+        console.log(data);
+      });
+    });
+  }
+</script>

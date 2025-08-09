@@ -1,11 +1,17 @@
-import { atom } from 'nanostores';
+import { atom } from "nanostores";
 
-export const IsHolidayBool = atom<{
+export const issplashcursor = atom(false);
+export const isPrefersReducedMotion = atom(false);
+
+export const IsHolidayBool = atom<
+  {
     bool: boolean;
     holiday: string;
     changeFont: boolean | undefined;
-}, {}>({
+  },
+  {}
+>({
   bool: false,
-  holiday: '',
+  holiday: "",
   changeFont: false,
 });

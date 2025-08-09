@@ -1,83 +1,61 @@
 ---
-import { Image, Picture } from 'astro:assets';
-import '@/global.css';
+import { Image, Picture } from "astro:assets";
+import "@/global.css";
 
 interface Props {
-	title: string;
-	body?: string;
-	src: ImageMetadata;
-	alt?: string;
-	class?: any;
+  title: string;
+  body?: string;
+  src: ImageMetadata;
+  alt?: string;
+  class?: any;
 }
 
 const { class: className, src, title, body, alt } = Astro.props;
 
 const altfunc = (): string => {
-	if (alt !== undefined) return alt;
-	else if (alt == undefined) return title;
-	else return "";
+  if (alt !== undefined) return alt;
+  else if (alt === undefined) return title;
+  else return "";
 };
 ---
 
-<li class="image-card animate__animated animate__bounceIn">
-	<div>
-        <div class="lazy-image">
-      		<Picture
-      			src={src}
-      			alt={altfunc()}
-      			width={20}
-      			class={`image skeleton placeholder ${className}`}
-      			formats={['avif', 'webp']}
-      			quality={'low'}
-      		/>
-            <Picture
-    			src={src}
-    			alt={altfunc()}
-    			widths={[240, 720, 2500]}
-    			sizes={`(max-width: 360px) 240px, (max-width: 1080px) 720px, 2500px`}
-    			class={`image full-image ${className}`}
-    			formats={['avif', 'webp']}
-    			quality={'high'}
-    		/>
-        </div>
-		<br />
-		<h2 class="title">
-			{title}
-		</h2>
-		{body !== undefined && <p class="body">{body}</p>}
-	</div>
-</li>
+<div class="card">
+    <div>
+      <Picture
+        src={src}
+        alt={altfunc()}
+        class={`image full-image ${className}`}
+        formats={['avif', 'webp']}
+        quality={'high'}
+        inferSize
+      />
+      <br />
+      <h2 class="title">
+        {title}
+      </h2>
+      {body !== undefined && <p class="body">{body}</p>}
+    </div>
+</div>
 
 <script>
-  import { queryAll } from '@/ts/global';
-  import { mainAllComponents } from '@/ts/components';
-  
-  const images = queryAll(".lazy-image");
-  
-  images.forEach((imageContainer: any) => {
-    function loaded() {
-      imageContainer.classList.add("loaded");
-    }
-    const img = imageContainer.querySelector("img.full-image") as HTMLImageElement;
-    
-    if (img.complete) {
-      loaded();
-    } else {
-      img.addEventListener("load", loaded);
+  import { isHoliday } from '@/ts/global';
+
+  isHoliday(["h2.title", "p.body"]).then((holiday) => {
+    if (holiday.bool) {
+      holiday.script;
     }
   });
 
-  mainAllComponents('imghold');
 </script>
 
 <style>
 	:root {
 		--padimg: calc(0.8rem - 1px);
 	}
-	.image-card {
+	.card {
 		list-style: none;
 		display: flex;
-		padding: 1px;
+    padding: 1px;
 		background-color: #23262d;
 		background-image: none;
 		background-size: 400%;
@@ -86,23 +64,22 @@ const altfunc = (): string => {
 		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 	}
-	.image-card > div {
+	.card > div {
 		width: 100%;
 		text-decoration: none;
 		line-height: 1.4;
 		padding: var(--padimg);
 		border-radius: 8px;
 		color: white;
-		background-color: #23262d;
 		opacity: 0.8;
 	}
-	.image-card > div > picture > img,
-	.image-card > div > picture > source {
+	.card > div > picture > img,
+	.card > div > picture > source {
 		width: 100%;
 		height: auto;
 		margin: auto;
 		justify-content: center;
-		border-radius: 18px;
+		border-radius: 5px;
 	}
 	h2 {
 		margin: 0;
@@ -112,64 +89,77 @@ const altfunc = (): string => {
 	p {
 		margin-top: 0.5rem;
 		margin-bottom: 0;
-	}
-    
-	.lazy-image {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .lazy-image img.placeholder {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: blur(10px);
-        transition: opacity 250ms ease-in-out;
-    }
-    
-    .lazy-image img.full-image {
-        object-fit: cover;
-        opacity: 0;
-        transition: opacity 250ms ease-in-out;
-    }
-    
-    .lazy-image.loaded img.placeholder {
-        opacity: 0;
-    }
-    
-    .lazy-image.loaded img.full-image {
-        opacity: 1;
-    }
+  }
 
-    .lazy-image img.placeholder::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+  .card {
+    border-radius: 1rem;
+    position: relative;
+
+    background: hsl(from var(--surface-3) h s l / 0.25);
+    backdrop-filter: blur(25px);
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    border: var(--border-width) solid transparent;
+    background: linear-gradient(var(--border-1), var(--border-2)) border-box;
+    mask: linear-gradient(black, black) border-box,
+      linear-gradient(black, black) padding-box;
+    mask-composite: subtract;
+  }
+
+  .lazy-image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lazy-image img.placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(10px);
+    transition: opacity 250ms ease-in-out;
+  }
+
+  .lazy-image img.full-image {
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 250ms ease-in-out;
+  }
+
+  .lazy-image.loaded img.placeholder {
+    opacity: 0;
+  }
+
+  .lazy-image.loaded img.full-image {
+    opacity: 1;
+  }
+
+  .lazy-image img.placeholder::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: pulse 2.5s infinite;
+    background-color: white;
+  }
+
+  @keyframes pulse {
+    0% {
       opacity: 0;
-      animation: pulse 2.5s infinite;
-      background-color: white;
     }
-    
-    @keyframes pulse {
-      0% {
-        opacity: 0;
-      }
-      50% {
-        opacity: 0.1;
-      }
-      100% {
-        opacity: 0;
-      }
+    50% {
+      opacity: 0.1;
     }
-    
-	/* 	.image-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.image-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent-light));
-	} */
+    100% {
+      opacity: 0;
+    }
+  }
 </style>

@@ -6,23 +6,23 @@
  */
 const config = {
   printWidth: 100,
-  trailingComma: 'es5',
+  trailingComma: "es5",
   tabWidth: 4,
   semi: true,
   singleQuote: true,
   useTabs: true,
-  plugins: ['prettier-plugin-astro'],
+  plugins: ["prettier-plugin-astro"],
   overrides: [
     {
-      files: ['.*', '*.md', '*.toml', '*.yml'],
+      files: [".*", "*.md", "*.toml", "*.yml"],
       options: {
         useTabs: false,
       },
     },
     {
-      files: ['**/*.astro'],
+      files: ["**/*.astro"],
       options: {
-        parser: 'astro',
+        parser: "astro",
       },
     },
   ],

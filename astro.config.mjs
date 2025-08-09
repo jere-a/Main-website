@@ -1,40 +1,45 @@
 // import mdx from '@astrojs/mdx';
-import partytown from '@astrojs/partytown';
-import purgecss from 'astro-purgecss';
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
-import mdx from '@astrojs/mdx';
+import partytown from "@astrojs/partytown";
+import purgecss from "astro-purgecss";
+import { defineConfig } from "astro/config";
+import react from "@astrojs/react";
+import preact from "@astrojs/preact";
+import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
+import mdx from "@astrojs/mdx";
 
-import serviceWorker from 'astrojs-service-worker';
-import AstroPWA from '@vite-pwa/astro'
+import AstroPWA from "@vite-pwa/astro";
+import { imageService } from "@unpic/astro/service";
+import vtbot from "astro-vtbot";
 
 // Rollup
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import strip from '@rollup/plugin-strip';
-import terser from '@rollup/plugin-terser';
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import strip from "@rollup/plugin-strip";
+import terser from "@rollup/plugin-terser";
 
 // import siteConfig
-import { siteConfig } from './src/config';
+import { siteConfig } from "./src/config";
 
 // Helper imports
-import sitemap from '@astrojs/sitemap';
-import playformCompress from '@playform/compress';
+import sitemap from "@astrojs/sitemap";
+import playformCompress from "@playform/compress";
 
 import { visualizer } from "rollup-plugin-visualizer";
-
 
 const defaultLocale = "fi";
 const locales = {
   fi: "fi-FI",
-  en: "en-US"
+  en: "en-US",
 };
 
 // https://astro.build/config
 export default defineConfig({
   site: siteConfig.url,
-  output: 'static',
+  output: "static",
+  image: {
+    service: imageService({}),
+  },
   integrations: [
+    vtbot(),
     mdx(),
     // vue({
     //   include: '**/vue/*'
@@ -51,65 +56,74 @@ export default defineConfig({
     //}), //preact({
     //  include: '**/preact/*'
     //}),
+    preact({
+      include: ["**/preact/*"],
+    }),
     react({
-      include: ['**/react/*', '**/components/ui/*'],
-    }), AstroPWA({
-      strategies: 'injectManifest',
-      srcDir: '.',
-      filename: 'sw.js',
+      include: ["**/react/*", "**/components/ui/*"],
+    }),
+    AstroPWA({
+      strategies: "injectManifest",
+      srcDir: "src",
+      filename: "sw.ts",
       manifest: {
         name: "Åzze's website",
-        short_name: 'Åzze',
+        short_name: "Åzze",
         description: siteConfig.description,
-        theme_color: '#310a65',
-        id: '/',
+        theme_color: "#310a65",
+        id: "/",
         icons: [
           {
-            "src": "/pwa-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any"
+            src: "/pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any",
           },
           {
-            "src": "/pwa-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any"
+            src: "/pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
           },
           {
-            "src": "/pwa-maskable-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "maskable"
+            src: "/pwa-maskable-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
           },
           {
-            "src": "/pwa-maskable-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable"
-          }
+            src: "/pwa-maskable-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
         ],
-      }
-    }), purgecss({
+      },
+    }),
+    purgecss({
       keyframes: false,
       safelist: {
-        standard: ['halloween', 'butcherman', 'lightrope'],
+        standard: ["halloween", "butcherman", "lightrope"],
         greedy: [
           /*astro*/
         ],
       },
       extractors: [
         {
-          extractor: (content) => content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
-          extensions: ['astro', 'html'],
+          extractor: (content) =>
+            content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+          extensions: ["astro", "html"],
         },
       ],
-    }), i18n({
+    }),
+    i18n({
       locales,
       defaultLocale,
       redirectDefaultLocale: false,
-      exclude: ['pages/**/*.js', 'pages/**/*.ts', 'pages/**/*.md']
-    }), partytown(), sitemap({
+      exclude: ["pages/**/*.js", "pages/**/*.ts", "pages/**/*.md"],
+    }),
+    //partytown(),
+    sitemap({
       i18n: {
         locales,
         defaultLocale,
@@ -122,45 +136,51 @@ export default defineConfig({
     //}),
     playformCompress({
       Image: false,
-    })],
-  build: {
-    format: 'directory',
-  },
-  trailingSlash: 'always',
+    }),
+  ],
+  trailingSlash: "never",
   //i18n: {
   //	defaultLocale: 'fi',
   //	locales: ['fi', 'en'],
   //},
   vite: {
+    server: {
+      allowedHosts: ["prerelease.ozze.eu.org"],
+    },
     build: {
       sourcemap: true,
-      cssMinify: 'lightningcss',
-      minify: 'terser',
+      cssMinify: "lightningcss",
+      minify: "terser",
       rollupOptions: {
         output: {
-          entryFileNames: 'entry.[hash].mjs',
-          chunkFileNames: 'chunks/chunk.[hash].mjs',
-          assetFileNames: 'assets/asset.[hash][extname]',
+          entryFileNames: "entry.[hash].mjs",
+          chunkFileNames: "chunks/chunk.[hash].mjs",
+          assetFileNames: "assets/asset.[hash][extname]",
           manualChunks: {
-            dates: ['date-fns', 'dayjs'],
-            global: ['src/ts/global'],
-            components: ['src/ts/components'],
+            dates: ["date-fns", "dayjs"],
+            global: ["src/ts/global"],
+            jquery: ["src/ts/jquery"],
+            pages: ["src/pages"],
           },
           compact: true,
           generatedCode: {
             arrowFunctions: true,
             constBindings: true,
             objectShorthand: true,
-            preset: 'es2015'
+            preset: "es2015",
           },
-          interop: 'auto',
+          interop: "auto",
           minifyInternalExports: true,
         },
         preserveEntrySignatures: false,
+        treeshake: "smallest",
       },
     },
-    plugins: [nodeResolve({ browser: true }), strip(), terser(),
-    visualizer({ emitFile: true, filename: "stats.html" })
-    ]
+    plugins: [
+      nodeResolve({ browser: true }),
+      strip(),
+      terser(),
+      visualizer({ emitFile: true, filename: "stats.html" }),
+    ],
   },
 });

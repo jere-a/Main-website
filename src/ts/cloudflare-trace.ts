@@ -1,4 +1,4 @@
-import { siteConfig } from '@/config';
+import { siteConfig } from "@/config";
 
 export type ParsedData = {
   ip: string;
@@ -10,22 +10,21 @@ export type ParsedData = {
 };
 
 export async function fetchData(): Promise<ParsedData> {
+  const text = (await fetch(`${siteConfig.url}/cdn-cgi/trace`)).text();
 
-  const text = (await fetch(siteConfig.url + '/cdn-cgi/trace')).text()
-
-  const lines = (await text).split('\n');
+  const lines = (await text).split("\n");
   const result: Partial<ParsedData> = {};
 
   lines.forEach((line) => {
-    const [key, value] = line.split('=');
+    const [key, value] = line.split("=");
     if (key && value) {
       switch (key) {
-        case 'ip':
-        case 'uag':
-        case 'tls':
-        case 'loc':
-        case 'http':
-        case 'h':
+        case "ip":
+        case "uag":
+        case "tls":
+        case "loc":
+        case "http":
+        case "h":
           result[key as keyof ParsedData] = value;
           break;
       }

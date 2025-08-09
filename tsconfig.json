@@ -6,17 +6,18 @@
         "name": "@astrojs/ts-plugin"
       }
     ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": [
-      "vite-plugin-pwa/client",
-      "vite-plugin-pwa/info"
-    ],
+    "types": ["vite-plugin-pwa/client", "vite-plugin-pwa/info"],
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "allowUnreachableCode": false,
+    "strict": true
   },
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist"]

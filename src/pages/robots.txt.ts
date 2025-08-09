@@ -1,4 +1,4 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro";
 
 const getRobotsTxt = (sitemapURL: URL) => `
 # Created in the distant future (the year 2000) after
@@ -10,6 +10,6 @@ Sitemap: ${sitemapURL.href}
 `;
 
 export const GET: APIRoute = ({ site }) => {
-  const sitemapURL = new URL('sitemap-index.xml', site);
+  const sitemapURL = new URL("sitemap-index.xml", site);
   return new Response(getRobotsTxt(sitemapURL));
 };

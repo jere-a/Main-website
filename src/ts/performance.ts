@@ -19,9 +19,11 @@ export const timeStop = (funcName: string): void => {
   startTimeMap.delete(funcName);
 };
 
-export const withTiming = (funcName: string, func: Function) => (...args: any[]) => {
-  timeStart(funcName);
-  const result = func(...args);
-  timeStop(funcName);
-  return result;
-};
+export const withTiming =
+  (funcName: string, func: Function) =>
+  (...args: any[]) => {
+    timeStart(funcName);
+    const result = func(...args);
+    timeStop(funcName);
+    return result;
+  };

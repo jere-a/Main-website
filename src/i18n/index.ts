@@ -1,7 +1,7 @@
+export { defaultLang, languages, showDefaultLang, ui } from "./ui";
 export {
-    defaultLang, languages, showDefaultLang, ui
-} from "./ui";
-export {
-    getLangFromUrl, iterator, useTranslatedPath, useTranslations
+  getLangFromUrl,
+  iterator,
+  useTranslatedPath,
+  useTranslations,
 } from "./utils";
-
