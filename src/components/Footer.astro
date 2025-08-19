@@ -18,13 +18,26 @@ const isCopyright = (): boolean => {
 const copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} Jere L`;
 ---
 
-<footer>
+<footer transition:name="footer">
 	{
 		isCopyright() && (
-			<p class="text-center copyright" transition:name="copyright" data-value={copyrightText}>{copyrightText}</p>
+    <p class="copyright" data-value={copyrightText}>{copyrightText}</p>
 		)
 	}
 </footer>
+
+<style>
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0.8rem;
+    width: 100%;
+    text-align: center;
+  }
+  footer p {
+    margin-inline: auto;
+  }
+</style>
 
 <script>
   import { query } from '@/ts/global';
