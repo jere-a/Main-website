@@ -3,7 +3,6 @@ import { SEOMetadata } from "astro-seo-metadata";
 import { pwaInfo } from "virtual:pwa-info";
 import { siteConfig } from "@/config";
 import { ClientRouter } from "astro:transitions";
-import LoadingIndicator from "astro-vtbot/components/LoadingIndicator.astro";
 
 interface Props {
   title?: string;
@@ -46,9 +45,10 @@ const isDev = import.meta.env.DEV;
 <meta name="theme-color" content="#20004A" media="(prefers-color-scheme: dark)">
 <meta name="viewport" content="width=device-width" />
 <meta property="csp-nonce" content="dynamicScripts">
-{ isProd && <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com/; img-src 'self' data:;">}
+{ isProd && <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' https://gc.zgo.at 'unsafe-inline' https://static.cloudflareinsights.com/; connect-src 'self' https://static.cloudflareinsights.com https://jere8809.goatcounter.com/count; img-src 'self' data:;">}
 <link rel="dns-prefetch" href="//ozze.eu.org/" />
 <link rel="dns-prefetch" href="//old.ozze.eu.org/" />
+<link rel="preconnect" href="https://static.cloudflareinsights.com">
 <slot name="prefetch"/>
 <!--     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
@@ -56,7 +56,6 @@ const isDev = import.meta.env.DEV;
 <link rel="alternate" type="application/rss+xml" title="Åzze" href={`${Astro.site}rss.xml`} />
 <link type="text/plain" rel="author" href={`${Astro.site}humans.txt`} />
 <ClientRouter />
-<LoadingIndicator src="../data/img/astro.svg" />
 <!-- <script src="../js/main.js"></script> -->
 <!-- {isProd &&  <script is:inline type="text/partytown" defer src="https://www.googletagmanager.com/gtag/js?id=GTM-P6SH88WW"></script>
 <script is:inline type="text/partytown" defer>(() => {function g(){dataLayer.push(arguments)}window.dataLayer = window.dataLayer || [];g('js', new Date);g('config', 'GTM-P6SH88WW')})()</script>} -->

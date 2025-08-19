@@ -33,18 +33,15 @@ const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.ge
 		grid-template-rows: 5rem minmax(0, 1fr) 5rem;
 		grid-template-columns: minmax(0, 1fr);
 	}
-	section {
-		grid-area: main;
-	}
 
-	a:hover {
+	a.link-back:hover {
 		background-size:
 			0 1px,
 			100% 1px;
 	}
 
-	a {
-		background: linear-gradient(to right, oklch(84.52% 0 102.07), oklch(84.52% 0 102.07)),
+	a.link-back {
+		backgound: linear-gradient(to right, oklch(84.52% 0 102.07), oklch(84.52% 0 102.07)),
 			linear-gradient(
 				to right,
 				rgba(255, 0, 0, 1),
@@ -63,17 +60,18 @@ const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.ge
 	}
 
 	a.link-back {
-		color: grey;
+    color: grey;
   }
 
   .blog-post {
     justify-content: center;
+    grid-area: main;
+    margin-inline:auto;
   }
 
 	.title {
 		font-size: 2.5em;
 		line-height: 1.2 !important;
-		margin: 0;
 	}
 	.publish-date {
 		font-size: 0.875em;
