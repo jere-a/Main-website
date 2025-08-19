@@ -1,6 +1,4 @@
 ---
-import SpotlightCard from "@/components/react/SpotlightCard";
-
 interface Props {
   title: string;
   body: string;
@@ -11,15 +9,13 @@ const { href, title, body } = Astro.props;
 ---
 
 <li class="card">
-  <SpotlightCard client:only="react" spotlightColor="rgba(0, 229, 255, 0.2)">
-    <a href={href} >
-      <h2 aria-label={title} class="title">
-        {title}
-        <span>&rarr;</span>
-      </h2>
-      <p aria-label={body} class="body">{body}</p>
-    </a>
-  </SpotlightCard>
+  <a href={href} >
+    <h2 aria-label={title} class="title">
+      {title}
+      <span>&rarr;</span>
+    </h2>
+    <p aria-label={body} class="body">{body}</p>
+  </a>
 </li>
 
 <style>

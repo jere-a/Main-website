@@ -62,7 +62,6 @@ const blogEntries = await getCollection("blog");
 <style>
 	:root {
 		--line-height: 1.25;
-		scroll-behavior: smooth;
 	}
 
 	body {
@@ -70,6 +69,8 @@ const blogEntries = await getCollection("blog");
 		text-align: left;
 		word-wrap: break-word;
 		overflow-wrap: break-word;
+    scroll-behavior: smooth;
+    display: flex;
 	}
 	
 	.NavMenu {

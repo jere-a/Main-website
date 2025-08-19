@@ -83,6 +83,24 @@ const lang = getLocale(Astro.url).toLowerCase();
 			)
       }
     <script src="../ts/pages/layout.mts"></script>
+    <script>
+      if (window.location.host !== 'ozze.eu.org') {
+        // @ts-ignore
+        window.goatcounter = {no_onload: true}
+      } else {
+        // @ts-ignore
+        window.goatcounter = {no_onload: true}
+
+        window.addEventListener('hashchange', function(e) {
+          // @ts-ignore
+          window.goatcounter.count({
+            path: location.pathname + location.search + location.hash,
+          })
+        })
+      }
+      </script>
+    <script is:inline data-goatcounter="https://jere8809.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
 	</body>
 </html>
 
