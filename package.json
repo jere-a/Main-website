@@ -22,7 +22,6 @@
     "check-types": "tsc --noEmit",
     "test:vitest": "vitest run",
     "test:size": "size-limit",
-    "test:coverage": "vitest run --coverage",
     "test:check": "astro check",
     "test": "pnpm run /^test:/",
     "vitest": "vitest",
