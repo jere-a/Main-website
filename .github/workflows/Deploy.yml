@@ -1,0 +1,70 @@
+name: CI & Deploy
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+
+jobs:
+  Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use pnpm Version 10.x.x
+        uses: pnpm/action-setup@v4
+
+      - name: Cache
+        uses: actions/cache@v4.2.3
+        with:
+          path: |
+            .astro
+            node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Project
+        run: pnpm run build
+
+      - name: Run Tests
+        run: pnpm run test
+
+      - name: Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: pnpm run preview --host
+          browser: chrome
+
+      - name: Save build artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-build
+          path: |
+            dist
+
+  deploy:
+    needs: Tests
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    timeout-minutes: 60
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: project-build
+          path: .
+      - name: Build & Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
