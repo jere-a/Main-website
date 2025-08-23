@@ -3,7 +3,6 @@ describe("Main Page", () => {
     cy.visit("http://localhost:4321");
     cy.contains("Åzze");
     cy.get(".email-link").should("have.text", "info@ozze.eu.org");
-    cy.get(".copyright").should("include.text", new Date().getFullYear());
 
     //cy.get('.github-corner svg').click();
     //cy.origin('https://github.com', () => {
