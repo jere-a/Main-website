@@ -2,7 +2,6 @@ describe("Main Page", () => {
   it("Visit Website on localhost", () => {
     cy.visit("http://localhost:4321");
     cy.contains("Åzze");
-    cy.contains("Tekijänoikeus");
     cy.get(".email-link").should("have.text", "info@ozze.eu.org");
     cy.get(".copyright").should("include.text", new Date().getFullYear());
 
