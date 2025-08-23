@@ -38,6 +38,9 @@ export default defineConfig({
   image: {
     service: imageService({}),
   },
+  prefetch: {
+    defaultStrategy: "viewport",
+  },
   integrations: [
     vtbot(),
     mdx(),
