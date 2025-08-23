@@ -1,9 +1,8 @@
 name: Clean
 
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: "0 0 1 * *"
 
 permissions:
   actions: write
@@ -18,5 +17,5 @@ jobs:
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          retain_days: 3
-          keep_minimum_runs: 3
+          retain_days: 30
+          keep_minimum_runs: 6

@@ -26,10 +26,9 @@ jobs:
       - name: Use pnpm Version 10.x.x
         uses: pnpm/action-setup@v4
       - run: pnpm install
-      - run: pnpm run build
       - run: pnpm run test
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          start: pnpm run preview --host
+          start: pnpm run build && pnpm run preview --host
           browser: chrome
