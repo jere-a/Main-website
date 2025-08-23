@@ -26,7 +26,6 @@ jobs:
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('src/**') }}
           restore-keys: |
             ${{ runner.os }}-build-
-          retention-days: 30
 
       - name: Install dependencies
         run: pnpm install
@@ -65,7 +64,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: project-build
-          path: .
+          path: ./dist
       - name: Build & Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
