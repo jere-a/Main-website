@@ -26,6 +26,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('src/**') }}
           restore-keys: |
             ${{ runner.os }}-build-
+          retention-days: 30
 
       - name: Install dependencies
         run: pnpm install
@@ -47,8 +48,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: project-build
-          path: |
-            dist
+          path: dist
+          retention-days: 7
 
   deploy:
     needs: Tests
@@ -58,6 +59,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Use pnpm Version 10.x.x
+        uses: pnpm/action-setup@v4
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
