@@ -57,20 +57,12 @@ const lang = getLocale(Astro.url).toLowerCase();
 		<ReloadPrompt />
 		{ isFooter && <Footer transition:persist /> }
 		{
-			true && (
+			false && (
 					<div
 						style="visibility: hidden;"
 						data-sitekey="0x4AAAAAAAbhEsfftzTNsmMO"
 						data-theme="dark"
 					/>
-					<noscript>
-						<iframe
-							src="https://www.googletagmanager.com/ns.html?id=GTM-P6SH88WW"
-							height="0"
-							width="0"
-							style="display:none;visibility:hidden"
-						/>
-					</noscript>
 			)
 		}
 		{
