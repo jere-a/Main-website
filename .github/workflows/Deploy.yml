@@ -65,7 +65,7 @@ jobs:
         with:
           name: project-build
           path: ./dist
-      - name: Build & Deploy Worker
+      - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
