@@ -34,6 +34,7 @@
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.8",
     "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "^12.6.5",
     "@astrojs/mdx": "^4.3.4",
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/preact": "^4.1.0",
