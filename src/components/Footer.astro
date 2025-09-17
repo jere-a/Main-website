@@ -18,7 +18,7 @@ const isCopyright = (): boolean => {
 const copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} Jere L`;
 ---
 
-<footer transition:name="footer">
+<footer transition:name="footer" transition:persist>
 	{
 		isCopyright() && (
     <p class="copyright" data-value={copyrightText}>{copyrightText}</p>

@@ -25,7 +25,7 @@ const activefunc = (
   active: string | undefined,
   activetab: string | undefined,
 ): string => {
-  return active === activetab ? "bg-blue-950 active" : "";
+  return active === activetab ? "bg-blue-950 active disable-links" : "";
 };
 
 const default_class_links = `${navigationMenuTriggerStyle} navItem navmenulink animate__animated animate__bounceIn`;
@@ -75,6 +75,10 @@ const links: {
 
   li + li {
     margin-left: 0.1rem;
+  }
+
+  .disable-links {
+    pointer-events: none;
   }
 
   .card {
