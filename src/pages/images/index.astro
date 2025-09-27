@@ -7,6 +7,8 @@ import Sunflower from "../../data/images/auringon kukka 2.jpg";
 import Big_root from "../../data/images/Iso kanto.jpg";
 import BlueSky from "../../data/images/sininen taivas.jpg";
 import winterLandscape from "../../data/images/talvinen maisema 2.jpg";
+import NightBridgeWithLights from "../../data/images/Isompi silta pimeällä.jpg";
+import WhiteLittleBridgeAtNight from "../../data/images/silta pimeällä.jpg";
 
 const images: {
   src: ImageMetadata;
@@ -32,14 +34,22 @@ const images: {
     src: Ghost,
     title: "Aamuinen usva.",
   },
+  {
+    src: NightBridgeWithLights,
+    title: "Värikäs silta pimeällä",
+  },
+  {
+    src: WhiteLittleBridgeAtNight,
+    title: "Silta pimeällä",
+  },
 ];
 ---
 
 <Layout title="Kuvat" activeNav="kuvat">
-	<h1 transition:name="hero_text" class="text-gradient text-center mb-4 text-[4rem] font-bold leading-none">Kuvat</h1>
+	<h1 transition:name="hero_text" class="text-gradient text-center mb-4 text-[3.5rem] font-bold leading-none">Kuvat</h1>
 	<p class="text-center mb-2 text-[1.2rem] leading-none">Minun ottamiani kuvia eri paikoista.</p>
   <ul role="list" class="image-card-grid">
-    {images.map(image => (
+    {images.map((image) => (
       <li>
         <ImageHolder src={image.src} title={image.title}/>
       </li>
@@ -52,13 +62,9 @@ const images: {
     margin-inline: auto;
   }
 
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
+  ul li {
+    margin-inline: 0.5rem;
+  }
 
 	.image-card-grid {
 	    --grid-min-col-size: 300px;
