@@ -29,9 +29,9 @@ export const siteConfig = {
       expire_days: 2,
     },
     functions: {
-      holidayEffects: false,
+      holidayEffects: true,
       howOldSite: true,
-      quicklink: true,
+      quicklink: false,
       fetchIPP: false,
     },
   },
