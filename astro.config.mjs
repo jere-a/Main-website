@@ -1,29 +1,24 @@
 // import mdx from '@astrojs/mdx';
-import partytown from "@astrojs/partytown";
-import purgecss from "astro-purgecss";
-import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
-import preact from "@astrojs/preact";
-import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
+
 import mdx from "@astrojs/mdx";
-
-import AstroPWA from "@vite-pwa/astro";
-import { imageService } from "@unpic/astro/service";
-import vtbot from "astro-vtbot";
-
+import preact from "@astrojs/preact";
+import react from "@astrojs/react";
+// Helper imports
+import sitemap from "@astrojs/sitemap";
+import playformCompress from "@playform/compress";
 // Rollup
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import strip from "@rollup/plugin-strip";
 import terser from "@rollup/plugin-terser";
-
+import { imageService } from "@unpic/astro/service";
+import AstroPWA from "@vite-pwa/astro";
+import { defineConfig } from "astro/config";
+import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
+import purgecss from "astro-purgecss";
+import vtbot from "astro-vtbot";
+import { visualizer } from "rollup-plugin-visualizer";
 // import siteConfig
 import { siteConfig } from "./src/config";
-
-// Helper imports
-import sitemap from "@astrojs/sitemap";
-import playformCompress from "@playform/compress";
-
-import { visualizer } from "rollup-plugin-visualizer";
 
 const defaultLocale = "fi";
 const locales = {

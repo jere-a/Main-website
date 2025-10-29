@@ -1,7 +1,7 @@
 import { navigate } from "astro:transitions/client";
 import { siteConfig } from "@/config";
 import { $ } from "@/ts/jquery";
-import { PrefersReducedMotion, l } from "./global";
+import { PrefersReducedMotion } from "./global";
 
 const main = () => {
   $(document).on("astro:page-load", () => {
