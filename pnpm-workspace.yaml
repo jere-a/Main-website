@@ -8,3 +8,4 @@ onlyBuiltDependencies:
   - cypress
   - esbuild
   - sharp
+  - workerd
