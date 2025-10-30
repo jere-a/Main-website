@@ -49,7 +49,7 @@ const holidays = [
   },
 ];
 
-export async function isHoliday(data?: (HTMLElement | string)[] | string[]) {
+export async function isHoliday(_data?: (HTMLElement | string)[] | string[]) {
   for (const holiday of holidays) {
     if (today.isBetween(holiday.from, holiday.to)) {
       return {

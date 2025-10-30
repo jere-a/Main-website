@@ -1,6 +1,5 @@
 "use client";
 import { useStore } from "@nanostores/react";
-import { signal } from "@preact/signals-react";
 import { useEffect, useRef } from "react";
 import { isMobile } from "@/ts/global";
 import { isPrefersReducedMotion } from "@/ts/stores";
@@ -81,7 +80,7 @@ export default function SplashCursor(props: SplashCursorProps) {
   const prefersReducedMotion = useStore(isPrefersReducedMotion);
   const cleanupRef = useRef<null | (() => void) | undefined>(null);
 
-  const stablePropsKey = JSON.stringify({
+  const _stablePropsKey = JSON.stringify({
     ...DEFAULTS,
     ...props,
   });
@@ -381,7 +380,7 @@ function initSplashCursor(
   }
 
   function getUniforms(program: WebGLProgram) {
-    let uniforms: Record<string, WebGLUniformLocation | null> = {};
+    const uniforms: Record<string, WebGLUniformLocation | null> = {};
     const uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
     for (let i = 0; i < uniformCount; i++) {
       const uniformInfo = gl.getActiveUniform(program, i);
@@ -1043,7 +1042,7 @@ function initSplashCursor(
     const w = gl.drawingBufferWidth;
     const h = gl.drawingBufferHeight;
     const aspectRatio = w / h;
-    let aspect = aspectRatio < 1 ? 1 / aspectRatio : aspectRatio;
+    const aspect = aspectRatio < 1 ? 1 / aspectRatio : aspectRatio;
     const min = Math.round(resolution);
     const max = Math.round(resolution * aspect);
     if (w > h) {
@@ -1083,9 +1082,9 @@ function initSplashCursor(
   }
 
   function resizeCanvas() {
-    const width = scaleByPixelRatio(canvas!.clientWidth);
-    const height = scaleByPixelRatio(canvas!.clientHeight);
-    if (canvas!.width !== width || canvas!.height !== height) {
+    const width = scaleByPixelRatio(canvas?.clientWidth);
+    const height = scaleByPixelRatio(canvas?.clientHeight);
+    if (canvas?.width !== width || canvas?.height !== height) {
       canvas!.width = width;
       canvas!.height = height;
       return true;
@@ -1285,7 +1284,7 @@ function initSplashCursor(
     dye.swap();
   }
 
-  const uniformCache = new Map();
+  const _uniformCache = new Map();
 
   function render(target: FBO | null) {
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
@@ -1336,7 +1335,7 @@ function initSplashCursor(
     if (splatProgram.uniforms.aspectRatio) {
       gl.uniform1f(
         splatProgram.uniforms.aspectRatio,
-        canvas!.width / canvas!.height,
+        canvas?.width / canvas?.height,
       );
     }
     if (splatProgram.uniforms.point) {
@@ -1365,7 +1364,7 @@ function initSplashCursor(
   }
 
   function correctRadius(radius: number) {
-    const aspectRatio = canvas!.width / canvas!.height;
+    const aspectRatio = canvas?.width / canvas?.height;
     if (aspectRatio > 1) radius *= aspectRatio;
     return radius;
   }
@@ -1379,8 +1378,8 @@ function initSplashCursor(
     pointer.id = id;
     pointer.down = true;
     pointer.moved = false;
-    pointer.texcoordX = posX / canvas!.width;
-    pointer.texcoordY = 1 - posY / canvas!.height;
+    pointer.texcoordX = posX / canvas?.width;
+    pointer.texcoordY = 1 - posY / canvas?.height;
     pointer.prevTexcoordX = pointer.texcoordX;
     pointer.prevTexcoordY = pointer.texcoordY;
     pointer.deltaX = 0;
@@ -1396,8 +1395,8 @@ function initSplashCursor(
   ) {
     pointer.prevTexcoordX = pointer.texcoordX;
     pointer.prevTexcoordY = pointer.texcoordY;
-    pointer.texcoordX = posX / canvas!.width;
-    pointer.texcoordY = 1 - posY / canvas!.height;
+    pointer.texcoordX = posX / canvas?.width;
+    pointer.texcoordY = 1 - posY / canvas?.height;
     pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX)!;
     pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY)!;
     pointer.moved =
@@ -1410,13 +1409,13 @@ function initSplashCursor(
   }
 
   function correctDeltaX(delta: number) {
-    const aspectRatio = canvas!.width / canvas!.height;
+    const aspectRatio = canvas?.width / canvas?.height;
     if (aspectRatio < 1) delta *= aspectRatio;
     return delta;
   }
 
   function correctDeltaY(delta: number) {
-    const aspectRatio = canvas!.width / canvas!.height;
+    const aspectRatio = canvas?.width / canvas?.height;
     if (aspectRatio > 1) delta /= aspectRatio;
     return delta;
   }

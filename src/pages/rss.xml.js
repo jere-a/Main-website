@@ -1,8 +1,9 @@
-import rss from "@astrojs/rss";
-import { siteConfig } from "@/config";
 import { getCollection } from "astro:content";
-import sanitizeHtml from "sanitize-html";
+import rss from "@astrojs/rss";
 import MarkdownIt from "markdown-it";
+import sanitizeHtml from "sanitize-html";
+import { siteConfig } from "@/config";
+
 const parser = new MarkdownIt({
   html: true,
   breaks: true,

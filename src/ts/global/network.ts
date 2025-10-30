@@ -1,5 +1,5 @@
-import { l } from "@/ts/global";
 import { siteConfig } from "@/config";
+import { l } from "@/ts/global";
 
 const onlineCheck = async (): Promise<boolean> => {
   const onlineCheckStatus = async () => {

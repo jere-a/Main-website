@@ -318,5 +318,5 @@ $.get = ajaxgetfunctionSchema.implement((i) => {
     .then((res) => {
       return res.json();
     })
-    .then((data) => {});
+    .then((_data) => {});
 });

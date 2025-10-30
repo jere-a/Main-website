@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import type React from "react";
+import { useRef } from "react";
 import "./SpotlightCard.css";
 
 interface Position {
@@ -34,7 +35,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
     <div
       ref={divRef}
       onMouseMove={handleMouseMove}
-      className={`card-spotlight ${className}`}
+      class={`card-spotlight ${className}`}
     >
       {children}
     </div>
