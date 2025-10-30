@@ -1,5 +1,4 @@
 ---
-import { Image, Picture } from "astro:assets";
 import "@/global.css";
 
 interface Props {
@@ -12,7 +11,7 @@ interface Props {
 
 const { class: className, src, title, body, alt } = Astro.props;
 
-const altfunc = (): string => {
+const _altfunc = (): string => {
   if (alt !== undefined) return alt;
   else if (alt === undefined) return title;
   else return "";

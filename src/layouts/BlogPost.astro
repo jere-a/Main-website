@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Layout from "./Layout.astro";
 
 import "../styles/blog/blog.css";
 import "../styles/blog/markdown.css";
@@ -8,7 +7,7 @@ import "../styles/blog/markdown.css";
 type Props = CollectionEntry<"blog">["data"];
 
 const { title, pubDate } = Astro.props;
-const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.getFullYear()}`;
+const _formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.getFullYear()}`;
 ---
 
 <Layout title={title} activeNav="blog" isSplash={false}>

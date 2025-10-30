@@ -1,9 +1,8 @@
 import { Fireworks } from "fireworks-js";
-import { query } from "@/ts/global";
-
 import exp0 from "@/data/sounds/explosion0.opus";
 import exp1 from "@/data/sounds/explosion1.opus";
 import exp2 from "@/data/sounds/explosion2.opus";
+import { query } from "@/ts/global";
 
 export const newYear = async () => {
   if (!newYear.once) {

@@ -3,7 +3,7 @@ import { siteConfig } from "@/config";
 
 export const GET: APIRoute = ({ params, request }) => {
   const ext = params.ext;
-  if (ext != undefined && ext === "json") {
+  if (ext !== undefined && ext === "json") {
     return new Response(
       JSON.stringify({
         online: true,
@@ -18,7 +18,7 @@ export const GET: APIRoute = ({ params, request }) => {
     );
   }
 
-  if (ext != undefined && ext === "txt") {
+  if (ext !== undefined && ext === "txt") {
     return new Response("online", {
       status: 200,
     });

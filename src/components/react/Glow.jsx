@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Glow = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -29,18 +29,18 @@ const Glow = () => {
   }, []);
 
   const glowStyle = {
-    position: 'fixed',
+    position: "fixed",
     top: mousePosition.y,
     left: mousePosition.x,
-    width: '400px',
-    height: '400px',
-    backgroundColor: 'rgba(64, 64, 64, 0.3)',
-    borderRadius: '50%',
-    transform: 'translate(-50%, -50%)',
-    display: isMouseInViewport ? 'block' : 'none',
+    width: "400px",
+    height: "400px",
+    backgroundColor: "rgba(64, 64, 64, 0.3)",
+    borderRadius: "50%",
+    transform: "translate(-50%, -50%)",
+    display: isMouseInViewport ? "block" : "none",
   };
   return (
-    <div className="blur-3xl pointer-events-none -z-30" style={glowStyle}></div>
+    <div class="blur-3xl pointer-events-none -z-30" style={glowStyle}></div>
   );
 };
 
