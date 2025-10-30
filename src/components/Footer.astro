@@ -1,12 +1,9 @@
 ---
-import { Image } from "astro:assets";
-import humanstxt from "@/data/img/humanstxt-transparent-1ink.png";
-
 interface Props {
   isCopyright?: boolean;
 }
 
-const isCopyright = (): boolean => {
+const _isCopyright = (): boolean => {
   const { isCopyright } = Astro.props;
   if (isCopyright === null || isCopyright === undefined) {
     return true;
@@ -15,7 +12,7 @@ const isCopyright = (): boolean => {
   }
 };
 
-const copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} Jere L`;
+const _copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} Jere L`;
 ---
 
 <footer transition:name="footer" transition:persist>

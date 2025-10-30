@@ -189,7 +189,7 @@
   text-rendering: auto;
 }
 .katex * {
-  -ms-high-contrast-adjust: none !important;
+  -ms-high-contrast-adjust: none;
 }
 .katex * {
   border-color: currentColor;

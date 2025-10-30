@@ -1,10 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
 import { getLocale } from "astro-i18n-aut";
 
-const lang: string = getLocale(Astro.url);
-const blogEntries = await getCollection("blog");
+const _lang: string = getLocale(Astro.url);
+const _blogEntries = await getCollection("blog");
 ---
 
 <Layout title="Blogs" activeNav="blog" isCopyright={false}>

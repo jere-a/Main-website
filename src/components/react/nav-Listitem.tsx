@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { cn } from '@/lib/utils';
-import { NavigationMenuLink } from '../ui/navigation-menu';
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { NavigationMenuLink } from "../ui/navigation-menu";
 
-const ListItem = React.forwardRef <
+const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
 >(({ className, title, children, ...props }, ref) => {
@@ -13,21 +13,21 @@ const ListItem = React.forwardRef <
       <NavigationMenuLink asChild>
         <a
           ref={ref}
-          className={cn(
+          class={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            className,
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <div class="text-sm font-medium leading-none">{title}</div>
+          <p class="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
 
 export default ListItem;
