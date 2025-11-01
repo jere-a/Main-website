@@ -47,7 +47,7 @@
     "@astrojs/ts-plugin": "^1.10.5",
     "@astrojs/vue": "^5.1.2",
     "@builder.io/qwik": "^1.17.1",
-    "@fingerprintjs/fingerprintjs": "^4.6.2",
+    "@fingerprintjs/fingerprintjs": "^5.0.1",
     "@nanostores/persistent": "^1.2.0",
     "@nanostores/react": "^1.0.0",
     "@playform/compress": "^0.2.0",
