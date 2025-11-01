@@ -138,7 +138,7 @@
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "solid-js": "^1.9.10",
-    "svelte": "^5.43.0",
+    "svelte": "^5.43.2",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.16",
     "tailwindcss-animate": "^1.0.7",
