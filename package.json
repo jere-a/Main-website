@@ -61,7 +61,7 @@
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
-    "@react-three/fiber": "9.2.0",
+    "@react-three/fiber": "9.4.0",
     "@sentry/astro": "^9.46.0",
     "@spotlightjs/astro": "^3.2.6",
     "@stylify/astro": "^0.6.2",
