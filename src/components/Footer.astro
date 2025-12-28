@@ -3,7 +3,7 @@ interface Props {
   isCopyright?: boolean;
 }
 
-const _isCopyright = (): boolean => {
+const isCopyright = (): boolean => {
   const { isCopyright } = Astro.props;
   if (isCopyright === null || isCopyright === undefined) {
     return true;
@@ -18,7 +18,7 @@ const _copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} J
 <footer transition:name="footer" transition:persist>
 	{
 		isCopyright() && (
-    <p class="copyright" data-value={copyrightText}>{copyrightText}</p>
+    <p class="copyright" data-value={_copyrightText}>{_copyrightText}</p>
 		)
 	}
 </footer>

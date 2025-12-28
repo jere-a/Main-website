@@ -1,0 +1,51 @@
+---
+import { getLocale } from "astro-i18n-aut";
+
+// import { ModeToggle } from '@/components/react/ModeToggle';
+
+interface Props {
+  title: string | undefined;
+  isCopyright?: boolean;
+  activeNav?: string;
+}
+
+const { title, activeNav } = Astro.props;
+const _lang = getLocale(Astro.url);
+---
+
+<html lang={lang}>
+	<head>
+		<CommonHead title={siteConfig.title + ' | ' + title}></CommonHead>
+		<slot name="head" />
+	</head>
+	<body>
+		<slot />
+		<ReloadPrompt />
+		{
+			false && (
+					<div
+						style="visibility: hidden;"
+						data-sitekey="0x4AAAAAAAbhEsfftzTNsmMO"
+						data-theme="dark"
+					/>
+					<noscript>
+						<iframe
+							src="https://www.googletagmanager.com/ns.html?id=GTM-P6SH88WW"
+							height="0"
+							width="0"
+							style="display:none;visibility:hidden"
+						/>
+					</noscript>
+			)
+		}
+		{
+			false && (
+				<script
+					is:inline
+					src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+					defer
+				/>
+			)
+		}
+	</body>
+</html>

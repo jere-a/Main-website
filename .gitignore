@@ -31,6 +31,9 @@ pnpm-debug.log*
 # Skip TurboRepo
 .turbo
 
+# Skip sonda
+.sonda
+
 # Docker build
 .dockerignore
 dockerfile
