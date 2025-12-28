@@ -1,35 +1,72 @@
 import { Fireworks } from "fireworks-js";
-import exp0 from "@/data/sounds/explosion0.opus";
-import exp1 from "@/data/sounds/explosion1.opus";
-import exp2 from "@/data/sounds/explosion2.opus";
-import { query } from "@/ts/global";
+import exp0 from "@/data/sounds/explosion0.mp3";
+import exp1 from "@/data/sounds/explosion1.mp3";
+import exp2 from "@/data/sounds/explosion2.mp3";
 
-export const newYear = async () => {
-  if (!newYear.once) {
-    newYear.once = true;
-    const fireworksContainer = Object.assign(document.createElement("div"), {
-      className: "fireworks-container",
-      style:
-        "position: absolute; top: 0px; left: 0px; z-index: -2; pointer-events: none; width: 100%; height: 100%; overflow: hidden;",
-    });
-    document.body?.appendChild(fireworksContainer) ||
-      console.error("Document body is not ready.");
+let fireworks: Fireworks | null = null;
+let container: HTMLDivElement | null = null;
 
-    const fireworksCon = query(".fireworks-container");
-    const fireworks = new Fireworks(fireworksCon, {
-      boundaries: {
-        x: 50,
-        y: 50,
-        width: fireworksCon.clientWidth,
-        height: fireworksCon.clientHeight,
-      },
-      sound: {
-        enabled: true,
-        files: [exp0, exp1, exp2],
-      },
-    });
-    fireworks.start();
+// Enable sound only after user interaction
+const enableSound = () => {
+  fireworks?.updateOptions({ sound: { enabled: true } });
+};
+
+// Cleanup function
+const cleanup = () => {
+  fireworks?.stop();
+  fireworks = null;
+
+  if (container) {
+    container.remove();
+    container = null;
   }
 };
 
-newYear.once = false;
+// Initialize fireworks
+const init = () => {
+  cleanup(); // ensure no leftover instance
+
+  container = document.createElement("div");
+  container.className = "fireworks-container";
+  Object.assign(container.style, {
+    position: "absolute",
+    inset: "0",
+    zIndex: "-2",
+    pointerEvents: "none",
+    overflow: "hidden",
+  });
+
+  document.body.appendChild(container);
+
+  fireworks = new Fireworks(container, {
+    boundaries: {
+      x: 50,
+      y: 50,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    },
+    sound: { enabled: false, files: [exp0, exp1, exp2] },
+  });
+
+  fireworks.start();
+
+  window.addEventListener("pointerdown", enableSound, { once: true });
+  window.addEventListener("keydown", enableSound, { once: true });
+};
+
+// Fire-and-forget exported function (optional manual trigger)
+export const newYear = () => {
+  if (typeof window === "undefined") return;
+  init();
+};
+
+// ------------------------
+// Automatic page load + SPA handling
+// ------------------------
+if (typeof window !== "undefined") {
+  // Initialize on first page load
+  document.addEventListener("astro:page-load", init);
+
+  // Cleanup before Astro swaps pages
+  document.addEventListener("astro:before-swap", cleanup);
+}

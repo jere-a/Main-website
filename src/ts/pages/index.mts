@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config";
 import { capitalize, holidayTimeTo, isHoliday, query } from "@/ts/global";
+import { $ } from "@/ts/jquery/index";
 import global from "@/ts/global-code";
 
 const main = async () => {
@@ -47,7 +48,6 @@ const main = async () => {
 
       if (holiday.bool) {
         query("p.holidays").classList.remove("invisible");
-        holiday.script;
         updateHolidayMessage();
         setInterval(updateHolidayMessage, 1000);
       }
@@ -56,6 +56,8 @@ const main = async () => {
 };
 
 main.once = false;
-global();
 document.addEventListener("astro:page-load", main);
-document.addEventListener("DOMContentLoaded", main);
+$(document).ready(() => {
+  main();
+  global();
+});

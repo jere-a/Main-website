@@ -3,22 +3,17 @@ import christmasstyle from "@/styles/holidays/christmas.css?url";
 import { l } from "@/ts/global";
 
 export const christmas = async () => {
-  if (!christmas.once) {
-    christmas.once = true;
-    new LetItGo();
+  new LetItGo();
 
-    const lightrope = document.createElement("ul");
-    lightrope.className = "lightrope";
-    for (let i = 0; i < 42; i++) {
-      const listItem = document.createElement("li");
-      lightrope.appendChild(listItem);
-    }
-    document.body?.insertBefore(lightrope, document.body.firstChild) ||
-      console.error("Document body is not ready.");
-
-    import(christmasstyle);
-    l("Christmas");
+  const lightrope = document.createElement("ul");
+  lightrope.className = "lightrope";
+  for (let i = 0; i < 42; i++) {
+    const listItem = document.createElement("li");
+    lightrope.appendChild(listItem);
   }
-};
+  document.body?.insertBefore(lightrope, document.body.firstChild) ||
+    console.error("Document body is not ready.");
 
-christmas.once = false;
+  import(christmasstyle);
+  l("Christmas");
+};

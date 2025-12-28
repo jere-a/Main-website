@@ -14,8 +14,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Use pnpm Version 10.x.x
-        uses: pnpm/action-setup@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: Cache
         uses: actions/cache@v4.2.3
@@ -28,13 +29,13 @@ jobs:
             ${{ runner.os }}-build-
 
       - name: Install dependencies
-        run: pnpm install
+        run: bun install
 
       - name: Build Project
-        run: pnpm run build
+        run: bun run build
 
       - name: Run Tests
-        run: pnpm run test
+        run: bun run test
 
       - name: Cypress Tests
         uses: cypress-io/github-action@v6

@@ -15,3 +15,33 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
+
+
+
+// Fail on uncaught JS errors (except known browser noise)
+Cypress.on('uncaught:exception', (err) => {
+  const ignored = [
+    'ResizeObserver loop limit exceeded',
+    'Script error.'
+  ]
+
+  if (ignored.some(msg => err.message.includes(msg))) {
+    return false
+  }
+
+  throw err
+})
+
+// Track console errors & warnings
+beforeEach(() => {
+  cy.window({ log: false }).then((win) => {
+    cy.stub(win.console, 'error').as('consoleError')
+    cy.stub(win.console, 'warn').as('consoleWarn')
+  })
+})
+
+// Fail if console.error was called
+afterEach(() => {
+  cy.get('@consoleError').should('not.have.been.called')
+})
+
