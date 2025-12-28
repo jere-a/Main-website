@@ -1,4 +1,5 @@
 ---
+import { Picture } from "astro:assets";
 import "@/global.css";
 
 interface Props {
@@ -22,9 +23,9 @@ const _altfunc = (): string => {
     <div>
       <Picture
         src={src}
-        alt={altfunc()}
+        alt={_altfunc()}
         class={`image full-image ${className}`}
-        formats={['avif', 'webp']}
+        formats={['webp']}
         quality={'high'}
       />
       <br />

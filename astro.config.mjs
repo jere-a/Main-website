@@ -6,10 +6,6 @@ import react from "@astrojs/react";
 // Helper imports
 import sitemap from "@astrojs/sitemap";
 import playformCompress from "@playform/compress";
-// Rollup
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import strip from "@rollup/plugin-strip";
-import terser from "@rollup/plugin-terser";
 import { imageService } from "@unpic/astro/service";
 import AstroPWA from "@vite-pwa/astro";
 import { defineConfig } from "astro/config";
@@ -19,6 +15,7 @@ import vtbot from "astro-vtbot";
 import { visualizer } from "rollup-plugin-visualizer";
 // import siteConfig
 import { siteConfig } from "./src/config";
+import Sonda from "sonda/vite";
 
 const defaultLocale = "fi";
 const locales = {
@@ -30,15 +27,23 @@ const locales = {
 export default defineConfig({
   site: siteConfig.url,
   output: "static",
+
   image: {
     service: imageService({}),
   },
+
+  experimental: {
+    svgo: true,
+  },
+
   prefetch: {
     defaultStrategy: "viewport",
   },
+
   integrations: [
     vtbot(),
     mdx(),
+
     // vue({
     //   include: '**/vue/*'
     // }),
@@ -51,15 +56,16 @@ export default defineConfig({
     //alpinejs(),
     //qwikdev({
     //	include: '**/qwik/*',
-    //}), //preact({
-    //  include: '**/preact/*'
     //}),
+
     preact({
       include: ["**/preact/*"],
     }),
+
     react({
       include: ["**/react/*", "**/components/ui/*"],
     }),
+
     AstroPWA({
       strategies: "injectManifest",
       srcDir: "src",
@@ -98,6 +104,7 @@ export default defineConfig({
         ],
       },
     }),
+
     purgecss({
       keyframes: false,
       safelist: {
@@ -114,71 +121,80 @@ export default defineConfig({
         },
       ],
     }),
+
     i18n({
       locales,
       defaultLocale,
       redirectDefaultLocale: false,
       exclude: ["pages/**/*.js", "pages/**/*.ts", "pages/**/*.md"],
     }),
-    //partytown(),
+
     sitemap({
       i18n: {
         locales,
         defaultLocale,
       },
       filter: filterSitemapByDefaultLocale({ defaultLocale }),
-    }), //serviceWorker({
+    }),
+
+    //serviceWorker({
     //	registration: { autoRegister: true },
     //	workbox: { offlineGoogleAnalytics: false, disableDevLogs: true },
     //	swSrc: 'sw.js',
     //}),
+
     playformCompress({
       Image: false,
     }),
   ],
+
   trailingSlash: "never",
+
   //i18n: {
   //	defaultLocale: 'fi',
   //	locales: ['fi', 'en'],
   //},
+
   vite: {
     server: {
       allowedHosts: ["prerelease.ozze.eu.org"],
     },
+
     build: {
       sourcemap: true,
       cssMinify: "lightningcss",
       minify: "terser",
+
       rollupOptions: {
         output: {
-          entryFileNames: "entry.[hash].mjs",
-          chunkFileNames: "chunks/chunk.[hash].mjs",
-          assetFileNames: "assets/asset.[hash][extname]",
           manualChunks: {
             dates: ["date-fns", "dayjs"],
             global: ["src/ts/global"],
             jquery: ["src/ts/jquery"],
-            pages: ["src/pages"],
           },
+
           compact: true,
+
           generatedCode: {
             arrowFunctions: true,
             constBindings: true,
             objectShorthand: true,
             preset: "es2015",
           },
+
           interop: "auto",
           minifyInternalExports: true,
         },
+
         preserveEntrySignatures: false,
         treeshake: "smallest",
       },
     },
+
     plugins: [
-      nodeResolve({ browser: true }),
-      strip(),
-      terser(),
+      // terser is already used by Vite via build.minify
       visualizer({ emitFile: true, filename: "stats.html" }),
+      Sonda(),
     ],
   },
 });

@@ -1,17 +1,20 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import Social from "../components/Social.astro";
+import Card from "../components/Card.astro";
 import { getLocale } from "astro-i18n-aut";
 import { siteConfig } from "@/config";
 import { useTranslatedPath, useTranslations } from "@/i18n/utils";
 
-const _giturl = siteConfig.urls.giturl || "https://git.new/I3vys7Q";
+const giturl = siteConfig.urls.giturl || "https://git.new/I3vys7Q";
 
 // Language
 const lang = getLocale(Astro.url);
-const _t = useTranslations(lang);
-const _translatePath = useTranslatedPath(lang);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 
-<Layout title={t('index.title')} activeNav="koti" isFooter={false}>
+<Layout title={t('index.title')} activeNav="koti" isFooter={false} client:load>
 	<main>
 		<a
 			href={giturl}
@@ -37,7 +40,6 @@ const _translatePath = useTranslatedPath(lang);
         </path>
 			</svg>
     </a>
-    <AstroLogo></AstroLogo>
 
 		<h1 transition:name="hero_text">
 			<span class="text-gradient main animate__animated animate__bounceIn"
@@ -69,7 +71,7 @@ const _translatePath = useTranslatedPath(lang);
 			/>
 			</ul>
 	</main>
-  <script src="@/ts/pages/index.mts"></script>
+   <script src="@/ts/pages/index.mts"></script>
 </Layout>
 <style>
 	main {
@@ -184,3 +186,4 @@ const _translatePath = useTranslatedPath(lang);
 		}
 	}
 </style>
+

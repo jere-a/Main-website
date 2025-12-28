@@ -21,7 +21,7 @@ export const siteConfig = {
     },
   },
   urls: {
-    giturl: "https://ozze.eu.org/git",
+    giturl: "https://github.com/jere-a/Main-website",
   },
   params: {
     cookies: {
@@ -31,7 +31,7 @@ export const siteConfig = {
     functions: {
       holidayEffects: true,
       howOldSite: true,
-      quicklink: false,
+      quicklink: true,
       fetchIPP: false,
     },
   },

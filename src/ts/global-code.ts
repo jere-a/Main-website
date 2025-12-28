@@ -1,21 +1,26 @@
 import { navigate } from "astro:transitions/client";
 import { siteConfig } from "@/config";
 import { $ } from "@/ts/jquery";
-import { PrefersReducedMotion } from "./global";
+import { PrefersReducedMotion, isHoliday } from "./global/index";
 
 const main = () => {
-  $(document).on("astro:page-load", () => {
-    $("a").on("mousedown", function (e) {
-      e.preventDefault();
-      navigate($(this).attr("href"));
-    });
-    if (siteConfig.params.functions.quicklink) {
-      import("quicklink").then(({ listen }) => {
-        listen({ prerender: true });
-      });
-    }
-    console.log("who");
+  $("a").on("mousedown", function (e) {
+    e.preventDefault();
+    navigate($(this).attr("href"));
   });
+  if (siteConfig.params.functions.quicklink) {
+    import("quicklink").then(({ listen }) => {
+      listen();
+    });
+  }
+
+  const runHolidayEffects = async () => {
+    const holiday = await isHoliday();
+    if (holiday.bool) {
+      holiday.script(); // actually execute the holiday effect
+    }
+  };
+  runHolidayEffects();
 };
 
 export function init() {

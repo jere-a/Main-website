@@ -1,5 +1,12 @@
 ---
 import { getLocale } from "astro-i18n-aut";
+import { siteConfig } from "@/config";
+import CommonHead from "@/components/CommonHead.astro";
+import NavMenu from "@/components/nav-menu.astro";
+import ReloadPrompt from "@/components/ReloadPrompt.astro";
+import Footer from "@/components/Footer.astro";
+import SplashCursor from "@/components/ui/SplashCursor";
+import Cookies from "@/components/cookies.astro";
 
 // import { ModeToggle } from '@/components/react/ModeToggle';
 
@@ -23,7 +30,7 @@ const {
   isSplash = true,
   activeNav,
 } = Astro.props;
-const _lang = getLocale(Astro.url).toLowerCase();
+const lang = getLocale(Astro.url).toLowerCase();
 ---
 
 <html class:list={[{dark: isDark}]} lang={lang}>
@@ -34,7 +41,7 @@ const _lang = getLocale(Astro.url).toLowerCase();
 	</head>
   <body>
     {
-    isSplash && <SplashCursor client:idle client:only="react" /> 
+    isSplash && <SplashCursor client:only="react" /> 
     }
 	  { isNavbar && (
     	<div class="NavMenu">
@@ -65,7 +72,6 @@ const _lang = getLocale(Astro.url).toLowerCase();
 				/>
 			)
       }
-    <script src="../ts/pages/layout.mts"></script>
     <script>
       if (window.location.host !== 'ozze.eu.org') {
         // @ts-ignore
@@ -87,6 +93,10 @@ const _lang = getLocale(Astro.url).toLowerCase();
 	</body>
 </html>
 
+<script>
+import { init } from '@/ts/global-code';
+init();
+</script>
 
 <style>
   body {
