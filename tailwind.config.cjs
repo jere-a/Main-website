@@ -5,6 +5,12 @@ module.exports = {
   experimental: {
     optimizeUniversalDefaults: true,
   },
+  purge: {
+    content: ["./src/**/*.astro", "./src/**/*.tsx"],
+    options: {
+      keyframes: true,
+    },
+  },
   prefix: "",
   theme: {
     container: {
@@ -71,5 +77,4 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
 };
