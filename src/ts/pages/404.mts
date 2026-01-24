@@ -1,4 +1,4 @@
-import { siteConfig } from "@/config";
+import { siteConfig } from "@/configFeatures";
 import { fetchData } from "@/ts/cloudflare-trace";
 import { query } from "@/ts/global";
 
