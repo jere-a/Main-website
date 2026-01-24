@@ -1,5 +1,6 @@
 import { language } from "./globals";
 import { christmas, newYear, main_halloween } from "./holidays/index.ts";
+import posthog from "posthog-js";
 
 class ExtendedDate extends Date {
   isBetween(start: string, end: string): boolean {
@@ -48,15 +49,22 @@ const holidays = [
 
 export async function isHoliday(_data?: (HTMLElement | string)[] | string[]) {
   for (const holiday of holidays) {
-    if (today.isBetween(holiday.from, holiday.to)) {
-      return {
-        bool: true,
-        holiday:
-          typeof holiday.name === "function" ? holiday.name() : holiday.name,
-        script:
-          typeof holiday.script === "function" ? holiday.script : () => {},
-        timeto: holiday.timeto,
-      };
+    if (posthog.isFeatureEnabled("holiday-effects")) {
+      if (today.isBetween(holiday.from, holiday.to)) {
+        posthog.capture("holiday_enabled", {
+          name:
+            typeof holiday.name === "function" ? holiday.name() : holiday.name,
+          timeto: holiday.timeto,
+        });
+        return {
+          bool: true,
+          holiday:
+            typeof holiday.name === "function" ? holiday.name() : holiday.name,
+          script:
+            typeof holiday.script === "function" ? holiday.script : () => {},
+          timeto: holiday.timeto,
+        };
+      }
     }
   }
 

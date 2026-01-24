@@ -1,4 +1,4 @@
-import { siteConfig } from "@/config";
+import { siteConfig } from "@/configFeatures";
 import { capitalize, holidayTimeTo, isHoliday, query } from "@/ts/global";
 import { $ } from "@/ts/jquery/index";
 import global from "@/ts/global-code";
