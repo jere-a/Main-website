@@ -59,14 +59,3 @@ export const newYear = () => {
   if (typeof window === "undefined") return;
   init();
 };
-
-// ------------------------
-// Automatic page load + SPA handling
-// ------------------------
-if (typeof window !== "undefined") {
-  // Initialize on first page load
-  document.addEventListener("astro:page-load", init);
-
-  // Cleanup before Astro swaps pages
-  document.addEventListener("astro:before-swap", cleanup);
-}

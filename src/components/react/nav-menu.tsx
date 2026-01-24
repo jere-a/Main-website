@@ -29,7 +29,7 @@ const NavMenu: React.FC<Props> = ({ children, active }) => {
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref prefetch={true}>
             <NavigationMenuLink
-              class={`${navigationMenuTriggerStyle()} ${activefunc(active, "koti")} navItem animate__animated animate__bounceIn`}
+              className={`${navigationMenuTriggerStyle()} ${activefunc(active, "koti")} navItem animate__animated animate__bounceIn`}
               aria-label="Koti"
             >
               Koti
@@ -39,7 +39,7 @@ const NavMenu: React.FC<Props> = ({ children, active }) => {
         <NavigationMenuItem>
           <Link href="/images/" legacyBehavior passHref prefetch={true}>
             <NavigationMenuLink
-              class={`${navigationMenuTriggerStyle()} ${activefunc(active, "kuvat")} navItem animate__animated animate__bounceIn`}
+              className={`${navigationMenuTriggerStyle()} ${activefunc(active, "kuvat")} navItem animate__animated animate__bounceIn`}
               aria-label="Kuvat"
             >
               Kuvat
@@ -49,7 +49,7 @@ const NavMenu: React.FC<Props> = ({ children, active }) => {
         <NavigationMenuItem>
           <Link href="/blog/" legacyBehavior passHref prefetch={true}>
             <NavigationMenuLink
-              class={`${navigationMenuTriggerStyle()} ${activefunc(active, "blog")} navItem animate__animated animate__bounceIn`}
+              className={`${navigationMenuTriggerStyle()} ${activefunc(active, "blog")} navItem animate__animated animate__bounceIn`}
             >
               Blog
             </NavigationMenuLink>

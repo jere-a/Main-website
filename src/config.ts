@@ -33,6 +33,7 @@ export const siteConfig = {
       howOldSite: true,
       quicklink: true,
       fetchIPP: false,
+      splashcursor: true,
     },
   },
 };

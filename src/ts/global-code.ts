@@ -17,7 +17,7 @@ const main = () => {
   const runHolidayEffects = async () => {
     const holiday = await isHoliday();
     if (holiday.bool) {
-      holiday.script(); // actually execute the holiday effect
+      holiday.script();
     }
   };
   runHolidayEffects();

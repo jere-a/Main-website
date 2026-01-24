@@ -1,5 +1,9 @@
 ---
 import { getLocale } from "astro-i18n-aut";
+import Layout from "@/layouts/Layout.astro";
+import CommonHead from "@/components/CommonHead.astro";
+import { siteConfig } from "@/config";
+import ReloadPrompt from "@/components/ReloadPrompt.astro";
 
 // import { ModeToggle } from '@/components/react/ModeToggle';
 
@@ -10,7 +14,7 @@ interface Props {
 }
 
 const { title, activeNav } = Astro.props;
-const _lang = getLocale(Astro.url);
+const lang = getLocale(Astro.url);
 ---
 
 <html lang={lang}>

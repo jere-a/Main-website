@@ -15,7 +15,6 @@ import vtbot from "astro-vtbot";
 import { visualizer } from "rollup-plugin-visualizer";
 // import siteConfig
 import { siteConfig } from "./src/config";
-import Sonda from "sonda/vite";
 
 const defaultLocale = "fi";
 const locales = {
@@ -167,6 +166,9 @@ export default defineConfig({
 
       rollupOptions: {
         output: {
+          entryFileNames: "entry.[hash].mjs",
+          chunkFileNames: "chunks/chunk.[hash].mjs",
+          assetFileNames: "assets/asset.[hash][extname]",
           manualChunks: {
             dates: ["date-fns", "dayjs"],
             global: ["src/ts/global"],
@@ -194,7 +196,6 @@ export default defineConfig({
     plugins: [
       // terser is already used by Vite via build.minify
       visualizer({ emitFile: true, filename: "stats.html" }),
-      Sonda(),
     ],
   },
 });

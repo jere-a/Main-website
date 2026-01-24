@@ -64,7 +64,12 @@ export function addCSSFromURL(url: string): void {
   document.head.appendChild(link);
 }
 
-export function catchErrorTyped<T, E extends new (message?: string) => Error>(
+export async function catchErrorTyped<
+  T,
+  E extends new (
+    message?: string,
+  ) => Error,
+>(
   promise: Promise<T>,
   errorsToCatch: E[],
 ): Promise<[undefined, T] | [InstanceType<E>]> {

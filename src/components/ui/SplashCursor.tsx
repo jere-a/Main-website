@@ -1082,9 +1082,9 @@ function initSplashCursor(
   }
 
   function resizeCanvas() {
-    const width = scaleByPixelRatio(canvas?.clientWidth);
-    const height = scaleByPixelRatio(canvas?.clientHeight);
-    if (canvas?.width !== width || canvas?.height !== height) {
+    const width = scaleByPixelRatio(canvas!.clientWidth);
+    const height = scaleByPixelRatio(canvas!.clientHeight);
+    if (canvas!.width !== width || canvas!.height !== height) {
       canvas!.width = width;
       canvas!.height = height;
       return true;
@@ -1335,7 +1335,7 @@ function initSplashCursor(
     if (splatProgram.uniforms.aspectRatio) {
       gl.uniform1f(
         splatProgram.uniforms.aspectRatio,
-        canvas?.width / canvas?.height,
+        canvas!.width / canvas!.height,
       );
     }
     if (splatProgram.uniforms.point) {
@@ -1364,7 +1364,7 @@ function initSplashCursor(
   }
 
   function correctRadius(radius: number) {
-    const aspectRatio = canvas?.width / canvas?.height;
+    const aspectRatio = canvas!.width / canvas!.height;
     if (aspectRatio > 1) radius *= aspectRatio;
     return radius;
   }
@@ -1378,8 +1378,8 @@ function initSplashCursor(
     pointer.id = id;
     pointer.down = true;
     pointer.moved = false;
-    pointer.texcoordX = posX / canvas?.width;
-    pointer.texcoordY = 1 - posY / canvas?.height;
+    pointer.texcoordX = posX / canvas!.width;
+    pointer.texcoordY = 1 - posY / canvas!.height;
     pointer.prevTexcoordX = pointer.texcoordX;
     pointer.prevTexcoordY = pointer.texcoordY;
     pointer.deltaX = 0;
@@ -1395,8 +1395,8 @@ function initSplashCursor(
   ) {
     pointer.prevTexcoordX = pointer.texcoordX;
     pointer.prevTexcoordY = pointer.texcoordY;
-    pointer.texcoordX = posX / canvas?.width;
-    pointer.texcoordY = 1 - posY / canvas?.height;
+    pointer.texcoordX = posX / canvas!.width;
+    pointer.texcoordY = 1 - posY / canvas!.height;
     pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX)!;
     pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY)!;
     pointer.moved =
@@ -1409,13 +1409,13 @@ function initSplashCursor(
   }
 
   function correctDeltaX(delta: number) {
-    const aspectRatio = canvas?.width / canvas?.height;
+    const aspectRatio = canvas!.width / canvas!.height;
     if (aspectRatio < 1) delta *= aspectRatio;
     return delta;
   }
 
   function correctDeltaY(delta: number) {
-    const aspectRatio = canvas?.width / canvas?.height;
+    const aspectRatio = canvas!.width / canvas!.height;
     if (aspectRatio > 1) delta /= aspectRatio;
     return delta;
   }
