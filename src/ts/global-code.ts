@@ -1,5 +1,5 @@
 import { navigate } from "astro:transitions/client";
-import { siteConfig } from "@/config";
+import { siteConfig } from "@/configFeatures";
 import { $ } from "@/ts/jquery";
 import { PrefersReducedMotion, isHoliday } from "./global/index";
 

@@ -1,3 +1,5 @@
+/// <reference path="./posthog.d.ts">
+
 export {};
 
 declare global {

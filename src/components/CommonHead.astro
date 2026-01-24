@@ -1,4 +1,5 @@
 ---
+import PostHog from "../components/posthog.astro";
 import { SEOMetadata } from "astro-seo-metadata";
 import { ClientRouter } from "astro:transitions";
 import { siteConfig } from "@/config";
@@ -55,3 +56,4 @@ const isDev = import.meta.env.DEV;
 <link type="text/plain" rel="author" href={`${Astro.site}humans.txt`} />
 <ClientRouter />
 <!-- <script src="../js/main.js"></script> -->
+<PostHog />
