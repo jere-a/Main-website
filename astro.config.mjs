@@ -170,7 +170,6 @@ export default defineConfig({
           chunkFileNames: "chunks/chunk.[hash].mjs",
           assetFileNames: "assets/asset.[hash][extname]",
           manualChunks: {
-            dates: ["date-fns", "dayjs"],
             global: ["src/ts/global"],
             jquery: ["src/ts/jquery"],
           },
