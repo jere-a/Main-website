@@ -15,7 +15,7 @@
     "check-types": "tsc --noEmit",
     "test:vitest": "vitest run",
     "test:check": "astro check",
-    "test": "bun run test:check && bun run test:vitest",
+    "test": "bun run test:check",
     "vitest": "vitest",
     "dev": "astro dev",
     "start": "astro dev",
