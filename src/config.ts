@@ -23,17 +23,4 @@ export const siteConfig = {
   urls: {
     giturl: "https://github.com/jere-a/Main-website",
   },
-  params: {
-    cookies: {
-      cookiesEnabled: false,
-      expire_days: 2,
-    },
-    functions: {
-      holidayEffects: true,
-      howOldSite: true,
-      quicklink: true,
-      fetchIPP: false,
-      splashcursor: true,
-    },
-  },
 };
