@@ -148,6 +148,21 @@ export default defineConfig({
   ],
 
   trailingSlash: "never",
+  scopedStyleStrategy: "class",
+  security: {
+    allowedDomains: [
+      {
+        hostname: "**.ozze.eu.org",
+        protocol: "https",
+        port: "443",
+      },
+      {
+        hostname: "gc.zgo.at",
+        protocol: "https",
+        port: "443",
+      },
+    ],
+  },
 
   //i18n: {
   //	defaultLocale: 'fi',
@@ -170,7 +185,6 @@ export default defineConfig({
           chunkFileNames: "chunks/chunk.[hash].mjs",
           assetFileNames: "assets/asset.[hash][extname]",
           manualChunks: {
-            dates: ["date-fns", "dayjs"],
             global: ["src/ts/global"],
             jquery: ["src/ts/jquery"],
           },
