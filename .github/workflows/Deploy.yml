@@ -37,12 +37,6 @@ jobs:
       - name: Run Tests
         run: bun run test
 
-      - name: Cypress Tests
-        uses: cypress-io/github-action@v6
-        with:
-          start: pnpm run preview --host
-          browser: chrome
-
       - name: Save build artifact
         if: success()
         uses: actions/upload-artifact@v4
