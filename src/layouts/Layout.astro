@@ -27,7 +27,7 @@ const {
   isFooter = true,
   isDark = true,
   isCSS = true,
-  isSplash = true,
+  isSplash = siteConfig.params.functions.splashcursor,
   activeNav,
 } = Astro.props;
 const lang = getLocale(Astro.url).toLowerCase();
