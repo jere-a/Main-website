@@ -109,7 +109,7 @@
     "posthog-js": "^1.335.2",
     "preact": "^10.28.2",
     "prettier-plugin-astro": "^0.14.1",
-    "purgecss": "^7.0.2",
+    "purgecss": "^8.0.0",
     "purgecss-from-html": "^7.0.2",
     "query-string": "^9.3.1",
     "react": "^19.2.3",
