@@ -130,7 +130,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.12",
-    "@fullhuman/postcss-purgecss": "^7.0.2",
+    "@fullhuman/postcss-purgecss": "^8.0.0",
     "@nanostores/preact": "^1.0.0",
     "@rollup/plugin-dynamic-import-vars": "^2.1.5",
     "@rollup/plugin-node-resolve": "^16.0.3",
