@@ -12,7 +12,9 @@ export const main_halloween = () => {
       }
     } else {
       const elementsToModify = queryAll(e);
-      elementsToModify.forEach((element) => element.classList.add("halloween"));
+      elementsToModify.forEach((element) => {
+        element.classList.add("halloween");
+      });
     }
   });
   if (!main_halloween.once) {

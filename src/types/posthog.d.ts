@@ -7,5 +7,3 @@ declare global {
     __posthog_initialized?: boolean;
   }
 }
-
-export {};

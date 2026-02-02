@@ -2,4 +2,4 @@
 /// <reference types="astro/client" />
 /// <reference path="./types/index.d.ts">
 
-interface Window {}
+type Window = {};
