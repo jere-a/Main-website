@@ -8,6 +8,14 @@ const main = () => {
     e.preventDefault();
     navigate($(this).attr("href"));
   });
+
+  $("img").on("contextmenu", function (e) {
+    e.preventDefault();
+  });
+  $("picture").on("contextmenu", function (e) {
+    e.preventDefault();
+  });
+
   if (siteConfig.params.functions.quicklink) {
     import("quicklink").then(({ listen }) => {
       listen();
