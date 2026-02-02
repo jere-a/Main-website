@@ -1,7 +1,7 @@
 import { navigate } from "astro:transitions/client";
 import { siteConfig } from "@/configFeatures";
 import { $ } from "@/ts/jquery";
-import { PrefersReducedMotion, isHoliday } from "./global/index";
+import { isHoliday, PrefersReducedMotion } from "./global/index";
 
 const main = () => {
   $("a").on("mousedown", function (e) {
@@ -9,10 +9,10 @@ const main = () => {
     navigate($(this).attr("href"));
   });
 
-  $("img").on("contextmenu", function (e) {
+  $("img").on("contextmenu", (e) => {
     e.preventDefault();
   });
-  $("picture").on("contextmenu", function (e) {
+  $("picture").on("contextmenu", (e) => {
     e.preventDefault();
   });
 

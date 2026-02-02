@@ -1,6 +1,6 @@
-import { language } from "./globals";
-import { christmas, newYear, main_halloween } from "./holidays/index.ts";
 import posthog from "posthog-js";
+import { language } from "./globals";
+import { christmas, main_halloween, newYear } from "./holidays/index.ts";
 
 class ExtendedDate extends Date {
   isBetween(start: string, end: string): boolean {
@@ -13,8 +13,7 @@ class ExtendedDate extends Date {
 const today = new ExtendedDate();
 const currentYear = today.getFullYear();
 
-const transModule = await import("@/i18n");
-const { useTranslations, ui, defaultLang } = transModule;
+const { useTranslations, ui, defaultLang } = await import("@/i18n");
 const trans = useTranslations(language() in ui ? language() : defaultLang);
 
 const getFormattedDate = (
