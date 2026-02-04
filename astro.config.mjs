@@ -42,21 +42,6 @@ export default defineConfig({
   integrations: [
     vtbot(),
     mdx(),
-
-    // vue({
-    //   include: '**/vue/*'
-    // }),
-    //svelte({
-    //	include: '**/svelte/*',
-    //}),
-    //solidJs({
-    //	include: '**/solid/*',
-    //}),
-    //alpinejs(),
-    //qwikdev({
-    //	include: '**/qwik/*',
-    //}),
-
     preact({
       include: ["**/preact/*"],
     }),
