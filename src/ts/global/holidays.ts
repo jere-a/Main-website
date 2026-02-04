@@ -1,4 +1,4 @@
-import posthog from "posthog-js";
+import posthog from "posthog-js/dist/module.no-external";
 import { language } from "./globals";
 import { christmas, main_halloween, newYear } from "./holidays/index.ts";
 

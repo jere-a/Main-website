@@ -82,7 +82,6 @@
     "auth-astro": "^4.2.0",
     "autoprefixer": "^10.4.23",
     "bootstrap": "^5.3.8",
-    "bowser": "^2.13.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cssnano": "^7.1.2",
@@ -181,12 +180,14 @@
   "packageManager": "pnpm@10.15.0",
   "trustedDependencies": [
     "@parcel/watcher",
+    "@posthog/cli",
     "@sentry/cli",
     "@swc/core",
     "core-js",
     "core-js-pure",
     "cypress",
     "esbuild",
+    "protobufjs",
     "sharp",
     "workerd"
   ]

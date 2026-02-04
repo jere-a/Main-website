@@ -43,12 +43,12 @@ export default defineConfig({
     vtbot(),
     mdx(),
     preact({
-      include: ["**/preact/*"],
+      include: ["**/preact/*", "**/react/*", "**/components/ui/*"],
     }),
 
-    react({
-      include: ["**/react/*", "**/components/ui/*"],
-    }),
+    //react({
+    //  include: ["**/react/*", "**/components/ui/*"],
+    //}),
 
     AstroPWA({
       strategies: "injectManifest",
