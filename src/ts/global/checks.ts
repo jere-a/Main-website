@@ -1,4 +1,3 @@
-import bowser from "bowser";
 import { isPrefersReducedMotion } from "@/ts/stores";
 
 export function detectTouchscreen(): boolean {
@@ -19,18 +18,34 @@ export function detectTouchscreen(): boolean {
   return result;
 }
 
-export const isMobile = (): boolean => {
-  const browser = bowser.parse(window.navigator.userAgent);
-
-  if (
-    typeof browser.platform.type === "string" &&
-    browser.platform.type !== "desktop" &&
-    detectTouchscreen()
-  ) {
-    return true;
-  } else {
-    return false;
+function getPlatformType(): "mobile" | "tablet" | "desktop" {
+  // Prefer modern Client Hints if available
+  const uaData = (navigator as any).userAgentData;
+  if (uaData?.mobile === true) {
+    return "mobile";
   }
+
+  const ua = navigator.userAgent.toLowerCase();
+
+  if (/ipad|tablet|(android(?!.*mobile))|silk|playbook/i.test(ua)) {
+    return "tablet";
+  }
+
+  if (/mobi|iphone|ipod|android.*mobile|windows phone/i.test(ua)) {
+    return "mobile";
+  }
+
+  return "desktop";
+}
+
+export const isMobile = (): boolean => {
+  const platformType = getPlatformType();
+
+  return (
+    typeof platformType === "string" &&
+    platformType !== "desktop" &&
+    detectTouchscreen()
+  );
 };
 
 export const PrefersReducedMotion = () => {

@@ -1,6 +1,6 @@
 "use client";
-import { useStore } from "@nanostores/react";
-import { useEffect, useRef } from "react";
+import { useStore } from "@nanostores/preact";
+import { useEffect, useRef } from "preact/compat";
 import { isMobile } from "@/ts/global";
 import { isPrefersReducedMotion } from "@/ts/stores";
 
