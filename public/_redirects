@@ -1,6 +1,0 @@
-http://www.ozze.eu.org/* https://ozze.eu.org/:splat 301!
-https://www.ozze.eu.org/* https://ozze.eu.org/:splat 301!
-# External Redirect
-/git https://github.com/jere-a/Main-website 302
-/github https://github.com/jere-a/Main-website 302
-/oldsite http://jere1.rf.gd 302
