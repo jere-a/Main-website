@@ -1,6 +1,5 @@
-import posthog from "posthog-js/dist/module.no-external";
+import posthog from "posthog-js";
 import { language } from "./globals";
-import { christmas, main_halloween, newYear } from "./holidays/index.ts";
 
 class ExtendedDate extends Date {
   isBetween(start: string, end: string): boolean {
@@ -27,21 +26,27 @@ const holidays = [
     name: "halloween",
     from: getFormattedDate(10, 1),
     to: getFormattedDate(11, 10),
-    script: main_halloween,
+    script: async () => {
+      (await import("@/ts/global/holidays/halloween.ts")).main_halloween;
+    },
     timeto: getFormattedDate(10, 31),
   },
   {
     name: () => trans("holiday.christmas"),
     from: getFormattedDate(11, 30),
     to: getFormattedDate(12, 25),
-    script: christmas,
+    script: async () => {
+      (await import("@/ts/global/holidays/christmas.ts")).christmas;
+    },
     timeto: getFormattedDate(12, 24),
   },
   {
     name: () => trans("holiday.newyear"),
     from: getFormattedDate(12, 26),
     to: getFormattedDate(1, 8, currentYear + 1),
-    script: newYear,
+    script: async () => {
+      (await import("@/ts/global/holidays/newYear.ts")).newYear;
+    },
     timeto: getFormattedDate(12, 31),
   },
 ];

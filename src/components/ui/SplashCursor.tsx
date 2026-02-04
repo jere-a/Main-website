@@ -80,11 +80,6 @@ export default function SplashCursor(props: SplashCursorProps) {
   const prefersReducedMotion = useStore(isPrefersReducedMotion);
   const cleanupRef = useRef<null | (() => void) | undefined>(null);
 
-  const _stablePropsKey = JSON.stringify({
-    ...DEFAULTS,
-    ...props,
-  });
-
   useEffect(() => {
     const shouldSkip = () => {
       if (typeof window === "undefined") return true;
@@ -1284,8 +1279,6 @@ function initSplashCursor(
     dye.swap();
   }
 
-  const _uniformCache = new Map();
-
   function render(target: FBO | null) {
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.enable(gl.BLEND);
@@ -1561,6 +1554,5 @@ function initSplashCursor(
     canvas.width = canvas.height = 0;
     div.remove();
     animationId = null;
-    console.log("SplashCursor cleaned up");
   };
 }

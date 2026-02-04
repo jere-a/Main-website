@@ -1,8 +1,4 @@
-import "posthog-js/dist/posthog-recorder";
-import "posthog-js/dist/exception-autocapture";
-import "posthog-js/dist/tracing-headers";
-import "posthog-js/dist/web-vitals";
-import posthog from "posthog-js/dist/module.no-external";
+import posthog from "posthog-js";
 
 const init = () => {
   if (!window.__posthog_initialized) {

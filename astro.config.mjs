@@ -2,7 +2,6 @@
 
 import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
-import react from "@astrojs/react";
 // Helper imports
 import sitemap from "@astrojs/sitemap";
 import playformCompress from "@playform/compress";
@@ -46,9 +45,6 @@ export default defineConfig({
       include: ["**/preact/*", "**/react/*", "**/components/ui/*"],
     }),
 
-    //react({
-    //  include: ["**/react/*", "**/components/ui/*"],
-    //}),
 
     AstroPWA({
       strategies: "injectManifest",
