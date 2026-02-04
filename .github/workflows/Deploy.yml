@@ -31,9 +31,9 @@ jobs:
             ~/.bun/install/cache
             .astro
             node_modules/.astro
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('src/**') }}
           restore-keys: |
-            ${{ runner.os }}-bun-
+            ${{ runner.os }}-build-
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
