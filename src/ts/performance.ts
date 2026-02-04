@@ -20,7 +20,7 @@ export const timeStop = (funcName: string): void => {
 };
 
 export const withTiming =
-  (funcName: string, func: func) =>
+  (funcName: string, func: Function) =>
   (...args: any[]) => {
     timeStart(funcName);
     const result = func(...args);
