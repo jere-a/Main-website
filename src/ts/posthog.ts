@@ -1,5 +1,6 @@
 import posthog from "posthog-js";
 
+/** Code for initializing the posthog */
 const init = () => {
   if (!window.__posthog_initialized) {
     window.__posthog_initialized = true;
@@ -13,7 +14,8 @@ const init = () => {
         process.env.CI === "true";
 
       posthog.init("phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF", {
-        api_host: "https://eu.i.posthog.com",
+        api_host: "https://t.ozze.eu.org",
+        ui_host: "https://eu.posthog.com",
         defaults: "2025-11-30",
         capture_pageview: "history_change",
         ...(isTestEnv && {
