@@ -4,7 +4,7 @@ export {};
 
 declare global {
   interface Window {
-    particlesInit: any;
-    particlesLoaded: any;
+    particlesInit: (options?: Record<string, unknown>) => Promise<void>;
+    particlesLoaded: (container: HTMLElement) => Promise<void>;
   }
 }
