@@ -1,8 +1,8 @@
-name: Clean
+name: Cleanup
 
 on:
   schedule:
-    - cron: "0 0 1 * *"
+    - cron: "0 0 * * 0"
 
 permissions:
   actions: write
@@ -13,9 +13,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete old workflow runs
-        uses: Mattraks/delete-workflow-runs@v2.0.6
+        uses: Mattraks/delete-workflow-runs@v3
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          retain_days: 30
-          keep_minimum_runs: 6
+          retain-days: 14
+          keep-minimum-runs: 3
+
+      - name: Delete old artifacts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: artifacts } = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100
+            });
+            for (const artifact of artifacts) {
+              if (new Date(artifact.created_at) < new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)) {
+                await github.rest.actions.deleteArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: artifact.id
+                });
+              }
+            }
