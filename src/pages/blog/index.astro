@@ -1,17 +1,17 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { getCollection } from "astro:content";
-import { getLocale } from "astro-i18n-aut";
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { getLocale } from 'astro-i18n-aut';
 
 const lang: string = getLocale(Astro.url);
-const blogEntries = await getCollection("blog");
+const blogEntries = await getCollection('blog');
 ---
 
 <Layout title="Blogs" activeNav="blog" isCopyright={false}>
 	<ul>
 		{
 			blogEntries.map(async (post: any) => {
-			    const [postLang, ..._]: string[] = post.id.split('/');
+				const [postLang, ..._]: string[] = post.id.split('/');
 				const formattedDate = () => {
 					const d =
 						post.data.pubDate?.getDay() +
@@ -29,17 +29,39 @@ const blogEntries = await getCollection("blog");
 						.replace(/<\s.*?\/\s.*?>;/g, '')
 						.substring(0, 300);
 				};
-				if (lang === postLang) return (
-					<li class="posts animated bounceIn">
-						<a class="box" href={`/blog/${post.id}`}>
-              <h2 class="title" aria-label={post.data.title} transition:name={`btitle${post.data.title}`}>
-								{post.data.title}
-							</h2>
-							<time datetime={post.data.pubDate?.toISOString()} transition:name={`btime${post.data.title}`}>{formattedDate}</time>
-              <p aria-label={post.data.content} class="text" transition:name={`bcontent${post.data.title}`} >{formattedText(post.body)}</p>
-						</a>
-					</li>
-				);
+
+				const postTitle = post.data.title;
+				const bpostTitle = 'btitle' + postTitle;
+				const bpostTime = 'btime' + postTitle;
+				const bpostContent = 'bcontent' + postTitle;
+
+				if (lang === postLang)
+					return (
+						<li class="posts animated bounceIn">
+							<a class="box" href={`/blog/${post.id}`}>
+								<h2
+									class="title"
+									aria-label={postTitle}
+									transition:name={bpostTitle}
+								>
+									{postTitle}
+								</h2>
+								<time
+									datetime={post.data.pubDate?.toISOString()}
+									transition:name={bpostTime}
+								>
+									{formattedDate}
+								</time>
+								<p
+									aria-label={post.data.content}
+									class="text"
+									transition:name={bpostContent}
+								>
+									{formattedText(post.body)}
+								</p>
+							</a>
+						</li>
+					);
 			})
 		}
 	</ul>
@@ -49,9 +71,9 @@ const blogEntries = await getCollection("blog");
 	import { isHoliday } from '@/ts/global';
 	//import { dynImport } from "@/ts/dynamic-import";
 
-	document.addEventListener('astro:page-load', async function() {
-	    // const { isHoliday } = (await import('@/ts/global'));
-		const holiday = (await isHoliday(['.publish-date', '.title', '.text']));
+	document.addEventListener('astro:page-load', async function () {
+		// const { isHoliday } = (await import('@/ts/global'));
+		const holiday = await isHoliday(['.publish-date', '.title', '.text']);
 
 		if (holiday.bool) {
 			holiday.script;
@@ -69,18 +91,18 @@ const blogEntries = await getCollection("blog");
 		text-align: left;
 		word-wrap: break-word;
 		overflow-wrap: break-word;
-    scroll-behavior: smooth;
-    display: flex;
+		scroll-behavior: smooth;
+		display: flex;
 	}
-	
+
 	.NavMenu {
-	   @apply self-center
+		@apply self-center;
 	}
 
 	ul {
 		list-style-type: none;
 		padding: unset;
-		@apply self-center
+		@apply self-center;
 	}
 
 	ul li {
