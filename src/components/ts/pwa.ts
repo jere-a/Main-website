@@ -1,13 +1,17 @@
 import { registerSW } from "virtual:pwa-register";
 
 window.addEventListener("load", () => {
-  const pwaToast = document.querySelector<HTMLDivElement>("#pwa-toast")!;
+  const pwaToast = document.querySelector<HTMLDivElement>("#pwa-toast");
+  if (!pwaToast) return;
+
   const pwaToastMessage = pwaToast.querySelector<HTMLDivElement>(
     ".message #toast-message",
-  )!;
-  const pwaCloseBtn = pwaToast.querySelector<HTMLButtonElement>("#pwa-close")!;
+  );
+  const pwaCloseBtn = pwaToast.querySelector<HTMLButtonElement>("#pwa-close");
   const pwaRefreshBtn =
-    pwaToast.querySelector<HTMLButtonElement>("#pwa-refresh")!;
+    pwaToast.querySelector<HTMLButtonElement>("#pwa-refresh");
+
+  if (!pwaToastMessage || !pwaCloseBtn || !pwaRefreshBtn) return;
 
   let refreshSW: ((reloadPage?: boolean) => Promise<void>) | undefined;
 
