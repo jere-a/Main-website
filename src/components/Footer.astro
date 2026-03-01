@@ -40,11 +40,13 @@ const _copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} J
   import { query } from '@/ts/global';
 
   const target = query(".copyright");
-  target.addEventListener('mouseover', () => {
-    import('@/ts/hacker-text').then(({ default: hackerText }) => {
-      if (target.dataset.value) {
-        hackerText(target, target.dataset.value, true);
-      }
-    });
-  });
+  if (target) {
+	  target.addEventListener('mouseover', () => {
+	    import('@/ts/hacker-text').then(({ default: hackerText }) => {
+	      if (target && target.dataset.value) {
+	        hackerText(target, target.dataset.value, true);
+	      }
+	    });
+	  });
+  }
 </script>

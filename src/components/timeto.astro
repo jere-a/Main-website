@@ -15,13 +15,16 @@ const { unixTime } = Astro.props;
 
 	class timeto extends HTMLElement {
 		async connectedCallback() {
-			query('.timeto').innerText = (await import('date-fns/formatDistanceStrict')).formatDistanceStrict(
-				(await import('date-fns/fromUnixTime')).fromUnixTime(Number(this.dataset.unixTime)),
-				new Date(),
-				{
-				  locale: language() == 'fi' ? (await import('date-fns/locale/fi')).fi : undefined
-				}
-			);
+			const timetoEl = query('.timeto');
+			if (timetoEl) {
+				timetoEl.innerText = (await import('date-fns/formatDistanceStrict')).formatDistanceStrict(
+					(await import('date-fns/fromUnixTime')).fromUnixTime(Number(this.dataset.unixTime)),
+					new Date(),
+					{
+					  locale: language() == 'fi' ? (await import('date-fns/locale/fi')).fi : undefined
+					}
+				);
+			}
 		}
 	}
 	customElements.define('time-unix', timeto);
