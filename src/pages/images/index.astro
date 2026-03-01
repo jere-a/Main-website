@@ -1,110 +1,120 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import ImageHolder from "@/components/ImageHolder.astro";
+import Layout from '@/layouts/Layout.astro';
+import ImageHolder from '@/components/ImageHolder.astro';
 
-import Ghost from "../../data/images/Aamuinen usva.jpg";
-import Sunflower from "../../data/images/auringon kukka 2.jpg";
-import Big_root from "../../data/images/Iso kanto.jpg";
-import NightBridgeWithLights from "../../data/images/Isompi silta pimeällä.jpg";
-import WhiteLittleBridgeAtNight from "../../data/images/silta pimeällä.jpg";
-import BlueSky from "../../data/images/sininen taivas.jpg";
-import winterLandscape from "../../data/images/talvinen maisema 2.jpg";
+import Ghost from '../../data/images/Aamuinen usva.jpg';
+import Sunflower from '../../data/images/auringon kukka 2.jpg';
+import Big_root from '../../data/images/Iso kanto.jpg';
+import NightBridgeWithLights from '../../data/images/Isompi silta pimeällä.jpg';
+import WhiteLittleBridgeAtNight from '../../data/images/silta pimeällä.jpg';
+import BlueSky from '../../data/images/sininen taivas.jpg';
+import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
 
 const images: {
-  src: ImageMetadata;
-  title: string;
+	src: ImageMetadata;
+	title: string;
 }[] = [
-  {
-    src: winterLandscape,
-    title: "Talvinen Maisema Sillalta.",
-  },
-  {
-    src: Big_root,
-    title: "Iso Kanto.",
-  },
-  {
-    src: BlueSky,
-    title: "Sininen Taivas.",
-  },
-  {
-    src: Sunflower,
-    title: "Auringon kukka.",
-  },
-  {
-    src: Ghost,
-    title: "Aamuinen usva.",
-  },
-  {
-    src: NightBridgeWithLights,
-    title: "Värikäs silta pimeällä",
-  },
-  {
-    src: WhiteLittleBridgeAtNight,
-    title: "Silta pimeällä",
-  },
+	{
+		src: winterLandscape,
+		title: 'Talvinen Maisema Sillalta.',
+	},
+	{
+		src: Big_root,
+		title: 'Iso Kanto.',
+	},
+	{
+		src: BlueSky,
+		title: 'Sininen Taivas.',
+	},
+	{
+		src: Sunflower,
+		title: 'Auringon kukka.',
+	},
+	{
+		src: Ghost,
+		title: 'Aamuinen usva.',
+	},
+	{
+		src: NightBridgeWithLights,
+		title: 'Värikäs silta pimeällä',
+	},
+	{
+		src: WhiteLittleBridgeAtNight,
+		title: 'Silta pimeällä',
+	},
 ];
 ---
 
 <Layout title="Kuvat" activeNav="kuvat">
-	<h1 transition:name="hero_text" class="text-gradient text-center mb-4 text-[3.5rem] font-bold leading-none">Kuvat</h1>
+	<h1
+		transition:name="hero_text"
+		class="text-gradient text-center mb-4 text-[3.5rem] font-bold leading-none"
+	>
+		Kuvat
+	</h1>
 	<p class="text-center mb-2 text-[1.2rem] leading-none">Minun ottamiani kuvia eri paikoista.</p>
-  <ul role="list" class="image-card-grid">
-    {images.map((image) => (
-      <li>
-        <ImageHolder src={image.src} title={image.title}/>
-      </li>
-    ))}
+	<ul role="list" class="image-card-grid">
+		{
+			images.map((image, i) => (
+				<li>
+					<ImageHolder src={image.src} title={image.title} transitionName={'card' + i} />
+				</li>
+			))
+		}
 	</ul>
 </Layout>
 
 <style>
-  p.text-center {
-    margin-inline: auto;
-  }
+	p.text-center {
+		margin-inline: auto;
+	}
 
-  ul li {
-    margin-inline: 0.5rem;
-  }
+	ul li {
+		margin-inline: 0.5rem;
+	}
 
 	.image-card-grid {
-	    --grid-min-col-size: 300px;
-	
+		--grid-min-col-size: 300px;
+
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
 		justify-items: center;
-    gap: 0.2rem;
-  }
+		gap: 0.2rem;
+	}
 </style>
 
 <script>
 	// import { dynImport } from '@/ts/global/dynamic_import.ts';
-  import { isHoliday, query, queryAll } from '@/ts/global';
-  import { $ } from '@/ts/jquery';
-  import global from '@/ts/global-code';
+	import { isHoliday, query, queryAll } from '@/ts/global';
+	import { $ } from '@/ts/jquery/basic';
+	import global from '@/ts/global-code';
 	//import { dynImport } from '@/ts/dynamic-import';
 
-  global();
+	global();
 	// const { isHoliday, query } = await import('@/ts/global');
 	/* const oldtext = document.querySelector('.how_old'); */
-  //const query = dynImport.global.query;
-  const observer = new IntersectionObserver(observerFn);
-  function observerFn (entries: any) {
-    for (const entry of entries) {
-      entry.loading = "eager";
-    }
-  }
-  $('ul li picture img').each((e) => {
-    if (e instanceof Element) {
-      observer.observe(e);
-    }
-  })
+	//const query = dynImport.global.query;
+	const observer = new IntersectionObserver(observerFn);
+	function observerFn(entries: any) {
+		for (const entry of entries) {
+			entry.loading = 'eager';
+		}
+	}
+	$('ul li picture img').each((e) => {
+		if (e instanceof Element) {
+			observer.observe(e);
+		}
+	});
 
-	const holiday = (await isHoliday([
-		query('.text-gradient'),
-		query('.images'),
-		query('p'),
+	const textGradientEl = query('.text-gradient');
+	const imagesEl = query('.images');
+	const pEl = query('p');
+	const holiday = await isHoliday([
+		textGradientEl ?? undefined,
+		imagesEl ?? undefined,
+		pEl ?? undefined,
 		'.navItem',
-	]));
+	]);
 
 	if (holiday.bool) {
 		holiday.script;

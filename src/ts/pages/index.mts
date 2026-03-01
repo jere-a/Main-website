@@ -1,22 +1,20 @@
-import { siteConfig } from "@/configFeatures";
+import { siteFeatures } from "@/configFeatures";
 import { capitalize, holidayTimeTo, isHoliday, query } from "@/ts/global";
 import global from "@/ts/global-code";
-import { $ } from "@/ts/jquery/index";
+import { $ } from "@/ts/jquery/basic";
 
 const main = async () => {
   if (!main.once) {
     main.once = true;
-    //const { language, isHoliday, query, holidayTimeTo, capitalize } = await import(
-    //	'@/ts/global'
-    //);
-    // const { formatDistanceToNowStrict, isEqual } = await import('date-fns');
-    // const { enUS, fi } = await import('date-fns/locale');
 
-    if (siteConfig.params.functions.holidayEffects) {
+    if (siteFeatures.params.functions.holidayEffects) {
+      const mainEl = query(".main");
+      const instructionsEl = query(".instructions");
+      const holidaysEl = query("p.holidays");
       const holiday = await isHoliday([
-        query(".main"),
-        query(".instructions"),
-        query("p.holidays"),
+        mainEl ?? undefined,
+        instructionsEl ?? undefined,
+        holidaysEl ?? undefined,
         ".navItem",
       ]);
 
@@ -43,13 +41,18 @@ const main = async () => {
           )} ${days} päivää, ${hours} tuntia, ${minutes} minuuttia ja ${seconds} sekuntia.`;
         }
 
-        if (msg !== "" || msg !== null) query("p.holidays").innerText = msg;
+        const holidaysEl = query("p.holidays");
+        if (holidaysEl && msg !== "" && msg !== null)
+          holidaysEl.innerText = msg;
       };
 
       if (holiday.bool) {
-        query("p.holidays").classList.remove("invisible");
-        updateHolidayMessage();
-        setInterval(updateHolidayMessage, 1000);
+        const holidaysEl = query("p.holidays");
+        if (holidaysEl) {
+          holidaysEl.classList.remove("invisible");
+          updateHolidayMessage();
+          setInterval(updateHolidayMessage, 1000);
+        }
       }
     }
   }
