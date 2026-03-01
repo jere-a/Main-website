@@ -1,0 +1,14 @@
+@media (prefers-reduced-motion: no-preference) {
+	@view-transition {
+		navigation: auto;
+	}
+}
+
+@for $i from 1 through 3 {
+	::view-transition-old(card#{$i}) {
+		opacity: 1;
+	}
+	::view-transition-new(card#{$i}) {
+		opacity: 0;
+	}
+}
