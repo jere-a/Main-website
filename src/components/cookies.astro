@@ -6,21 +6,21 @@
 </div>
 
 <script>
-  import { siteConfig } from '@/configFeatures';
+  import { siteFeatures } from '@/configFeatures';
   import { query } from '@/ts/global';
   
-  if (siteConfig.params.cookies.cookiesEnabled) {
+  if (siteFeatures.params.cookies.cookiesEnabled) {
 	(async function () {
 	  const Cookies = (await import('js-cookie')).default;
 		const cookieBox = query('#js-cookie-box');
 		const cookieButton = query('#js-cookie-button');
-		if (Cookies.get('cookie-box') !== '1') {
+		if (Cookies.get('cookie-box') !== '1' && cookieBox && cookieButton) {
       		cookieBox.classList.remove('cookie-box-hide');
       		cookieButton.onclick = function () {
-     			Cookies.set('cookie-box', '1', {
-     			expires: siteConfig.params.cookies.expire_days,
-     			});
-     			cookieBox.classList.add('cookie-box-hide');
+      			Cookies.set('cookie-box', '1', {
+      			expires: siteFeatures.params.cookies.expire_days,
+      			});
+      			cookieBox.classList.add('cookie-box-hide');
       		};
 		}
 	})();

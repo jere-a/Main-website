@@ -1,10 +1,13 @@
 <p class="ip"></p>
 
 <script>
-	import { siteConfig } from '@/config';
+	import { siteFeatures } from '@/configFeatures';
 	import { query } from '@/ts/global';
 	import { fetchData } from '@/ts/cloudflare-trace';
 	
-	const data = await fetchData().then(a => a);
-	query('.ip').innerText = data.ip;
+	if (siteFeatures.params.functions.fetchIPP) {
+		const data = await fetchData().then(a => a);
+		const ipEl = query('.ip');
+		if (ipEl) ipEl.innerText = data.ip;
+	}
 </script>
