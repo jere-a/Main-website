@@ -94,6 +94,11 @@ class ElementCollection extends Array<Element | Document> {
     return this;
   }
 
+  /**
+   * @param event - addEventListener specific event (String) no auto correct working
+   * @param cbOrSelector - Callback or Selector
+   * @returns this for continuing the jquery syntax
+   */
   one(
     event: string,
     cbOrSelector: ((this: ElementDocument, e: Event) => func) | string,

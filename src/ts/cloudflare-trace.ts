@@ -1,36 +1,19 @@
 import { siteConfig } from "@/config";
 
-export type ParsedData = {
-  ip: string;
-  uag: string;
-  tls: string;
-  loc: string;
-  http: string;
-  h: string;
-};
+export type ParsedData = Record<string, string>;
 
 export async function fetchData(): Promise<ParsedData> {
-  const text = (await fetch(`${siteConfig.url}/cdn-cgi/trace`)).text();
+  const res = await fetch(`${siteConfig.url}/cdn-cgi/trace`);
+  const text = await res.text();
 
-  const lines = (await text).split("\n");
-  const result: Partial<ParsedData> = {};
-
-  lines.forEach((line) => {
-    const [key, value] = line.split("=");
-    if (key && value) {
-      switch (key) {
-        case "ip":
-        case "uag":
-        case "tls":
-        case "loc":
-        case "http":
-        case "h":
-          result[key as keyof ParsedData] = value;
-          break;
-      }
-    }
-  });
-
-  // Ensure all required fields are present
-  return result as ParsedData;
+  return Object.fromEntries(
+    text
+      .split("\n")
+      .map((line) => line.split("="))
+      .filter(
+        ([key]) =>
+          key && ["ip", "uag", "tls", "loc", "http", "h"].includes(key),
+      )
+      .map(([key, value]) => [key, value ?? ""]),
+  );
 }

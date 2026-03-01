@@ -1,68 +1,54 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: <lot of them and lazy> */
-export function toUnicode(str: string) {
-  return str
+type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
+
+export const toUnicode = (str: string): string =>
+  str
     .split("")
     .map((char) => {
       const code = char.charCodeAt(0).toString(16).toUpperCase();
-      // Pad with zeros to ensure it's 4 digits
-      return `\\u${"0".repeat(4 - code.length) + code}`;
+      return `\\u${code.padStart(4, "0")}`;
     })
     .join("");
-}
 
-export const language = (
-  only_fi: boolean = true,
-  lang: string = window.navigator.language,
-) => {
-  if (only_fi) {
-    return "fi";
-  } else {
-    return lang.substring(0, 2);
-  }
-};
+export const language = (onlyFi = true, lang = navigator.language): string =>
+  onlyFi ? "fi" : lang.substring(0, 2);
 
-export function throttle(
-  cb: (...args: any) => void | Promise<void>,
+export const throttle = <Args extends unknown[]>(
+  cb: (...args: Args) => void | Promise<void>,
   delay = 1000,
-) {
-  let shouldWait = false;
-  let waitingArgs: any;
-  const timeoutFunc = () => {
-    if (waitingArgs == null) {
-      shouldWait = false;
-    } else {
-      cb(...waitingArgs);
-      waitingArgs = null;
-      setTimeout(timeoutFunc, delay);
-    }
-  };
+) => {
+  let waiting: Args | null = null;
+  let timer: ReturnType<typeof setTimeout> | null = null;
 
-  return (...args: any[]) => {
-    if (shouldWait) {
-      waitingArgs = args;
+  return (...args: Args) => {
+    if (timer) {
+      waiting = args;
       return;
     }
-
     cb(...args);
-    shouldWait = true;
-
-    setTimeout(timeoutFunc, delay);
+    timer = setTimeout(() => {
+      timer = null;
+      if (waiting) {
+        cb(...waiting);
+        waiting = null;
+        timer = setTimeout(() => {}, delay);
+      }
+    }, delay);
   };
-}
+};
 
 export const injectCSS = (css: string): HTMLStyleElement => {
   const el = document.createElement("style");
-  el.innerText = css;
+  el.textContent = css;
   document.head.appendChild(el);
   return el;
 };
 
-export function addCSSFromURL(url: string): void {
+export const addCSSFromURL = (url: string): void => {
   const link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = url;
   document.head.appendChild(link);
-}
+};
 
 export async function catchErrorTyped<
   T,
@@ -73,50 +59,38 @@ export async function catchErrorTyped<
   promise: Promise<T>,
   errorsToCatch: E[],
 ): Promise<[undefined, T] | [InstanceType<E>]> {
-  return promise
-    .then((data) => {
-      return [undefined, data] as [undefined, T];
-    })
-    .catch((error) => {
-      if (errorsToCatch === undefined) {
-        return [error];
-      }
-
-      if (errorsToCatch.some((e) => error instanceof e)) {
-        return [error];
-      }
-
-      throw error;
-    });
-}
-
-export function capitalize(string: string): string {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-/**
- * Converts non-ASCII characters in a string to their JavaScript Unicode escape sequences.
- * Characters with a char code >= 128 are converted.
- *
- * @param input - The string to convert.
- * @returns The converted string where non-ASCII characters are replaced with Unicode escapes.
- */
-export function convertToUnicodeEscape(input: string): string {
-  let output = "";
-  for (const char of input) {
-    const charCode = char.charCodeAt(0);
-    // If the character is a basic ASCII character (0-127), append it unchanged.
-    if (charCode < 128) {
-      output += char;
-    } else {
-      // Convert char code to hexadecimal and pad it to 4 digits.
-      const hex = charCode.toString(16).padStart(4, "0");
-      // Append the unicode escape sequence.
-      output += `\\u${hex}`;
+  try {
+    const data = await promise;
+    return [undefined, data];
+  } catch (error) {
+    if (errorsToCatch.some((E) => error instanceof E)) {
+      return [error as InstanceType<E>];
     }
+    throw error;
   }
-  return output;
 }
 
-export const l = (message?: any, ...optionalParams: any[]) =>
-  console.log(message, ...optionalParams);
+export const capitalize = (str: string): string =>
+  str.charAt(0).toUpperCase() + str.slice(1);
+
+export const l = (...args: unknown[]) => console.log(...args);
+
+export function addEventListener<K extends keyof HTMLElementEventMap>(
+  element: Element,
+  eventName: K,
+  handler: EventHandler<HTMLElementEventMap[K]>,
+  selector?: string,
+): (event: Event) => void {
+  const wrappedHandler = (event: Event): void => {
+    if (selector) {
+      const target = event.target as Element | null;
+      if (!target) return;
+      const matched = target.closest(selector);
+      if (matched) handler.call(matched, event as HTMLElementEventMap[K]);
+      return;
+    }
+    handler.call(element, event as HTMLElementEventMap[K]);
+  };
+  element.addEventListener(eventName, wrappedHandler);
+  return wrappedHandler;
+}
