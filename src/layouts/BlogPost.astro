@@ -1,11 +1,11 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { CollectionEntry } from 'astro:content';
 
-import Layout from "./Layout.astro";
-import "../styles/blog/blog.css";
-import "../styles/blog/markdown.css";
+import Layout from './Layout.astro';
+import '../styles/blog/blog.css';
+import '../styles/blog/markdown.css';
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<'blog'>['data'];
 
 const { title, pubDate } = Astro.props;
 const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.getFullYear()}`;
@@ -41,7 +41,8 @@ const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.ge
 	}
 
 	a.link-back {
-		backgound: linear-gradient(to right, oklch(84.52% 0 102.07), oklch(84.52% 0 102.07)),
+		backgound:
+			linear-gradient(to right, oklch(84.52% 0 102.07), oklch(84.52% 0 102.07)),
 			linear-gradient(
 				to right,
 				rgba(255, 0, 0, 1),
@@ -60,14 +61,14 @@ const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.ge
 	}
 
 	a.link-back {
-    color: grey;
-  }
+		color: grey;
+	}
 
-  .blog-post {
-    justify-content: center;
-    grid-area: main;
-    margin-inline:auto;
-  }
+	.blog-post {
+		justify-content: center;
+		grid-area: main;
+		margin-inline: auto;
+	}
 
 	.title {
 		font-size: 2.5em;
