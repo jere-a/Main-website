@@ -1,21 +1,22 @@
 ---
-import { getLocale } from 'astro-i18n-aut';
+import { getLangFromUrl } from '@/i18n/utils';
 import { siteFeatures } from '@/configFeatures';
 import CommonHead from '@/components/CommonHead.astro';
 import NavMenu from '@/components/nav-menu.astro';
-import ReloadPrompt from '@/components/ReloadPrompt.astro';
+// import ReloadPrompt from '@/components/ReloadPrompt.astro';
 import Footer from '@/components/Footer.astro';
 import SplashCursor from '@/components/ui/SplashCursor';
 import Cookies from '@/components/cookies.astro';
 
 import '@/styles/view-transition.scss';
+import '@/global.css';
+import '@/styles/holidays/index.css';
 
 interface Props {
 	title?: string;
 	isNavbar?: boolean;
 	isFooter?: boolean;
 	isDark?: boolean;
-	isCSS?: boolean;
 	isSplash?: boolean;
 	isCopyright?: boolean;
 	activeNav?: string;
@@ -26,13 +27,13 @@ const {
 	isNavbar = true,
 	isFooter = true,
 	isDark = true,
-	isCSS = true,
 	isSplash = siteFeatures.params.functions.splashcursor,
 	activeNav,
 } = Astro.props;
-const lang = getLocale(Astro.url).toLowerCase();
+const lang = getLangFromUrl(Astro.url);
 
-const kaoid = `keepandroidopen${Math.random().toString(36).slice(2, 7)}`;
+const isKao = true;
+const kaoid = 'kao';
 ---
 
 <html class:list={[{ dark: isDark }]} lang={lang}>
@@ -41,86 +42,30 @@ const kaoid = `keepandroidopen${Math.random().toString(36).slice(2, 7)}`;
 		<slot name="head" />
 	</head>
 	<body>
-		<div id={kaoid} transition:name={kaoid}></div>
 		{isSplash && <SplashCursor client:only="preact" />}
-		{
-			isNavbar && (
-				<div class="NavMenu">
-					<header>
-						<NavMenu active={activeNav} transitionName="navmenu" />
-					</header>
-				</div>
-			)
-		}
+		<header>
+			{
+				isKao && (
+					<div
+						id={kaoid}
+						style={`view-transition-name: ${kaoid};`}
+						class="fade-transition"
+					/>
+				)
+			}
+			{isNavbar && <NavMenu active={activeNav} transitionName="navmenu" />}
+		</header>
 		<slot />
 		{siteFeatures.params.cookies.cookiesEnabled && <Cookies />}
-		<ReloadPrompt />
 		{isFooter && <Footer />}
-		{
-			false && (
-				<div
-					style="visibility: hidden;"
-					data-sitekey="0x4AAAAAAAbhEsfftzTNsmMO"
-					data-theme="dark"
-				/>
-			)
-		}
-		{
-			false && (
-				<script
-					is:inline
-					src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-					defer
-				/>
-			)
-		}
-		<script>
-			if (window.location.host !== 'ozze.eu.org') {
-				// @ts-ignore
-				window.goatcounter = { no_onload: true };
-			} else {
-				// @ts-ignore
-				window.goatcounter = { no_onload: true };
-
-				window.addEventListener('hashchange', function (e) {
-					// @ts-ignore
-					window.goatcounter.count({
-						path: location.pathname + location.search + location.hash,
-					});
-				});
-			}
-		</script>
 		<script
 			is:inline
-			data-goatcounter="https://jere8809.goatcounter.com/count"
-			async
-			src="https://gc.zgo.at/count.js"></script>
-		<script is:inline src={`https://keepandroidopen.org/banner.js?size=mini&id=${kaoid}`}
+			src={`https://cdn.jsdelivr.net/gh/keepandroidopen/keepandroidopen.github.io@master/public/banner.min.js?size=mini&id=${kaoid}`}
 		></script>
 	</body>
 </html>
 
 <script>
-	import { init } from '@/ts/global-code';
-	init();
+	import global from '@/ts/global-code';
+	global();
 </script>
-
-<style>
-	body {
-		margin: 0rem;
-	}
-
-	@keyframes rotate {
-		from {
-			rotate: 0deg;
-		}
-
-		50% {
-			scale: 1 1.5;
-		}
-
-		to {
-			rotate: 360deg;
-		}
-	}
-</style>

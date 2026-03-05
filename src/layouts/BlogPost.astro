@@ -1,7 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { escapeViewTransitionName } from '@vtbag/utensil-drawer/escape-view-transition-name';
 
 import Layout from './Layout.astro';
+
 import '../styles/blog/blog.css';
 import '../styles/blog/markdown.css';
 
@@ -12,76 +14,86 @@ const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.ge
 ---
 
 <Layout title={title} activeNav="blog" isSplash={false}>
-	<section class="blog-post">
+	<article class="blog-post">
 		<a href="/blog" class="link-back">Goto Blogs.</a>
-		<h1 class="title" aria-label={title} transition:name={`btitle${title}`}>
+		<h1
+			class="title"
+			aria-label={title}
+			class="fade-transition"
+			style={{ viewTransitionName: `btitle${escapeViewTransitionName(title)}` }}
+		>
 			{title}
 		</h1>
-		<time class="publish-date" transition:name={`btime${title}`}>{formattedDate}</time>
+		<time
+			class="publish-date"
+			class="fade-transition"
+			style={{ viewTransitionName: `btime${escapeViewTransitionName(title)}` }}
+			>{formattedDate}</time
+		>
 		<slot />
-	</section>
+	</article>
+
+	<style>
+		body {
+			display: grid;
+			min-height: 100vh;
+			grid-template-areas:
+				'header'
+				'main'
+				'footer';
+			grid-template-rows: 5rem minmax(0, 1fr) 5rem;
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		a.link-back:hover {
+			background-size:
+				0 1px,
+				100% 1px;
+		}
+
+		a.link-back {
+			backgound:
+				linear-gradient(to right, oklch(84.52% 0 102.07), oklch(84.52% 0 102.07)),
+				linear-gradient(
+					to right,
+					rgba(255, 0, 0, 1),
+					rgba(255, 0, 180, 1),
+					rgba(0, 100, 200, 1)
+				);
+			background-size:
+				100% 1px,
+				0 1px;
+			background-position:
+				100% 100%,
+				0 100%;
+			background-repeat: no-repeat;
+			transition: background-size 400ms;
+			text-decoration: none;
+		}
+
+		a.link-back {
+			color: grey;
+		}
+
+		.blog-post {
+			justify-content: center;
+			grid-area: main;
+			margin-inline: auto;
+		}
+
+		.title {
+			font-size: 2.5em;
+			line-height: 1.2 !important;
+		}
+		.publish-date {
+			font-size: 0.875em;
+			color: var(--text-muted);
+			margin-bottom: 2rem;
+			display: block;
+		}
+		hr {
+			border-top: 1px solid #ddd;
+			margin: 0;
+		}
+	</style>
 </Layout>
-
-<style>
-	body {
-		display: grid;
-		min-height: 100vh;
-		grid-template-areas:
-			'header'
-			'main'
-			'footer';
-		grid-template-rows: 5rem minmax(0, 1fr) 5rem;
-		grid-template-columns: minmax(0, 1fr);
-	}
-
-	a.link-back:hover {
-		background-size:
-			0 1px,
-			100% 1px;
-	}
-
-	a.link-back {
-		backgound:
-			linear-gradient(to right, oklch(84.52% 0 102.07), oklch(84.52% 0 102.07)),
-			linear-gradient(
-				to right,
-				rgba(255, 0, 0, 1),
-				rgba(255, 0, 180, 1),
-				rgba(0, 100, 200, 1)
-			);
-		background-size:
-			100% 1px,
-			0 1px;
-		background-position:
-			100% 100%,
-			0 100%;
-		background-repeat: no-repeat;
-		transition: background-size 400ms;
-		text-decoration: none;
-	}
-
-	a.link-back {
-		color: grey;
-	}
-
-	.blog-post {
-		justify-content: center;
-		grid-area: main;
-		margin-inline: auto;
-	}
-
-	.title {
-		font-size: 2.5em;
-		line-height: 1.2 !important;
-	}
-	.publish-date {
-		font-size: 0.875em;
-		color: var(--text-muted);
-		margin-bottom: 2rem;
-		display: block;
-	}
-	hr {
-		border-top: 1px solid #ddd;
-		margin: 0;
-	}
-</style>

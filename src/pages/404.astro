@@ -1,12 +1,16 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import Layout from '@/layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<Layout title="404 Not Found">
-	<h1>404 Not Found</h1>
-	<p class="NotFound">Sivu jota yrität käyttää ei löytynyt.</p>
+<Layout title={t.notfound.title}>
+	<h1>{t.notfound.title}</h1>
+	<p class="NotFound">{t.notfound.message}</p>
 	<br />
 	<hr />
-	<p class="info invisible"></p>
+	<p class="info" style={{ visibility: 'hidden' }}></p>
 </Layout>
 <script src="@/ts/pages/404.mts"></script>

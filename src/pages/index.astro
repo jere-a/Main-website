@@ -2,34 +2,28 @@
 import Layout from '../layouts/Layout.astro';
 import Social from '../components/Social.astro';
 import Card from '../components/Card.astro';
-import { getLocale } from 'astro-i18n-aut';
 import { siteConfig } from '@/config';
-import { useTranslatedPath, useTranslations } from '@/i18n/utils';
+import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils';
 
 const giturl = siteConfig.urls.giturl || 'https://git.new/I3vys7Q';
 
 // Language
-const lang = getLocale(Astro.url);
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<Layout title={t('index.title')} activeNav="koti" isFooter={false}>
+<Layout title={t.index.title} activeNav="koti" isFooter={false}>
 	<main>
 		<a
 			href={giturl}
-			class="github-corner"
-			aria-label="View source on GitHub"
-			transition:name="github"
+			class="github-corner fade-transition"
+			aria-label={t.index.github}
+			target="_blank"
+			rel="noopener noreferrer"
+			style={{ viewTransitionName: 'github' }}
 		>
-			<svg
-				width="80"
-				height="80"
-				viewBox="0 0 250 250"
-				fill="#151513"
-				style="position: absolute; border: 0; right: 0;"
-				aria-hidden="true"
-			>
+			<svg width="80" height="80" viewBox="0 0 250 250" fill="#151513" aria-hidden="true">
 				<path d="M0 0l115 115h15l12 27 108 108V0z"></path>
 				<path
 					d="M128.3 109c-14.5-9.3-9.3-19.4-9.3-19.4 3-6.9 1.5-11 1.5-11-1.3-6.6 2.9-2.3 2.9-2.3 3.9 4.6 2.1 11 2.1 11-2.6 10.3 5.1 14.6 8.9 15.9"
@@ -43,14 +37,12 @@ const translatePath = useTranslatedPath(lang);
 			</svg>
 		</a>
 
-		<h1 transition:name="hero_text">
-			<span class="text-gradient main animate__animated animate__bounceIn"
-				>{t('index.h1.title')}</span
-			>
+		<h1 style={{ viewTransitionName: 'hero_text' }} class="fade-transition">
+			<span class="text-gradient main">{t.index.h1.title}</span>
 		</h1>
 
-		<p class="holidays halloween-time animate__animated animate__bounceIn"></p>
-		<p class="instructions animate__animated animate__bounceIn" transition:name="card0">
+		<p class="holidays"></p>
+		<p class="instructions fade-transition" style={{ viewTransitionName: 'card0' }}>
 			Olen tehnyt tämän sivun kun tuli kiinnostuksen kohteeksi tämän rakentaminen. Minut
 			löytää <Social href="https://ggl.link/3bM14PP" platform="YT">Youtubesta</Social> ja minulle
 			voi myös lähettää palautetta osoitteeseen: <a
@@ -59,24 +51,24 @@ const translatePath = useTranslatedPath(lang);
 				title="Send Me email">info@ozze.eu.org</a
 			>
 		</p>
-		<!-- <HowOldSite lang={lang} time={[2024, 5, 27]} /> -->
-		<ul class="link-grid animate__animated animate__bounceIn">
+		{/* <HowOldSite lang={lang} time={[2024, 5, 27]} /> */}
+		<ul class="link-grid">
 			<Card
 				href={translatePath('/images')}
-				title={t('nav.images')}
-				body={t('nav.images.desc')}
+				title={t.nav.images.title}
+				body={t.nav.images.desc}
 				transitionName="card1"
 			/>
 			<Card
 				href={siteConfig.oldSite}
 				title="Vanha Nettisivu"
-				body={t('nav.oldsite')}
+				body={t.nav.oldsite}
 				transitionName="card2"
 			/>
 			<Card
 				href={translatePath('/blog')}
-				title={t('nav.blog')}
-				body={t('nav.blog.desc')}
+				title={t.nav.blog.title}
+				body={t.nav.blog.desc}
 				transitionName="card3"
 			/>
 		</ul>
@@ -87,7 +79,6 @@ const translatePath = useTranslatedPath(lang);
 			margin: auto;
 			width: 800px;
 			max-width: calc(100% - 2rem);
-			color: white;
 			line-height: 1.6;
 		}
 		.holidays {
@@ -95,35 +86,24 @@ const translatePath = useTranslatedPath(lang);
 			position: absolute;
 			visibility: hidden;
 		}
-		.astro-a {
-			position: absolute;
-			top: -32px;
-			left: 50%;
-			transform: translatex(-50%);
-			width: 220px;
-			height: auto;
-			z-index: -1;
-		}
 		h1 {
-			font-size: 5rem;
+			font-size: clamp(2.25rem, 6vw, 4.75rem);
 			font-weight: 700;
 			line-height: 1;
 			text-align: center;
 			transform: translateY(0.6rem);
-			margin-bottom: 1em;
+			margin-bottom: 0.75em;
 		}
-		p {
-			font-size: 20px;
-		}
+		p,
 		ul {
 			font-size: 20px;
 		}
+
 		.text-gradient {
 			background-image: var(--accent-gradient);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			background-size: 400%;
-			background-position: 0%;
 		}
 		.instructions {
 			margin-bottom: 0.5rem;
@@ -134,28 +114,20 @@ const translatePath = useTranslatedPath(lang);
 			);
 			padding: 1.5rem;
 			border-radius: 8px;
-			max-width: max-content;
-			z-index: 0;
 		}
 
 		.link-grid {
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 			gap: 0.5rem;
-			padding: 0;
-			z-index: 0;
 		}
 
 		.email-link {
-			background: linear-gradient(
-				90deg,
-				/* rgba(0, 0, 255, 0.6), */ rgba(255, 0, 0, 0.3),
-				rgba(47, 255, 0, 0.3)
-			);
+			background: linear-gradient(90deg, rgba(255, 0, 0, 0.3), rgba(47, 255, 0, 0.3));
 
 			border-radius: 5px;
 			text-decoration: underline;
-			font-family: system-ui, sans-serif;
+			font-family: var(--font-family);
 		}
 
 		.github-corner:hover .octo-arm {
@@ -176,8 +148,13 @@ const translatePath = useTranslatedPath(lang);
 			}
 		}
 		.github-corner {
-			z-index: 0;
+			position: fixed;
+			z-index: 10;
+			top: 0;
+			border: 0;
+			right: 0;
 		}
+
 		@media (max-width: 500px) {
 			.github-corner:hover .octo-arm {
 				animation: none;
@@ -188,3 +165,7 @@ const translatePath = useTranslatedPath(lang);
 		}
 	</style>
 </Layout>
+
+<script>
+	import '@/ts/pages/index.mjs';
+</script>

@@ -1,22 +1,26 @@
-import posthog from "posthog-js";
+import posthog, { type PostHogConfig } from "posthog-js";
+
+declare global {
+  interface Window {
+    __posthog_initialized?: true;
+  }
+}
+
+const LOCAL = new Set(["localhost", "127.0.0.1", "::1"]);
 
 const init = (): void => {
-  if (window.__posthog_initialized) return;
-
+  if (typeof window === "undefined" || window.__posthog_initialized) return;
   window.__posthog_initialized = true;
 
-  const isLocalhost =
-    window.location.host.includes("127.0.0.1") ||
-    window.location.host.includes("localhost");
+  if (LOCAL.has(location.hostname)) return;
 
-  if (isLocalhost) return;
+  const env = import.meta.env as ImportMetaEnv & {
+    CI?: string;
+    VITEST?: string | boolean;
+  };
+  const isTest = env.MODE === "test" || !!env.VITEST || env.CI === "true";
 
-  const isTest =
-    import.meta.env.DEV ||
-    process.env.NODE_ENV === "test" ||
-    process.env.CI === "true";
-
-  posthog.init("phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF", {
+  const config = {
     api_host: "https://t.ozze.eu.org",
     ui_host: "https://eu.posthog.com",
     defaults: "2025-11-30",
@@ -27,7 +31,9 @@ const init = (): void => {
       autocapture: false,
       disable_session_recording: true,
     }),
-  });
+  } satisfies Partial<PostHogConfig>;
+
+  posthog.init("phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF", config);
 };
 
 export default init;
