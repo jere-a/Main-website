@@ -9,13 +9,13 @@ interface Props {
 const { href, title, body, transitionName } = Astro.props;
 ---
 
-<li class="card" transition:name={transitionName}>
+<li class="card fade-transition" style={{ viewTransitionName: transitionName }}>
 	<a href={href}>
 		<h2 aria-label={title} class="title">
 			{title}
 			<span>&rarr;</span>
 		</h2>
-		<p aria-label={body} class="body" transition:name={transitionName + 'text'}>{body}</p>
+		<p aria-label={body} class="body">{body}</p>
 	</a>
 </li>
 

@@ -1,52 +1,52 @@
 ---
 interface Props {
-  isCopyright?: boolean;
+	isCopyright?: boolean;
 }
 
 const isCopyright = (): boolean => {
-  const { isCopyright } = Astro.props;
-  if (isCopyright === null || isCopyright === undefined) {
-    return true;
-  } else {
-    return isCopyright === true;
-  }
+	const { isCopyright } = Astro.props;
+	if (isCopyright === null || isCopyright === undefined) {
+		return true;
+	} else {
+		return isCopyright === true;
+	}
 };
 
 const _copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} Jere L`;
 ---
 
-<footer transition:name="footer" transition:persist>
+<footer class="fade-transition" style={{ viewTransitionName: 'footer' }}>
 	{
 		isCopyright() && (
-    <p class="copyright" data-value={_copyrightText}>{_copyrightText}</p>
+			<p class="copyright" data-value={_copyrightText}>
+				{_copyrightText}
+			</p>
 		)
 	}
 </footer>
 
 <style>
-  footer {
-    position: fixed;
-    left: 0;
-    bottom: 0.8rem;
-    width: 100%;
-    text-align: center;
-  }
-  footer p {
-    margin-inline: auto;
-  }
+	footer {
+		position: fixed;
+		left: 0;
+		bottom: 0.8rem;
+		width: 100%;
+		text-align: center;
+	}
+	footer p {
+		margin-inline: auto;
+	}
 </style>
 
 <script>
-  import { query } from '@/ts/global';
-
-  const target = query(".copyright");
-  if (target) {
-	  target.addEventListener('mouseover', () => {
-	    import('@/ts/hacker-text').then(({ default: hackerText }) => {
-	      if (target && target.dataset.value) {
-	        hackerText(target, target.dataset.value, true);
-	      }
-	    });
-	  });
-  }
+	const target = document.querySelector<HTMLParagraphElement>('.copyright');
+	if (target) {
+		target.addEventListener('mouseover', () => {
+			import('@/ts/hacker-text').then(({ default: hackerText }) => {
+				if (target && target.dataset.value) {
+					hackerText(target, target.dataset.value, true);
+				}
+			});
+		});
+	}
 </script>

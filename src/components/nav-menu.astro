@@ -1,30 +1,24 @@
 ---
-import { getLocale } from 'astro-i18n-aut';
-import { useTranslations } from '@/i18n/utils';
-
-// css
-import '@/global.css';
-import '@/styles/holidays/index.css';
+import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils';
+import { translations, type Lang } from '@/i18n/types';
 
 interface Props {
 	active: string | undefined;
 	transitionName?: string;
 }
 const { active, transitionName } = Astro.props;
-const lang = getLocale(Astro.url);
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 
-const pageLang = (lang: string): string => {
-	if (lang.startsWith(`/${lang}/`)) return `/${lang}`;
-	else return '';
-};
+const languages = Object.keys(translations) as Lang[];
 
 const navigationMenuTriggerStyle = 'nav-link';
 const activefunc = (active: string | undefined, activetab: string | undefined): string => {
 	return active === activetab ? 'nav-link-active' : '';
 };
 
-const default_class_links = `${navigationMenuTriggerStyle} navItem animate__animated animate__bounceIn`;
+const default_class_links = `${navigationMenuTriggerStyle} navItem`;
 
 const links: {
 	href: string;
@@ -32,24 +26,24 @@ const links: {
 	name?: string;
 }[] = [
 	{
-		href: `${pageLang(lang)}/`,
+		href: translatePath('/'),
 		active: 'koti',
-		name: t('nav.home'),
+		name: t.nav.home,
 	},
 	{
-		href: `${pageLang(lang)}/images`,
+		href: translatePath('/images'),
 		active: 'kuvat',
-		name: t('nav.images'),
+		name: t.nav.images.title,
 	},
 	{
-		href: `${pageLang(lang)}/blog`,
+		href: translatePath('/blog'),
 		active: 'blog',
-		name: t('nav.blog'),
+		name: t.nav.blog.title,
 	},
 ];
 ---
 
-<div class="nav-container" transition:name={transitionName}>
+<nav class="nav-container fade-transition" style={{ viewTransitionName: transitionName }}>
 	<div class="nav-wrapper">
 		<ul class="nav-list" data-orientation="horizontal" dir="ltr">
 			{
@@ -65,20 +59,32 @@ const links: {
 					</li>
 				))
 			}
+			<li class="nav-card theme">
+				{
+					languages
+						.filter((item) => item !== lang)
+						.map((lang) => {
+							<a href={translatePath(`${Astro.url.pathname}`, lang)}>
+								{useTranslations(lang).nav.lang}
+							</a>;
+						})
+				}
+			</li>
 			<li>
 				<slot />
 			</li>
 		</ul>
 	</div>
-</div>
+</nav>
 <style>
 	.nav-container {
 		position: relative;
 		z-index: 10;
 		display: flex;
 		flex: 1;
+		max-width: max-content;
 		align-items: center;
-		justify-content: flex-start;
+		justify-content: center;
 	}
 
 	.nav-wrapper {
@@ -155,10 +161,6 @@ const links: {
 
 		background: hsl(from var(--surface-3) h s l / 0.25);
 		backdrop-filter: blur(20px);
-
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 
 	.nav-card:hover {
