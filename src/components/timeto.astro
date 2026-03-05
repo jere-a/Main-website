@@ -1,6 +1,6 @@
 ---
 interface Props {
-  unixTime: number;
+	unixTime: number;
 }
 
 const { unixTime } = Astro.props;
@@ -11,17 +11,24 @@ const { unixTime } = Astro.props;
 </time-unix>
 
 <script>
-	import { language, query } from '@/ts/global';
+	import { detectLanguage } from '@/ts/global';
 
 	class timeto extends HTMLElement {
 		async connectedCallback() {
-			const timetoEl = query('.timeto');
+			const timetoEl = document.querySelector<HTMLParagraphElement>('.timeto');
 			if (timetoEl) {
-				timetoEl.innerText = (await import('date-fns/formatDistanceStrict')).formatDistanceStrict(
-					(await import('date-fns/fromUnixTime')).fromUnixTime(Number(this.dataset.unixTime)),
+				timetoEl.innerText = (
+					await import('date-fns/formatDistanceStrict')
+				).formatDistanceStrict(
+					(await import('date-fns/fromUnixTime')).fromUnixTime(
+						Number(this.dataset.unixTime)
+					),
 					new Date(),
 					{
-					  locale: language() == 'fi' ? (await import('date-fns/locale/fi')).fi : undefined
+						locale:
+							detectLanguage() == 'fi'
+								? (await import('date-fns/locale/fi')).fi
+								: undefined,
 					}
 				);
 			}

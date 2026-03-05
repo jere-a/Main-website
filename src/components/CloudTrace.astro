@@ -2,12 +2,11 @@
 
 <script>
 	import { siteFeatures } from '@/configFeatures';
-	import { query } from '@/ts/global';
 	import { fetchData } from '@/ts/cloudflare-trace';
-	
+
 	if (siteFeatures.params.functions.fetchIPP) {
-		const data = await fetchData().then(a => a);
-		const ipEl = query('.ip');
+		const data = await fetchData().then((a) => a);
+		const ipEl = document.querySelector<HTMLParagraphElement>('.ip');
 		if (ipEl) ipEl.innerText = data.ip;
 	}
 </script>

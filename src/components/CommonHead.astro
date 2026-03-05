@@ -1,26 +1,16 @@
 ---
 import PostHog from '../components/posthog.astro';
 import { SEOMetadata } from 'astro-seo-metadata';
-import { ClientRouter } from 'astro:transitions';
 import { siteConfig } from '@/config';
 
 import crossing from '@vtbag/element-crossing?url';
+import declarativeNamesURL from '@vtbag/utensil-drawer/declarative-names?url';
 
 interface Props {
 	title?: string;
 }
 
-const isOnline = (): boolean => {
-	const cf_prod = import.meta.env.CLOUDFLARE_PRODUCTION;
-	if (cf_prod === 'true') return true;
-	else return false;
-};
-
 const { title } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
-const isProd = import.meta.env.PROD;
-const isDev = import.meta.env.DEV;
 ---
 
 <SEOMetadata
@@ -37,7 +27,6 @@ const isDev = import.meta.env.DEV;
 />
 
 <meta charset="utf-8" />
-<link rel="sitemap" href="/sitemap-index.xml" />
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
@@ -45,49 +34,10 @@ const isDev = import.meta.env.DEV;
 <meta name="theme-color" content="#310a65" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#20004A" media="(prefers-color-scheme: dark)" />
 <meta name="viewport" content="width=device-width" />
-<meta property="csp-nonce" content="dynamicScripts" />
-{
-	false && (
-		<meta
-			http-equiv="Content-Security-Policy"
-			content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' https://gc.zgo.at 'unsafe-inline' https://static.cloudflareinsights.com/ https://stats.g.doubleclick.net; connect-src 'self' https://static.cloudflareinsights.com https://jere8809.goatcounter.com/count; img-src 'self' data:;"
-		/>
-	)
-}
-<link rel="dns-prefetch" href="//ozze.eu.org/" />
-<link rel="dns-prefetch" href="//old.ozze.eu.org/" />
 <link rel="preconnect" href="https://static.cloudflareinsights.com" />
 <slot name="prefetch" />
-<!--     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<meta name="generator" content={Astro.generator} />
-<link rel="canonical" href={canonicalURL} /> -->
 <link rel="alternate" type="application/rss+xml" title="Åzze" href={`${Astro.site}rss.xml`} />
 <link type="text/plain" rel="author" href={`${Astro.site}humans.txt`} />
-<script type="speculationrules" is:inline is:raw>
-	{
-		"prerender": [
-			{
-				"source": "document",
-				"where": {
-					"or": [
-						{
-							"href_matches": "/*"
-						},
-						{
-							"selector_matches": "a"
-						}
-					]
-				},
-				"eagerness": "immediate"
-			},
-			{
-				"source": "list",
-				"urls": ["/images", "/images.html", "/blog", "/blog.html"],
-				"eagerness": "immediate"
-			}
-		]
-	}
-</script>
-<!-- <script src="../js/main.js"></script> -->
-<script src={crossing}></script>
+<link rel="expect" href="#the_unexpected" blocking="render" />
+<script is:inline src={crossing}></script>
 <PostHog />

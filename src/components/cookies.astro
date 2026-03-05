@@ -1,34 +1,33 @@
 <div id="js-cookie-box" class="cookie-box cookie-box-hide">
-			This site uses cookies. By continuing to use this website, you agree to their use. <span
-				id="js-cookie-button"
-				class="btn btn-sm btn-primary rounded ml-2">I Accept</span
-			>
+	This site uses cookies. By continuing to use this website, you agree to their use. <span
+		id="js-cookie-button"
+		class="cookie-btn">I Accept</span
+	>
 </div>
 
 <script>
-  import { siteFeatures } from '@/configFeatures';
-  import { query } from '@/ts/global';
-  
-  if (siteFeatures.params.cookies.cookiesEnabled) {
-	(async function () {
-	  const Cookies = (await import('js-cookie')).default;
-		const cookieBox = query('#js-cookie-box');
-		const cookieButton = query('#js-cookie-button');
-		if (Cookies.get('cookie-box') !== '1' && cookieBox && cookieButton) {
-      		cookieBox.classList.remove('cookie-box-hide');
-      		cookieButton.onclick = function () {
-      			Cookies.set('cookie-box', '1', {
-      			expires: siteFeatures.params.cookies.expire_days,
-      			});
-      			cookieBox.classList.add('cookie-box-hide');
-      		};
-		}
-	})();
-  };
+	import { siteFeatures } from '@/configFeatures';
+
+	if (siteFeatures.params.cookies.cookiesEnabled) {
+		(async function () {
+			const Cookies = (await import('js-cookie')).default;
+			const cookieBox = document.querySelector('#js-cookie-box');
+			const cookieButton = document.querySelector<HTMLButtonElement>('#js-cookie-button');
+			if (Cookies.get('cookie-box') !== '1' && cookieBox && cookieButton) {
+				cookieBox.classList.remove('cookie-box-hide');
+				cookieButton.onclick = function () {
+					Cookies.set('cookie-box', '1', {
+						expires: siteFeatures.params.cookies.expire_days,
+					});
+					cookieBox.classList.add('cookie-box-hide');
+				};
+			}
+		})();
+	}
 </script>
 
 <style>
-  .cookie-box {
+	.cookie-box {
 		position: fixed;
 		left: 0;
 		right: 0;
@@ -45,4 +44,19 @@
 		display: none;
 	}
 
+	.cookie-btn {
+		padding: 0.25rem 0.5rem;
+		font-size: 0.875rem;
+		border-radius: 0.25rem;
+		margin-left: 0.5rem;
+		margin-left: calc(0.25rem * 2);
+		background-color: #007bff;
+		color: white;
+		border: 1px solid #007bff;
+		cursor: pointer;
+		border-radius: 0.25rem;
+		&:hover {
+			background-color: #0069d9;
+		}
+	}
 </style>
