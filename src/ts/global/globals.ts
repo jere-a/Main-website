@@ -1,16 +1,30 @@
+import { type Lang, translations } from "@/i18n";
+
 type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
 
 export const toUnicode = (str: string): string =>
   str
     .split("")
-    .map((char) => {
+    .map((char: string): string => {
       const code = char.charCodeAt(0).toString(16).toUpperCase();
       return `\\u${code.padStart(4, "0")}`;
     })
     .join("");
 
-export const language = (onlyFi = true, lang = navigator.language): string =>
-  onlyFi ? "fi" : lang.substring(0, 2);
+export const detectLanguage = (
+  onlyFi = true,
+  lang = navigator.language,
+): Lang => {
+  if (onlyFi) return "fi";
+
+  const shortLang = lang.split("-")[0];
+
+  if (Object.keys(translations).includes(shortLang)) {
+    return shortLang as Lang;
+  }
+
+  return "fi";
+};
 
 export const throttle = <Args extends unknown[]>(
   cb: (...args: Args) => void | Promise<void>,
@@ -72,8 +86,6 @@ export async function catchErrorTyped<
 
 export const capitalize = (str: string): string =>
   str.charAt(0).toUpperCase() + str.slice(1);
-
-export const l = (...args: unknown[]) => console.log(...args);
 
 export function addEventListener<K extends keyof HTMLElementEventMap>(
   element: Element,

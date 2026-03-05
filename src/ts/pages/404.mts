@@ -1,6 +1,5 @@
 import { siteFeatures } from "@/configFeatures";
 import { fetchData } from "@/ts/cloudflare-trace";
-import { query } from "@/ts/global";
 
 const { pathname, search } = window.location;
 const notshow = [
@@ -11,8 +10,8 @@ const notshow = [
   "404/index.htm",
 ];
 
-const notFoundEl = query(".NotFound");
-const infoEl = query(".info");
+const notFoundEl = document.querySelector<HTMLParagraphElement>(".NotFound");
+const infoEl = document.querySelector<HTMLParagraphElement>(".info");
 
 if (!notshow.includes(pathname) && notFoundEl) {
   notFoundEl.innerText = `Sivuun ${pathname}${search} ei saatu yhteyttä.`;

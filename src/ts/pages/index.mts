@@ -1,6 +1,5 @@
 import { siteFeatures } from "@/configFeatures";
-import { capitalize, holidayTimeTo, isHoliday, query } from "@/ts/global";
-import global from "@/ts/global-code";
+import { capitalize, holidayTimeTo, isHoliday } from "@/ts/global";
 import { $ } from "@/ts/jquery/basic";
 
 const main = async () => {
@@ -8,9 +7,11 @@ const main = async () => {
     main.once = true;
 
     if (siteFeatures.params.functions.holidayEffects) {
-      const mainEl = query(".main");
-      const instructionsEl = query(".instructions");
-      const holidaysEl = query("p.holidays");
+      const mainEl = document.querySelector<HTMLElement>(".main");
+      const instructionsEl =
+        document.querySelector<HTMLParagraphElement>(".instructions");
+      const holidaysEl =
+        document.querySelector<HTMLParagraphElement>("p.holidays");
       const holiday = await isHoliday([
         mainEl ?? undefined,
         instructionsEl ?? undefined,
@@ -41,13 +42,11 @@ const main = async () => {
           )} ${days} päivää, ${hours} tuntia, ${minutes} minuuttia ja ${seconds} sekuntia.`;
         }
 
-        const holidaysEl = query("p.holidays");
         if (holidaysEl && msg !== "" && msg !== null)
           holidaysEl.innerText = msg;
       };
 
       if (holiday.bool) {
-        const holidaysEl = query("p.holidays");
         if (holidaysEl) {
           holidaysEl.classList.remove("invisible");
           updateHolidayMessage();
@@ -59,8 +58,6 @@ const main = async () => {
 };
 
 main.once = false;
-document.addEventListener("astro:page-load", main);
 $(document).ready(() => {
   main();
-  global();
 });

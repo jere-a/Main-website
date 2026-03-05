@@ -38,7 +38,7 @@ registerRoute(navigationRoute);
 registerRoute(new NavigationRoute(createHandlerBoundToURL("/404")));
 
 registerRoute(
-  ({ request }) => {
+  ({ request }): boolean => {
     return [
       "style",
       "script",
@@ -60,7 +60,7 @@ registerRoute(
 // stale-while-revalidate strategy. This route will be unaffected
 // by navigation preload.
 registerRoute(
-  ({ request }) => {
+  ({ request }): boolean => {
     return ["image", "audio", "font"].includes(request.destination);
   },
   new StaleWhileRevalidate({

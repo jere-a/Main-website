@@ -18,21 +18,21 @@ export const ajaxgetSchema = z.object({
 });
 
 export const ElementInstanceof = z.custom<Element>(
-  (val) => val instanceof Element,
+  (_val) => val instanceof Element,
   {
     message: `${expectedString}Element`,
   },
 );
 
 export const DocumentInstanceof = z.custom<Document>(
-  (val) => val instanceof Document,
+  (_val) => val instanceof Document,
   {
     message: `${expectedString}Document`,
   },
 );
 
 export const EventTargetInstanceof = z.custom<EventTarget>(
-  (val) => val instanceof EventTarget,
+  (_val) => val instanceof EventTarget,
   {
     message: `${expectedString}EventTarget`,
   },
@@ -43,7 +43,7 @@ export const ElementDocumentInstanceof = z.union([
   DocumentInstanceof,
 ]);
 
-export const falseSchema = z.custom<false>((val) => val === false, {
+export const falseSchema = z.custom<false>((_val) => val === false, {
   message: `${expectedString}False`,
 });
 

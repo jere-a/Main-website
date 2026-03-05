@@ -1,37 +1,27 @@
-import { isPrefersReducedMotion } from "@/ts/stores";
-
 export const detectTouchscreen = (): boolean => {
-  if (window.PointerEvent && "maxTouchPoints" in navigator) {
-    return navigator.maxTouchPoints > 0;
-  }
-  if (window.matchMedia?.("(any-pointer:coarse)").matches) return true;
-  return window.TouchEvent !== undefined || "ontouchstart" in window;
+  // Most reliable modern signal
+  if ((navigator.maxTouchPoints ?? 0) > 0) return true;
+
+  // Pointer media query (coarse pointer usually implies touch)
+  if (window.matchMedia?.("(any-pointer: coarse)").matches) return true;
+
+  // Legacy fallback
+  return "ontouchstart" in window;
 };
 
-type PlatformType = "mobile" | "tablet" | "desktop";
+const isMobileUA = (ua: string): boolean =>
+  /mobi|iphone|ipod|android.*mobile|windows phone/i.test(ua);
 
-const getPlatformType = (): PlatformType => {
-  const ua = navigator.userAgent.toLowerCase();
-
-  if (/ipad|tablet|(android(?!.*mobile))|silk|playbook/i.test(ua))
-    return "tablet";
-  if (/mobi|iphone|ipod|android.*mobile|windows phone/i.test(ua))
-    return "mobile";
-  return "desktop";
-};
+const isTabletUA = (ua: string): boolean =>
+  /ipad|tablet|android(?!.*mobile)|silk|playbook/i.test(ua);
 
 export const isMobile = (): boolean => {
-  const platform = getPlatformType();
-  return platform !== "desktop" && detectTouchscreen();
-};
+  const ua = navigator.userAgent;
 
-export const PrefersReducedMotion = (): void => {
-  const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  // Prefer UA-CH when available (more robust than UA sniffing)
+  // @ts-expect-error - userAgentData not available in typescript when writing this
+  const mobile = navigator.userAgentData.mobile ?? isMobileUA(ua);
+  const tablet = !mobile && isTabletUA(ua);
 
-  const handleChange = (event: MediaQueryListEvent | MediaQueryList): void => {
-    isPrefersReducedMotion.set(event.matches);
-  };
-
-  handleChange(mediaQuery);
-  mediaQuery.addEventListener("change", handleChange);
+  return (mobile || tablet) && detectTouchscreen();
 };

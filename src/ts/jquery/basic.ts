@@ -1,5 +1,4 @@
 import * as z from "zod/mini";
-import { queryAll } from "../global";
 import type {
   ajax,
   ElementCollectionParam,
@@ -25,7 +24,7 @@ class ElementCollection extends Array<Element | Document> {
     if (value instanceof Element || value instanceof Document) {
       this.push(value);
     } else if (typeof value === "string") {
-      const elements = queryAll(value);
+      const elements = document.querySelectorAll(value);
       for (let i = 0; i < elements.length; i++) {
         const el = elements[i];
         if (el instanceof Element) {

@@ -1,8 +1,4 @@
-import {
-  addEventListener,
-  isHoliday,
-  PrefersReducedMotion,
-} from "./global/index";
+import { addEventListener, isHoliday } from "./global/index";
 
 const main = () => {
   addEventListener(
@@ -14,6 +10,10 @@ const main = () => {
     "img, picture",
   );
 
+  window.addEventListener("vite:preloadError", (event) => {
+    window.location.reload();
+  });
+
   const runHolidayEffects = async () => {
     const holiday = await isHoliday();
     if (holiday.bool) {
@@ -22,9 +22,5 @@ const main = () => {
   };
   runHolidayEffects();
 };
-
-export function init() {
-  PrefersReducedMotion();
-}
 
 export default main;

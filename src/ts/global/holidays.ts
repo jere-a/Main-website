@@ -1,8 +1,7 @@
 import posthog from "posthog-js";
-import { language } from "./globals";
+import { type Lang, translations, useTranslations } from "@/i18n";
 
 type HolidayScript = () => Promise<unknown>;
-
 type Holiday = {
   name: string | (() => string);
   from: string;
@@ -10,14 +9,12 @@ type Holiday = {
   script: HolidayScript;
   timeto: string;
 };
-
 type IsHolidayReturn = {
   bool: boolean;
   holiday: string;
   script: HolidayScript;
   timeto: string;
 };
-
 type Duration = {
   days: number;
   hours: number;
@@ -25,73 +22,83 @@ type Duration = {
   seconds: number;
 };
 
-const today = new Date();
-const currentYear = today.getFullYear();
+const empty: HolidayScript = async () => {};
+const noHoliday: IsHolidayReturn = {
+  bool: false,
+  holiday: "",
+  script: empty,
+  timeto: "",
+};
 
-const { useTranslations, ui, defaultLang } = await import("@/i18n");
+const isLang = (x: string): x is Lang => x in translations;
+const langAttr = document.documentElement.lang.toLowerCase();
+const lang = (
+  isLang(langAttr)
+    ? langAttr
+    : isLang(langAttr.split("-")[0])
+      ? langAttr.split("-")[0]
+      : "en"
+) as Lang;
 
 // biome-ignore lint/correctness/useHookAtTopLevel: Not a React hook
-const trans = useTranslations(language() in ui ? language() : defaultLang);
+const trans = useTranslations(lang);
 
-const fmt = (m: number, d: number, y = currentYear) => `${y}-${m}-${d}`;
+const y = new Date().getFullYear();
+const p2 = (n: number) => `${n}`.padStart(2, "0");
+const fmt = (m: number, d: number, yr = y) => `${yr}-${p2(m)}-${p2(d)}`;
 
-const holidays: Holiday[] = [
+const holidays = [
   {
     name: "halloween",
     from: fmt(10, 1),
     to: fmt(11, 10),
-    script: async () =>
-      (await import("@/ts/global/holidays/halloween.ts")).main_halloween,
+    script: () =>
+      import("@/ts/global/holidays/halloween.ts").then((m) => m.main_halloween),
     timeto: fmt(10, 31),
   },
   {
-    name: () => trans("holiday.christmas"),
+    name: () => trans.holiday.christmas,
     from: fmt(11, 30),
     to: fmt(12, 25),
-    script: async () =>
-      (await import("@/ts/global/holidays/christmas.ts")).christmas,
+    script: () =>
+      import("@/ts/global/holidays/christmas.ts").then((m) => m.christmas),
     timeto: fmt(12, 24),
   },
   {
-    name: () => trans("holiday.newyear"),
+    name: () => trans.holiday.newyear,
     from: fmt(12, 26),
-    to: fmt(1, 8, currentYear + 1),
-    script: async () =>
-      (await import("@/ts/global/holidays/newYear.ts")).newYear,
+    to: fmt(1, 8, y + 1),
+    script: () =>
+      import("@/ts/global/holidays/newYear.ts").then((m) => m.newYear),
     timeto: fmt(12, 31),
   },
-];
-
-const isBetween = (d: string, start: string, end: string) => {
-  const date = new Date(d).getTime();
-  return date >= new Date(start).getTime() && date <= new Date(end).getTime();
-};
+] satisfies readonly Holiday[];
 
 export async function isHoliday(
   _data?: (HTMLElement | string | undefined)[] | (string | undefined)[],
 ): Promise<IsHolidayReturn> {
-  if (!posthog.isFeatureEnabled("holiday-effects")) {
-    return { bool: false, holiday: "", script: async () => {}, timeto: "" };
-  }
+  if (!posthog.isFeatureEnabled("holiday-effects")) return noHoliday;
 
+  const now = Date.now();
   for (const h of holidays) {
-    if (isBetween(today.toISOString(), h.from, h.to)) {
-      const name = typeof h.name === "function" ? h.name() : h.name;
-      posthog.capture("holiday_enabled", { name, timeto: h.timeto });
-      return { bool: true, holiday: name, script: h.script, timeto: h.timeto };
+    if (now >= Date.parse(h.from) && now <= Date.parse(h.to)) {
+      const holiday = typeof h.name === "function" ? h.name() : h.name;
+      posthog.capture("holiday_enabled", { name: holiday, timeto: h.timeto });
+      return { bool: true, holiday, script: h.script, timeto: h.timeto };
     }
   }
-
-  return { bool: false, holiday: "", script: async () => {}, timeto: "" };
+  return noHoliday;
 }
 
 export function holidayTimeTo(targetDate?: string): Duration {
-  const d = targetDate ? new Date(targetDate).getTime() : today.getTime();
-  const diff = d - today.getTime();
+  const now = Date.now();
+  const s = Math.floor(
+    ((targetDate ? Date.parse(targetDate) : now) - now) / 1e3,
+  );
   return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60)) % 60),
-    seconds: Math.floor((diff / 1000) % 60),
+    days: Math.floor(s / 86400),
+    hours: Math.floor(s / 3600) % 24,
+    minutes: Math.floor(s / 60) % 60,
+    seconds: s % 60,
   };
 }

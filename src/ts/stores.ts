@@ -1,3 +1,5 @@
-import { atom } from "nanostores";
+import { fromMediaQuery } from "@nanostores/media-query";
 
-export const isPrefersReducedMotion = atom(false);
+export const isPrefersReducedMotion = fromMediaQuery(
+  "(prefers-reduced-motion: reduce)",
+);
