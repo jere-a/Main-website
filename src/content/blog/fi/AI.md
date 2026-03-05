@@ -1,16 +1,9 @@
 ---
-title: 'Tekoäly'
-pubDate: 2025-05-25
+title: 'Tekoäly ja sen hyödyllisyydet'
+pubDate: 2025-11-30
+lang: 'fi'
 ---
 
-Miksi tekoäly tai lyhyemmin AI, jota monet isot ja pienemmätkin yhtiöt
-havittelee ja tekee paljon työtä sen eteen että voivat saada tekoälyn kaikkiin
-tuotteihinsa. Esimerkiksi Apple, Samsung tai Google ovat käyttäneet paljon rahaa
-ja työaikaa jotta saisivat tekoälyn tuotteisiinsa ja palveluihinsa.
+Mikä on tekoäly ja mikä on sen käyttö nykymaailmassa ja etenkin kouluissa, josta varttuu meidän ihmiskuntamme tulevaisuus vai onko tulevaisuus ainoastaan koneiden ja isojen yhtiöiden hallussa jotka yrittävät huojata meitä menemään heidän pillinsä tahtiin.
 
-Google on tehnyt oman tekoäly ohjelmansa nimeltää Gemini ja se on tietyillä
-tavoilla parempi kuin hyvin tunnettu ChatGPT ohjelma etenkin maksaville
-käyttäjille. Samsung ja monet muutkin Android tarjoajat jotka käyttävät googlen
-palveluja ja sovelluksia puhelimissaan ja tableteissaan käyttävät Googlen Gemini
-tekoälyä joista isoin yhteistyö Googlen kanssa on Samsungilla heidän
-puhelimissaan.
+Maailmassa on nykypäivänä todella monia erilaisia tekoälyn muotoja. On Tekstipohjaisia chat botteja sekä erilaiseen taiteeseen tarkoitettua koneen/tekoälyn tekemää työtä kuten musiikkiin, videoihin ja kuviin. Mutta onko ihan kaikki edes tarpeen ja mitä kaikesta siitä tekoälyn asioiden keksimisestä tyhjästä tulee tai lyhyemmin tekoälyn hallusinaatiosta.

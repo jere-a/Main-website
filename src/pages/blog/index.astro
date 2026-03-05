@@ -1,9 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { getLocale } from 'astro-i18n-aut';
+import { getLangFromUrl } from '@/i18n/utils';
+import { escapeViewTransitionName } from '@vtbag/utensil-drawer/escape-view-transition-name';
 
-const lang: string = getLocale(Astro.url);
+const lang: string = getLangFromUrl(Astro.url);
 const blogEntries = await getCollection('blog');
 ---
 
@@ -24,10 +25,12 @@ const blogEntries = await getCollection('blog');
 				};
 
 				const formattedText = (text: string): string => {
-					return text
-						.replace(/import\s.*?from\s.*?;/g, '')
-						.replace(/<\s.*?\/\s.*?>;/g, '')
-						.substring(0, 300);
+					return (
+						text
+							.replace(/import\s.*?from\s.*?;/g, '')
+							.replace(/<\s.*?\/\s.*?>;/g, '')
+							.substring(0, 220) + '...'
+					);
 				};
 
 				const postTitle = post.data.title;
@@ -37,25 +40,30 @@ const blogEntries = await getCollection('blog');
 
 				if (lang === postLang)
 					return (
-						<li class="posts animated bounceIn">
+						<li class="posts">
 							<a class="box" href={`/blog/${post.id}`}>
 								<h2
-									class="title"
+									class="title fade-transition"
 									aria-label={postTitle}
-									transition:name={bpostTitle}
+									style={{
+										viewTransitionName: escapeViewTransitionName(bpostTitle),
+									}}
 								>
 									{postTitle}
 								</h2>
 								<time
+									class="fade-transition"
 									datetime={post.data.pubDate?.toISOString()}
-									transition:name={bpostTime}
+									style={{
+										viewTransitionName: escapeViewTransitionName(bpostTime),
+									}}
 								>
 									{formattedDate}
 								</time>
 								<p
 									aria-label={post.data.content}
-									class="text"
-									transition:name={bpostContent}
+									class="text fade-transition"
+									style={{ viewTransitionName: bpostContent }}
 								>
 									{formattedText(post.body)}
 								</p>
@@ -95,14 +103,10 @@ const blogEntries = await getCollection('blog');
 		display: flex;
 	}
 
-	.NavMenu {
-		@apply self-center;
-	}
-
 	ul {
 		list-style-type: none;
 		padding: unset;
-		@apply self-center;
+		align-self: center;
 	}
 
 	ul li {
@@ -146,7 +150,7 @@ const blogEntries = await getCollection('blog');
 	}
 
 	.text {
-		--max-lines: 3;
+		--max-lines: 4;
 
 		max-height: calc(var(--max-lines) * 1em * var(--line-height));
 		line-height: var(--line-height);

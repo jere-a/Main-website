@@ -1,6 +1,7 @@
 ---
 title: 'Ensimmäinen oikea blogi'
 pubDate: 2024-10-19
+lang: 'fi'
 ---
 
 Moi tämän päivityksen mukana jota olen tehnyt nyt jonkin aikaa tulee jotakin

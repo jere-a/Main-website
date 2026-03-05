@@ -1,6 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import ImageHolder from '@/components/ImageHolder.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 import Ghost from '../../data/images/Aamuinen usva.jpg';
 import Sunflower from '../../data/images/auringon kukka 2.jpg';
@@ -45,14 +49,11 @@ const images: {
 ];
 ---
 
-<Layout title="Kuvat" activeNav="kuvat">
-	<h1
-		transition:name="hero_text"
-		class="text-gradient text-center mb-4 text-[3.5rem] font-bold leading-none"
-	>
-		Kuvat
+<Layout title={t.images.title} activeNav="kuvat">
+	<h1 style={{ viewTransitionName: 'hero_text' }} class="text-gradient title fade-transition">
+		{t.images.title}
 	</h1>
-	<p class="text-center mb-2 text-[1.2rem] leading-none">Minun ottamiani kuvia eri paikoista.</p>
+	<p class="subtitle">{t.images.subtitle}</p>
 	<ul role="list" class="image-card-grid">
 		{
 			images.map((image, i) => (
@@ -65,12 +66,20 @@ const images: {
 </Layout>
 
 <style>
-	p.text-center {
+	p.subtitle {
 		margin-inline: auto;
+		text-align: center;
+		line-height: 1;
+		margin-bottom: calc(var(--spacing) * 2);
+		font-size: 1.2rem;
 	}
 
-	ul li {
-		margin-inline: 0.5rem;
+	h1.title {
+		line-height: 1;
+		margin-bottom: calc((--spacing) * 4);
+		font-size: 3.5rem;
+		text-align: center;
+		font-weight: var(--font-weight-bold);
 	}
 
 	.image-card-grid {
@@ -79,21 +88,14 @@ const images: {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
 		justify-items: center;
-		gap: 0.2rem;
+		gap: 0.5rem;
 	}
 </style>
 
 <script>
-	// import { dynImport } from '@/ts/global/dynamic_import.ts';
-	import { isHoliday, query, queryAll } from '@/ts/global';
+	import { isHoliday } from '@/ts/global';
 	import { $ } from '@/ts/jquery/basic';
-	import global from '@/ts/global-code';
-	//import { dynImport } from '@/ts/dynamic-import';
 
-	global();
-	// const { isHoliday, query } = await import('@/ts/global');
-	/* const oldtext = document.querySelector('.how_old'); */
-	//const query = dynImport.global.query;
 	const observer = new IntersectionObserver(observerFn);
 	function observerFn(entries: any) {
 		for (const entry of entries) {
@@ -106,15 +108,9 @@ const images: {
 		}
 	});
 
-	const textGradientEl = query('.text-gradient');
-	const imagesEl = query('.images');
-	const pEl = query('p');
-	const holiday = await isHoliday([
-		textGradientEl ?? undefined,
-		imagesEl ?? undefined,
-		pEl ?? undefined,
-		'.navItem',
-	]);
+	const textGradientEl = document.querySelector<HTMLElement>('.text-gradient');
+	const pEl = document.querySelector<HTMLParagraphElement>('p');
+	const holiday = await isHoliday([textGradientEl ?? undefined, pEl ?? undefined, '.navItem']);
 
 	if (holiday.bool) {
 		holiday.script;

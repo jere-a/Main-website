@@ -1,11 +1,15 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import Layout from '@/layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<Layout title="About">
+<Layout title={t.about.title}>
 	<main>
-		<h1>Tietoja minusta</h1>
-		<p class="author">Jere Laitinen</p>
+		<h1>{t.about.title}</h1>
+		<p class="author">{t.about.author}</p>
 	</main>
 </Layout>
 

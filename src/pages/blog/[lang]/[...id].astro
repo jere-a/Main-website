@@ -1,5 +1,4 @@
 ---
-import Layout from '@/layouts/Layout.astro';
 import BlogPost from '@/layouts/BlogPost.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -14,11 +13,13 @@ export async function getStaticPaths() {
 	return paths;
 }
 
-const { lang, id } = Astro.params;
 const entry = Astro.props;
 const { Content } = await render(entry);
 ---
 
 <BlogPost {...entry.data}>
-	<Content transition:name={`bcontent${entry.data.title}`} />
+	<Content
+		class="fade-transition"
+		style={{ ViewTransitionName: `bcontent${entry.data.title}` }}
+	/>
 </BlogPost>
