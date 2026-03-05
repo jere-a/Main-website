@@ -1,6 +1,5 @@
 import LetItGo from "let-it-go/src";
 import christmasstyle from "@/styles/holidays/christmas.css?url";
-import { l } from "@/ts/global";
 
 export const christmas = async () => {
   new LetItGo();
@@ -15,5 +14,4 @@ export const christmas = async () => {
     console.error("Document body is not ready.");
 
   import(christmasstyle);
-  l("Christmas");
 };

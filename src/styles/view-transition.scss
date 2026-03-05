@@ -4,11 +4,83 @@
 	}
 }
 
+@view-transition {
+	navigation: auto;
+}
+
+:active-view-transition {
+	cursor: pointer;
+}
+
+$astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
+
+::view-transition-old(.fade),
+::view-transition-new(.fade) {
+	animation-duration: 180ms;
+	animation-timing-function: $astro-ease;
+}
+
+::view-transition-old(.slide) {
+	animation-duration: 90ms, 220ms;
+	animation-timing-function: $astro-ease;
+	animation-name: -ua-view-transition-fade-out, astroSlideToLeft;
+}
+::view-transition-new(.slide) {
+	animation-duration: 210ms, 220ms;
+	animation-timing-function: $astro-ease;
+	animation-delay: 30ms;
+	animation-name: -ua-view-transition-fade-in, astroSlideFromRight;
+}
+[data-astro-transition='back'] {
+	&::view-transition-old(.slide) {
+		animation-name: -ua-view-transition-fade-out, astroSlideToRight;
+	}
+	&::view-transition-new(.slide) {
+		animation-name: -ua-view-transition-fade-in, astroSlideFromLeft;
+	}
+}
+
+.fade-transition {
+	view-transition-class: fade;
+}
+
+.slide-transition {
+	view-transition-class: slide;
+}
+
+@keyframes astroSlideFromRight {
+	0% {
+		transform: translate(100%);
+	}
+}
+@keyframes astroSlideFromLeft {
+	0% {
+		transform: translate(-100%);
+	}
+}
+@keyframes astroSlideToRight {
+	to {
+		transform: translate(100%);
+	}
+}
+@keyframes astroSlideToLeft {
+	to {
+		transform: translate(-100%);
+	}
+}
+
+$old-selectors: ();
+$new-selectors: ();
+
 @for $i from 1 through 3 {
-	::view-transition-old(card#{$i}) {
-		opacity: 1;
-	}
-	::view-transition-new(card#{$i}) {
-		opacity: 0;
-	}
+	$old-selectors: append($old-selectors, '::view-transition-old(card#{$i})', comma);
+	$new-selectors: append($new-selectors, '::view-transition-new(card#{$i})', comma);
+}
+
+#{$old-selectors} {
+	opacity: 1;
+}
+
+#{$new-selectors} {
+	opacity: 0;
 }
