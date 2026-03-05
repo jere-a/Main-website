@@ -1,24 +1,25 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "compilerOptions": {
-    "plugins": [
-      {
-        "name": "@astrojs/ts-plugin"
-      }
-    ],
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "esModuleInterop": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "types": ["vite-plugin-pwa/client", "vite-plugin-pwa/info"],
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "allowUnreachableCode": false,
-    "strict": true
-  },
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+	"extends": "astro/tsconfigs/strict",
+	"compilerOptions": {
+		"plugins": [
+			{
+				"name": "@astrojs/ts-plugin"
+			}
+		],
+		"target": "es2024" /* the last available year will be updated when needed */,
+		"jsx": "react-jsx",
+		"jsxImportSource": "react",
+		"esModuleInterop": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"types": ["vite-plugin-pwa/client", "vite-plugin-pwa/info"],
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"allowUnreachableCode": false,
+		"strict": true
+	},
+	"include": [".astro/types.d.ts", "**/*"],
+	"exclude": ["dist"]
 }
