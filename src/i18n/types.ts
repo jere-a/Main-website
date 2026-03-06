@@ -1,5 +1,5 @@
-import { en } from "./locales/en";
-import { fi } from "./locales/fi";
+import en from "./locales/en.json";
+import fi from "./locales/fi.json";
 
 export const translations = { fi, en } as const;
 export type Lang = keyof typeof translations;
