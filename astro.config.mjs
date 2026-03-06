@@ -137,9 +137,6 @@ export default defineConfig({
 			cssMinify: 'lightningcss',
 			rollupOptions: {
 				output: {
-					// entryFileNames: 'entry.[hash].mjs',
-					// chunkFileNames: 'chunks/chunk.[hash].mjs',
-					// assetFileNames: 'assets/asset.[hash][extname]',
 					compact: true,
 					generatedCode: { preset: 'es2015' },
 					importAttributesKey: 'with',
