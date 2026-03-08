@@ -1,4 +1,4 @@
-import posthog, { type PostHogConfig } from "posthog-js";
+import type { PostHogConfig } from "posthog-js";
 
 declare global {
   interface Window {
@@ -6,9 +6,19 @@ declare global {
   }
 }
 
+let posthogInstance: typeof import("posthog-js").default | null = null;
+
+async function getPosthog() {
+  if (!posthogInstance) {
+    const { default: posthog } = await import("posthog-js");
+    posthogInstance = posthog;
+  }
+  return posthogInstance;
+}
+
 const LOCAL = new Set(["localhost", "127.0.0.1", "::1"]);
 
-const init = (): void => {
+const init = async (): Promise<void> => {
   if (typeof window === "undefined" || window.__posthog_initialized) return;
   window.__posthog_initialized = true;
 
@@ -27,11 +37,12 @@ const init = (): void => {
     capture_pageview: "history_change",
     ...(isTest && {
       advanced_disable_feature_flags: true,
-      bootstrap: { featureFlags: { "holiday-effects": true } },
       autocapture: false,
       disable_session_recording: true,
     }),
   } satisfies Partial<PostHogConfig>;
+
+  const posthog = await getPosthog();
 
   posthog.init("phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF", config);
 };
