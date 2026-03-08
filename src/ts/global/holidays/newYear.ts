@@ -55,7 +55,7 @@ const init = () => {
 };
 
 // Fire-and-forget exported function (optional manual trigger)
-export const newYear = () => {
+export const newYear = async () => {
   if (typeof window === "undefined") return;
   init();
 };

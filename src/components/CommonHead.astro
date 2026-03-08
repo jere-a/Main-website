@@ -3,9 +3,6 @@ import PostHog from '../components/posthog.astro';
 import { SEOMetadata } from 'astro-seo-metadata';
 import { siteConfig } from '@/config';
 
-import crossing from '@vtbag/element-crossing?url';
-import declarativeNamesURL from '@vtbag/utensil-drawer/declarative-names?url';
-
 interface Props {
 	title?: string;
 }
@@ -39,5 +36,4 @@ const { title } = Astro.props;
 <link rel="alternate" type="application/rss+xml" title="Åzze" href={`${Astro.site}rss.xml`} />
 <link type="text/plain" rel="author" href={`${Astro.site}humans.txt`} />
 <link rel="expect" href="#the_unexpected" blocking="render" />
-<script is:inline src={crossing}></script>
 <PostHog />
