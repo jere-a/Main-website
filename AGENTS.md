@@ -1,6 +1,6 @@
 # PROJECT KNOWLEDGE BASE -comprehensive
 
-**Generated:** 2026-03-02
+**Generated:** 2026-03-08
 **Branch:** main
 
 **Documentation:** [Astro Docs](https://docs.astro.build/llms-full.txt)
@@ -874,31 +874,67 @@ const prefersReducedMotion = useStore(isPrefersReducedMotion);
 
 ### Translation Files
 
-#### ui.ts
+The i18n system now uses TypeScript files with compile-time type validation.
+
+#### File Structure
+```
+src/i18n/
+├── index.ts        # Barrel exports
+├── types.ts        # Type definitions with DeepEqual validation
+├── schema.ts       # LangSchema type definition
+├── utils.ts        # Helper functions
+└── locales/
+    ├── index.ts    # Re-exports fi and en
+    ├── fi.ts       # Finnish translations
+    └── en.ts       # English translations
+```
+
+#### schema.ts
 ```typescript
-// Translation strings for both languages
-export const ui = {
-  fi: {
-    nav: {
-      home: "Koti",
-      about: "Tietoa",
-      images: "Kuvat",
-      blog: "Blogi",
-      // ...
-    },
-    // ...
-  },
-  en: {
-    nav: {
-      home: "Home",
-      about: "About",
-      images: "Images",
-      blog: "Blog",
-      // ...
-    },
-    // ...
-  },
+export type LangSchema = {
+  nav: {
+    home: string;
+    about: string;
+    images: { title: string; desc: string; };
+    blog: { title: string; desc: string; };
+    oldsite: string;
+    lang: string;
+  };
+  index: { github: string; h1: { title: string; }; title: string; };
+  about: { title: string; author: string; };
+  images: { title: string; subtitle: string; };
+  notfound: { title: string; message: string; };
+  youtube: { title: string; };
+  holiday: { christmas: string; newyear: string; halloween: string; };
 };
+```
+
+#### types.ts
+```typescript
+import { en, fi } from "./locales";
+
+export const translations = { fi, en } as const;
+export type Lang = keyof typeof translations;
+export const defaultLang: Lang = "fi";
+
+// Deep equality validation between languages
+type DeepEqual<A, B> = ...;
+type DeepValidate<A, B> = ...;
+
+// Type-safe translation keys
+export type TranslationKeys = Paths<DefaultSchema>;
+export type TranslationShape = DeepObject<DefaultSchema>;
+```
+
+#### locales/fi.ts
+```typescript
+import type { LangSchema } from "../schema.ts";
+
+export const fi: LangSchema = {
+  nav: { home: "Koti", about: "Tietoja", ... },
+  index: { github: "Näytä lähde koodi GitHub:issa", ... },
+  ...
+} satisfies LangSchema;
 ```
 
 #### utils.ts
@@ -912,6 +948,11 @@ useTranslations(lang: "fi" | "en"): (key: string) => string;
 // Generate path with language prefix
 useTranslatedPath(lang: "fi" | "en"): (path: string) => string;
 ```
+
+**Key Features:**
+- Compile-time type validation between languages using DeepEqual/DeepValidate
+- Type-safe translation keys via `TranslationKeys` type
+- Schema validation ensures both languages have identical structure
 
 ---
 
@@ -1003,6 +1044,13 @@ biome check --write --unsafe  # Auto-fix linting issues
 
 | Commit | Date | Description |
 |--------|------|-------------|
+| fb138d7 | 2026-03-08 | Removing unnecessary things |
+| 3bf9a2b | 2026-03-08 | Changing the package manager back to bun |
+| 6cb5aed | 2026-03-08 | Change github deploy to using mise |
+| 0b905e2 | 2026-03-08 | Adding mise.toml config |
+| c0bd391 | 2026-03-08 | Update wrangler to version 4 |
+| c502bb3 | 2026-03-08 | Justifying NavMenu content to the left |
+| aef8a14 | 2026-03-07 | Fix i18n errors |
 | 56e384e | 2026-03-01 | Added view-transition.scss for transitions without JavaScript |
 | 3010bca | 2026-03-01 | Modified cleanup.yml file |
 | 24723bc | 2026-03-01 | Updated PWA service worker component |
