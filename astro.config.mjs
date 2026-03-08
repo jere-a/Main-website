@@ -17,30 +17,20 @@ import rehypeKatex from 'rehype-katex';
 import { Features, browserslistToTargets } from 'lightningcss';
 import browserslist from 'browserslist';
 import package_json from './package.json';
-
-import db from '@astrojs/db';
+import { i18n, filterSitemapByDefaultLocale } from 'astro-i18n-aut/integration';
 
 export const defaultLocale = 'fi';
-export const locales = ['fi', 'en'];
-const sitemap_i18n = {
-	defaultLocale: defaultLocale,
-	locales: {
-		fi: 'fi-Fi',
-		en: 'en-US',
-	},
+const locales = {
+	fi: 'fi-FI',
+	en: 'en-US',
 };
 
 export default defineConfig({
 	site: siteConfig.url,
 	output: 'static',
 	image: { service: imageService({}), responsiveStyles: true },
-	experimental: { svgo: true },
+	experimental: { svgo: true, chromeDevtoolsWorkspace: true, preserveScriptOrder: true },
 	prefetch: true,
-	i18n: {
-		defaultLocale,
-		locales,
-		routing: {},
-	},
 	integrations: [
 		mdx(),
 		preact({ include: ['**/preact/*', '**/react/*', '**/components/ui/*'] }),
@@ -82,8 +72,17 @@ export default defineConfig({
               ],
           },
       }), */
+		i18n({
+			locales,
+			defaultLocale,
+			exclude: ['pages/api/**/*', 'pages/**/*.md', 'pages/**/*.ts'],
+		}),
 		sitemap({
-			i18n: sitemap_i18n,
+			i18n: {
+				locales,
+				defaultLocale,
+			},
+			filter: filterSitemapByDefaultLocale({ defaultLocale }),
 		}),
 		/* partytown(), */
 		purgecss({
@@ -102,9 +101,11 @@ export default defineConfig({
 			],
 		}),
 		playformCompress({ Image: false }),
-		db(),
 	],
 	trailingSlash: 'never',
+	build: {
+		format: 'file',
+	},
 	scopedStyleStrategy: 'class',
 	security: {
 		allowedDomains: [
@@ -126,6 +127,7 @@ export default defineConfig({
 			extensions: ['.ts', '.mts', '.mjs', '.js', '.jsx', '.tsx', '.json'],
 		},
 		css: {
+			devSourcemap: true,
 			transformer: 'lightningcss',
 			lightningcss: {
 				exclude: Features.Nesting,

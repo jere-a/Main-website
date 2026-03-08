@@ -1,4 +1,5 @@
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { getLocale, getLocaleUrl } from "astro-i18n-aut";
+import type { LangSchema } from "./schema.ts";
 import {
   defaultLang,
   type Lang,
@@ -19,7 +20,7 @@ function createTranslator<T extends TranslationShape>(dict: T) {
   return dict;
 }
 
-export function useTranslations(lang: Lang = defaultLang) {
+export function useTranslations(lang: Lang = defaultLang): LangSchema {
   return createTranslator(translations[lang] ?? translations[defaultLang]);
 }
 
@@ -40,7 +41,7 @@ export function useTranslations(lang: Lang = defaultLang) {
 // }
 
 export function getLangFromUrl(url: URL): Lang {
-  const [, maybeLang] = url.pathname.split("/");
+  const maybeLang = getLocale(url);
   return maybeLang && isLang(maybeLang) ? maybeLang : defaultLang;
 }
 
@@ -65,7 +66,7 @@ export function useTranslatedPath<L extends string>(lang: L) {
     const finalLang: Lang =
       overrideLang && isLang(overrideLang) ? overrideLang : baseLang;
 
-    return getRelativeLocaleUrl(finalLang, path);
+    return getLocaleUrl(path, finalLang);
   };
 }
 
