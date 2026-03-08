@@ -3,3 +3,21 @@ biome = "2.4.6"
 bun = "latest"
 node = "25.8.0"
 pre-commit = "latest"
+
+[tasks.build]
+depends = "test"
+description = "Build the web Application"
+run = "bun run build"
+
+[tasks.test]
+description = "Test the web Applications for compile errors"
+run = "bun run test"
+
+[tasks.preview]
+depends = "build"
+description = "Preview the web Application locally"
+run = "bun run preview"
+
+[tasks.dev]
+description = "Run dev environment for live website changes"
+run = "bun run dev"
