@@ -3,7 +3,7 @@ import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
 import MarkdownIt from "markdown-it";
 import sanitizeHtml from "sanitize-html";
-import { siteConfig } from "@/config";
+import { siteConfig } from "@/config.ts";
 
 const parser = new MarkdownIt({
   html: true,

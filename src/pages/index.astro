@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Social from '../components/Social.astro';
 import Card from '../components/Card.astro';
-import { siteConfig } from '@/config';
-import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils';
+import { siteConfig } from '@/config.ts';
+import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils.ts';
 
 const giturl = siteConfig.urls.giturl || 'https://git.new/I3vys7Q';
 
