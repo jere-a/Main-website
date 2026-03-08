@@ -1,0 +1,5 @@
+[tools]
+biome = "2.4.6"
+bun = "latest"
+node = "25.8.0"
+pre-commit = "latest"
