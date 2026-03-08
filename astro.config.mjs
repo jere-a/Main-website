@@ -148,6 +148,6 @@ export default defineConfig({
 				treeshake: 'smallest',
 			},
 		},
-		plugins: [visualizer({ emitFile: true, filename: 'stats.html' }), tailwindcss()],
+		plugins: [visualizer({ emitFile: true, filename: 'stats.html' })],
 	},
 });
