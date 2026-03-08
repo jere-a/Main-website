@@ -1,3 +1,5 @@
+@use "sass:list";
+
 @media (prefers-reduced-motion: no-preference) {
 	@view-transition {
 		navigation: auto;
@@ -73,8 +75,8 @@ $old-selectors: ();
 $new-selectors: ();
 
 @for $i from 1 through 3 {
-	$old-selectors: append($old-selectors, '::view-transition-old(card#{$i})', comma);
-	$new-selectors: append($new-selectors, '::view-transition-new(card#{$i})', comma);
+	$old-selectors: list.append($old-selectors, '::view-transition-old(card#{$i})', comma);
+	$new-selectors: list.append($new-selectors, '::view-transition-new(card#{$i})', comma);
 }
 
 #{$old-selectors} {
