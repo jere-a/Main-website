@@ -20,7 +20,8 @@ jobs:
         steps:
             - uses: actions/checkout@v6
 
-            - uses: jdx/mise-action@v3
+            - name: Setup mise-en-place
+              uses: jdx/mise-action@v3
 
             - name: Cache dependencies + astro
               uses: actions/cache@v5
@@ -49,3 +50,4 @@ jobs:
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                  packageManager: bun
