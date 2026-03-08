@@ -16,10 +16,5 @@ export const main_halloween = () => {
       });
     }
   });
-  if (!main_halloween.once) {
-    import(halloweenstyle);
-    main_halloween.once = true;
-  }
+  import(halloweenstyle);
 };
-
-main_halloween.once = false;

@@ -4,5 +4,10 @@
 
 <script>
 	import init from '../ts/posthog';
-	init();
+
+	if ('requestIdleCallback' in window) {
+		requestIdleCallback(init, { timeout: 2000 });
+	} else {
+		setTimeout(init, 1);
+	}
 </script>

@@ -7,17 +7,9 @@ const main = async () => {
     main.once = true;
 
     if (siteFeatures.params.functions.holidayEffects) {
-      const mainEl = document.querySelector<HTMLElement>(".main");
-      const instructionsEl =
-        document.querySelector<HTMLParagraphElement>(".instructions");
       const holidaysEl =
         document.querySelector<HTMLParagraphElement>("p.holidays");
-      const holiday = await isHoliday([
-        mainEl ?? undefined,
-        instructionsEl ?? undefined,
-        holidaysEl ?? undefined,
-        ".navItem",
-      ]);
+      const holiday = await isHoliday();
 
       const updateHolidayMessage = () => {
         const { days, hours, minutes, seconds } = holidayTimeTo(holiday.timeto);

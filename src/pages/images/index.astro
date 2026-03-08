@@ -91,28 +91,3 @@ const images: {
 		gap: 0.5rem;
 	}
 </style>
-
-<script>
-	import { isHoliday } from '@/ts/global';
-	import { $ } from '@/ts/jquery/basic';
-
-	const observer = new IntersectionObserver(observerFn);
-	function observerFn(entries: any) {
-		for (const entry of entries) {
-			entry.loading = 'eager';
-		}
-	}
-	$('ul li picture img').each((e) => {
-		if (e instanceof Element) {
-			observer.observe(e);
-		}
-	});
-
-	const textGradientEl = document.querySelector<HTMLElement>('.text-gradient');
-	const pEl = document.querySelector<HTMLParagraphElement>('p');
-	const holiday = await isHoliday([textGradientEl ?? undefined, pEl ?? undefined, '.navItem']);
-
-	if (holiday.bool) {
-		holiday.script;
-	}
-</script>

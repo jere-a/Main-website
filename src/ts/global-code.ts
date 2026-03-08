@@ -10,7 +10,7 @@ const main = () => {
     "img, picture",
   );
 
-  window.addEventListener("vite:preloadError", (event) => {
+  window.addEventListener("vite:preloadError", () => {
     window.location.reload();
   });
 
