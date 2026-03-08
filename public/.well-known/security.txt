@@ -1,6 +1,6 @@
 Contact: mailto:info@ozze.eu.org
 Expires: 2028-03-07T22:00:00.000Z
-Encryption: https://ozze.eu.org/pgp-key.txt
+Encryption: openpgp4fpr:433F9AC8A6AA56D20B2F9BFC66DF2A825D1CF387
 Preferred-Languages: en, fi
 Canonical: https://ozze.eu.org/.well-known/security.txt
 
