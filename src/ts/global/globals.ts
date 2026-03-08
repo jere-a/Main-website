@@ -1,4 +1,4 @@
-import { type Lang, translations } from "@/i18n";
+import { defaultLang, type Lang, translations } from "@/i18n";
 
 type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
 
@@ -11,19 +11,14 @@ export const toUnicode = (str: string): string =>
     })
     .join("");
 
-export const detectLanguage = (
-  onlyFi = true,
-  lang = navigator.language,
-): Lang => {
-  if (onlyFi) return "fi";
-
+export const detectLanguage = (lang = navigator.language): Lang => {
   const shortLang = lang.split("-")[0];
 
   if (Object.keys(translations).includes(shortLang)) {
     return shortLang as Lang;
   }
 
-  return "fi";
+  return defaultLang;
 };
 
 export const throttle = <Args extends unknown[]>(

@@ -1,19 +1,22 @@
-import posthog from "posthog-js";
-import { type Lang, translations, useTranslations } from "@/i18n";
+import { type Lang, type translations, useTranslations } from "@/i18n";
+import { detectLanguage } from "@/ts/global";
+
+type HolidayLabels = (typeof translations)[Lang]["holiday"];
+type HolidayLabel = HolidayLabels[keyof HolidayLabels];
 
 type HolidayScript = () => Promise<unknown>;
 type Holiday = {
-  name: string | (() => string);
-  from: string;
-  to: string;
+  name: HolidayLabel;
+  from: number;
+  to: number;
   script: HolidayScript;
-  timeto: string;
+  timeto: number;
 };
 type IsHolidayReturn = {
   bool: boolean;
   holiday: string;
   script: HolidayScript;
-  timeto: string;
+  timeto: number;
 };
 type Duration = {
   days: number;
@@ -22,83 +25,84 @@ type Duration = {
   seconds: number;
 };
 
-const empty: HolidayScript = async () => {};
+const emptyScript: HolidayScript = async () => {};
 const noHoliday: IsHolidayReturn = {
   bool: false,
   holiday: "",
-  script: empty,
-  timeto: "",
+  script: emptyScript,
+  timeto: 0,
 };
 
-const isLang = (x: string): x is Lang => x in translations;
-const langAttr = document.documentElement.lang.toLowerCase();
-const lang = (
-  isLang(langAttr)
-    ? langAttr
-    : isLang(langAttr.split("-")[0])
-      ? langAttr.split("-")[0]
-      : "en"
-) as Lang;
+const holiday = (
+  name: HolidayLabel,
+  from: number,
+  to: number,
+  loader: () => Promise<undefined | (() => void)>,
+  timeto: number,
+) => ({
+  name,
+  from,
+  to,
+  script: loader,
+  timeto,
+});
 
 // biome-ignore lint/correctness/useHookAtTopLevel: Not a React hook
-const trans = useTranslations(lang);
+const trans = useTranslations(detectLanguage());
 
-const y = new Date().getFullYear();
-const p2 = (n: number) => `${n}`.padStart(2, "0");
-const fmt = (m: number, d: number, yr = y) => `${yr}-${p2(m)}-${p2(d)}`;
+const year = new Date().getFullYear();
+const fmt = (m: number, d: number, y = year) => Date.UTC(y, m - 1, d);
 
 const holidays = [
-  {
-    name: "halloween",
-    from: fmt(10, 1),
-    to: fmt(11, 10),
-    script: () =>
+  holiday(
+    trans.holiday.halloween,
+    fmt(10, 1),
+    fmt(11, 10),
+    () =>
       import("@/ts/global/holidays/halloween.ts").then((m) => m.main_halloween),
-    timeto: fmt(10, 31),
-  },
-  {
-    name: () => trans.holiday.christmas,
-    from: fmt(11, 30),
-    to: fmt(12, 25),
-    script: () =>
-      import("@/ts/global/holidays/christmas.ts").then((m) => m.christmas),
-    timeto: fmt(12, 24),
-  },
-  {
-    name: () => trans.holiday.newyear,
-    from: fmt(12, 26),
-    to: fmt(1, 8, y + 1),
-    script: () =>
-      import("@/ts/global/holidays/newYear.ts").then((m) => m.newYear),
-    timeto: fmt(12, 31),
-  },
+    fmt(10, 31),
+  ),
+  holiday(
+    "christmas",
+    fmt(11, 30),
+    fmt(12, 25),
+    () => import("@/ts/global/holidays/christmas.ts").then((m) => m.christmas),
+    fmt(12, 24),
+  ),
+  holiday(
+    "newyear",
+    fmt(12, 26),
+    fmt(1, 8, year + 1),
+    () => import("@/ts/global/holidays/newYear.ts").then((m) => m.newYear),
+    fmt(12, 31),
+  ),
 ] satisfies readonly Holiday[];
 
-export async function isHoliday(
-  _data?: (HTMLElement | string | undefined)[] | (string | undefined)[],
-): Promise<IsHolidayReturn> {
-  if (!posthog.isFeatureEnabled("holiday-effects")) return noHoliday;
-
+export async function isHoliday(): Promise<IsHolidayReturn> {
   const now = Date.now();
+
   for (const h of holidays) {
-    if (now >= Date.parse(h.from) && now <= Date.parse(h.to)) {
-      const holiday = typeof h.name === "function" ? h.name() : h.name;
-      posthog.capture("holiday_enabled", { name: holiday, timeto: h.timeto });
-      return { bool: true, holiday, script: h.script, timeto: h.timeto };
+    if (now >= h.from && now <= h.to) {
+      return {
+        bool: true,
+        holiday: h.name,
+        script: h.script,
+        timeto: h.timeto,
+      };
     }
   }
+
   return noHoliday;
 }
 
-export function holidayTimeTo(targetDate?: string): Duration {
-  const now = Date.now();
-  const s = Math.floor(
-    ((targetDate ? Date.parse(targetDate) : now) - now) / 1e3,
-  );
+export function holidayTimeTo(targetTime: number): Duration {
+  const diff = Math.max(0, targetTime - Date.now());
+  const totalSeconds = Math.floor(diff / 1000);
+
   return {
-    days: Math.floor(s / 86400),
-    hours: Math.floor(s / 3600) % 24,
-    minutes: Math.floor(s / 60) % 60,
-    seconds: s % 60,
+    days: Math.floor(totalSeconds / 86400),
+    hours: Math.floor(totalSeconds / 3600) % 24,
+    minutes: Math.floor(totalSeconds / 60) % 60,
+    seconds: totalSeconds % 60,
   };
 }

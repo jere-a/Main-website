@@ -1,3 +1,3 @@
-export * from "./checks";
-export * from "./globals";
-export * from "./holidays";
+export * from "./checks.ts";
+export * from "./globals.ts";
+export * from "./holidays.ts";
