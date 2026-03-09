@@ -1,5 +1,5 @@
 import LetItGo from "let-it-go/src";
-import christmasstyle from "@/styles/holidays/christmas.css?url";
+import "@/styles/holidays/christmas.css";
 
 export const christmas = async () => {
   new LetItGo();
@@ -12,6 +12,4 @@ export const christmas = async () => {
   }
   document.body?.insertBefore(lightrope, document.body.firstChild) ||
     console.error("Document body is not ready.");
-
-  import(christmasstyle);
 };
