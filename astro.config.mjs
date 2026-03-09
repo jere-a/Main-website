@@ -34,44 +34,44 @@ export default defineConfig({
 	integrations: [
 		mdx(),
 		preact({ include: ['**/preact/*', '**/react/*', '**/components/ui/*'] }),
-		/* AstroPWA({
-          strategies: 'injectManifest',
-          srcDir: 'src',
-          filename: 'sw.ts',
-          manifest: {
-              name: "Åzze's website",
-              short_name: 'Åzze',
-              description: siteConfig.description,
-              theme_color: '#310a65',
-              id: '/',
-              icons: [
-                  {
-                      src: '/pwa-192x192.png',
-                      sizes: '192x192',
-                      type: 'image/png',
-                      purpose: 'any',
-                  },
-                  {
-                      src: '/pwa-512x512.png',
-                      sizes: '512x512',
-                      type: 'image/png',
-                      purpose: 'any',
-                  },
-                  {
-                      src: '/pwa-maskable-192x192.png',
-                      sizes: '192x192',
-                      type: 'image/png',
-                      purpose: 'maskable',
-      },
-                  {
-                      src: '/pwa-maskable-512x512.png',
-                      sizes: '512x512',
-                      type: 'image/png',
-                      purpose: 'maskable',
-                  },
-              ],
-          },
-      }), */
+		AstroPWA({
+			strategies: 'injectManifest',
+			srcDir: 'src',
+			filename: 'sw.ts',
+			manifest: {
+				name: "Åzze's website",
+				short_name: 'Åzze',
+				description: siteConfig.description,
+				theme_color: '#310a65',
+				id: '/',
+				icons: [
+					{
+						src: '/pwa-192x192.png',
+						sizes: '192x192',
+						type: 'image/png',
+						purpose: 'any',
+					},
+					{
+						src: '/pwa-512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+						purpose: 'any',
+					},
+					{
+						src: '/pwa-maskable-192x192.png',
+						sizes: '192x192',
+						type: 'image/png',
+						purpose: 'maskable',
+					},
+					{
+						src: '/pwa-maskable-512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+						purpose: 'maskable',
+					},
+				],
+			},
+		}),
 		i18n({
 			locales,
 			defaultLocale,

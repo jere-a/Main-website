@@ -1,6 +1,10 @@
+/// <reference lib="webworker" />
+
 declare const self: ServiceWorkerGlobalScope;
 
-import { clientsClaim } from "workbox-core";
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
+import { clientsClaim, skipWaiting } from "workbox-core";
+import { ExpirationPlugin } from "workbox-expiration";
 import * as navigationPreload from "workbox-navigation-preload";
 import {
   cleanupOutdatedCaches,
@@ -8,33 +12,34 @@ import {
   precacheAndRoute,
 } from "workbox-precaching";
 import { NavigationRoute, registerRoute } from "workbox-routing";
-import { NetworkFirst, StaleWhileRevalidate } from "workbox-strategies";
+import { StaleWhileRevalidate } from "workbox-strategies";
 
-// Precache the manifest
 precacheAndRoute(self.__WB_MANIFEST || [], {
   directoryIndex: "index.html",
   cleanURLs: true,
 });
 
-// Clean up outdated caches
 cleanupOutdatedCaches();
-
-// Enable navigation preload
 navigationPreload.enable();
 
-// Create a new navigation route that uses the Network-first, falling back to
-// cache strategy for navigation requests with its own cache. This route will be
-// handled by navigation preload. The NetworkOnly strategy will work as well.
-const navigationRoute = new NavigationRoute(
-  new NetworkFirst({
-    cacheName: "navigations",
-    networkTimeoutSeconds: 3,
+const sharedPlugins = [
+  new ExpirationPlugin({
+    maxEntries: 100,
+    maxAgeSeconds: 7 * 24 * 60 * 60,
   }),
+  new CacheableResponsePlugin({
+    statuses: [0, 200],
+  }),
+];
+
+registerRoute(
+  new NavigationRoute(
+    new StaleWhileRevalidate({
+      cacheName: "navigations",
+      plugins: sharedPlugins,
+    }),
+  ),
 );
-
-// Register the navigation route
-registerRoute(navigationRoute);
-
 registerRoute(new NavigationRoute(createHandlerBoundToURL("/404")));
 
 registerRoute(
@@ -50,25 +55,56 @@ registerRoute(
       "sharedworker",
     ].includes(request.destination);
   },
-  new NetworkFirst({
+  new StaleWhileRevalidate({
     cacheName: "assets",
-    networkTimeoutSeconds: 3,
+    plugins: sharedPlugins,
   }),
 );
 
-// Create a route for image, script, or style requests that use a
-// stale-while-revalidate strategy. This route will be unaffected
-// by navigation preload.
 registerRoute(
   ({ request }): boolean => {
     return ["image", "audio", "font"].includes(request.destination);
   },
   new StaleWhileRevalidate({
     cacheName: "static-assets",
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 350,
+        maxAgeSeconds: 30 * 24 * 60 * 60,
+      }),
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
   }),
 );
 
-// @ts-expect-error
-// Ensure the new service worker takes control immediately
-self.skipWaiting();
-clientsClaim();
+registerRoute(
+  ({ url }): boolean => {
+    return (
+      url.origin.includes("jsdelivr") || url.origin.includes("cdn.jsdelivr")
+    );
+  },
+  new StaleWhileRevalidate({
+    cacheName: "cdn-assets",
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 30 * 24 * 60 * 60,
+      }),
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  }),
+);
+
+self.addEventListener("activate", async () => {
+  clientsClaim();
+  const clients = await self.clients.matchAll({ type: "window" });
+  for (const client of clients) {
+    client.postMessage({ type: "PWA_RELOAD" });
+  }
+});
+
+skipWaiting();

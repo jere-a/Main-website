@@ -1,4 +1,4 @@
-import halloweenstyle from "@/styles/holidays/halloween.css?url";
+import "@/styles/holidays/halloween.css";
 
 const queryAll = (q: string, c = document) => c.querySelectorAll(q);
 
@@ -16,5 +16,4 @@ export const main_halloween = async () => {
       });
     }
   });
-  import(halloweenstyle);
 };
