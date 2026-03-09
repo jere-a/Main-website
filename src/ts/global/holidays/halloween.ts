@@ -2,7 +2,7 @@ import halloweenstyle from "@/styles/holidays/halloween.css?url";
 
 const queryAll = (q: string, c = document) => c.querySelectorAll(q);
 
-export const main_halloween = () => {
+export const main_halloween = async () => {
   document.querySelectorAll("p").forEach((e) => {
     if (typeof e !== "string") {
       e.classList.add("halloween");
