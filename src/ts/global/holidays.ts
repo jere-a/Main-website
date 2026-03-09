@@ -37,7 +37,7 @@ const holiday = (
   name: HolidayLabel,
   from: number,
   to: number,
-  loader: () => Promise<undefined | (() => void)>,
+  loader: () => Promise<void | (() => Promise<void>)>,
   timeto: number,
 ) => ({
   name,
