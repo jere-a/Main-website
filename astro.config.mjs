@@ -8,8 +8,6 @@ import { defineConfig } from 'astro/config';
 import purgecss from 'astro-purgecss';
 import { siteConfig } from './src/config';
 import partytown from '@astrojs/partytown';
-import playformInline from '@playform/inline';
-import tailwindcss from '@tailwindcss/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import remarkToc from 'remark-toc';
 import remarkMath from 'remark-math';
