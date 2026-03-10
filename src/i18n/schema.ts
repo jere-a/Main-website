@@ -19,6 +19,12 @@ export type LangSchema = {
       title: string;
     };
     title: string;
+    intro: {
+      start: string;
+      youtubeLabel: string;
+      end: string;
+    };
+    oldSite: string;
   };
   about: {
     title: string;
@@ -27,6 +33,13 @@ export type LangSchema = {
   images: {
     title: string;
     subtitle: string;
+    winterLandscape: string;
+    bigRoot: string;
+    blueSky: string;
+    sunflower: string;
+    morningMist: string;
+    colorfulBridge: string;
+    bridgeAtNight: string;
   };
   notfound: {
     title: string;
@@ -34,6 +47,9 @@ export type LangSchema = {
   };
   youtube: {
     title: string;
+  };
+  footer: {
+    copyright: string;
   };
   holiday: {
     christmas: string;

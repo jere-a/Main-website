@@ -41,7 +41,10 @@ export default defineConfig({
 				short_name: 'Åzze',
 				description: siteConfig.description,
 				theme_color: '#310a65',
-				id: '/',
+				id: 'ozze',
+				start_url: '/?source=pwa',
+				display: 'standalone',
+				dir: 'ltr',
 				icons: [
 					{
 						src: '/pwa-192x192.png',
@@ -103,6 +106,7 @@ export default defineConfig({
 	trailingSlash: 'never',
 	build: {
 		format: 'file',
+		inlineStylesheets: 'always',
 	},
 	scopedStyleStrategy: 'class',
 	security: {

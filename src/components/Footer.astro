@@ -1,7 +1,12 @@
 ---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
 interface Props {
 	isCopyright?: boolean;
 }
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const isCopyright = (): boolean => {
 	const { isCopyright } = Astro.props;
@@ -12,10 +17,10 @@ const isCopyright = (): boolean => {
 	}
 };
 
-const _copyrightText = `Tekijänoikeus \u00A9 2024-${new Date().getFullYear()} Jere L`;
+const _copyrightText = `${t.footer.copyright}2024-${new Date().getFullYear()} Jere L`;
 ---
 
-<footer class="fade-transition" style={{ viewTransitionName: 'footer' }}>
+<footer id="main-footer">
 	{
 		isCopyright() && (
 			<p class="copyright" data-value={_copyrightText}>

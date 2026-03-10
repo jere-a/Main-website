@@ -4,9 +4,10 @@ import { translations, type Lang } from '@/i18n/types';
 
 interface Props {
 	active: string | undefined;
-	transitionName?: string;
 }
-const { active, transitionName } = Astro.props;
+
+const { active } = Astro.props;
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
@@ -40,10 +41,16 @@ const links: {
 		active: 'blog',
 		name: t.nav.blog.title,
 	},
+	...languages
+		.filter((item) => item !== lang)
+		.map((language) => ({
+			href: translatePath(Astro.url.pathname, language),
+			name: useTranslations(language).nav.lang,
+		})),
 ];
 ---
 
-<nav class="nav-container fade-transition" style={{ viewTransitionName: transitionName }}>
+<nav class="nav-container navmenu">
 	<div class="nav-wrapper">
 		<ul class="nav-list" data-orientation="horizontal" dir="ltr">
 			{
@@ -59,20 +66,6 @@ const links: {
 					</li>
 				))
 			}
-			<li class="nav-card theme">
-				{
-					languages
-						.filter((item) => item !== lang)
-						.map((lang) => {
-							<a href={translatePath(`${Astro.url.pathname}`, lang)}>
-								{useTranslations(lang).nav.lang}
-							</a>;
-						})
-				}
-			</li>
-			<li>
-				<slot />
-			</li>
 		</ul>
 	</div>
 </nav>

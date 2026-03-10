@@ -21,6 +21,13 @@ export const en: LangSchema = {
       title: "Åzze",
     },
     title: "Home",
+    intro: {
+      start:
+        "I made this page when I became interested in building this. You can find me on ",
+      youtubeLabel: "YouTube",
+      end: " and you can also send me feedback at: ",
+    },
+    oldSite: "Old Website",
   },
   about: {
     title: "About Me",
@@ -29,6 +36,13 @@ export const en: LangSchema = {
   images: {
     title: "Images",
     subtitle: "My photos from various places.",
+    winterLandscape: "Winter Landscape From the Bridge.",
+    bigRoot: "Big Stump.",
+    blueSky: "Blue Sky.",
+    sunflower: "Sunflower.",
+    morningMist: "Morning Mist.",
+    colorfulBridge: "Colorful bridge at night",
+    bridgeAtNight: "Bridge at night",
   },
   notfound: {
     title: "404 Not Found",
@@ -36,6 +50,9 @@ export const en: LangSchema = {
   },
   youtube: {
     title: "Youtube",
+  },
+  footer: {
+    copyright: "Copyright © ",
   },
   holiday: {
     christmas: "Christmas",

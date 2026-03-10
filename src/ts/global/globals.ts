@@ -101,3 +101,26 @@ export function addEventListener<K extends keyof HTMLElementEventMap>(
   element.addEventListener(eventName, wrappedHandler);
   return wrappedHandler;
 }
+
+export function getQueryParam(name: string): string | null {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+export function isPWA(): boolean {
+  const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
+  // biome-ignore lint/suspicious/noExplicitAny: only in IOS
+  const isIOS = (window.navigator as any).standalone === true;
+  return isStandalone || isIOS;
+}
+
+export async function getTemporal(): Promise<
+  typeof import("@js-temporal/polyfill").Temporal
+> {
+  if ((globalThis as any).Temporal) {
+    return (globalThis as any).Temporal;
+  }
+
+  const { Temporal } = await import("@js-temporal/polyfill");
+  return Temporal;
+}
