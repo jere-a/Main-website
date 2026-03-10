@@ -27,7 +27,7 @@ export default defineConfig({
 	site: siteConfig.url,
 	output: 'static',
 	image: { service: imageService({}), responsiveStyles: true },
-	experimental: { svgo: true, chromeDevtoolsWorkspace: true, preserveScriptOrder: true },
+	experimental: { svgo: true, chromeDevtoolsWorkspace: true },
 	prefetch: true,
 	integrations: [
 		mdx(),
