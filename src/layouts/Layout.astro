@@ -52,7 +52,7 @@ const kaoid = 'kao';
 					/>
 				)
 			}
-			{isNavbar && <NavMenu active={activeNav} transitionName="navmenu" />}
+			{isNavbar && <NavMenu active={activeNav} />}
 		</header>
 		<slot />
 		{siteFeatures.params.cookies.cookiesEnabled && <Cookies />}

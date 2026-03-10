@@ -21,6 +21,13 @@ export const fi: LangSchema = {
       title: "Åzze",
     },
     title: "Koti",
+    intro: {
+      start:
+        "Olen tehnyt tämän sivun kun tuli kiinnostuksen kohteeksi tämän rakentaminen. Minut löytää ",
+      youtubeLabel: "Youtubesta",
+      end: " ja minulle voi myös lähettää palautetta osoitteeseen: ",
+    },
+    oldSite: "Vanha Nettisivu",
   },
   about: {
     title: "Tietoja minusta",
@@ -29,6 +36,13 @@ export const fi: LangSchema = {
   images: {
     title: "Kuvat",
     subtitle: "Minun ottamiani kuvia eri paikoista.",
+    winterLandscape: "Talvinen Maisema Sillalta.",
+    bigRoot: "Iso Kanto.",
+    blueSky: "Sininen Taivas.",
+    sunflower: "Auringon kukka.",
+    morningMist: "Aamuinen usva.",
+    colorfulBridge: "Värikäs silta pimeällä",
+    bridgeAtNight: "Silta pimeällä",
   },
   notfound: {
     title: "404 Not Found",
@@ -36,6 +50,9 @@ export const fi: LangSchema = {
   },
   youtube: {
     title: "Youtube",
+  },
+  footer: {
+    copyright: "Tekijänoikeus © ",
   },
   holiday: {
     christmas: "Joulu",

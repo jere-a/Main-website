@@ -1,5 +1,5 @@
 import { type Lang, type translations, useTranslations } from "@/i18n";
-import { detectLanguage } from "@/ts/global";
+import { detectLanguage, getTemporal } from "@/ts/global";
 
 type HolidayLabels = (typeof translations)[Lang]["holiday"];
 type HolidayLabel = HolidayLabels[keyof HolidayLabels];
@@ -24,6 +24,8 @@ type Duration = {
   minutes: number;
   seconds: number;
 };
+
+const Temporal = await getTemporal();
 
 const emptyScript: HolidayScript = async () => {};
 const noHoliday: IsHolidayReturn = {
@@ -50,8 +52,10 @@ const holiday = (
 // biome-ignore lint/correctness/useHookAtTopLevel: Not a React hook
 const trans = useTranslations(detectLanguage());
 
-const year = new Date().getFullYear();
-const fmt = (m: number, d: number, y = year) => Date.UTC(y, m - 1, d);
+const year = Temporal.Now.plainDateISO().year;
+const fmt = (m: number, d: number, y = year) =>
+  Temporal.PlainDate.from({ year: y, month: m, day: d }).toZonedDateTime("UTC")
+    .epochMilliseconds;
 
 const holidays = [
   holiday(
@@ -79,7 +83,7 @@ const holidays = [
 ] satisfies readonly Holiday[];
 
 export async function isHoliday(): Promise<IsHolidayReturn> {
-  const now = Date.now();
+  const now = Temporal.Now.instant().epochMilliseconds;
 
   for (const h of holidays) {
     if (now >= h.from && now <= h.to) {
@@ -96,7 +100,9 @@ export async function isHoliday(): Promise<IsHolidayReturn> {
 }
 
 export function holidayTimeTo(targetTime: number): Duration {
-  const diff = Math.max(0, targetTime - Date.now());
+  const nowMs = Temporal.Now.instant().epochMilliseconds;
+  const diff = Math.max(0, targetTime - nowMs);
+
   const totalSeconds = Math.floor(diff / 1000);
 
   return {

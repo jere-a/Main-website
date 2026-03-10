@@ -20,37 +20,37 @@ const images: {
 }[] = [
 	{
 		src: winterLandscape,
-		title: 'Talvinen Maisema Sillalta.',
+		title: t.images.winterLandscape,
 	},
 	{
 		src: Big_root,
-		title: 'Iso Kanto.',
+		title: t.images.bigRoot,
 	},
 	{
 		src: BlueSky,
-		title: 'Sininen Taivas.',
+		title: t.images.blueSky,
 	},
 	{
 		src: Sunflower,
-		title: 'Auringon kukka.',
+		title: t.images.sunflower,
 	},
 	{
 		src: Ghost,
-		title: 'Aamuinen usva.',
+		title: t.images.morningMist,
 	},
 	{
 		src: NightBridgeWithLights,
-		title: 'Värikäs silta pimeällä',
+		title: t.images.colorfulBridge,
 	},
 	{
 		src: WhiteLittleBridgeAtNight,
-		title: 'Silta pimeällä',
+		title: t.images.bridgeAtNight,
 	},
 ];
 ---
 
 <Layout title={t.images.title} activeNav="kuvat">
-	<h1 style={{ viewTransitionName: 'hero_text' }} class="text-gradient title fade-transition">
+	<h1 class="text-gradient title hero_text">
 		{t.images.title}
 	</h1>
 	<p class="subtitle">{t.images.subtitle}</p>
