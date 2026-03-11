@@ -17,7 +17,7 @@ const translatePath = useTranslatedPath(lang);
 	<main>
 		<a
 			href={giturl}
-			class="github-corner fade-transition"
+			class="github-corner"
 			aria-label={t.index.github}
 			target="_blank"
 			rel="noopener noreferrer"
@@ -35,15 +35,15 @@ const translatePath = useTranslatedPath(lang);
 			</svg>
 		</a>
 
-		<h1 style={{ viewTransitionName: 'hero_text' }} class="fade-transition">
+		<h1 class="hero_text">
 			<span class="text-gradient main">{t.index.h1.title}</span>
 		</h1>
 
 		<p class="holidays"></p>
 		<p class="instructions fade-transition" style={{ viewTransitionName: 'card0' }}>
-			Olen tehnyt tämän sivun kun tuli kiinnostuksen kohteeksi tämän rakentaminen. Minut
-			löytää <Social href="https://ggl.link/3bM14PP" platform="YT">Youtubesta</Social> ja minulle
-			voi myös lähettää palautetta osoitteeseen: <a
+			{t.index.intro.start}<Social href="https://ggl.link/3bM14PP" platform="YT"
+				>{t.index.intro.youtubeLabel}</Social
+			>{t.index.intro.end}<a
 				class="email-link"
 				href="mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4..."
 				title="Send Me email">info@ozze.eu.org</a
@@ -59,7 +59,7 @@ const translatePath = useTranslatedPath(lang);
 			/>
 			<Card
 				href={siteConfig.oldSite}
-				title="Vanha Nettisivu"
+				title={t.index.oldSite}
 				body={t.nav.oldsite}
 				transitionName="card2"
 			/>
@@ -157,7 +157,6 @@ const translatePath = useTranslatedPath(lang);
 			top: 0;
 			border: 0;
 			right: 0;
-			view-transition-name: github;
 			svg {
 				will-change: transform;
 			}
@@ -173,7 +172,3 @@ const translatePath = useTranslatedPath(lang);
 		}
 	</style>
 </Layout>
-
-<script>
-	import '@/ts/pages/index.mjs';
-</script>

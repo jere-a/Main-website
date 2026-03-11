@@ -1,88 +1,180 @@
-@use "sass:list";
+@use 'sass:list';
 
-@media (prefers-reduced-motion: no-preference) {
-	@view-transition {
-		navigation: auto;
-	}
-}
-
-@view-transition {
-	navigation: auto;
-}
-
-:active-view-transition {
-	cursor: pointer;
-}
-
+$page-transition-animation-timing-function: cubic-bezier(0.465, 0.183, 153, 0.946);
+$page-transition-animation-duration: 400ms;
+$swap-angle: 25deg;
 $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
 
-::view-transition-old(.fade),
-::view-transition-new(.fade) {
-	animation-duration: 180ms;
-	animation-timing-function: $astro-ease;
-}
-
-::view-transition-old(.slide) {
-	animation-duration: 90ms, 220ms;
-	animation-timing-function: $astro-ease;
-	animation-name: -ua-view-transition-fade-out, astroSlideToLeft;
-}
-::view-transition-new(.slide) {
-	animation-duration: 210ms, 220ms;
-	animation-timing-function: $astro-ease;
-	animation-delay: 30ms;
-	animation-name: -ua-view-transition-fade-in, astroSlideFromRight;
-}
-[data-astro-transition='back'] {
-	&::view-transition-old(.slide) {
-		animation-name: -ua-view-transition-fade-out, astroSlideToRight;
+@supports (view-transition-name: content) {
+	:root {
+		--page-transition-animation-timing-function: cubic-bezier(0.465, 0.183, 0.153, 0.946);
+		--anim-func-overshoot-out-soft: linear(
+			0,
+			0.402 7.4%,
+			0.711 15.3%,
+			0.929 23.7%,
+			1.008 28.2%,
+			1.067 33%,
+			1.099 36.9%,
+			1.12 41%,
+			1.13 45.4%,
+			1.13 50.1%,
+			1.111 58.5%,
+			1.019 83.2%,
+			1.004 91.3%,
+			1
+		);
+		--footer-height: 67px;
+		--bottom-bar-height: 67px;
+		--safe-area-max-inset-bottom: env(safe-area-max-inset-bottom, 36px);
+		--swap-angle: 25deg;
 	}
-	&::view-transition-new(.slide) {
-		animation-name: -ua-view-transition-fade-in, astroSlideFromLeft;
+
+	@media screen and (prefers-reduced-motion: no-preference) {
+		@view-transition {
+			navigation: auto;
+		}
 	}
-}
 
-.fade-transition {
-	view-transition-class: fade;
-}
-
-.slide-transition {
-	view-transition-class: slide;
-}
-
-@keyframes astroSlideFromRight {
-	0% {
-		transform: translate(100%);
+	::view-transition-group(*) {
+		animation-duration: $page-transition-animation-duration;
 	}
-}
-@keyframes astroSlideFromLeft {
-	0% {
-		transform: translate(-100%);
+
+	#main-footer {
+		view-transition-name: main-footer;
+		view-transition-class: slide-bottom;
 	}
-}
-@keyframes astroSlideToRight {
-	to {
-		transform: translate(100%);
+
+	.navmenu {
+		view-transition-name: navmenu;
+		view-transition-class: fade;
 	}
-}
-@keyframes astroSlideToLeft {
-	to {
-		transform: translate(-100%);
+
+	.hero_text {
+		view-transition-name: hero-text;
+		view-transition-class: slide-top;
 	}
-}
 
-$old-selectors: ();
-$new-selectors: ();
+	.github-corner {
+		view-transition-name: github;
+		view-transition-class: slide-right;
+	}
 
-@for $i from 1 through 3 {
-	$old-selectors: list.append($old-selectors, '::view-transition-old(card#{$i})', comma);
-	$new-selectors: list.append($new-selectors, '::view-transition-new(card#{$i})', comma);
-}
+	::view-transition-old(.fade),
+	::view-transition-new(.fade) {
+		animation-duration: 180ms;
+		animation-timing-function: $astro-ease;
+	}
 
-#{$old-selectors} {
-	opacity: 1;
-}
+	::view-transition-group(.slide-top) {
+		animation-timing-function: var(--anim-func-overshoot-out-soft);
+		--direction: -1;
+	}
 
-#{$new-selectors} {
-	opacity: 0;
+	::view-transition-old(.slide-top) {
+		animation-name: slide-out-top-bottom;
+	}
+
+	::view-transition-new(.slide-top) {
+		animation-name: slide-in-top-bottom;
+	}
+
+	::view-transition-group(.slide-bottom) {
+		animation-timing-function: var(--anim-func-overshoot-out-soft);
+		--direction: 1;
+	}
+
+	::view-transition-old(.slide-bottom) {
+		animation-name: slide-out-top-bottom;
+	}
+
+	::view-transition-new(.slide-bottom) {
+		animation-name: slide-in-top-bottom;
+	}
+
+	@keyframes slide-in-top-bottom {
+		0% {
+			transform: translateY(calc(100% * var(--direction)));
+			opacity: 0;
+		}
+		100% {
+			transform: translateY(0%);
+		}
+	}
+
+	@keyframes slide-out-top-bottom {
+		0% {
+			transform: translateY(0%);
+		}
+		100% {
+			transform: translateY(calc(100% * var(--direction)));
+			opacity: 0;
+		}
+	}
+
+	::view-transition-group(.slide-right) {
+		animation-timing-function: var(--anim-func-overshoot-out-soft);
+	}
+
+	::view-transition-old(.slide-right) {
+		animation-name: slide-out-right;
+	}
+
+	::view-transition-new(.slide-right) {
+		animation-name: slide-in-right;
+	}
+
+	@keyframes slide-in-right {
+		0% {
+			transform: translateX(100%);
+			opacity: 0;
+		}
+		100% {
+			transform: translateX(0%);
+			opacity: 1;
+		}
+	}
+
+	@keyframes slide-out-right {
+		0% {
+			transform: translateX(0%);
+			opacity: 1;
+		}
+		100% {
+			transform: translateX(100%);
+			opacity: 0;
+		}
+	}
+
+	::view-transition-group(.cards) {
+		animation-duration: 0.6s;
+		animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	::view-transition-old(.cards),
+	::view-transition-new(.cards) {
+		animation-fill-mode: both;
+	}
+
+	@for $i from 1 through 7 {
+		::view-transition-old(card#{$i}) {
+			opacity: 1;
+		}
+
+		::view-transition-new(card#{$i}) {
+			opacity: 0;
+			animation: Bottom-In 0.5s #{$i * 80ms} both;
+		}
+	}
+
+	@keyframes Bottom-In {
+		from {
+			transform: translateY(60px);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
 }
