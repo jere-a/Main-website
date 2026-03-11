@@ -24,6 +24,7 @@ export type SiteConfig = {
   postsRecent: number;
   mainAuthor: string;
   yt_cid: string;
+  posthog_id: string;
   mainLanguage: string;
   author: typeof author;
   urls: typeof urls;
@@ -42,6 +43,7 @@ export const siteConfig = {
   postsRecent: 5,
   mainAuthor: "Jere E.L",
   yt_cid: "UCNAVV2j-Bmuu9ApfTYwYAeA",
+  posthog_id: "phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF",
   mainLanguage: "fi-fi",
   author,
   urls,
