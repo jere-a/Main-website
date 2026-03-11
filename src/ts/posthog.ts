@@ -4,6 +4,9 @@ declare global {
   interface Window {
     __posthog_initialized?: true;
   }
+  interface Navigator {
+    globalPrivacyControl?: boolean;
+  }
 }
 
 const LOCAL = new Set(["localhost", "127.0.0.1", "::1"]);
@@ -11,6 +14,8 @@ const LOCAL = new Set(["localhost", "127.0.0.1", "::1"]);
 const init = async (): Promise<void> => {
   if (typeof window === "undefined" || window.__posthog_initialized) return;
   window.__posthog_initialized = true;
+
+  if (navigator.globalPrivacyControl) return;
 
   if (LOCAL.has(location.hostname)) return;
 
