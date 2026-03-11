@@ -1,4 +1,5 @@
 import type { PostHogConfig } from "posthog-js";
+import { siteConfig } from "@/config";
 
 declare global {
   interface Window {
@@ -26,7 +27,7 @@ const init = async (): Promise<void> => {
   const isTest = env.MODE === "test" || !!env.VITEST || env.CI === "true";
 
   const config = {
-    api_host: "https://t.ozze.eu.org",
+    api_host: `https://t.${siteConfig.host}`,
     ui_host: "https://eu.posthog.com",
     defaults: "2025-11-30",
     capture_pageview: "history_change",
@@ -39,7 +40,7 @@ const init = async (): Promise<void> => {
 
   const posthog = (await import("posthog-js")).default;
 
-  posthog.init("phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF", config);
+  posthog.init(siteConfig.posthog_id, config);
 };
 
 export default init;
