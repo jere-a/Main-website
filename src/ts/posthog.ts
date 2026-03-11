@@ -6,16 +6,6 @@ declare global {
   }
 }
 
-let posthogInstance: typeof import("posthog-js").default | null = null;
-
-async function getPosthog() {
-  if (!posthogInstance) {
-    const { default: posthog } = await import("posthog-js");
-    posthogInstance = posthog;
-  }
-  return posthogInstance;
-}
-
 const LOCAL = new Set(["localhost", "127.0.0.1", "::1"]);
 
 const init = async (): Promise<void> => {
@@ -42,7 +32,7 @@ const init = async (): Promise<void> => {
     }),
   } satisfies Partial<PostHogConfig>;
 
-  const posthog = await getPosthog();
+  const posthog = (await import("posthog-js")).default;
 
   posthog.init("phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF", config);
 };
