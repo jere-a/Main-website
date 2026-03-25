@@ -38,6 +38,9 @@ jobs:
             - name: Install dependencies
               run: bun install --frozen-lockfile
 
+            - name: Check Using biomejs
+              run: biome ci
+
             - name: Run Tests
               run: bun run test
 
