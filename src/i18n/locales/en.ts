@@ -39,20 +39,20 @@ export const en: LangSchema = {
     winterLandscape: "Winter Landscape From the Bridge.",
     bigRoot: "Big Stump.",
     blueSky: "Blue Sky.",
-    sunflower: "Sunflower.",
+    sunflower: "Dandelion.",
     morningMist: "Morning Mist.",
     colorfulBridge: "Colorful bridge at night",
     bridgeAtNight: "Bridge at night",
   },
   notfound: {
-    title: "404 Not Found",
+    title: "Not Found",
     message: "The page you are looking for was not found.",
   },
   youtube: {
     title: "Youtube",
   },
   footer: {
-    copyright: "Copyright © ",
+    copyright: "Copyright",
   },
   holiday: {
     christmas: "Christmas",

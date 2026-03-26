@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import playformCompress from '@playform/compress';
 import { imageService } from '@unpic/astro/service';
 import AstroPWA from '@vite-pwa/astro';
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import purgecss from 'astro-purgecss';
 import { siteConfig } from './src/config';
 import partytown from '@astrojs/partytown';
@@ -27,52 +27,56 @@ export default defineConfig({
 	site: siteConfig.url,
 	output: 'static',
 	image: { service: imageService({}), responsiveStyles: true },
-	experimental: { svgo: true, chromeDevtoolsWorkspace: true },
+	experimental: {
+		svgo: true,
+		chromeDevtoolsWorkspace: true,
+		clientPrerender: true,
+	},
 	prefetch: true,
 	integrations: [
 		mdx(),
 		preact({ include: ['**/preact/*', '**/react/*', '**/components/ui/*'] }),
-		AstroPWA({
-			strategies: 'injectManifest',
-			srcDir: 'src',
-			filename: 'sw.ts',
-			manifest: {
-				name: "Åzze's website",
-				short_name: 'Åzze',
-				description: siteConfig.description,
-				theme_color: '#310a65',
-				id: 'ozze',
-				start_url: '/?source=pwa',
-				display: 'standalone',
-				dir: 'ltr',
-				icons: [
-					{
-						src: '/pwa-192x192.png',
-						sizes: '192x192',
-						type: 'image/png',
-						purpose: 'any',
-					},
-					{
-						src: '/pwa-512x512.png',
-						sizes: '512x512',
-						type: 'image/png',
-						purpose: 'any',
-					},
-					{
-						src: '/pwa-maskable-192x192.png',
-						sizes: '192x192',
-						type: 'image/png',
-						purpose: 'maskable',
-					},
-					{
-						src: '/pwa-maskable-512x512.png',
-						sizes: '512x512',
-						type: 'image/png',
-						purpose: 'maskable',
-					},
-				],
-			},
-		}),
+		/* AstroPWA({
+          strategies: 'injectManifest',
+          srcDir: 'src',
+          filename: 'sw.ts',
+          manifest: {
+              name: "Åzze's website",
+              short_name: 'Åzze',
+              description: siteConfig.description,
+              theme_color: '#310a65',
+              id: 'ozze',
+              start_url: '/?source=pwa',
+              display: 'standalone',
+              dir: 'ltr',
+              icons: [
+                  {
+                      src: '/pwa-192x192.png',
+                      sizes: '192x192',
+                      type: 'image/png',
+                      purpose: 'any',
+                  },
+                  {
+                      src: '/pwa-512x512.png',
+                      sizes: '512x512',
+                      type: 'image/png',
+                      purpose: 'any',
+                  },
+                  {
+                      src: '/pwa-maskable-192x192.png',
+                      sizes: '192x192',
+                      type: 'image/png',
+                      purpose: 'maskable',
+                  },
+                  {
+                      src: '/pwa-maskable-512x512.png',
+                      sizes: '512x512',
+                      type: 'image/png',
+                      purpose: 'maskable',
+                  },
+              ],
+          },
+      }), */
 		i18n({
 			locales,
 			defaultLocale,
@@ -106,7 +110,6 @@ export default defineConfig({
 	trailingSlash: 'never',
 	build: {
 		format: 'file',
-		inlineStylesheets: 'always',
 	},
 	scopedStyleStrategy: 'class',
 	security: {
@@ -115,6 +118,14 @@ export default defineConfig({
 			{ hostname: 'gc.zgo.at', protocol: 'https', port: '443' },
 			{ hostname: 'keepandroidopen.org', protocol: 'https', port: '443' },
 		],
+		/* csp: {
+            styleDirective: {
+                resources: ["'self'", "'nonce-preloadscripts'"],
+            },
+            scriptDirective: {
+                resources: ["'self'", 'cdn.jsdelivr.net', "'nonce-preloadscripts'"],
+            },
+        }, */
 	},
 	markdown: {
 		remarkPlugins: [
@@ -123,6 +134,18 @@ export default defineConfig({
 		],
 		rehypePlugins: [rehypeKatex],
 	},
+	fonts: [
+		{
+			provider: fontProviders.google(),
+			name: 'Creepster',
+			cssVariable: '--font-creepster',
+		},
+		{
+			provider: fontProviders.google(),
+			name: 'Butcherman',
+			cssVariable: '--font-butcherman',
+		},
+	],
 	vite: {
 		server: { allowedHosts: ['prerelease.ozze.eu.org'] },
 		resolve: {
