@@ -3,10 +3,25 @@
   "tasks": [
     {
       "type": "npm",
+      "script": "build",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "bun: build",
+      "detail": "astro build"
+    },
+    {
+      "type": "npm",
       "script": "dev",
       "problemMatcher": [],
-      "label": "npm: dev",
+      "label": "bun: dev",
       "detail": "astro dev"
+    },
+    {
+      "type": "npm",
+      "script": "preview",
+      "problemMatcher": [],
+      "label": "bun: preview",
+      "detail": "astro preview"
     }
   ]
 }
