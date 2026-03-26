@@ -1,6 +1,8 @@
 ---
+import { Font } from 'astro:assets';
 import { getLangFromUrl } from '@/i18n/utils';
 import { siteFeatures } from '@/configFeatures';
+import PostHog from '../components/posthog.astro';
 import CommonHead from '@/components/CommonHead.astro';
 import NavMenu from '@/components/nav-menu.astro';
 import Footer from '@/components/Footer.astro';
@@ -9,7 +11,6 @@ import Cookies from '@/components/cookies.astro';
 
 import '@/styles/view-transition.scss';
 import '@/global.css';
-import '@/styles/holidays/index.css';
 
 interface Props {
 	title?: string;
@@ -38,20 +39,14 @@ const kaoid = 'kao';
 <html class:list={[{ dark: isDark }]} lang={lang}>
 	<head>
 		<CommonHead title={title} />
+		<Font cssVariable="--font-creepster" />
+		<Font cssVariable="--font-butcherman" />
 		<slot name="head" />
 	</head>
 	<body>
 		{isSplash && <SplashCursor client:only="preact" />}
 		<header>
-			{
-				isKao && (
-					<div
-						id={kaoid}
-						style={`view-transition-name: ${kaoid};`}
-						class="fade-transition"
-					/>
-				)
-			}
+			{isKao && <div id={kaoid} />}
 			{isNavbar && <NavMenu active={activeNav} />}
 		</header>
 		<slot />
@@ -59,9 +54,9 @@ const kaoid = 'kao';
 		{isFooter && <Footer />}
 		<script
 			is:inline
-			defer
 			src={`https://cdn.jsdelivr.net/gh/keepandroidopen/keepandroidopen.github.io@master/public/banner.min.js?size=mini&id=${kaoid}`}
 		></script>
+		<PostHog />
 	</body>
 </html>
 
