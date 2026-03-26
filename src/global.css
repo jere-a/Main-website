@@ -1,220 +1,216 @@
-:root,
-:host {
-	--background: 0 0% 100%;
-	--foreground: 240 10% 3.9%;
-	--card: 0 0% 100%;
-	--card-foreground: 240 10% 3.9%;
-	--popover: 0 0% 100%;
-	--popover-foreground: 240 10% 3.9%;
-	--primary: 240 5.9% 10%;
-	--primary-foreground: 0 0% 98%;
-	--secondary: 240 4.8% 95.9%;
-	--secondary-foreground: 240 5.9% 10%;
-	--muted: 240 4.8% 95.9%;
-	--muted-foreground: 240 3.8% 46.1%;
-	--accent: 240 4.8% 95.9%;
-	--accent-foreground: 240 5.9% 10%;
-	--destructive: 0 84.2% 60.2%;
-	--destructive-foreground: 0 0% 98%;
-	--border: 240 5.9% 90%;
-	--input: 240 5.9% 90%;
-	--ring: 240 10% 3.9%;
-	--radius: 0.5rem;
-	--chart-1: 12 76% 61%;
-	--chart-2: 173 58% 39%;
-	--chart-3: 197 37% 24%;
-	--chart-4: 43 74% 66%;
-	--chart-5: 27 87% 67%;
+@layer base {
+	:root,
+	:host {
+		--background: 0 0% 100%;
+		--foreground: 240 10% 3.9%;
+		--card: 0 0% 100%;
+		--card-foreground: 240 10% 3.9%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 240 10% 3.9%;
+		--primary: 240 5.9% 10%;
+		--primary-foreground: 0 0% 98%;
+		--secondary: 240 4.8% 95.9%;
+		--secondary-foreground: 240 5.9% 10%;
+		--muted: 240 4.8% 95.9%;
+		--muted-foreground: 240 3.8% 46.1%;
+		--accent: 240 4.8% 95.9%;
+		--accent-foreground: 240 5.9% 10%;
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 0 0% 98%;
+		--border: 240 5.9% 90%;
+		--input: 240 5.9% 90%;
+		--ring: 240 10% 3.9%;
+		--radius: 0.5rem;
+		--chart-1: 12 76% 61%;
+		--chart-2: 173 58% 39%;
+		--chart-3: 197 37% 24%;
+		--chart-4: 43 74% 66%;
+		--chart-5: 27 87% 67%;
 
-	--font-sans:
-		ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-		'Segoe UI Symbol', 'Noto Color Emoji';
-	--font-mono:
-		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-		monospace;
-	--spacing: 0.25rem;
-	--font-weight-bold: 700;
-	--default-font-family: var(--font-sans);
-	--default-mono-font-family: var(--font-mono);
+		--font-sans:
+			ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+			'Segoe UI Symbol', 'Noto Color Emoji';
+		--font-mono:
+			ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+			monospace;
+		--spacing: 0.25rem;
+		--font-weight-bold: 700;
+		--default-font-family: var(--font-sans);
+		--default-mono-font-family: var(--font-mono);
 
-	--font-family: var(--font-sans);
-	--aaccent: 136, 58, 234;
-	--accent-light: 224, 204, 250;
-	--accent-dark: 49, 10, 101;
-	--accent-gradient: linear-gradient(
-		45deg,
-		rgb(var(--aaccent)),
-		rgb(var(--accent-light)) 30%,
-		white 60%
-	);
+		--font-family: var(--font-sans);
+		--aaccent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--aaccent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
 
-	--border-width: 1px;
-	--primary-700: hsl(243, 26%, 15%);
-	--pirimary-600: hsl(252, 9%, 22%);
-	--primary-500: hsl(259, 13%, 28%);
-	--surface-3: hsl(243, 26%, 15%);
-	--border-1: hsl(259, 26%, 28%); /* top */
-	--border-2: hsl(252, 9%, 22%); /* bottom */
-}
+		--border-width: 1px;
+		--primary-700: hsl(243, 26%, 15%);
+		--pirimary-600: hsl(252, 9%, 22%);
+		--primary-500: hsl(259, 13%, 28%);
+		--surface-3: hsl(243, 26%, 15%);
+		--border-1: hsl(259, 26%, 28%); /* top */
+		--border-2: hsl(252, 9%, 22%); /* bottom */
+	}
 
-.dark {
-	--background: 240 10% 3.9%;
-	--foreground: 0 0% 98%;
-	--card: 240 10% 3.9%;
-	--card-foreground: 0 0% 98%;
-	--popover: 240 10% 3.9%;
-	--popover-foreground: 0 0% 98%;
-	--primary: 0 0% 98%;
-	--primary-foreground: 240 5.9% 10%;
-	--secondary: 240 3.7% 15.9%;
-	--secondary-foreground: 0 0% 98%;
-	--muted: 240 3.7% 15.9%;
-	--muted-foreground: 240 5% 64.9%;
-	--accent: 240 3.7% 15.9%;
-	--accent-foreground: 0 0% 98%;
-	--destructive: 0 62.8% 30.6%;
-	--destructive-foreground: 0 0% 98%;
-	--border: 240 3.7% 15.9%;
-	--input: 240 3.7% 15.9%;
-	--ring: 240 4.9% 83.9%;
-	--chart-1: 220 70% 50%;
-	--chart-2: 160 60% 45%;
-	--chart-3: 30 80% 55%;
-	--chart-4: 280 65% 60%;
-	--chart-5: 340 75% 55%;
-}
+	.dark {
+		--background: 240 10% 3.9%;
+		--foreground: 0 0% 98%;
+		--card: 240 10% 3.9%;
+		--card-foreground: 0 0% 98%;
+		--popover: 240 10% 3.9%;
+		--popover-foreground: 0 0% 98%;
+		--primary: 0 0% 98%;
+		--primary-foreground: 240 5.9% 10%;
+		--secondary: 240 3.7% 15.9%;
+		--secondary-foreground: 0 0% 98%;
+		--muted: 240 3.7% 15.9%;
+		--muted-foreground: 240 5% 64.9%;
+		--accent: 240 3.7% 15.9%;
+		--accent-foreground: 0 0% 98%;
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 0 0% 98%;
+		--border: 240 3.7% 15.9%;
+		--input: 240 3.7% 15.9%;
+		--ring: 240 4.9% 83.9%;
+		--chart-1: 220 70% 50%;
+		--chart-2: 160 60% 45%;
+		--chart-3: 30 80% 55%;
+		--chart-4: 280 65% 60%;
+		--chart-5: 340 75% 55%;
+	}
 
-:where(*, ::before, ::after, ::backdrop, ::file-selector-button) {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	border: 0 solid;
-}
+	*,
+	::before,
+	::after,
+	::backdrop,
+	::file-selector-button {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		border: 0 solid;
+	}
 
-:where(html, :host) {
-	line-height: 1.5;
-	-webkit-text-size-adjust: 100%;
-	tab-size: 4;
-	font-family: var(
-		--default-font-family,
-		ui-sans-serif,
-		system-ui,
-		sans-serif,
-		'Apple Color Emoji',
-		'Segoe UI Emoji',
-		'Segoe UI Symbol',
-		'Noto Color Emoji'
-	);
-	font-feature-settings: var(--default-font-feature-settings, normal);
-	font-variation-settings: var(--default-font-variation-settings, normal);
-	-webkit-tap-highlight-color: transparent;
-}
+	html,
+	:host {
+		line-height: 1.5;
+		tab-size: 4;
+		font-family: var(--default-font-family);
+		font-feature-settings: var(--default-font-feature-settings, normal);
+		font-variation-settings: var(--default-font-variation-settings, normal);
+		-webkit-text-size-adjust: 100%;
+		-webkit-tap-highlight-color: transparent;
+		background-size: 224px;
+	}
 
-:where(h1, h2, h3, h4, h5, h6) {
-	font: inherit;
-	text-wrap: balance;
-}
-:where(a) {
-	color: inherit;
-	text-decoration: inherit;
-}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font: inherit;
+		text-wrap: balance;
+	}
 
-:where(code, kbd, samp, pre) {
-	font-family: var(
-		--default-mono-font-family,
-		ui-monospace,
-		SFMono-Regular,
-		Menlo,
-		Monaco,
-		Consolas,
-		'Liberation Mono',
-		'Courier New',
-		monospace
-	);
-	font-feature-settings: var(--default-mono-font-feature-settings, normal);
-	font-variation-settings: var(--default-mono-font-variation-settings, normal);
-	font-size: 1em;
-}
+	a {
+		color: inherit;
+		text-decoration: inherit;
+	}
 
-:where(ol, ul, menu) {
-	list-style: none;
-}
+	code,
+	kbd,
+	samp,
+	pre {
+		font-family: var(--default-mono-font-family);
+		font-feature-settings: var(--default-mono-font-feature-settings, normal);
+		font-variation-settings: var(--default-mono-font-variation-settings, normal);
+		font-size: 1em;
+	}
 
-:where(img, svg, video, canvas, audio, iframe, embed, object) {
-	display: block;
-	vertical-align: middle;
-}
+	ol,
+	ul,
+	menu {
+		list-style: none;
+	}
 
-:where(img, video) {
-	max-width: 100%;
-	height: auto;
-}
+	img,
+	svg,
+	video,
+	canvas,
+	audio,
+	iframe,
+	embed,
+	object {
+		display: block;
+	}
 
-:where(button, input, select, optgroup, textarea, ::file-selector-button) {
-	font: inherit;
-	letter-spacing: inherit;
-	color: inherit;
-	border-radius: 0;
-	background: transparent;
-}
+	img,
+	video {
+		max-width: 100%;
+		height: auto;
+	}
 
-:where(textarea) {
-	resize: vertical;
-}
+	button,
+	input,
+	select,
+	optgroup,
+	textarea,
+	::file-selector-button {
+		font: inherit;
+		letter-spacing: inherit;
+		color: inherit;
+		border-radius: 0;
+		background: transparent;
+	}
 
-:where(table) {
-	text-indent: 0;
-	border-collapse: collapse;
-	border-color: inherit;
-}
+	textarea {
+		resize: vertical;
+	}
 
-::placeholder {
-	opacity: 1;
-	color: color-mix(in oklab, currentcolor 50%, transparent);
-}
+	table {
+		text-indent: 0;
+		border-collapse: collapse;
+		border-color: inherit;
+	}
 
-:where([hidden]:not([hidden='until-found'])) {
-	display: none !important;
-}
+	::placeholder {
+		opacity: 1;
+		color: color-mix(in oklab, currentcolor 50%, transparent);
+	}
 
-/* ===== theme base ===== */
+	/* ===== theme base ===== */
 
-body {
-	background: hsl(var(--background));
-	color: hsl(var(--foreground));
-	min-height: 100vh;
-	margin: 0;
-	flex-direction: column;
-}
+	body {
+		background: hsl(var(--background));
+		color: hsl(var(--foreground));
+		min-height: 100vh;
+		margin: 0;
+		flex-direction: column;
+	}
 
-main {
-	flex: 1;
-}
+	main {
+		flex: 1;
+	}
 
-p,
-li,
-figcaption {
-	max-width: 70ch;
-	text-wrap: pretty;
-}
+	p,
+	li,
+	figcaption {
+		max-width: 70ch;
+		text-wrap: pretty;
+	}
 
-a:focus-visible {
-	outline: 3px solid rgba(var(--border), 0.9) !important;
-	outline-offset: 3px !important;
-}
+	a:focus-visible {
+		outline: 3px solid rgba(var(--border), 0.9) !important;
+		outline-offset: 3px !important;
+	}
 
-html {
-	font-family: var(--font-family);
-	background-size: 224px;
-}
-
-code {
-	font-family: var(--font-mono);
-}
-
-.glass-card {
-	background: rgba(255, 255, 255, 0.35);
-	backdrop-filter: blur(20px);
-	border: 1px solid rgba(255, 255, 255, 0.5);
-	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+	code {
+		font-family: var(--font-mono);
+	}
 }

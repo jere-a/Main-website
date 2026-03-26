@@ -40,7 +40,7 @@ const translatePath = useTranslatedPath(lang);
 		</h1>
 
 		<p class="holidays"></p>
-		<p class="instructions fade-transition" style={{ viewTransitionName: 'card0' }}>
+		<p class="instructions card0">
 			{t.index.intro.start}<Social href="https://ggl.link/3bM14PP" platform="YT"
 				>{t.index.intro.youtubeLabel}</Social
 			>{t.index.intro.end}<a
@@ -50,24 +50,24 @@ const translatePath = useTranslatedPath(lang);
 			>
 		</p>
 		{/* <HowOldSite lang={lang} time={[2024, 5, 27]} /> */}
-		<ul class="link-grid">
+		<ul class="link-grid cards">
 			<Card
 				href={translatePath('/images')}
 				title={t.nav.images.title}
 				body={t.nav.images.desc}
-				transitionName="card1"
+				transitionName="1"
 			/>
 			<Card
 				href={siteConfig.oldSite}
 				title={t.index.oldSite}
 				body={t.nav.oldsite}
-				transitionName="card2"
+				transitionName="2"
 			/>
 			<Card
 				href={translatePath('/blog')}
 				title={t.nav.blog.title}
 				body={t.nav.blog.desc}
-				transitionName="card3"
+				transitionName="3"
 			/>
 		</ul>
 		<script src="@/ts/pages/index.mts"></script>

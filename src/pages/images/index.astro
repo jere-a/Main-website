@@ -54,11 +54,11 @@ const images: {
 		{t.images.title}
 	</h1>
 	<p class="subtitle">{t.images.subtitle}</p>
-	<ul role="list" class="image-card-grid">
+	<ul role="list" class="image-card-grid cards">
 		{
 			images.map((image, i) => (
 				<li>
-					<ImageHolder src={image.src} title={image.title} transitionName={'card' + i} />
+					<ImageHolder src={image.src} title={image.title} transitionName={`${i}`} />
 				</li>
 			))
 		}
