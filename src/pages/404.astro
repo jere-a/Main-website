@@ -4,10 +4,12 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const notfound = `404 ${t.notfound.title}`;
 ---
 
-<Layout title={t.notfound.title}>
-	<h1>{t.notfound.title}</h1>
+<Layout title={notfound}>
+	<h1>{notfound}</h1>
 	<p class="NotFound">{t.notfound.message}</p>
 	<br />
 	<hr />

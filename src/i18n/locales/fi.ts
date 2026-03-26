@@ -39,20 +39,20 @@ export const fi: LangSchema = {
     winterLandscape: "Talvinen Maisema Sillalta.",
     bigRoot: "Iso Kanto.",
     blueSky: "Sininen Taivas.",
-    sunflower: "Auringon kukka.",
+    sunflower: "Voi kukka.",
     morningMist: "Aamuinen usva.",
     colorfulBridge: "Värikäs silta pimeällä",
     bridgeAtNight: "Silta pimeällä",
   },
   notfound: {
-    title: "404 Not Found",
+    title: "Not Found",
     message: "Sivu jota yrität käyttää ei löytynyt.",
   },
   youtube: {
     title: "Youtube",
   },
   footer: {
-    copyright: "Tekijänoikeus © ",
+    copyright: "Tekijänoikeus",
   },
   holiday: {
     christmas: "Joulu",

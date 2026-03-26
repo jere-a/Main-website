@@ -10,6 +10,5 @@ export const christmas = async () => {
     const listItem = document.createElement("li");
     lightrope.appendChild(listItem);
   }
-  document.body?.insertBefore(lightrope, document.body.firstChild) ||
-    console.error("Document body is not ready.");
+  document.body?.insertBefore(lightrope, document.body.firstChild);
 };

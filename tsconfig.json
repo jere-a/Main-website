@@ -15,11 +15,18 @@
 			"@/*": ["./src/*"]
 		},
 		"types": ["vite-plugin-pwa/client", "vite-plugin-pwa/info"],
+		"strict": true,
 		"noFallthroughCasesInSwitch": true,
-		"noImplicitAny": true,
 		"allowUnreachableCode": false,
-		"strict": true
+		"noUnusedParameters": true,
+		"noUnusedLocals": true,
+		"allowUnusedLabels": false,
+		"noUncheckedSideEffectImports": true,
+		"noUncheckedIndexedAccess": true,
+		"erasableSyntaxOnly": true,
+		"noImplicitOverride": true,
+		"allowJs": false
 	},
-	"include": [".astro/types.d.ts", "**/*"],
+	"include": [".astro/types.d.ts", "src"],
 	"exclude": ["dist"]
 }

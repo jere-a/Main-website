@@ -9,19 +9,26 @@
   "files": {
     "includes": ["src/**/*.ts", "src/**/*.js", "src/**/*.mts"]
   },
+  "html": {
+    "experimentalFullSupportEnabled": true
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space"
   },
   "linter": {
     "enabled": true,
+    "domains": {
+      "types": "recommended"
+    },
     "rules": {
       "recommended": true,
       "correctness": {
         "useHookAtTopLevel": "warn"
       },
       "suspicious": {
-        "noConstEnum": "off"
+        "noConstEnum": "off",
+        "noConsole": "error"
       }
     }
   },
