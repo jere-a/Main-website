@@ -1,8 +1,6 @@
 ---
-import PostHog from '../components/posthog.astro';
 import { SEOMetadata } from 'astro-seo-metadata';
 import { siteConfig } from '@/config';
-import { pwaInfo } from 'virtual:pwa-info';
 
 interface Props {
 	title?: string;
@@ -34,28 +32,6 @@ const { title } = Astro.props;
 <meta name="viewport" content="width=device-width" />
 <link rel="preconnect" href="https://static.cloudflareinsights.com" />
 <link rel="preconnect" href="https://t.ozze.eu.org" />
-<slot name="prefetch" />
 <link rel="alternate" type="application/rss+xml" title="Åzze" href={`${Astro.site}rss.xml`} />
 <link type="text/plain" rel="author" href={`${Astro.site}humans.txt`} />
 <link rel="expect" href="#the_unexpected" blocking="render" />
-<script>
-	import { registerSW } from 'virtual:pwa-register';
-
-	registerSW({
-		immediate: true,
-		onRegisteredSW(swScriptUrl) {
-			console.log('SW registered:', swScriptUrl);
-		},
-		onOfflineReady() {
-			console.log('PWA ready to work offline');
-		},
-	});
-
-	navigator.serviceWorker?.addEventListener('message', async (event) => {
-		if (event.data?.type === 'PWA_RELOAD') {
-			window.location.reload();
-		}
-	});
-</script>
-{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
-<PostHog />

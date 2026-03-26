@@ -22,7 +22,6 @@
 		"noUnusedLocals": true,
 		"allowUnusedLabels": false,
 		"noUncheckedSideEffectImports": true,
-		"noUncheckedIndexedAccess": true,
 		"erasableSyntaxOnly": true,
 		"noImplicitOverride": true,
 		"allowJs": false
