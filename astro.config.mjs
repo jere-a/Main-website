@@ -11,7 +11,7 @@ import partytown from '@astrojs/partytown';
 import { visualizer } from 'rollup-plugin-visualizer';
 import remarkToc from 'remark-toc';
 import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
+import rehypeMathjax from 'rehype-mathjax';
 import { Features, browserslistToTargets } from 'lightningcss';
 import browserslist from 'browserslist';
 import package_json from './package.json';
@@ -133,7 +133,7 @@ export default defineConfig({
 			[remarkToc, { heading: 'toc', maxDepth: 3 }],
 			[remarkMath, {}],
 		],
-		rehypePlugins: [rehypeKatex],
+		rehypePlugins: [rehypeMathjax],
 	},
 	fonts: [
 		{
