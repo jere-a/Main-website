@@ -21,7 +21,7 @@ jobs:
           keep-minimum-runs: 3
 
       - name: Delete old artifacts
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const { data: artifacts } = await github.rest.actions.listArtifactsForRepo({
