@@ -188,12 +188,12 @@ class ElementCollection extends Array<Element | Document> {
     return this;
   }
 
-  private static dataStore = new WeakMap<Element, Record<string, any>>();
+  private static dataStore = new WeakMap<Element, Record<string, unknown>>();
 
-  data(): Record<string, any> | undefined;
-  data(name: string): any;
-  data(name: string, value: any): this;
-  data(name?: string, value?: any): any {
+  data(): Record<string, unknown> | undefined;
+  data(name: string): unknown;
+  data(name: string, value: unknown): this;
+  data(name?: string, value?: unknown): unknown {
     const el = this[0];
     if (!(el instanceof Element)) return undefined;
 
@@ -282,7 +282,8 @@ export const $ = (param?: ElementCollectionParam) => {
       // 2) otherwise, forward to the first element
       const first = target[0];
       if (!first) return undefined;
-      const val = (first as any)[prop];
+      if (typeof prop !== "string") return undefined;
+      const val = (first as unknown as Record<string, unknown>)[prop];
       return typeof val === "function" ? val.bind(first) : val;
     },
 
@@ -292,9 +293,10 @@ export const $ = (param?: ElementCollectionParam) => {
         return Reflect.set(target, prop, value, receiver);
       }
       // 2) else set on *all* elements via your each()
+      if (typeof prop !== "string") return true;
       target.each((el) => {
         if (prop in el) {
-          (el as any)[prop] = value;
+          (el as unknown as Record<string, unknown>)[prop] = value;
         }
       });
       return true;

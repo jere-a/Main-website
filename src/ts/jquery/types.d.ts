@@ -17,26 +17,17 @@ export const ajaxgetSchema = z.object({
   dataType: z.string(),
 });
 
-export const ElementInstanceof = z.custom<Element>(
-  (_val) => val instanceof Element,
-  {
-    message: `${expectedString}Element`,
-  },
-);
+export const ElementInstanceof = z.instanceof(Element, {
+  message: `${expectedString}Element`,
+});
 
-export const DocumentInstanceof = z.custom<Document>(
-  (_val) => val instanceof Document,
-  {
-    message: `${expectedString}Document`,
-  },
-);
+export const DocumentInstanceof = z.instanceof(Document, {
+  message: `${expectedString}Document`,
+});
 
-export const EventTargetInstanceof = z.custom<EventTarget>(
-  (_val) => val instanceof EventTarget,
-  {
-    message: `${expectedString}EventTarget`,
-  },
-);
+export const EventTargetInstanceof = z.instanceof(EventTarget, {
+  message: `${expectedString}EventTarget`,
+});
 
 export const ElementDocumentInstanceof = z.union([
   ElementInstanceof,
