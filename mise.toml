@@ -7,7 +7,7 @@ pre-commit = "latest"
 [tasks.build]
 depends = "test"
 description = "Build the web Application"
-run = [{ tasks = ["test", "lint"] }, { task = "bun run build" }]
+run = "bun run build"
 
 [tasks.test]
 depends = "lint"
