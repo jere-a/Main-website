@@ -7,11 +7,16 @@ pre-commit = "latest"
 [tasks.build]
 depends = "test"
 description = "Build the web Application"
-run = "bun run build"
+run = [{ tasks = ["test", "lint"] }, { task = "bun run build" }]
 
 [tasks.test]
+depends = "lint"
 description = "Test the web Applications for compile errors"
 run = "bun run test"
+
+[tasks.lint]
+description = "Lint the code"
+run = "bun run lint"
 
 [tasks.preview]
 depends = "build"
