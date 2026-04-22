@@ -6,7 +6,7 @@ import { imageService } from "@unpic/astro/service";
 import { defineConfig, fontProviders } from "astro/config";
 import purgecss from "astro-purgecss";
 import { siteConfig } from "./src/config";
-import { visualizer } from "rollup-plugin-visualizer";
+
 import remarkToc from "remark-toc";
 import remarkMath from "remark-math";
 import rehypeMathjax from "rehype-mathjax";
@@ -173,6 +173,6 @@ export default defineConfig({
         treeshake: "smallest",
       },
     },
-    plugins: [visualizer({ emitFile: true, filename: "stats.html" })],
+    plugins: [],
   },
 });
