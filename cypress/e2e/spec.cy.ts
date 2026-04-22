@@ -21,7 +21,7 @@ describe("Main Page", () => {
     cy.get("div.group > .flex > :nth-child(1) > .group").click();
     cy.url().should("include", "/");
     cy.contains("Åzze");
-  })
+  });
 });
 
 const images = ["Aamuinen usva", "Iso Kanto.", "Sininen Taivas."];
@@ -55,8 +55,8 @@ describe("Blog", () => {
 });
 
 describe("404", () => {
-  it("check navigation"), () => {
-  cy.visit("/404");
-  cy.contains("Sivuun 404");
-  }
+  it("check navigation", () => {
+    cy.visit("/404");
+    cy.contains("Sivuun 404");
+  });
 });
