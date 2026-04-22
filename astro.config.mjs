@@ -1,42 +1,43 @@
-import mdx from '@astrojs/mdx';
-import preact from '@astrojs/preact';
-import sitemap from '@astrojs/sitemap';
-import playformCompress from '@playform/compress';
-import { imageService } from '@unpic/astro/service';
-import AstroPWA from '@vite-pwa/astro';
-import { defineConfig, fontProviders } from 'astro/config';
-import purgecss from 'astro-purgecss';
-import { siteConfig } from './src/config';
-import partytown from '@astrojs/partytown';
-import { visualizer } from 'rollup-plugin-visualizer';
-import remarkToc from 'remark-toc';
-import remarkMath from 'remark-math';
-import rehypeMathjax from 'rehype-mathjax';
-import { Features, browserslistToTargets } from 'lightningcss';
-import browserslist from 'browserslist';
-import package_json from './package.json';
-import { i18n, filterSitemapByDefaultLocale } from 'astro-i18n-aut/integration';
+import mdx from "@astrojs/mdx";
+import preact from "@astrojs/preact";
+import sitemap from "@astrojs/sitemap";
+import playformCompress from "@playform/compress";
+import { imageService } from "@unpic/astro/service";
+import AstroPWA from "@vite-pwa/astro";
+import { defineConfig, fontProviders } from "astro/config";
+import purgecss from "astro-purgecss";
+import { siteConfig } from "./src/config";
+import partytown from "@astrojs/partytown";
+import { visualizer } from "rollup-plugin-visualizer";
+import remarkToc from "remark-toc";
+import remarkMath from "remark-math";
+import rehypeMathjax from "rehype-mathjax";
+import { Features, browserslistToTargets } from "lightningcss";
+import browserslist from "browserslist";
+import package_json from "./package.json";
+import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
 
-export const defaultLocale = 'fi';
+export const defaultLocale = "fi";
 const locales = {
-	fi: 'fi-FI',
-	en: 'en-US',
+  fi: "fi-FI",
+  en: "en-US",
 };
 
 export default defineConfig({
-	site: siteConfig.url,
-	output: 'static',
-	image: { service: imageService({}), responsiveStyles: true },
-	experimental: {
-		svgo: true,
-		chromeDevtoolsWorkspace: true,
-		clientPrerender: true,
-	},
-	prefetch: true,
-	integrations: [
-		mdx(),
-		preact({ include: ['**/preact/*', '**/react/*', '**/components/ui/*'] }),
-		/* AstroPWA({
+  site: siteConfig.url,
+  output: "static",
+  image: { service: imageService({}), responsiveStyles: true },
+  experimental: {
+    svgo: true,
+    chromeDevtoolsWorkspace: true,
+    clientPrerender: true,
+    rustCompiler: true,
+  },
+  prefetch: true,
+  integrations: [
+    mdx(),
+    preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"] }),
+    /* AstroPWA({
           strategies: 'injectManifest',
           srcDir: 'src',
           filename: 'sw.ts',
@@ -77,49 +78,49 @@ export default defineConfig({
               ],
           },
       }), */
-		i18n({
-			locales,
-			defaultLocale,
-			exclude: ['pages/api/**/*', 'pages/**/*.md', 'pages/**/*.ts'],
-		}),
-		sitemap({
-			i18n: {
-				locales,
-				defaultLocale,
-			},
-			filter: filterSitemapByDefaultLocale({ defaultLocale }),
-		}),
-		/* partytown(), */
-		purgecss({
-			keyframes: false,
-			safelist: {
-				standard: ['halloween', 'butcherman', 'lightrope'],
-				greedy: [
-					/*astro*/
-				],
-			},
-			extractors: [
-				{
-					extractor: (content) => content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
-					extensions: ['astro', 'html'],
-				},
-			],
-		}),
-		playformCompress({ Image: false }),
-	],
-	trailingSlash: 'never',
-	build: {
-		format: 'file',
-		inlineStylesheets: 'always',
-	},
-	scopedStyleStrategy: 'class',
-	security: {
-		allowedDomains: [
-			{ hostname: '**.ozze.eu.org', protocol: 'https', port: '443' },
-			{ hostname: 'gc.zgo.at', protocol: 'https', port: '443' },
-			{ hostname: 'keepandroidopen.org', protocol: 'https', port: '443' },
-		],
-		/* csp: {
+    i18n({
+      locales,
+      defaultLocale,
+      exclude: ["pages/api/**/*", "pages/**/*.md", "pages/**/*.ts"],
+    }),
+    sitemap({
+      i18n: {
+        locales,
+        defaultLocale,
+      },
+      filter: filterSitemapByDefaultLocale({ defaultLocale }),
+    }),
+    /* partytown(), */
+    purgecss({
+      keyframes: false,
+      safelist: {
+        standard: ["halloween", "butcherman", "lightrope"],
+        greedy: [
+          /*astro*/
+        ],
+      },
+      extractors: [
+        {
+          extractor: (content) => content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+          extensions: ["astro", "html"],
+        },
+      ],
+    }),
+    playformCompress({ Image: false }),
+  ],
+  trailingSlash: "never",
+  build: {
+    format: "file",
+    inlineStylesheets: "always",
+  },
+  scopedStyleStrategy: "class",
+  security: {
+    allowedDomains: [
+      { hostname: "**.ozze.eu.org", protocol: "https", port: "443" },
+      { hostname: "gc.zgo.at", protocol: "https", port: "443" },
+      { hostname: "keepandroidopen.org", protocol: "https", port: "443" },
+    ],
+    /* csp: {
             styleDirective: {
                 resources: ["'self'", "'nonce-preloadscripts'"],
             },
@@ -127,53 +128,53 @@ export default defineConfig({
                 resources: ["'self'", 'cdn.jsdelivr.net', "'nonce-preloadscripts'"],
             },
         }, */
-	},
-	markdown: {
-		remarkPlugins: [
-			[remarkToc, { heading: 'toc', maxDepth: 3 }],
-			[remarkMath, {}],
-		],
-		rehypePlugins: [rehypeMathjax],
-	},
-	fonts: [
-		{
-			provider: fontProviders.google(),
-			name: 'Creepster',
-			cssVariable: '--font-creepster',
-		},
-		{
-			provider: fontProviders.google(),
-			name: 'Butcherman',
-			cssVariable: '--font-butcherman',
-		},
-	],
-	vite: {
-		server: { allowedHosts: ['prerelease.ozze.eu.org'] },
-		resolve: {
-			extensions: ['.ts', '.mts', '.mjs', '.js', '.jsx', '.tsx', '.json'],
-		},
-		css: {
-			devSourcemap: true,
-			transformer: 'lightningcss',
-			lightningcss: {
-				exclude: Features.Nesting,
-				targets: browserslistToTargets(browserslist(package_json.browserslist)),
-			},
-		},
-		build: {
-			sourcemap: true,
-			cssMinify: 'lightningcss',
-			rollupOptions: {
-				output: {
-					compact: true,
-					generatedCode: { preset: 'es2015' },
-					importAttributesKey: 'with',
-					interop: 'auto',
-				},
-				preserveEntrySignatures: false,
-				treeshake: 'smallest',
-			},
-		},
-		plugins: [visualizer({ emitFile: true, filename: 'stats.html' })],
-	},
+  },
+  markdown: {
+    remarkPlugins: [
+      [remarkToc, { heading: "toc", maxDepth: 3 }],
+      [remarkMath, {}],
+    ],
+    rehypePlugins: [rehypeMathjax],
+  },
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: "Creepster",
+      cssVariable: "--font-creepster",
+    },
+    {
+      provider: fontProviders.google(),
+      name: "Butcherman",
+      cssVariable: "--font-butcherman",
+    },
+  ],
+  vite: {
+    server: { allowedHosts: ["prerelease.ozze.eu.org"] },
+    resolve: {
+      extensions: [".ts", ".mts", ".mjs", ".js", ".jsx", ".tsx", ".json"],
+    },
+    css: {
+      devSourcemap: true,
+      transformer: "lightningcss",
+      lightningcss: {
+        exclude: Features.Nesting,
+        targets: browserslistToTargets(browserslist(package_json.browserslist)),
+      },
+    },
+    build: {
+      sourcemap: true,
+      cssMinify: "lightningcss",
+      rollupOptions: {
+        output: {
+          compact: true,
+          generatedCode: { preset: "es2015" },
+          importAttributesKey: "with",
+          interop: "auto",
+        },
+        preserveEntrySignatures: false,
+        treeshake: "smallest",
+      },
+    },
+    plugins: [visualizer({ emitFile: true, filename: "stats.html" })],
+  },
 });

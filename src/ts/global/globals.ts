@@ -117,8 +117,11 @@ export function isPWA(): boolean {
 export async function getTemporal(): Promise<
   typeof import("@js-temporal/polyfill").Temporal
 > {
-  if ((globalThis as any).Temporal) {
-    return (globalThis as any).Temporal;
+  const g = globalThis as unknown as {
+    Temporal?: typeof import("@js-temporal/polyfill").Temporal;
+  };
+  if (g.Temporal) {
+    return g.Temporal;
   }
 
   const { Temporal } = await import("@js-temporal/polyfill");
