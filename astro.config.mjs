@@ -150,6 +150,7 @@ export default defineConfig({
     server: { allowedHosts: ["prerelease.ozze.eu.org"] },
     resolve: {
       extensions: [".ts", ".mts", ".mjs", ".js", ".jsx", ".tsx", ".json"],
+      tsconfigPaths: true,
     },
     css: {
       devSourcemap: true,

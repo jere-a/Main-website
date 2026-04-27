@@ -22,6 +22,7 @@
     "allowUnusedLabels": false,
     "noUncheckedSideEffectImports": true,
     "erasableSyntaxOnly": true,
+    "skipLibCheck": true,
     "noImplicitOverride": true,
     "allowJs": false
   },
