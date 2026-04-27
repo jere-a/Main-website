@@ -4,7 +4,7 @@
  * @see https://prettier.io/docs/en/configuration.html
  * @type {import("prettier").Config}
  */
-const config = {
+const config: import("prettier").Config = {
   printWidth: 100,
   trailingComma: "es5",
   tabWidth: 4,
