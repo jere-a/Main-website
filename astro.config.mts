@@ -3,17 +3,16 @@ import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import playformCompress from "@playform/compress";
 import { imageService } from "@unpic/astro/service";
-import { defineConfig, fontProviders } from "astro/config";
 import purgecss from "astro-purgecss";
+import { defineConfig, fontProviders } from "astro/config";
 import { siteConfig } from "./src/config";
-
-import remarkToc from "remark-toc";
-import remarkMath from "remark-math";
-import rehypeMathjax from "rehype-mathjax";
-import { Features, browserslistToTargets } from "lightningcss";
+import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
 import browserslist from "browserslist";
+import { Features, browserslistToTargets } from "lightningcss";
+import rehypeMathjax from "rehype-mathjax";
+import remarkMath from "remark-math";
+import remarkToc from "remark-toc";
 import package_json from "./package.json";
-import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
 
 export const defaultLocale = "fi";
 const locales = {
@@ -150,7 +149,6 @@ export default defineConfig({
     server: { allowedHosts: ["prerelease.ozze.eu.org"] },
     resolve: {
       extensions: [".ts", ".mts", ".mjs", ".js", ".jsx", ".tsx", ".json"],
-      tsconfigPaths: true,
     },
     css: {
       devSourcemap: true,
