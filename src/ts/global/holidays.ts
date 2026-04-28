@@ -1,3 +1,4 @@
+import posthog from "posthog-js";
 import { type Lang, type translations, useTranslations } from "@/i18n";
 import { detectLanguage, getTemporal } from "@/ts/global";
 
@@ -85,14 +86,16 @@ const holidays = [
 export async function isHoliday(): Promise<IsHolidayReturn> {
   const now = Temporal.Now.instant().epochMilliseconds;
 
-  for (const h of holidays) {
-    if (now >= h.from && now <= h.to) {
-      return {
-        bool: true,
-        holiday: h.name,
-        script: h.script,
-        timeto: h.timeto,
-      };
+  if (posthog.featureFlags.isFeatureEnabled("holiday-effects")) {
+    for (const h of holidays) {
+      if (now >= h.from && now <= h.to) {
+        return {
+          bool: true,
+          holiday: h.name,
+          script: h.script,
+          timeto: h.timeto,
+        };
+      }
     }
   }
 
