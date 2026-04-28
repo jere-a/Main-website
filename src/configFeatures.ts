@@ -8,8 +8,8 @@ const cookiesParams = {
 const functionsParams = {
   holidayEffects: true,
   howOldSite: true,
-  fetchIPP: false,
-  splashcursor: false,
+  fetchIPP: true,
+  splashcursor: true,
 } as const;
 
 const params = {

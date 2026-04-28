@@ -16,8 +16,6 @@ const init = async (): Promise<void> => {
   if (typeof window === "undefined" || window.__posthog_initialized) return;
   window.__posthog_initialized = true;
 
-  if (navigator.globalPrivacyControl) return;
-
   if (LOCAL.has(location.hostname)) return;
 
   const env = import.meta.env as ImportMetaEnv & {
