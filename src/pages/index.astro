@@ -58,16 +58,10 @@ const translatePath = useTranslatedPath(lang);
 				transitionName="1"
 			/>
 			<Card
-				href={siteConfig.oldSite}
-				title={t.index.oldSite}
-				body={t.nav.oldsite}
-				transitionName="2"
-			/>
-			<Card
 				href={translatePath('/blog')}
 				title={t.nav.blog.title}
 				body={t.nav.blog.desc}
-				transitionName="3"
+				transitionName="2"
 			/>
 		</ul>
 		<script src="@/ts/pages/index.mts"></script>

@@ -10,7 +10,6 @@ export type LangSchema = {
       title: string;
       desc: string;
     };
-    oldsite: string;
     lang: string;
   };
   index: {
@@ -24,7 +23,6 @@ export type LangSchema = {
       youtubeLabel: string;
       end: string;
     };
-    oldSite: string;
   };
   about: {
     title: string;
