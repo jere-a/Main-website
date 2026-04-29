@@ -12,7 +12,6 @@ export const en: LangSchema = {
       title: "Blog",
       desc: "Go check out my blog.",
     },
-    oldsite: "Not being updated.",
     lang: "English",
   },
   index: {
@@ -27,7 +26,6 @@ export const en: LangSchema = {
       youtubeLabel: "YouTube",
       end: " and you can also send me feedback at: ",
     },
-    oldSite: "Old Website",
   },
   about: {
     title: "About Me",

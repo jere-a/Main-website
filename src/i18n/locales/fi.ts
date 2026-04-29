@@ -12,7 +12,6 @@ export const fi: LangSchema = {
       title: "Blogi",
       desc: "Käy katsomassa blogiani.",
     },
-    oldsite: "Ei muokkauksia tulossa.",
     lang: "Suomi",
   },
   index: {
@@ -27,7 +26,6 @@ export const fi: LangSchema = {
       youtubeLabel: "Youtubesta",
       end: " ja minulle voi myös lähettää palautetta osoitteeseen: ",
     },
-    oldSite: "Vanha Nettisivu",
   },
   about: {
     title: "Tietoja minusta",
