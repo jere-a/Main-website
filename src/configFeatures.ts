@@ -1,5 +1,21 @@
 import { type SiteConfig, siteConfig } from "@/config";
 
+export type SiteConfigFeatures = {
+  config: SiteConfig;
+  params: {
+    cookies: {
+      cookiesEnabled: boolean;
+      expire_days: number;
+    };
+    functions: {
+      holidayEffects: boolean;
+      howOldSite: boolean;
+      fetchIPP: boolean;
+      splashcursor: boolean;
+    };
+  };
+};
+
 const cookiesParams = {
   cookiesEnabled: false,
   expire_days: 2,
@@ -17,12 +33,7 @@ const params = {
   functions: functionsParams,
 } as const;
 
-export type SiteConfigFeatures = {
-  config: SiteConfig;
-  params: typeof params;
-};
-
-export const siteFeatures = {
+export const siteFeatures: SiteConfigFeatures = {
   config: siteConfig,
   params,
 } satisfies SiteConfigFeatures;
