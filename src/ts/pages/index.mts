@@ -1,5 +1,6 @@
+import { capitalize } from "remeda";
 import { siteFeatures } from "@/configFeatures";
-import { capitalize, holidayTimeTo, isHoliday } from "@/ts/global";
+import { holidayTimeTo, isHoliday } from "@/ts/global";
 import { $ } from "@/ts/jquery/basic";
 
 const main = async () => {
