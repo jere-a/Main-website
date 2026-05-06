@@ -12,7 +12,6 @@ export const fi: LangSchema = {
       title: "Blogi",
       desc: "Käy katsomassa blogiani.",
     },
-    lang: "Suomi",
   },
   index: {
     github: "Näytä lähde koodi GitHub:issa",

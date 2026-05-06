@@ -10,7 +10,6 @@ export type LangSchema = {
       title: string;
       desc: string;
     };
-    lang: string;
   };
   index: {
     github: string;

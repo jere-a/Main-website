@@ -25,7 +25,6 @@ describe("translations structure", () => {
     expect(translations.fi.nav).toHaveProperty("about");
     expect(translations.fi.nav).toHaveProperty("images");
     expect(translations.fi.nav).toHaveProperty("blog");
-    expect(translations.fi.nav).toHaveProperty("lang");
   });
 
   it("blog nav has required nested structure", () => {

@@ -45,7 +45,7 @@ const links: {
 		.filter((item) => item !== lang)
 		.map((language) => ({
 			href: translatePath(Astro.url.pathname, language),
-			name: useTranslations(language).nav.lang,
+      name: new Intl.DisplayNames(language, {type: "language"}).of(language),
 		})),
 ];
 ---
