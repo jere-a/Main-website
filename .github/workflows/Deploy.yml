@@ -15,7 +15,7 @@ concurrency:
 jobs:
     ci:
         runs-on: ubuntu-latest
-        timeout-minutes: 30
+        timeout-minutes: 60
 
         steps:
             - uses: actions/checkout@v6
@@ -28,24 +28,19 @@ jobs:
               with:
                   path: |
                       node_modules
-                      ~/.mise/cache
                       .astro
-                      node_modules/.astro
                   key: ${{ runner.os }}-build-${{ hashFiles('**/.lock') }}-${{ hashFiles('src/**') }}
                   restore-keys: |
                       ${{ runner.os }}-build-
 
             - name: Install dependencies
-              run: bun install --frozen-lockfile
+              run: bun install
 
             - name: Check Using biomejs
               run: biome ci
 
-            - name: Run Tests
-              run: bun run test
-
-            - name: Build Project
-              run: bun run build
+            - name: Build and Test the Project
+              run: mise run build
 
             - name: Deploy Worker
               if: github.ref == 'refs/heads/master' && success()
