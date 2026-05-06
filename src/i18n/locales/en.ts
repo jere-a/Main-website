@@ -12,7 +12,6 @@ export const en: LangSchema = {
       title: "Blog",
       desc: "Go check out my blog.",
     },
-    lang: "English",
   },
   index: {
     github: "View source on GitHub",
