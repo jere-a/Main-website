@@ -1,8 +1,17 @@
-import LetItGo from "let-it-go/src";
 import "@/styles/holidays/christmas.css";
 
+import { tsParticles } from "@tsparticles/engine";
+import { loadSnowPreset } from "@tsparticles/preset-snow";
+
 export const christmas = async () => {
-  new LetItGo();
+  await loadSnowPreset(tsParticles);
+
+  await tsParticles.load({
+    id: "tsparticles",
+    options: {
+      preset: "snow",
+    },
+  });
 
   const lightrope = document.createElement("ul");
   lightrope.className = "lightrope";

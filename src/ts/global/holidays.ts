@@ -68,14 +68,14 @@ const holidays = [
     fmt(10, 31),
   ),
   holiday(
-    "christmas",
+    trans.holiday.christmas,
     fmt(11, 30),
     fmt(12, 25),
     () => import("@/ts/global/holidays/christmas.ts").then((m) => m.christmas),
     fmt(12, 24),
   ),
   holiday(
-    "newyear",
+    trans.holiday.newyear,
     fmt(12, 26),
     fmt(1, 8, year + 1),
     () => import("@/ts/global/holidays/newYear.ts").then((m) => m.newYear),
