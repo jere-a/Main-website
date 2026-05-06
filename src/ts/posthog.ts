@@ -3,10 +3,7 @@ import { siteConfig } from "@/config";
 
 declare global {
   interface Window {
-    __posthog_initialized?: true;
-  }
-  interface Navigator {
-    globalPrivacyControl?: boolean;
+    __posthog_initialized?: boolean;
   }
 }
 
