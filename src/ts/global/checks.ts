@@ -1,3 +1,5 @@
+import { regex } from "arkregex";
+
 export const detectTouchscreen = (): boolean => {
   // Most reliable modern signal
   if ((navigator.maxTouchPoints ?? 0) > 0) return true;
@@ -9,19 +11,16 @@ export const detectTouchscreen = (): boolean => {
   return "ontouchstart" in window;
 };
 
-const isMobileUA = (ua: string): boolean =>
-  /mobi|iphone|ipod|android.*mobile|windows phone/i.test(ua);
-
-const isTabletUA = (ua: string): boolean =>
-  /ipad|tablet|android(?!.*mobile)|silk|playbook/i.test(ua);
+const isMobileUA = regex("/mobi|iphone|ipod|android.*mobile|windows phone/i");
+const isTabletUA = regex("/ipad|tablet|android(?!.*mobile)|silk|playbook/i");
 
 export const isMobile = (): boolean => {
   const ua = navigator.userAgent;
 
   // Prefer UA-CH when available (more robust than UA sniffing)
   // @ts-expect-error - userAgentData not available in typescript when writing this
-  const mobile = navigator.userAgentData.mobile ?? isMobileUA(ua);
-  const tablet = !mobile && isTabletUA(ua);
+  const mobile = navigator.userAgentData.mobile ?? isMobileUA.exec(ua);
+  const tablet = !mobile && isTabletUA.exec(ua);
 
   return (mobile || tablet) && detectTouchscreen();
 };

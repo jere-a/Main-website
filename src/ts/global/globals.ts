@@ -2,15 +2,6 @@ import { defaultLang, type Lang, translations } from "@/i18n";
 
 type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
 
-export const toUnicode = (str: string): string =>
-  str
-    .split("")
-    .map((char: string): string => {
-      const code = char.charCodeAt(0).toString(16).toUpperCase();
-      return `\\u${code.padStart(4, "0")}`;
-    })
-    .join("");
-
 export const detectLanguage = (lang = navigator.language): Lang => {
   const shortLang = lang.split("-")[0];
 
@@ -58,29 +49,6 @@ export const addCSSFromURL = (url: string): void => {
   link.href = url;
   document.head.appendChild(link);
 };
-
-export async function catchErrorTyped<
-  T,
-  E extends new (
-    message?: string,
-  ) => Error,
->(
-  promise: Promise<T>,
-  errorsToCatch: E[],
-): Promise<[undefined, T] | [InstanceType<E>]> {
-  try {
-    const data = await promise;
-    return [undefined, data];
-  } catch (error) {
-    if (errorsToCatch.some((E) => error instanceof E)) {
-      return [error as InstanceType<E>];
-    }
-    throw error;
-  }
-}
-
-export const capitalize = (str: string): string =>
-  str.charAt(0).toUpperCase() + str.slice(1);
 
 export function addEventListener<K extends keyof HTMLElementEventMap>(
   element: Element,
