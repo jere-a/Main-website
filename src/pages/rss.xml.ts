@@ -1,4 +1,4 @@
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
 import MarkdownIt from "markdown-it";
@@ -18,7 +18,7 @@ export async function GET(context: APIContext) {
     description: siteConfig.rss_description,
     site: context.site ?? "",
     xmlns: { atom: "http://www.w3.org/2005/Atom" },
-    items: blog.map((post) => ({
+    items: blog.map((post: CollectionEntry<"blog">) => ({
       title: post.data.title,
       tags: post.data.tags,
       content: sanitizeHtml(parser.render(post.body ?? ""), {
