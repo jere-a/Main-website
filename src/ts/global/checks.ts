@@ -1,26 +1,26 @@
-import { regex } from "arkregex";
+export const deviceCapabilities = () => {
+  const hasTouch =
+    (navigator.maxTouchPoints ?? 0) > 0 ||
+    window.matchMedia?.("(any-pointer: coarse)").matches ||
+    "ontouchstart" in window;
+  const hasHover = window.matchMedia?.("(any-hover: hover)").matches ?? false;
+  const hasFinePointer =
+    window.matchMedia?.("(any-pointer: fine)").matches ?? false;
+  const isSmallViewport =
+    window.matchMedia?.("(max-width: 768px)").matches ?? false;
 
-export const detectTouchscreen = (): boolean => {
-  // Most reliable modern signal
-  if ((navigator.maxTouchPoints ?? 0) > 0) return true;
-
-  // Pointer media query (coarse pointer usually implies touch)
-  if (window.matchMedia?.("(any-pointer: coarse)").matches) return true;
-
-  // Legacy fallback
-  return "ontouchstart" in window;
+  return {
+    hasTouch,
+    hasHover,
+    hasFinePointer,
+    isSmallViewport,
+    prefersMobileUI: hasTouch && isSmallViewport,
+    prefersTouchUI: hasTouch && !hasHover,
+    prefersDesktopUI: hasHover && hasFinePointer,
+  };
 };
 
-const isMobileUA = regex("/mobi|iphone|ipod|android.*mobile|windows phone/i");
-const isTabletUA = regex("/ipad|tablet|android(?!.*mobile)|silk|playbook/i");
-
 export const isMobile = (): boolean => {
-  const ua = navigator.userAgent;
-
-  // Prefer UA-CH when available (more robust than UA sniffing)
-  // @ts-expect-error - userAgentData not available in typescript when writing this
-  const mobile = navigator.userAgentData.mobile ?? isMobileUA.exec(ua);
-  const tablet = !mobile && isTabletUA.exec(ua);
-
-  return (mobile || tablet) && detectTouchscreen();
+  const caps = deviceCapabilities();
+  return caps.prefersMobileUI || caps.prefersTouchUI;
 };
