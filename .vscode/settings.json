@@ -1,8 +1,9 @@
 {
-	"source.action.useSortedKeys.biome": "explicit",
-	"source.fixAll.biome": "explicit",
-	"editor.fontLigatures": true,
-	"files.autoSave": "afterDelay",
-	"astro.auto-import-cache.enabled": true
+  "editor.fontLigatures": true,
+  "files.autoSave": "afterDelay",
+  "astro.auto-import-cache.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "always"
+  },
+  "oxc.typeAware": true
 }
-
