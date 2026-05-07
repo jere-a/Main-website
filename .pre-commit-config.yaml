@@ -3,7 +3,8 @@ repos:
     rev: v8.30.0
     hooks:
       - id: gitleaks
-  - repo: https://github.com/biomejs/pre-commit
-    rev: "v2.4.12"
+  - repo: https://github.com/oxc-project/mirrors-oxlint
+    rev: v1.60.0
     hooks:
-      - id: biome-check
+      - id: oxlint
+        verbose: true

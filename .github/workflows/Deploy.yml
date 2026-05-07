@@ -36,9 +36,6 @@ jobs:
             - name: Install dependencies
               run: bun install
 
-            - name: Check Using biomejs
-              run: biome ci
-
             - name: Build and Test the Project
               run: mise run build
 
