@@ -1,8 +1,8 @@
-import type { UserConfig } from "vite";
 import browserslist from "browserslist";
-import { Features, browserslistToTargets } from "lightningcss";
-import package_json from "./package.json";
+import { browserslistToTargets, Features } from "lightningcss";
+import type { UserConfig } from "vite";
 import oxlintPlugin from "vite-plugin-oxlint";
+import package_json from "./package.json";
 
 export default {
   resolve: {
