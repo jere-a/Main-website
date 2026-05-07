@@ -2,6 +2,7 @@ import type { UserConfig } from "vite";
 import browserslist from "browserslist";
 import { Features, browserslistToTargets } from "lightningcss";
 import package_json from "./package.json";
+import oxlintPlugin from "vite-plugin-oxlint";
 
 export default {
   resolve: {
@@ -28,6 +29,7 @@ export default {
           annotation: false,
           jsdoc: false,
         },
+        sourcemap: true,
       },
       preserveEntrySignatures: false,
       optimization: {
@@ -35,5 +37,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [oxlintPlugin()],
 } satisfies UserConfig;
