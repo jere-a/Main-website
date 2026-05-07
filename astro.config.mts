@@ -2,17 +2,13 @@ import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import playformCompress from "@playform/compress";
-import { imageService } from "@unpic/astro/service";
 import purgecss from "astro-purgecss";
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
 import { siteConfig } from "./src/config";
 import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
-import browserslist from "browserslist";
-import { Features, browserslistToTargets } from "lightningcss";
 import rehypeMathjax from "rehype-mathjax";
 import remarkMath from "remark-math";
 import remarkToc from "remark-toc";
-import package_json from "./package.json";
 
 export const defaultLocale = "fi";
 const locales = {
@@ -23,9 +19,11 @@ const locales = {
 export default defineConfig({
   site: siteConfig.url,
   output: "static",
-  image: { service: imageService({}), responsiveStyles: true },
+  image: {
+    responsiveStyles: true,
+  },
   experimental: {
-    svgo: true,
+    svgOptimizer: svgoOptimizer(),
     chromeDevtoolsWorkspace: true,
     clientPrerender: true,
     rustCompiler: true,
@@ -145,33 +143,4 @@ export default defineConfig({
       cssVariable: "--font-butcherman",
     },
   ],
-  vite: {
-    server: { allowedHosts: ["prerelease.ozze.eu.org"] },
-    resolve: {
-      extensions: [".ts", ".mts", ".mjs", ".js", ".jsx", ".tsx", ".json"],
-    },
-    css: {
-      devSourcemap: true,
-      transformer: "lightningcss",
-      lightningcss: {
-        exclude: Features.Nesting,
-        targets: browserslistToTargets(browserslist(package_json.browserslist)),
-      },
-    },
-    build: {
-      sourcemap: true,
-      cssMinify: "lightningcss",
-      rollupOptions: {
-        output: {
-          compact: true,
-          generatedCode: { preset: "es2015" },
-          importAttributesKey: "with",
-          interop: "auto",
-        },
-        preserveEntrySignatures: false,
-        treeshake: "smallest",
-      },
-    },
-    plugins: [],
-  },
 });
