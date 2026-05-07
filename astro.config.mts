@@ -26,7 +26,6 @@ export default defineConfig({
     svgOptimizer: svgoOptimizer(),
     chromeDevtoolsWorkspace: true,
     clientPrerender: true,
-    rustCompiler: true,
   },
   prefetch: true,
   integrations: [
@@ -101,7 +100,15 @@ export default defineConfig({
         },
       ],
     }),
-    playformCompress({ Image: false }),
+    playformCompress({
+      Image: false,
+      CSS: { lightningcss: { minify: true } },
+      SVG: false,
+      JavaScript: false,
+      Parser: {
+        CSS: "lightningcss",
+      },
+    }),
   ],
   trailingSlash: "never",
   build: {
