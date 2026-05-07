@@ -1,12 +1,10 @@
 import { capitalize } from "remeda";
 import { siteFeatures } from "@/configFeatures";
 import { holidayTimeTo, isHoliday } from "@/ts/global";
-import { $ } from "@/ts/jquery/basic";
 
 const main = async () => {
   if (siteFeatures.params.functions.holidayEffects) {
-    const holidaysEl =
-      document.querySelector<HTMLParagraphElement>("p.holidays");
+    const holidaysEl = document.querySelector<HTMLParagraphElement>("p.holidays");
     const holiday = await isHoliday();
 
     const updateHolidayMessage = () => {
@@ -45,6 +43,14 @@ const main = async () => {
   }
 };
 
-$(document).ready(() => {
+function ready(fn: () => void) {
+  if (document.readyState !== "loading") {
+    fn();
+  } else {
+    document.addEventListener("DOMContentLoaded", fn);
+  }
+}
+
+ready(() => {
   main();
 });
