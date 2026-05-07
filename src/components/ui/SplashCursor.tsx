@@ -1,6 +1,6 @@
 "use client";
 import { useStore } from "@nanostores/preact";
-import { useEffect, useRef } from "preact/compat";
+import { useEffect, useRef, useMemo } from "preact/hooks";
 import { isMobile } from "@/ts/global";
 import { isPrefersReducedMotion } from "@/ts/stores";
 import posthog from "posthog-js";
@@ -81,45 +81,43 @@ export default function SplashCursor(props: SplashCursorProps) {
   const prefersReducedMotion = useStore(isPrefersReducedMotion);
   const cleanupRef = useRef<null | (() => void) | undefined>(null);
 
-  useEffect(() => {
-    const shouldSkip = () => {
-      if (posthog.isFeatureEnabled("splashcursor")) return true;
-      if (typeof window === "undefined") return true;
-      if (isMobile()) return true;
-      if (prefersReducedMotion) return true;
-      if (!window.WebGLRenderingContext) return true;
-      if (window.frameElement) return true;
-      if (document.visibilityState !== "visible") return true;
-      if (window.innerWidth < 600 || window.innerHeight < 400) return true;
-      return false;
-    };
+  const config = useMemo(() => ({ ...DEFAULTS, ...props }), [props]);
 
-    if (cleanupRef.current && shouldSkip()) {
-      cleanupRef.current();
+  useEffect(() => {
+    const shouldSkip =
+      posthog.isFeatureEnabled("splashcursor") ||
+      typeof window === "undefined" ||
+      isMobile() ||
+      prefersReducedMotion ||
+      !window.WebGLRenderingContext ||
+      !!window.frameElement ||
+      document.visibilityState !== "visible" ||
+      window.innerWidth < 600 ||
+      window.innerHeight < 400;
+
+    if (shouldSkip) {
+      cleanupRef.current?.();
       cleanupRef.current = null;
       return;
     }
 
-    if (!cleanupRef.current && !shouldSkip()) {
-      const start = () => {
-        cleanupRef.current = initSplashCursor(canvasRef.current, divRef.current, {
-          ...DEFAULTS,
-          ...props,
-        });
-        window.removeEventListener("pointermove", start);
-        window.removeEventListener("pointerdown", start);
-      };
-      window.addEventListener("pointermove", start, { once: true });
-      window.addEventListener("pointerdown", start, { once: true });
-    }
+    if (cleanupRef.current) return;
+
+    const start = () => {
+      cleanupRef.current = initSplashCursor(canvasRef.current, divRef.current, config);
+
+      window.removeEventListener("pointermove", start);
+      window.removeEventListener("pointerdown", start);
+    };
+
+    window.addEventListener("pointermove", start, { once: true });
+    window.addEventListener("pointerdown", start, { once: true });
 
     return () => {
-      if (cleanupRef.current) {
-        cleanupRef.current();
-        cleanupRef.current = null;
-      }
+      cleanupRef.current?.();
+      cleanupRef.current = null;
     };
-  }, [prefersReducedMotion, props]);
+  }, [prefersReducedMotion, config]);
 
   return (
     <div
