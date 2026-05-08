@@ -13,7 +13,12 @@ depends = "lint"
 description = "Test the web Applications for compile errors"
 run = "bun run test"
 
+[tasks.fmt-check]
+description = "Run formatter in package.json"
+run = "bun run fmt:check"
+
 [tasks.lint]
+depends = "fmt-check"
 description = "Lint the code"
 run = "bun run lint"
 

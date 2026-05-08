@@ -4,5 +4,5 @@ export default defineConfig({
   options: {
     typeAware: true,
   },
-  plugins: ["import", "vitest"],
+  plugins: ["eslint", "typescript", "unicorn", "oxc", "import", "vitest"],
 });
