@@ -1,17 +1,7 @@
 import * as z from "zod/mini";
-import type {
-  ajax,
-  ElementCollectionParam,
-  ElementDocument,
-  each,
-  func,
-} from "./types.d";
-import {
-  ajaxgetSchema,
-  ajaxSchema,
-  ElementDocumentInstanceof,
-  ParamSchema,
-} from "./types.d";
+
+import type { ajax, ElementCollectionParam, ElementDocument, each, func } from "./types.d";
+import { ajaxgetSchema, ajaxSchema, ElementDocumentInstanceof, ParamSchema } from "./types.d";
 
 class ElementCollection extends Array<Element | Document> {
   constructor(param?: ElementCollectionParam) {
@@ -55,20 +45,12 @@ class ElementCollection extends Array<Element | Document> {
   on(
     event: string,
     cbOrSelector: ((this: ElementDocument, e: Event) => func) | string,
-    cbOrOptions?:
-      | ((this: ElementDocument, e: Event) => func)
-      | AddEventListenerOptions,
+    cbOrOptions?: ((this: ElementDocument, e: Event) => func) | AddEventListenerOptions,
   ) {
-    if (
-      typeof cbOrSelector === "string" ||
-      typeof cbOrSelector === "function"
-    ) {
+    if (typeof cbOrSelector === "string" || typeof cbOrSelector === "function") {
       this.each((el: ElementDocument) => {
         const main = (e: Event) => {
-          if (
-            typeof cbOrSelector === "function" &&
-            e.currentTarget instanceof Element
-          ) {
+          if (typeof cbOrSelector === "function" && e.currentTarget instanceof Element) {
             cbOrSelector.call(e.currentTarget, e);
           } else if (
             typeof cbOrSelector === "string" &&
@@ -94,14 +76,11 @@ class ElementCollection extends Array<Element | Document> {
   }
 
   /**
-   * @param event - addEventListener specific event (String) no auto correct working
+   * @param event - AddEventListener specific event (String) no auto correct working
    * @param cbOrSelector - Callback or Selector
-   * @returns this for continuing the jquery syntax
+   * @returns This for continuing the jquery syntax
    */
-  one(
-    event: string,
-    cbOrSelector: ((this: ElementDocument, e: Event) => func) | string,
-  ) {
+  one(event: string, cbOrSelector: ((this: ElementDocument, e: Event) => func) | string) {
     const once = { once: true };
     if (typeof cbOrSelector === "function") {
       this.on(event, cbOrSelector, once);

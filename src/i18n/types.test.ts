@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { type Lang, translations } from "./types";
 
 describe("translations structure", () => {
@@ -43,10 +44,7 @@ describe("translations structure", () => {
       for (const [key, value] of Object.entries(obj)) {
         const currentPath = path ? `${path}.${key}` : key;
         if (typeof value === "string") {
-          expect(
-            value.length,
-            `Empty string at ${currentPath}`,
-          ).toBeGreaterThan(0);
+          expect(value.length, `Empty string at ${currentPath}`).toBeGreaterThan(0);
         } else if (typeof value === "object" && value !== null) {
           checkStrings(value as Record<string, unknown>, currentPath);
         }

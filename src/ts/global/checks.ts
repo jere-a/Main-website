@@ -4,10 +4,8 @@ export const deviceCapabilities = () => {
     window.matchMedia?.("(any-pointer: coarse)").matches ||
     "ontouchstart" in window;
   const hasHover = window.matchMedia?.("(any-hover: hover)").matches ?? false;
-  const hasFinePointer =
-    window.matchMedia?.("(any-pointer: fine)").matches ?? false;
-  const isSmallViewport =
-    window.matchMedia?.("(max-width: 768px)").matches ?? false;
+  const hasFinePointer = window.matchMedia?.("(any-pointer: fine)").matches ?? false;
+  const isSmallViewport = window.matchMedia?.("(max-width: 768px)").matches ?? false;
 
   return {
     hasTouch,

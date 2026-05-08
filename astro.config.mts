@@ -1,14 +1,16 @@
 import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
+import svelte from "@astrojs/svelte";
 import playformCompress from "@playform/compress";
+import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
 import purgecss from "astro-purgecss";
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
-import { siteConfig } from "./src/config";
-import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
 import rehypeMathjax from "rehype-mathjax";
 import remarkMath from "remark-math";
 import remarkToc from "remark-toc";
+
+import { siteConfig } from "./src/config";
 
 export const defaultLocale = "fi";
 const locales = {
@@ -30,6 +32,7 @@ export default defineConfig({
   prefetch: true,
   integrations: [
     mdx(),
+    svelte(),
     preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"] }),
     /* AstroPWA({
           strategies: 'injectManifest',

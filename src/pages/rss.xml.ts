@@ -1,8 +1,9 @@
-import { type CollectionEntry, getCollection } from "astro:content";
 import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
+import { type CollectionEntry, getCollection } from "astro:content";
 import MarkdownIt from "markdown-it";
 import sanitizeHtml from "sanitize-html";
+
 import { siteConfig } from "@/config.ts";
 
 const parser = new MarkdownIt({

@@ -1,9 +1,10 @@
 "use client";
 import { useStore } from "@nanostores/preact";
+import posthog from "posthog-js";
 import { useEffect, useRef, useMemo } from "preact/hooks";
+
 import { isMobile } from "@/ts/global";
 import { isPrefersReducedMotion } from "@/ts/stores";
-import posthog from "posthog-js";
 
 interface ColorRGB {
   r: number;

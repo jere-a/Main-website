@@ -1,7 +1,7 @@
 ---
-title: 'Tekoäly ja sen hyödyllisyydet'
+title: "Tekoäly ja sen hyödyllisyydet"
 pubDate: 2025-11-30
-lang: 'fi'
+lang: "fi"
 ---
 
 Mikä on tekoäly ja mikä on sen käyttö nykymaailmassa ja etenkin kouluissa, josta varttuu meidän ihmiskuntamme tulevaisuus vai onko tulevaisuus ainoastaan koneiden ja isojen yhtiöiden hallussa jotka yrittävät huojata meitä menemään heidän pillinsä tahtiin.

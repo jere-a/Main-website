@@ -1,4 +1,5 @@
 import { type } from "arktype";
+
 import { siteConfig } from "@/config";
 
 const ParsedDataSchema = type({

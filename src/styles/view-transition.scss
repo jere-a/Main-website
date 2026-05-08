@@ -1,4 +1,4 @@
-@use 'sass:list';
+@use "sass:list";
 
 $page-transition-animation-timing-function: cubic-bezier(0.465, 0.183, 153, 0.946);
 $page-transition-animation-duration: 400ms;
@@ -6,170 +6,170 @@ $swap-angle: 25deg;
 $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
 
 @supports (view-transition-name: content) {
-	:root {
-		--page-transition-animation-timing-function: cubic-bezier(0.465, 0.183, 0.153, 0.946);
-		--anim-func-overshoot-out-soft: linear(
-			0,
-			0.402 7.4%,
-			0.711 15.3%,
-			0.929 23.7%,
-			1.008 28.2%,
-			1.067 33%,
-			1.099 36.9%,
-			1.12 41%,
-			1.13 45.4%,
-			1.13 50.1%,
-			1.111 58.5%,
-			1.019 83.2%,
-			1.004 91.3%,
-			1
-		);
-		--footer-height: 67px;
-		--bottom-bar-height: 67px;
-		--safe-area-max-inset-bottom: env(safe-area-max-inset-bottom, 36px);
-		--swap-angle: 25deg;
-	}
+  :root {
+    --page-transition-animation-timing-function: cubic-bezier(0.465, 0.183, 0.153, 0.946);
+    --anim-func-overshoot-out-soft: linear(
+      0,
+      0.402 7.4%,
+      0.711 15.3%,
+      0.929 23.7%,
+      1.008 28.2%,
+      1.067 33%,
+      1.099 36.9%,
+      1.12 41%,
+      1.13 45.4%,
+      1.13 50.1%,
+      1.111 58.5%,
+      1.019 83.2%,
+      1.004 91.3%,
+      1
+    );
+    --footer-height: 67px;
+    --bottom-bar-height: 67px;
+    --safe-area-max-inset-bottom: env(safe-area-max-inset-bottom, 36px);
+    --swap-angle: 25deg;
+  }
 
-	@media screen and (prefers-reduced-motion: no-preference) {
-		@view-transition {
-			navigation: auto;
-		}
-	}
+  @media screen and (prefers-reduced-motion: no-preference) {
+    @view-transition {
+      navigation: auto;
+    }
+  }
 
-	::view-transition-group(*) {
-		animation-duration: $page-transition-animation-duration;
-	}
+  ::view-transition-group(*) {
+    animation-duration: $page-transition-animation-duration;
+  }
 
-	#main-footer {
-		view-transition-name: main-footer;
-		view-transition-class: slide-bottom;
-	}
+  #main-footer {
+    view-transition-name: main-footer;
+    view-transition-class: slide-bottom;
+  }
 
-	.navmenu {
-		view-transition-name: navmenu;
-		view-transition-class: fade;
-	}
+  .navmenu {
+    view-transition-name: navmenu;
+    view-transition-class: fade;
+  }
 
-	.hero_text {
-		view-transition-name: hero-text;
-		view-transition-class: slide-top;
-	}
+  .hero_text {
+    view-transition-name: hero-text;
+    view-transition-class: slide-top;
+  }
 
-	.github-corner {
-		view-transition-name: github;
-		view-transition-class: slide-right;
-	}
+  .github-corner {
+    view-transition-name: github;
+    view-transition-class: slide-right;
+  }
 
-	::view-transition-old(.fade),
-	::view-transition-new(.fade) {
-		animation-duration: 180ms;
-		animation-timing-function: $astro-ease;
-	}
+  ::view-transition-old(.fade),
+  ::view-transition-new(.fade) {
+    animation-duration: 180ms;
+    animation-timing-function: $astro-ease;
+  }
 
-	::view-transition-group(.slide-top) {
-		animation-timing-function: var(--anim-func-overshoot-out-soft);
-		--direction: -1;
-	}
+  ::view-transition-group(.slide-top) {
+    animation-timing-function: var(--anim-func-overshoot-out-soft);
+    --direction: -1;
+  }
 
-	::view-transition-old(.slide-top) {
-		animation-name: slide-out-top-bottom;
-	}
+  ::view-transition-old(.slide-top) {
+    animation-name: slide-out-top-bottom;
+  }
 
-	::view-transition-new(.slide-top) {
-		animation-name: slide-in-top-bottom;
-	}
+  ::view-transition-new(.slide-top) {
+    animation-name: slide-in-top-bottom;
+  }
 
-	::view-transition-group(.slide-bottom) {
-		animation-timing-function: var(--anim-func-overshoot-out-soft);
-		--direction: 1;
-	}
+  ::view-transition-group(.slide-bottom) {
+    animation-timing-function: var(--anim-func-overshoot-out-soft);
+    --direction: 1;
+  }
 
-	::view-transition-old(.slide-bottom) {
-		animation-name: slide-out-top-bottom;
-	}
+  ::view-transition-old(.slide-bottom) {
+    animation-name: slide-out-top-bottom;
+  }
 
-	::view-transition-new(.slide-bottom) {
-		animation-name: slide-in-top-bottom;
-	}
+  ::view-transition-new(.slide-bottom) {
+    animation-name: slide-in-top-bottom;
+  }
 
-	@keyframes slide-in-top-bottom {
-		0% {
-			transform: translateY(calc(100% * var(--direction)));
-			opacity: 0;
-		}
-		100% {
-			transform: translateY(0%);
-		}
-	}
+  @keyframes slide-in-top-bottom {
+    0% {
+      transform: translateY(calc(100% * var(--direction)));
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
 
-	@keyframes slide-out-top-bottom {
-		0% {
-			transform: translateY(0%);
-		}
-		100% {
-			transform: translateY(calc(100% * var(--direction)));
-			opacity: 0;
-		}
-	}
+  @keyframes slide-out-top-bottom {
+    0% {
+      transform: translateY(0%);
+    }
+    100% {
+      transform: translateY(calc(100% * var(--direction)));
+      opacity: 0;
+    }
+  }
 
-	::view-transition-group(.slide-right) {
-		animation-timing-function: var(--anim-func-overshoot-out-soft);
-	}
+  ::view-transition-group(.slide-right) {
+    animation-timing-function: var(--anim-func-overshoot-out-soft);
+  }
 
-	::view-transition-old(.slide-right) {
-		animation-name: slide-out-right;
-	}
+  ::view-transition-old(.slide-right) {
+    animation-name: slide-out-right;
+  }
 
-	::view-transition-new(.slide-right) {
-		animation-name: slide-in-right;
-	}
+  ::view-transition-new(.slide-right) {
+    animation-name: slide-in-right;
+  }
 
-	@keyframes slide-in-right {
-		0% {
-			transform: translateX(100%);
-			opacity: 0;
-		}
-		100% {
-			transform: translateX(0%);
-			opacity: 1;
-		}
-	}
+  @keyframes slide-in-right {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
 
-	@keyframes slide-out-right {
-		0% {
-			transform: translateX(0%);
-			opacity: 1;
-		}
-		100% {
-			transform: translateX(100%);
-			opacity: 0;
-		}
-	}
+  @keyframes slide-out-right {
+    0% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
 
-	::view-transition-group(.cards) {
-		animation-duration: 0.6s;
-		animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-	}
+  ::view-transition-group(.cards) {
+    animation-duration: 0.6s;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
 
-	@for $i from 1 through 7 {
-		.card#{$i} {
-			view-transition-name: card#{$i};
-		}
+  @for $i from 1 through 7 {
+    .card#{$i} {
+      view-transition-name: card#{$i};
+    }
 
-		::view-transition-new(.card#{$i}) {
-			opacity: 0;
-			animation: Bottom-In 0.5s #{$i * 80ms} both;
-		}
-	}
+    ::view-transition-new(.card#{$i}) {
+      opacity: 0;
+      animation: Bottom-In 0.5s #{$i * 80ms} both;
+    }
+  }
 
-	@keyframes Bottom-In {
-		from {
-			transform: translateY(60px);
-			opacity: 0;
-		}
-		to {
-			transform: translateY(0);
-			opacity: 1;
-		}
-	}
+  @keyframes Bottom-In {
+    from {
+      transform: translateY(60px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 }

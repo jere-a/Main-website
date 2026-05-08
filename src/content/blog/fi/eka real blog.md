@@ -1,7 +1,7 @@
 ---
-title: 'Ensimmäinen oikea blogi'
+title: "Ensimmäinen oikea blogi"
 pubDate: 2024-10-19
-lang: 'fi'
+lang: "fi"
 ---
 
 Moi tämän päivityksen mukana jota olen tehnyt nyt jonkin aikaa tulee jotakin

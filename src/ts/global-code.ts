@@ -1,8 +1,5 @@
-import {
-  checkHotkey,
-  createSequenceMatcher,
-  type HotkeySequence,
-} from "@tanstack/hotkeys";
+import { checkHotkey, createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
+
 import { addEventListener, isHoliday } from "./global/index";
 
 const main = () => {

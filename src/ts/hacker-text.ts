@@ -17,9 +17,7 @@ const hackerText = (
       element.innerText = originalText
         .split("")
         .map((_, i) =>
-          i < iteration
-            ? originalString[i]
-            : letters[Math.floor(Math.random() * letters.length)],
+          i < iteration ? originalString[i] : letters[Math.floor(Math.random() * letters.length)],
         )
         .join("");
 

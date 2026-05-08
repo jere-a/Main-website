@@ -1,11 +1,7 @@
 import { getLocale, getLocaleUrl } from "astro-i18n-aut";
+
 import type { LangSchema } from "./schema.ts";
-import {
-  defaultLang,
-  type Lang,
-  type TranslationShape,
-  translations,
-} from "./types.ts";
+import { defaultLang, type Lang, type TranslationShape, translations } from "./types.ts";
 
 // export const languages = {
 //   fi: "Suomi",
@@ -63,8 +59,7 @@ export function useTranslatedPath<L extends string>(lang: L) {
   const baseLang: Lang = isLang(lang) ? lang : defaultLang;
 
   return function translatePath(path: string, overrideLang?: string): string {
-    const finalLang: Lang =
-      overrideLang && isLang(overrideLang) ? overrideLang : baseLang;
+    const finalLang: Lang = overrideLang && isLang(overrideLang) ? overrideLang : baseLang;
 
     return getLocaleUrl(path, finalLang);
   };

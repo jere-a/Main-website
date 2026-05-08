@@ -1,7 +1,7 @@
 ---
-title: 'First Blog'
+title: "First Blog"
 pubDate: 2024-08-08
-lang: 'en'
+lang: "en"
 ---
 
 This blog is still in its early stages, but over time something may come here.

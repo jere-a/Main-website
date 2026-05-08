@@ -1,4 +1,5 @@
 import type { PostHogConfig } from "posthog-js";
+
 import { siteConfig } from "@/config";
 
 declare global {

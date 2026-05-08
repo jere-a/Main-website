@@ -20,8 +20,7 @@ export const en: LangSchema = {
     },
     title: "Home",
     intro: {
-      start:
-        "I made this page when I became interested in building this. You can find me on ",
+      start: "I made this page when I became interested in building this. You can find me on ",
       youtubeLabel: "YouTube",
       end: " and you can also send me feedback at: ",
     },

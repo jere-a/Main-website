@@ -82,9 +82,7 @@ export function isPWA(): boolean {
   return isStandalone || isIOS;
 }
 
-export async function getTemporal(): Promise<
-  typeof import("@js-temporal/polyfill").Temporal
-> {
+export async function getTemporal(): Promise<typeof import("@js-temporal/polyfill").Temporal> {
   const g = globalThis as unknown as {
     Temporal?: typeof import("@js-temporal/polyfill").Temporal;
   };

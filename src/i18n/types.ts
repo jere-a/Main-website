@@ -12,11 +12,7 @@ export const defaultLang: Lang = "fi";
 type DefaultSchema = (typeof translations)[typeof defaultLang];
 
 /* Dot-notation keys */
-type Join<K, P> = K extends string
-  ? P extends string
-    ? `${K}.${P}`
-    : never
-  : never;
+type Join<K, P> = K extends string ? (P extends string ? `${K}.${P}` : never) : never;
 
 type Paths<T> = {
   [K in keyof T]: T[K] extends object ? K | Join<K & string, Paths<T[K]>> : K;

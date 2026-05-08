@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { defaultLang, type Lang, translations } from "./types";
 
 const isLang = (value: string): value is keyof typeof translations => {
@@ -70,8 +71,7 @@ describe("useTranslatedPath logic", () => {
     const baseLang: Lang = isLang(lang) ? lang : defaultLang;
 
     const translatePath = (path: string, overrideLang?: string): string => {
-      const finalLang: Lang =
-        overrideLang && isLang(overrideLang) ? overrideLang : baseLang;
+      const finalLang: Lang = overrideLang && isLang(overrideLang) ? overrideLang : baseLang;
       return `/${finalLang}${path}`;
     };
     return translatePath;

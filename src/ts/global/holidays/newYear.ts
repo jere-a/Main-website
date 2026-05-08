@@ -1,4 +1,5 @@
 import { Fireworks } from "fireworks-js";
+
 import exp0 from "@/data/sounds/explosion0.mp3";
 import exp1 from "@/data/sounds/explosion1.mp3";
 import exp2 from "@/data/sounds/explosion2.mp3";

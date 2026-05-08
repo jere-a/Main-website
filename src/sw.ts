@@ -81,9 +81,7 @@ registerRoute(
 
 registerRoute(
   ({ url }): boolean => {
-    return (
-      url.origin.includes("jsdelivr") || url.origin.includes("cdn.jsdelivr")
-    );
+    return url.origin.includes("jsdelivr") || url.origin.includes("cdn.jsdelivr");
   },
   new StaleWhileRevalidate({
     cacheName: "cdn-assets",

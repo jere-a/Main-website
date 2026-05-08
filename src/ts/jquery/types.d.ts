@@ -29,22 +29,13 @@ export const EventTargetInstanceof = z.instanceof(EventTarget, {
   message: `${expectedString}EventTarget`,
 });
 
-export const ElementDocumentInstanceof = z.union([
-  ElementInstanceof,
-  DocumentInstanceof,
-]);
+export const ElementDocumentInstanceof = z.union([ElementInstanceof, DocumentInstanceof]);
 
 export const falseSchema = z.custom<false>((_val) => val === false, {
   message: `${expectedString}False`,
 });
 
-export const eachSchema = z.union([
-  func,
-  falseSchema,
-  z.string(),
-  z.null,
-  z.undefined,
-]);
+export const eachSchema = z.union([func, falseSchema, z.string(), z.null, z.undefined]);
 
 export const ParamSchema = z.union([
   z.string(),

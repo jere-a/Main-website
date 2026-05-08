@@ -1,5 +1,4 @@
 import "@/styles/holidays/christmas.css";
-
 import { tsParticles } from "@tsparticles/engine";
 import { loadSnowPreset } from "@tsparticles/preset-snow";
 
