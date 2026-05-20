@@ -42,7 +42,7 @@ export const fi: LangSchema = {
     bridgeAtNight: "Silta pimeällä",
   },
   notfound: {
-    title: "Not Found",
+    title: "Ei löydetty",
     message: "Sivu jota yrität käyttää ei löytynyt.",
   },
   youtube: {

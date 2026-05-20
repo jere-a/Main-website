@@ -1,3 +1,4 @@
+// oxlint-disable no-console
 "use client";
 import { useStore } from "@nanostores/preact";
 import posthog from "posthog-js";

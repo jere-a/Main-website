@@ -52,6 +52,6 @@ function ready(fn: () => void) {
   }
 }
 
-ready(() => {
-  main();
+ready(async () => {
+  await main();
 });

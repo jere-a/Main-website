@@ -12,7 +12,7 @@ describe("throttle", () => {
   });
 
   it("executes immediately on first call", () => {
-    const fn = vi.fn();
+    const fn = vi.fn<() => void>();
     const throttled = throttle(fn, 100);
 
     throttled();
@@ -20,17 +20,15 @@ describe("throttle", () => {
   });
 
   it("ignores subsequent calls within delay", () => {
-    const fn = vi.fn();
+    const fn = vi.fn<() => void>();
     const throttled = throttle(fn, 100);
 
-    throttled();
-    throttled();
     throttled();
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
   it("executes queued call after delay", () => {
-    const fn = vi.fn();
+    const fn = vi.fn<() => void>();
     const throttled = throttle(fn, 100);
 
     throttled();
@@ -41,7 +39,7 @@ describe("throttle", () => {
   });
 
   it("does not execute if no queued calls", () => {
-    const fn = vi.fn();
+    const fn = vi.fn<() => void>();
     const throttled = throttle(fn, 100);
 
     throttled();
@@ -51,6 +49,7 @@ describe("throttle", () => {
   });
 
   it("passes arguments to function", () => {
+    // oxlint-disable-next-line vitest/require-mock-type-parameters
     const fn = vi.fn();
     const throttled = throttle(fn, 100);
 

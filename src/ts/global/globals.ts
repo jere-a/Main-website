@@ -19,16 +19,16 @@ export const throttle = <Args extends unknown[]>(
   let waiting: Args | null = null;
   let timer: ReturnType<typeof setTimeout> | null = null;
 
-  return (...args: Args) => {
+  return async (...args: Args) => {
     if (timer) {
       waiting = args;
       return;
     }
-    cb(...args);
-    timer = setTimeout(() => {
+    await cb(...args);
+    timer = setTimeout(async () => {
       timer = null;
       if (waiting) {
-        cb(...waiting);
+        await cb(...waiting);
         waiting = null;
         timer = setTimeout(() => {}, delay);
       }

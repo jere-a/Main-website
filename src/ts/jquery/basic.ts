@@ -33,10 +33,10 @@ class ElementCollection extends Array<Element | Document> {
     })();
 
     if (doc && doc.readyState != null && doc.readyState !== "loading") {
-      cb.call(doc);
+      void cb.call(doc);
     } else {
       this.on("DOMContentLoaded", function (this: ElementDocument) {
-        cb.call(this as Document);
+        void cb.call(this as Document);
       });
     }
     return this;
@@ -51,7 +51,7 @@ class ElementCollection extends Array<Element | Document> {
       this.each((el: ElementDocument) => {
         const main = (e: Event) => {
           if (typeof cbOrSelector === "function" && e.currentTarget instanceof Element) {
-            cbOrSelector.call(e.currentTarget, e);
+            void cbOrSelector.call(e.currentTarget, e);
           } else if (
             typeof cbOrSelector === "string" &&
             typeof cbOrOptions === "function" &&
@@ -59,7 +59,7 @@ class ElementCollection extends Array<Element | Document> {
           ) {
             const target = e.target as Element;
             if (target.matches(cbOrSelector)) {
-              cbOrOptions.call(target, e);
+              void cbOrOptions.call(target, e);
             }
           }
         };
@@ -178,7 +178,8 @@ class ElementCollection extends Array<Element | Document> {
 
     // Getter: .data()
     if (name === undefined) {
-      const dataset = el instanceof HTMLElement ? { ...el.dataset } : {};
+      const dataset =
+        el instanceof HTMLElement ? Object.fromEntries(Object.entries(el.dataset)) : {};
       const stored = ElementCollection.dataStore.get(el) || {};
       return { ...dataset, ...stored };
     }
@@ -294,7 +295,7 @@ $.get = ajaxgetfunctionSchema.implement((i) => {
     })
     .join("&");
 
-  fetch(`${i.url}?${queryString}`, {
+  void fetch(`${i.url}?${queryString}`, {
     method: "GET",
     headers: {
       "Content-Type": i.dataType,
