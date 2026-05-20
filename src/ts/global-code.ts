@@ -1,8 +1,9 @@
+// oxlint-disable no-console
 import { checkHotkey, createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 
 import { addEventListener, isHoliday } from "./global/index";
 
-const main = () => {
+const main = async () => {
   addEventListener(
     document.body,
     "contextmenu",
@@ -25,15 +26,15 @@ const main = () => {
     "A",
   ];
 
-  for (const hotkey in konamiCode) {
+  konamiCode.forEach((hotkey) => {
     checkHotkey(hotkey);
-  }
+  });
 
   const konami = createSequenceMatcher(konamiCode, { timeout: 2000 });
 
   window.addEventListener("keydown", (event) => {
     if (konami.match(event)) {
-      // biome-ignore lint/suspicious/noConsole: Konami code message for now for info if it's going to be enabled
+      // oxlint-disable-next-line no-console
       console.log("Konami code activated.");
     }
   });
@@ -45,10 +46,10 @@ const main = () => {
   const runHolidayEffects = async () => {
     const holiday = await isHoliday();
     if (holiday.bool) {
-      holiday.script();
+      await holiday.script();
     }
   };
-  runHolidayEffects();
+  await runHolidayEffects();
 };
 
 export default main;
