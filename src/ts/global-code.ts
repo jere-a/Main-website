@@ -1,4 +1,3 @@
-// oxlint-disable no-console
 import { checkHotkey, createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 
 import { addEventListener, isHoliday } from "./global/index";

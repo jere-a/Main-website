@@ -16,24 +16,18 @@ export type SiteConfigFeatures = {
   };
 };
 
-const cookiesParams = {
-  cookiesEnabled: false,
-  expire_days: 2,
-} as const;
-
-const functionsParams = {
-  holidayEffects: true,
-  howOldSite: true,
-  fetchIPP: true,
-  splashcursor: true,
-} as const;
-
-const params = {
-  cookies: cookiesParams,
-  functions: functionsParams,
-} as const;
-
 export const siteFeatures: SiteConfigFeatures = {
   config: siteConfig,
-  params,
+  params: {
+    cookies: {
+      cookiesEnabled: false,
+      expire_days: 2,
+    },
+    functions: {
+      holidayEffects: true,
+      howOldSite: true,
+      fetchIPP: true,
+      splashcursor: true,
+    },
+  },
 } satisfies SiteConfigFeatures;

@@ -1,33 +1,32 @@
+const DEFAULT_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 const hackerText = (
   element: HTMLElement,
-  originalString: string,
-  firstRun = false,
-  letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  targetText: string,
+  letters = DEFAULT_LETTERS,
   delay = 30,
   iterations = 1.5,
 ): void => {
-  let interval: ReturnType<typeof setInterval> | undefined;
+  let iteration = 0;
+  const targetLength = targetText.length;
+  const lettersLength = letters.length;
 
-  const run = (): void => {
-    let iteration = 0;
-    clearInterval(interval);
-    const originalText = element.innerText;
+  const intervalId = window.setInterval(() => {
+    let output = "";
 
-    interval = setInterval(() => {
-      element.innerText = originalText
-        .split("")
-        .map((_, i) =>
-          i < iteration ? originalString[i] : letters[Math.floor(Math.random() * letters.length)],
-        )
-        .join("");
+    for (let i = 0; i < targetLength; i++) {
+      output += i < iteration ? targetText[i] : letters[(Math.random() * lettersLength) | 0];
+    }
 
-      if (iteration >= originalString.length) clearInterval(interval);
-      iteration += 1 / iterations;
-    }, delay);
-  };
+    element.innerText = output;
 
-  element.addEventListener("mouseover", run);
-  if (firstRun) run();
+    iteration += 1 / iterations;
+
+    if (iteration >= targetLength) {
+      element.innerText = targetText;
+      clearInterval(intervalId);
+    }
+  }, delay);
 };
 
 export default hackerText;

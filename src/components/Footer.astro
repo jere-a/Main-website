@@ -17,14 +17,14 @@ const isCopyright = (): boolean => {
 	}
 };
 
-const _copyrightText = `${t.footer.copyright} © 2024-${new Date().getFullYear()} Jere L`;
+const copyrightText = `${t.footer.copyright} © 2024-${new Date().getFullYear()} Jere L`;
 ---
 
 <footer id="main-footer">
 	{
 		isCopyright() && (
-			<p class="copyright" data-value={_copyrightText}>
-				{_copyrightText}
+			<p class="copyright" data-value={copyrightText}>
+				{copyrightText}
 			</p>
 		)
 	}
@@ -49,7 +49,7 @@ const _copyrightText = `${t.footer.copyright} © 2024-${new Date().getFullYear()
 		target.addEventListener('mouseover', () => {
 			import('@/ts/hacker-text').then(({ default: hackerText }) => {
 				if (target && target.dataset.value) {
-					hackerText(target, target.dataset.value, true);
+					hackerText(target, target.dataset.value);
 				}
 			});
 		});
