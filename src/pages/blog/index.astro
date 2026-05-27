@@ -52,7 +52,7 @@ const blogEntries = await getCollection('blog');
 									{postTitle}
 								</h2>
 								<time
-									class="fade-transition"
+									class="publish-date fade-transition"
 									datetime={post.data.pubDate?.toISOString()}
 									style={{
 										viewTransitionName: escapeViewTransitionName(bpostTime),
@@ -109,24 +109,11 @@ const blogEntries = await getCollection('blog');
 		border-radius: 10px;
 	}
 
+
 	.posts {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		line-height: var(--line-height);
-	}
-
-	.title a {
-		color: var(--text);
-		border-bottom: none;
-	}
-
-	.title a:hover {
-		color: var(--text-link);
-	}
-
-	.icon-realign {
-		margin-bottom: -1.5px;
-		margin-left: 2px;
 	}
 
 	.publish-date {

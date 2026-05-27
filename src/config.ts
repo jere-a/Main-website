@@ -1,3 +1,5 @@
+import * as z from "zod/mini";
+
 export type SiteConfig = {
   host: string;
   url: string;
@@ -22,19 +24,11 @@ export type SiteConfig = {
   };
 };
 
-const author = {
-  contacts: {
-    github: "jere-a",
-  },
-} as const;
-
-const urls = {
-  giturl: "https://github.com/jere-a/Main-website",
-} as const;
-
 export const siteConfig: SiteConfig = {
   host: "ozze.eu.org",
-  url: "https://ozze.eu.org",
+  get url() {
+    return z.url().parse(`https://${siteConfig.host}`);
+  },
   title: "Åzze",
   Blogtitle: "Åzze's Blog",
   siteName: "",
@@ -46,6 +40,14 @@ export const siteConfig: SiteConfig = {
   yt_cid: "UCNAVV2j-Bmuu9ApfTYwYAeA",
   posthog_id: "phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF",
   mainLanguage: "fi-fi",
-  author,
-  urls,
-} satisfies SiteConfig;
+  author: {
+    contacts: {
+      github: "jere-a",
+    },
+  },
+  urls: {
+    get giturl() {
+      return z.url().parse(`https://github.com/${siteConfig.author.contacts.github}/Main-website`);
+    },
+  },
+};

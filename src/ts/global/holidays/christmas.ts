@@ -1,8 +1,14 @@
-import "@/styles/holidays/christmas.css";
 import { tsParticles } from "@tsparticles/engine";
 import { loadSnowPreset } from "@tsparticles/preset-snow";
 
+import cssSheet from "@/styles/holidays/christmas.css?inline" with { type: "css" };
+
+const sheet = new CSSStyleSheet();
+sheet.replaceSync(cssSheet);
+
 export const christmas = async () => {
+  document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+
   await loadSnowPreset(tsParticles);
 
   await tsParticles.load({

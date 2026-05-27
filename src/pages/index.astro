@@ -9,7 +9,7 @@ const giturl = siteConfig.urls.giturl || 'https://git.new/I3vys7Q';
 
 // Language
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const t = (await useTranslations(lang));
 const translatePath = useTranslatedPath(lang);
 ---
 
@@ -64,7 +64,6 @@ const translatePath = useTranslatedPath(lang);
 				transitionName="2"
 			/>
 		</ul>
-		<script src="@/ts/pages/index.mts"></script>
 	</main>
 	<style>
 		main {

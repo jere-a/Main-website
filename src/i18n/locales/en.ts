@@ -1,6 +1,4 @@
-import type { LangSchema } from "../schema.ts";
-
-export const en: LangSchema = {
+export const en = {
   nav: {
     home: "Home",
     about: "About",
@@ -55,4 +53,4 @@ export const en: LangSchema = {
     newyear: "New Year",
     halloween: "Halloween",
   },
-} satisfies LangSchema;
+};

@@ -4,7 +4,6 @@ import { escapeViewTransitionName } from '@vtbag/utensil-drawer/escape-view-tran
 
 import Layout from './Layout.astro';
 
-import '../styles/blog/blog.css';
 import '../styles/blog/markdown.css';
 
 type Props = CollectionEntry<'blog'>['data'];
@@ -14,10 +13,9 @@ const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.ge
 ---
 
 <Layout title={title} activeNav="blog" isSplash={false}>
-	<article class="blog-post">
-		<a href="/blog" class="link-back">Goto Blogs.</a>
+	<article>
+		<a href="/blog">Goto Blogs.</a>
 		<h1
-			class="title"
 			aria-label={title}
 			class="fade-transition"
 			style={{ viewTransitionName: `btitle${escapeViewTransitionName(title)}` }}
@@ -25,12 +23,11 @@ const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.ge
 			{title}
 		</h1>
 		<time
-			class="publish-date"
 			class="fade-transition"
 			style={{ viewTransitionName: `btime${escapeViewTransitionName(title)}` }}
 			>{formattedDate}</time
 		>
-		<slot />
+    <slot />
 	</article>
 
 	<style>
@@ -45,55 +42,47 @@ const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.ge
 			grid-template-columns: minmax(0, 1fr);
 		}
 
-		a.link-back:hover {
-			background-size:
-				0 1px,
-				100% 1px;
-		}
-
-		a.link-back {
-			background:
-				linear-gradient(to right, oklch(84.52% 0 102.07), oklch(84.52% 0 102.07)),
-				linear-gradient(
-					to right,
-					rgba(255, 0, 0, 1),
-					rgba(255, 0, 180, 1),
-					rgba(0, 100, 200, 1)
-				);
-			background-size:
-				100% 1px,
-				0 1px;
-			background-position:
-				100% 100%,
-				0 100%;
-			background-repeat: no-repeat;
-			transition: background-size 400ms;
-			text-decoration: none;
-		}
-
-		a.link-back {
-			color: grey;
-		}
-
-		.blog-post {
+		article {
 			justify-content: center;
 			grid-area: main;
 			margin-inline: auto;
-		}
+		
+		  a {
+			  background:
+				  linear-gradient(to right, oklch(84.52% 0 102.07), oklch(84.52% 0 102.07)),
+				  linear-gradient(
+					  to right,
+					  rgba(255, 0, 0, 1),
+					  rgba(255, 0, 180, 1),
+					  rgba(0, 100, 200, 1)
+				  );
+			  background-size:
+				  100% 1px,
+				  0 1px;
+			  background-position:
+				  100% 100%,
+				  0 100%;
+			  background-repeat: no-repeat;
+			  transition: background-size 400ms;
+        text-decoration: none;
+        color: grey;
 
-		.title {
-			font-size: 2.5em;
-			line-height: 1.2 !important;
-		}
-		.publish-date {
-			font-size: 0.875em;
-			color: var(--text-muted);
-			margin-bottom: 2rem;
-			display: block;
-		}
-		hr {
-			border-top: 1px solid #ddd;
-			margin: 0;
-		}
+        &:hover {
+          background-size: 0 1px,
+            100% 1px;
+        }
+		  }
+
+		  h1 {
+			  font-size: 2.5em;
+			  line-height: 1.2 !important;
+		  }
+		  time {
+			  font-size: 0.875em;
+			  color: var(--text-muted);
+			  margin-bottom: 2rem;
+			  display: block;
+		  }
+    }
 	</style>
 </Layout>

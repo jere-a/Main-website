@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils';
-import { translations, type Lang } from '@/i18n/types';
+import { translationLoaders, type Lang } from '@/i18n/types';
 
 interface Props {
 	active: string | undefined;
@@ -9,10 +9,10 @@ interface Props {
 const { active } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const t = (await useTranslations(lang));
 const translatePath = useTranslatedPath(lang);
 
-const languages = Object.keys(translations) as Lang[];
+const languages = Object.keys(translationLoaders) as Lang[];
 
 const navigationMenuTriggerStyle = 'nav-link';
 const activefunc = (active: string | undefined, activetab: string | undefined): string => {

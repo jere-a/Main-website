@@ -3,7 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const t = (await useTranslations(lang));
 
 const notfound = `404 ${t.notfound.title}`;
 ---

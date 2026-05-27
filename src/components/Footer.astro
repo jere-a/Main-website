@@ -6,27 +6,16 @@ interface Props {
 }
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const t = (await useTranslations(lang));
 
-const isCopyright = (): boolean => {
-	const { isCopyright } = Astro.props;
-	if (isCopyright === null || isCopyright === undefined) {
-		return true;
-	} else {
-		return isCopyright === true;
-	}
-};
+const { isCopyright = true } = Astro.props;
 
 const copyrightText = `${t.footer.copyright} © 2024-${new Date().getFullYear()} Jere L`;
 ---
 
 <footer id="main-footer">
 	{
-		isCopyright() && (
-			<p class="copyright" data-value={copyrightText}>
-				{copyrightText}
-			</p>
-		)
+    isCopyright && ( <hacker-text>{copyrightText}</hacker-text> )
 	}
 </footer>
 
@@ -44,14 +33,20 @@ const copyrightText = `${t.footer.copyright} © 2024-${new Date().getFullYear()}
 </style>
 
 <script>
-	const target = document.querySelector<HTMLParagraphElement>('.copyright');
-	if (target) {
-		target.addEventListener('mouseover', () => {
-			import('@/ts/hacker-text').then(({ default: hackerText }) => {
-				if (target && target.dataset.value) {
-					hackerText(target, target.dataset.value);
-				}
-			});
-		});
-	}
+  import hackerText from '@/ts/hacker-text';
+
+  let value: string | undefined;
+
+  class HackerText extends HTMLElement {
+    connectedCallback() {
+      if (this) {
+        const text = value ??= this.innerText;
+        this.addEventListener('mouseover', () => {
+            hackerText(this, text);
+        })
+      }
+    }
+  }
+
+  customElements.define('hacker-text', HackerText);
 </script>

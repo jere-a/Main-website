@@ -4,7 +4,7 @@ import ImageHolder from '@/components/ImageHolder.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const t = (await useTranslations(lang));
 
 import Ghost from '../../data/images/Aamuinen usva.jpg';
 import Sunflower from '../../data/images/auringon kukka 2.jpg';

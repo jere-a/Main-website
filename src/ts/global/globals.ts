@@ -1,16 +1,17 @@
-import { defaultLang, type Lang, translations } from "@/i18n";
+import { defaultLang, type Lang, Langs } from "@/i18n";
 
 type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
 
-export const detectLanguage = (lang = navigator.language): Lang => {
-  const shortLang = lang.split("-")[0];
+const langs = Object.values(Langs) as readonly Lang[];
 
-  if (Object.keys(translations).includes(shortLang)) {
-    return shortLang as Lang;
-  }
-
-  return defaultLang;
-};
+export const detectLanguage = (lang?: string): Lang =>
+  [
+    lang,
+    typeof document !== "undefined" ? document.documentElement.lang : undefined,
+    ...(typeof navigator !== "undefined" ? [...navigator.languages, navigator.language] : []),
+  ]
+    .map((l) => l?.toLowerCase().split("-")[0])
+    .find((l): l is Lang => !!l && langs.includes(l as Lang)) ?? defaultLang;
 
 export const throttle = <Args extends unknown[]>(
   cb: (...args: Args) => void | Promise<void>,
@@ -50,7 +51,7 @@ export const addCSSFromURL = (url: string): void => {
   document.head.appendChild(link);
 };
 
-export function addEventListener<K extends keyof HTMLElementEventMap>(
+export function on<K extends keyof HTMLElementEventMap>(
   element: Element,
   eventName: K,
   handler: EventHandler<HTMLElementEventMap[K]>,
@@ -59,8 +60,7 @@ export function addEventListener<K extends keyof HTMLElementEventMap>(
   const wrappedHandler = (event: Event): void => {
     if (selector) {
       const target = event.target as Element | null;
-      if (!target) return;
-      const matched = target.closest(selector);
+      const matched = target?.closest(selector);
       if (matched) handler.call(matched, event as HTMLElementEventMap[K]);
       return;
     }
@@ -77,7 +77,6 @@ export function getQueryParam(name: string): string | null {
 
 export function isPWA(): boolean {
   const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
-  // biome-ignore lint/suspicious/noExplicitAny: only in IOS
   const isIOS = (window.navigator as any).standalone === true;
   return isStandalone || isIOS;
 }

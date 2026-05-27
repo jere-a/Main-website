@@ -1,6 +1,11 @@
-import "@/styles/holidays/halloween.css";
+import cssSheet from "@/styles/holidays/halloween.css?inline" with { type: "css" };
+
+const sheet = new CSSStyleSheet();
+sheet.replaceSync(cssSheet);
 
 export const main_halloween = async () => {
+  document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+
   document.querySelectorAll("p").forEach((e) => {
     if (typeof e !== "string") {
       e.classList.add("halloween");

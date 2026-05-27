@@ -30,4 +30,4 @@ export const siteFeatures: SiteConfigFeatures = {
       splashcursor: true,
     },
   },
-} satisfies SiteConfigFeatures;
+};

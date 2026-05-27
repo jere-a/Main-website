@@ -1,9 +1,9 @@
-import { checkHotkey, createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
+import { createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 
-import { addEventListener, isHoliday } from "./global/index";
+import { on, isHoliday } from "./global/index";
 
 const main = async () => {
-  addEventListener(
+  on(
     document.body,
     "contextmenu",
     (e) => {
@@ -12,43 +12,33 @@ const main = async () => {
     "img, picture",
   );
 
-  const konamiCode: HotkeySequence = [
-    "ArrowUp",
-    "ArrowUp",
-    "ArrowDown",
-    "ArrowDown",
-    "ArrowLeft",
-    "ArrowRight",
-    "ArrowLeft",
-    "ArrowRight",
-    "B",
-    "A",
-  ];
+  on(document.body, "keydown", async (event) => {
+    const Arrow = "Arrow";
+    const KeyMap = { U: "Up", D: "Down", L: "Left", R: "Right" } as const;
 
-  konamiCode.forEach((hotkey) => {
-    checkHotkey(hotkey);
-  });
-
-  const konami = createSequenceMatcher(konamiCode, { timeout: 2000 });
-
-  window.addEventListener("keydown", (event) => {
-    if (konami.match(event)) {
-      // oxlint-disable-next-line no-console
-      console.log("Konami code activated.");
+    if (event.key === `${Arrow}${KeyMap.U}`) {
+      if (
+        createSequenceMatcher(
+          "UUDDLRLRBA"
+            .split("")
+            .map((key) =>
+              key in KeyMap ? `${Arrow}${KeyMap[key as keyof typeof KeyMap]}` : key,
+            ) as HotkeySequence,
+          { timeout: 2000 },
+        ).match(event)
+      ) {
+        // oxlint-disable-next-line no-console
+        console.log(atob("S29uYW1pIGNvZGUgYWN0aXZhdGVkLg=="));
+      }
     }
   });
 
-  window.addEventListener("vite:preloadError", () => {
+  addEventListener("vite:preloadError", () => {
     window.location.reload();
   });
 
-  const runHolidayEffects = async () => {
-    const holiday = await isHoliday();
-    if (holiday.bool) {
-      await holiday.script();
-    }
-  };
-  await runHolidayEffects();
+  const holiday = await isHoliday();
+  await holiday?.runScript();
 };
 
 export default main;

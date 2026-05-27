@@ -1,28 +1,20 @@
-import { en, fi } from "./locales";
+import type { fi } from "./locales/fi.ts";
 
-export const translations = {
-  fi,
-  en,
-} satisfies Record<string, typeof fi>;
+export const Langs = {
+  Fi: "fi",
+  En: "en",
+} as const;
 
-export type Lang = keyof typeof translations;
-export const defaultLang: Lang = "fi";
+export type Lang = (typeof Langs)[keyof typeof Langs];
+export const defaultLang: Lang = Langs.Fi;
 
-/* Translation schema */
-type DefaultSchema = (typeof translations)[typeof defaultLang];
+export type DefaultSchema = typeof fi;
 
-/* Dot-notation keys */
-type Join<K, P> = K extends string ? (P extends string ? `${K}.${P}` : never) : never;
+const loaders = Object.fromEntries(
+  Object.values(Langs).map((lang) => [
+    lang,
+    () => import(`./locales/${lang}.ts`).then((m) => m[lang as keyof typeof m]),
+  ]),
+) as Record<Lang, () => Promise<DefaultSchema>>;
 
-type Paths<T> = {
-  [K in keyof T]: T[K] extends object ? K | Join<K & string, Paths<T[K]>> : K;
-}[keyof T];
-
-export type TranslationKeys = Paths<DefaultSchema>;
-
-/* Deep typed shape */
-type DeepObject<T> = {
-  [K in keyof T]: T[K] extends object ? DeepObject<T[K]> : T[K];
-};
-
-export type TranslationShape = DeepObject<DefaultSchema>;
+export const translationLoaders = loaders;
