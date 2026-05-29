@@ -1,17 +1,18 @@
 <script lang="ts">
   import { user, username, gun, timestate } from '@/ts/user';
-  import { createAvatar } from '@dicebear/core';
-  import { initials } from '@dicebear/collection';
   import { onMount } from 'svelte';
-  import type { IGunChain, GunCallbackUserCreate, GunDataNode } from 'gun/types';
+  import type { IGunChain, GunCallbackUserCreate } from 'gun/types';
 
   let usernameInput = $state('');
   let passwordInput = $state('');
 
-  const avatar = $derived(createAvatar(initials, {
-    seed: $username,
-    size: 128,
-  }).toDataUri());
+  const avatar = $derived.by(() => {
+    const url = new URL('https://api.dicebear.com/10.x/initials/svg');
+    url.searchParams.set('seed', $username);
+    url.searchParams.set('size', '128');
+    // ... other options
+    return url.href;
+  });
 
   function signout() {
     user.leave()
@@ -39,19 +40,19 @@
     when: number;
   }
 
-  let newMessage = $state('');
+  let newComment = $state('');
   let comments: comment[] = $state([]);
 
   function sendComment(event: SubmitEvent & {currentTarget: EventTarget & HTMLFormElement}) {
     event.preventDefault();
-    const comment = user.get('all').set({ what: newMessage });
+    const comment = user.get('all').set({ what: newComment });
     const index = new Date().toISOString();
     gun.get('comments').get(index).put(comment);
-    newMessage = ''
+    newComment = ''
   }
 
   onMount(() => {
-    gun.get('comments').map().once(async (data, _) => {
+    gun.get('comments').map().once((data, _) => {
         let comment: comment = {
           who: gun.user(data).get('alias'),
           what: data?.what,
@@ -71,7 +72,11 @@
     <img src={avatar} alt="Avatar">
   </div>
 
-  <form onsubmit={sendComment}></form>
+  <form onsubmit={sendComment}>
+    <label for="comment">Comment</label>
+    <textarea name="comment" bind:value={newComment}></textarea>
+    <input type="submit">
+  </form>
 
   <button class="signout-button" onclick={signout}>Sign Out</button>
 {:else}
@@ -87,7 +92,7 @@
 
 {#each comments as comment (comment.when)}
   <div>
-    <h3>{$username}</h3>
-    <p>{comment}</p>
+    <h3>{comment.who}</h3>
+    <p>{comment.what}</p>
   </div>
 {/each}

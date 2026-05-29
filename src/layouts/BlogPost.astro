@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { escapeViewTransitionName } from '@vtbag/utensil-drawer/escape-view-transition-name';
 
 import Layout from './Layout.astro';
+import Comments from '../components/svelte/Comments.svelte';
 
 import '../styles/blog/markdown.css';
 
@@ -28,6 +29,7 @@ const formattedDate = `${pubDate?.getDay()}-${pubDate?.getMonth()}-${pubDate?.ge
 			>{formattedDate}</time
 		>
     <slot />
+    <Comments client:visible></Comments>
 	</article>
 
 	<style>
