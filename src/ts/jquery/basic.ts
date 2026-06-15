@@ -129,7 +129,7 @@ class ElementCollection extends Array<Element | Document> {
     for (let i = 0; i < this.length; i++) {
       const el = this[i];
       if (!ElementDocumentInstanceof.safeParse(el).success) continue;
-      const result = (cb as (el: ElementDocument) => each)(el);
+      const result = (cb as (el: ElementDocument) => each)(el!);
       if (result === false) break;
     }
 
@@ -142,7 +142,7 @@ class ElementCollection extends Array<Element | Document> {
         if (e instanceof Element) e.textContent = text;
       });
     } else {
-      return this[0].textContent;
+      return this[0]?.textContent;
     }
     return this;
   }
