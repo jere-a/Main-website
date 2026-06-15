@@ -4,14 +4,26 @@ type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
 
 const langs = Object.values(Langs) as readonly Lang[];
 
-export const detectLanguage = (lang?: string): Lang =>
-  [
+export const detectLanguage = (lang?: string): Lang => {
+  const candidates = [
     lang,
-    typeof document !== "undefined" ? document.documentElement.lang : undefined,
-    ...(typeof navigator !== "undefined" ? [...navigator.languages, navigator.language] : []),
-  ]
-    .map((l) => l?.toLowerCase().split("-")[0])
-    .find((l): l is Lang => !!l && langs.includes(l as Lang)) ?? defaultLang;
+    document?.documentElement.lang,
+    ...(navigator?.languages ?? []),
+    navigator?.language,
+  ];
+
+  for (const candidate of candidates) {
+    if (!candidate) continue;
+
+    const code = candidate.slice(0, 2).toLowerCase();
+
+    if (langs.includes(code as Lang)) {
+      return code as Lang;
+    }
+  }
+
+  return defaultLang;
+};
 
 export const throttle = <Args extends unknown[]>(
   cb: (...args: Args) => void | Promise<void>,

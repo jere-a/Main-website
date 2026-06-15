@@ -1,8 +1,15 @@
 import { createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 
 import { on, isHoliday } from "./global/index";
+import init from "./posthog.ts";
 
 const main = async () => {
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(init, { timeout: 2000 });
+  } else {
+    setTimeout(init, 1000);
+  }
+
   on(
     document.body,
     "contextmenu",

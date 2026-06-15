@@ -39,12 +39,10 @@ const copyrightText = `${t.footer.copyright} © 2024-${new Date().getFullYear()}
 
   class HackerText extends HTMLElement {
     connectedCallback() {
-      if (this) {
-        const text = value ??= this.innerText;
-        this.addEventListener('mouseover', () => {
-            hackerText(this, text);
-        })
-      }
+      const text = value ??= this?.innerText;
+      this?.addEventListener('mouseover', () => {
+          hackerText(this, text);
+      })
     }
   }
 

@@ -7,7 +7,7 @@ const func = z.union([z.void(), z.promise(z.void())]);
 export const ajaxSchema = z.object({
   type: z.literal(["POST", "GET"]),
   url: z.url(),
-  data: z.any(),
+  data: z.unknown(),
 });
 
 export const ajaxgetSchema = z.object({
