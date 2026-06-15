@@ -53,4 +53,4 @@ export const en = {
     newyear: "New Year",
     halloween: "Halloween",
   },
-};
+} as const;

@@ -16,7 +16,7 @@ export const defaultLocale = "fi";
 const locales = {
   fi: "fi-FI",
   en: "en-US",
-};
+} as const;
 
 export default defineConfig({
   site: siteConfig.url,
