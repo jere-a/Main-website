@@ -5,16 +5,9 @@
 [[repos]]
 repo = "https://github.com/gitleaks/gitleaks"
 rev = "v8.30.1"
-hooks = [
-  { id = "gitleaks" }
-]
+hooks = [{ id = "gitleaks" }]
 
 [[repos]]
 repo = "https://github.com/oxc-project/mirrors-oxlint"
 rev = "v1.69.0"
-hooks = [
-  {
-    id = "oxlint",
-    verbose = true
-  }
-]
+hooks = [{ id = "oxlint", verbose = true }]
