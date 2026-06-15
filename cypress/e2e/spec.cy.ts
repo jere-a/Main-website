@@ -36,9 +36,9 @@ describe("Images", () => {
     cy.visit("/images");
     cy.url().should("include", "/images");
     cy.contains("Kuvat");
-    for (const i in images) {
+    images.forEach((i) => {
       cy.contains(images[i]);
-    }
+    });
   });
 });
 
