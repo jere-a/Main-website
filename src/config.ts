@@ -1,4 +1,4 @@
-import * as z from "zod/mini";
+import * as v from "valibot";
 
 export type SiteConfig = {
   host: string;
@@ -27,7 +27,7 @@ export type SiteConfig = {
 export const siteConfig: SiteConfig = {
   host: "ozze.eu.org",
   get url() {
-    return z.url().parse(`https://${siteConfig.host}`);
+    return v.parse(v.pipe(v.string(), v.url()), `https://${siteConfig.host}`);
   },
   title: "Åzze",
   Blogtitle: "Åzze's Blog",
@@ -47,7 +47,10 @@ export const siteConfig: SiteConfig = {
   },
   urls: {
     get giturl() {
-      return z.url().parse(`https://github.com/${siteConfig.author.contacts.github}/Main-website`);
+      return v.parse(
+        v.pipe(v.string(), v.url()),
+        `https://github.com/${siteConfig.author.contacts.github}/Main-website`,
+      );
     },
   },
 };
