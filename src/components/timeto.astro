@@ -25,10 +25,9 @@ const { unixTime } = Astro.props;
 					),
 					new Date(),
 					{
-						locale:
-							detectLanguage() == 'fi'
-								? (await import('date-fns/locale/fi')).fi
-								: undefined,
+						...(detectLanguage() == 'fi' && {
+							locale: (await import('date-fns/locale/fi')).fi,
+						}),
 					}
 				);
 			}
