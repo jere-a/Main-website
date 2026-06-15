@@ -61,6 +61,7 @@
     "@vitejs/plugin-react": "^6.0.2",
     "arkregex": "^0.0.5",
     "arktype": "^2.2.0",
+    "astro-cloudinary": "^1.3.5",
     "astro-i18n-aut": "^0.7.3",
     "astro-purgecss": "^6.0.1",
     "astro-seo-metadata": "^0.6.0",
