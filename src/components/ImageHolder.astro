@@ -1,17 +1,17 @@
 ---
-import { Picture } from 'astro:assets';
+import { CldImage } from 'astro-cloudinary';
 import '@/global.css';
 
 interface Props {
 	title: string;
-	body?: string;
-	src: ImageMetadata;
+  body?: string;
+  cloudinary_id: string;
 	alt?: string;
 	class?: any;
 	transitionName?: string;
 }
 
-const { class: className, src, title, body, alt, transitionName } = Astro.props;
+const { class: className, cloudinary_id, title, body, alt, transitionName } = Astro.props;
 
 const _altfunc = (): string => {
 	if (alt !== undefined) return alt;
@@ -21,14 +21,17 @@ const _altfunc = (): string => {
 ---
 
 <div class={`card card${transitionName}`}>
-	<div>
-		<Picture
-			src={src}
-			alt={_altfunc()}
-			class={`image ${className}`}
-			formats={['avif', 'webp']}
-			quality={'medium'}
-		/>
+  <div>
+    { cloudinary_id &&
+      <CldImage
+        src={cloudinary_id}
+        class={`image ${className}`}
+        loading="eager"
+        fetchpriority="high"
+        alt={_altfunc()}
+      />
+    }
+
 		<h2 class="title">
 			{title}
 		</h2>

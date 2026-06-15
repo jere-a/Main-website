@@ -6,44 +6,36 @@ import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = (await useTranslations(lang));
 
-import Ghost from '../../data/images/Aamuinen usva.jpg';
-import Sunflower from '../../data/images/auringon kukka 2.jpg';
-import Big_root from '../../data/images/Iso kanto.jpg';
-import NightBridgeWithLights from '../../data/images/Isompi silta pimeällä.jpg';
-import WhiteLittleBridgeAtNight from '../../data/images/silta pimeällä.jpg';
-import BlueSky from '../../data/images/sininen taivas.jpg';
-import winterLandscape from '../../data/images/talvinen maisema 2.jpg';
-
 const images: {
-	src: ImageMetadata;
+	src: string;
 	title: string;
 }[] = [
 	{
-		src: winterLandscape,
+		src: "talvinen_maisema_2_om79rt",
 		title: t.images.winterLandscape,
 	},
 	{
-		src: Big_root,
+		src: "Iso_kanto_epmfrp",
 		title: t.images.bigRoot,
 	},
 	{
-		src: BlueSky,
+		src: "sininen_taivas_lzk8uh",
 		title: t.images.blueSky,
 	},
 	{
-		src: Sunflower,
+		src: "auringon_kukka_2_sluble",
 		title: t.images.sunflower,
 	},
 	{
-		src: Ghost,
+		src: "Aamuinen_usva_wuukjq",
 		title: t.images.morningMist,
 	},
 	{
-		src: NightBridgeWithLights,
+		src: "Isompi_silta_pimeällä_kkeoee",
 		title: t.images.colorfulBridge,
 	},
 	{
-		src: WhiteLittleBridgeAtNight,
+		src: "silta_pimeällä_blhpkq",
 		title: t.images.bridgeAtNight,
 	},
 ];
@@ -58,7 +50,7 @@ const images: {
 		{
 			images.map((image, i) => (
 				<li>
-					<ImageHolder src={image.src} title={image.title} transitionName={`${i}`} />
+					<ImageHolder cloudinary_id={image.src} title={image.title} transitionName={`${i}`} />
 				</li>
 			))
 		}
