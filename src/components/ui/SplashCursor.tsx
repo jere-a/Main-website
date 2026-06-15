@@ -714,10 +714,10 @@ function initSplashCursor(
   );
 
   const blit = (() => {
-    const buffer = gl.createBuffer()!;
+    const buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
-    const elemBuffer = gl.createBuffer()!;
+    const elemBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, elemBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
     gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
@@ -786,14 +786,14 @@ function initSplashCursor(
     param: number,
   ): FBO {
     gl.activeTexture(gl.TEXTURE0);
-    const texture = gl.createTexture()!;
+    const texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, param);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, param);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
-    const fbo = gl.createFramebuffer()!;
+    const fbo = gl.createFramebuffer();
     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
     gl.viewport(0, 0, w, h);
@@ -879,8 +879,8 @@ function initSplashCursor(
   }
 
   function initFramebuffers() {
-    const simRes = getResolution(config.SIM_RESOLUTION!);
-    const dyeRes = getResolution(config.DYE_RESOLUTION!);
+    const simRes = getResolution(config.SIM_RESOLUTION);
+    const dyeRes = getResolution(config.DYE_RESOLUTION);
 
     const texType = ext.halfFloatTexType;
     const rgba = ext.formatRGBA;
@@ -1000,12 +1000,14 @@ function initSplashCursor(
   }
 
   function resizeCanvas() {
-    const width = scaleByPixelRatio(canvas!.clientWidth);
-    const height = scaleByPixelRatio(canvas!.clientHeight);
-    if (canvas!.width !== width || canvas!.height !== height) {
-      canvas!.width = width;
-      canvas!.height = height;
-      return true;
+    if (canvas !== null) {
+      const width = scaleByPixelRatio(canvas.clientWidth);
+      const height = scaleByPixelRatio(canvas.clientHeight);
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+        return true;
+      }
     }
     return false;
   }
@@ -1179,14 +1181,14 @@ function initSplashCursor(
     splat(pointer.texcoordX, pointer.texcoordY, dx, dy, pointer.color);
   }
 
-  function clickSplat(pointer: Pointer) {
+  function clickSplat(pointer: Pointer | undefined) {
     const color = generateColor();
     color.r *= 10;
     color.g *= 10;
     color.b *= 10;
     const dx = 10 * (Math.random() - 0.5);
     const dy = 30 * (Math.random() - 0.5);
-    splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
+    if (pointer) splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
   }
 
   function splat(x: number, y: number, dx: number, dy: number, color: ColorRGB) {
@@ -1195,7 +1197,8 @@ function initSplashCursor(
       gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
     }
     if (splatProgram.uniforms.aspectRatio) {
-      gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas!.width / canvas!.height);
+      if (canvas !== null)
+        gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas.width / canvas.height);
     }
     if (splatProgram.uniforms.point) {
       gl.uniform2f(splatProgram.uniforms.point, x, y);
@@ -1204,7 +1207,7 @@ function initSplashCursor(
       gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0);
     }
     if (splatProgram.uniforms.radius) {
-      gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100)!);
+      gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100));
     }
     blit(velocity.write);
     velocity.swap();
@@ -1225,32 +1228,46 @@ function initSplashCursor(
     return radius;
   }
 
-  function updatePointerDownData(pointer: Pointer, id: number, posX: number, posY: number) {
-    pointer.id = id;
-    pointer.down = true;
-    pointer.moved = false;
-    pointer.texcoordX = posX / canvas!.width;
-    pointer.texcoordY = 1 - posY / canvas!.height;
-    pointer.prevTexcoordX = pointer.texcoordX;
-    pointer.prevTexcoordY = pointer.texcoordY;
-    pointer.deltaX = 0;
-    pointer.deltaY = 0;
-    pointer.color = generateColor();
+  function updatePointerDownData(
+    pointer: Pointer | undefined,
+    id: number,
+    posX: number,
+    posY: number,
+  ) {
+    if (pointer && canvas !== null) {
+      pointer.id = id;
+      pointer.down = true;
+      pointer.moved = false;
+      pointer.texcoordX = posX / canvas.width;
+      pointer.texcoordY = 1 - posY / canvas.height;
+      pointer.prevTexcoordX = pointer.texcoordX;
+      pointer.prevTexcoordY = pointer.texcoordY;
+      pointer.deltaX = 0;
+      pointer.deltaY = 0;
+      pointer.color = generateColor();
+    }
   }
 
-  function updatePointerMoveData(pointer: Pointer, posX: number, posY: number, color: ColorRGB) {
-    pointer.prevTexcoordX = pointer.texcoordX;
-    pointer.prevTexcoordY = pointer.texcoordY;
-    pointer.texcoordX = posX / canvas!.width;
-    pointer.texcoordY = 1 - posY / canvas!.height;
-    pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX)!;
-    pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY)!;
-    pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
-    pointer.color = color;
+  function updatePointerMoveData(
+    pointer: Pointer | undefined,
+    posX: number,
+    posY: number,
+    color: ColorRGB,
+  ) {
+    if (pointer && canvas !== null) {
+      pointer.prevTexcoordX = pointer.texcoordX;
+      pointer.prevTexcoordY = pointer.texcoordY;
+      pointer.texcoordX = posX / canvas.width;
+      pointer.texcoordY = 1 - posY / canvas.height;
+      pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
+      pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
+      pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
+      pointer.color = color;
+    }
   }
 
-  function updatePointerUpData(pointer: Pointer) {
-    pointer.down = false;
+  function updatePointerUpData(pointer: Pointer | undefined) {
+    if (pointer) pointer.down = false;
   }
 
   function correctDeltaX(delta: number) {
@@ -1347,18 +1364,21 @@ function initSplashCursor(
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
-    const color = pointer.color;
-    updatePointerMoveData(pointer, posX, posY, color);
+    if (pointer) {
+      const color = pointer.color;
+      updatePointerMoveData(pointer, posX, posY, color);
+    }
   });
 
   function handleFirstTouchStart(e: TouchEvent) {
     const touches = e.targetTouches;
     const pointer = pointers[0];
     for (let i = 0; i < touches.length; i++) {
-      const posX = scaleByPixelRatio(touches[i].clientX);
-      const posY = scaleByPixelRatio(touches[i].clientY);
+      const touch = touches[i]!;
+      const posX = scaleByPixelRatio(touch.clientX);
+      const posY = scaleByPixelRatio(touch.clientY);
       updateFrame();
-      updatePointerDownData(pointer, touches[i].identifier, posX, posY);
+      updatePointerDownData(pointer, touch.identifier, posX, posY);
     }
     document.body.removeEventListener("touchstart", handleFirstTouchStart);
   }
@@ -1370,9 +1390,10 @@ function initSplashCursor(
       const touches = e.targetTouches;
       const pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
-        const posX = scaleByPixelRatio(touches[i].clientX);
-        const posY = scaleByPixelRatio(touches[i].clientY);
-        updatePointerDownData(pointer, touches[i].identifier, posX, posY);
+        const touch = touches[i]!;
+        const posX = scaleByPixelRatio(touch.clientX);
+        const posY = scaleByPixelRatio(touch.clientY);
+        updatePointerDownData(pointer, touch.identifier, posX, posY);
       }
     },
     false,
@@ -1383,9 +1404,11 @@ function initSplashCursor(
     (e) => {
       const touches = e.targetTouches;
       const pointer = pointers[0];
+      if (!pointer) return;
       for (let i = 0; i < touches.length; i++) {
-        const posX = scaleByPixelRatio(touches[i].clientX);
-        const posY = scaleByPixelRatio(touches[i].clientY);
+        const touch = touches[i]!;
+        const posX = scaleByPixelRatio(touch.clientX);
+        const posY = scaleByPixelRatio(touch.clientY);
         updatePointerMoveData(pointer, posX, posY, pointer.color);
       }
     },
