@@ -1,5 +1,3 @@
-import posthog from "posthog-js";
-
 import { type DefaultSchema, type Lang, useTranslations } from "@/i18n";
 import { detectLanguage, getTemporal } from "@/ts/global";
 
@@ -77,6 +75,8 @@ const dateMs = ([month, day, offset = 0]: HolidayDate, year: number): number =>
     .epochMilliseconds;
 
 export async function isHoliday(): Promise<ActiveHoliday | null> {
+  const posthog = (await import("posthog-js")).default;
+
   if (!posthog.featureFlags.isFeatureEnabled("holiday-effects")) {
     return null;
   }
