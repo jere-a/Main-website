@@ -37,7 +37,7 @@ const kaoid = 'kao';
 
 <html class:list={[{ dark: isDark }]} lang={lang}>
 	<head>
-		<CommonHead title={title} />
+		<CommonHead title={title ?? ""} />
 		<Font cssVariable="--font-creepster" />
 		<Font cssVariable="--font-butcherman" />
 		<slot name="head" />
