@@ -3,6 +3,7 @@
 declare const self: ServiceWorkerGlobalScope;
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
+import type { WorkboxPlugin } from "workbox-core";
 import { clientsClaim, skipWaiting } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import * as navigationPreload from "workbox-navigation-preload";
@@ -26,10 +27,10 @@ const sharedPlugins = [
   new ExpirationPlugin({
     maxEntries: 200,
     maxAgeSeconds: 30 * 24 * 60 * 60,
-  }),
+  }) as WorkboxPlugin,
   new CacheableResponsePlugin({
     statuses: [0, 200],
-  }),
+  }) as WorkboxPlugin,
 ];
 
 registerRoute(
@@ -71,10 +72,10 @@ registerRoute(
       new ExpirationPlugin({
         maxEntries: 350,
         maxAgeSeconds: 30 * 24 * 60 * 60,
-      }),
+      }) as WorkboxPlugin,
       new CacheableResponsePlugin({
         statuses: [0, 200],
-      }),
+      }) as WorkboxPlugin,
     ],
   }),
 );
@@ -89,10 +90,10 @@ registerRoute(
       new ExpirationPlugin({
         maxEntries: 50,
         maxAgeSeconds: 30 * 24 * 60 * 60,
-      }),
+      }) as WorkboxPlugin,
       new CacheableResponsePlugin({
         statuses: [0, 200],
-      }),
+      }) as WorkboxPlugin,
     ],
   }),
 );
