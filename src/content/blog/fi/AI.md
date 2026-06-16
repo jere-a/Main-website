@@ -1,16 +1,20 @@
 ---
-title: "Tekoäly ja sen hyödyllisyydet"
-pubDate: 2025-11-30
+title: "Tekoäly"
+pubDate: 2026-06-25
 lang: "fi"
+draft: true
 ---
 
-Mikä on tekoäly ja mikä on sen käyttö nykymaailmassa ja etenkin kouluissa, josta
-varttuu meidän ihmiskuntamme tulevaisuus vai onko tulevaisuus ainoastaan
-koneiden ja isojen yhtiöiden hallussa jotka yrittävät huojata meitä menemään
-heidän pillinsä tahtiin.
+Tekoäly on nykyään aika pitkältä osalta meidän arjessamme vaikka jotkut ei sitä
+halua, mutta mikä tekoäly pohjimmiltaan on, kun on nykyään niin paljon erilaisia
+tekoäly palveluita ja ohjelmia.
 
-Maailmassa on nykypäivänä todella monia erilaisia tekoälyn muotoja. On
-Tekstipohjaisia chat botteja sekä erilaiseen taiteeseen tarkoitettua
-koneen/tekoälyn tekemää työtä kuten musiikkiin, videoihin ja kuviin. Mutta onko
-ihan kaikki edes tarpeen ja mitä kaikesta siitä tekoälyn asioiden keksimisestä
-tyhjästä tulee tai lyhyemmin tekoälyn hallusinaatiosta.
+Tekoäly yksinkertaisesti sanottuna on tietokone joka tekee paljon hommia että se
+saa tuotettua tekstiä valmiiksi opetetusta tiedosta jota isot tekoäly yhtiöt
+tekee ja kuluttaa luonnon varoja kun me käytetään yhtiöiden tekemiä tekoäly
+palveluita niin paljon.
+
+Isoimpana tekoälyn tekijänä on [ChatGPT] [OpenAI]:ta
+
+[ChatGPT]: https://chatgpt.com/overview "ChatGPT | Tekoäly-chatbotti tutustumiseen, oppimiseen ja luomiseen"
+[OpenAI]: https://openai.com/about/ "Tietoja | OpenAI"
