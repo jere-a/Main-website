@@ -1,7 +1,6 @@
 @import "./styles/prism-one-dark.css";
 
 @layer base {
-
   :root,
   :host {
     --background: 0 0% 100%;
@@ -31,11 +30,11 @@
     --chart-5: 27 87% 67%;
 
     --font-sans:
-      ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono:
-      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-      "Courier New", monospace;
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+      monospace;
     --spacing: 0.25rem;
     --font-weight-bold: 700;
     --default-font-family: var(--font-sans);
@@ -45,10 +44,12 @@
     --aaccent: 136, 58, 234;
     --accent-light: 224, 204, 250;
     --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(45deg,
-        rgb(var(--aaccent)),
-        rgb(var(--accent-light)) 30%,
-        white 60%);
+    --accent-gradient: linear-gradient(
+      45deg,
+      rgb(var(--aaccent)),
+      rgb(var(--accent-light)) 30%,
+      white 60%
+    );
 
     --border-width: 1px;
     --primary-700: hsl(243, 26%, 15%);
@@ -134,8 +135,7 @@
   pre {
     font-family: var(--default-mono-font-family);
     font-feature-settings: var(--default-mono-font-feature-settings, normal);
-    font-variation-settings: var(--default-mono-font-variation-settings,
-        normal);
+    font-variation-settings: var(--default-mono-font-variation-settings, normal);
     font-size: 1em;
   }
 
