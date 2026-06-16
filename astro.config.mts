@@ -108,7 +108,7 @@ export default defineConfig({
         hashes: ["sha256-lfvLzRh67u2qNRREwSYQw1jS4uxEC3+oHCb9rqdTDLA="],
       },
       scriptDirective: {
-        resources: ["'self'", "cdn.jsdelivr.net", "static.cloudflareinsights.com"],
+        resources: ["'self'", "t.ozze.eu.org", "cdn.jsdelivr.net", "static.cloudflareinsights.com"],
       },
     },
   },
