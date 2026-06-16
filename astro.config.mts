@@ -103,7 +103,11 @@ export default defineConfig({
       { hostname: "keepandroidopen.org", protocol: "https", port: "443" },
     ],
     csp: {
-      directives: ["default-src 'self'", "img-src 'self' https://res.cloudinary.com"],
+      directives: [
+        "default-src 'self'",
+        "img-src 'self' https://res.cloudinary.com",
+        "connect-src 'self' https://t.ozze.eu.org",
+      ],
       styleDirective: {
         hashes: ["sha256-lfvLzRh67u2qNRREwSYQw1jS4uxEC3+oHCb9rqdTDLA="],
       },
