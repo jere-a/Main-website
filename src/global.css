@@ -54,8 +54,10 @@
     --pirimary-600: hsl(252, 9%, 22%);
     --primary-500: hsl(259, 13%, 28%);
     --surface-3: hsl(243, 26%, 15%);
-    --border-1: hsl(259, 26%, 28%); /* top */
-    --border-2: hsl(252, 9%, 22%); /* bottom */
+    --border-1: hsl(259, 26%, 28%);
+    /* top */
+    --border-2: hsl(252, 9%, 22%);
+    /* bottom */
   }
 
   .dark {
@@ -90,10 +92,8 @@
   ::after,
   ::backdrop,
   ::file-selector-button {
-    box-sizing: border-box;
-    margin: 0;
     padding: 0;
-    border: 0 solid;
+    box-sizing: border-box;
   }
 
   html,
@@ -114,7 +114,6 @@
   h4,
   h5,
   h6 {
-    font: inherit;
     text-wrap: balance;
   }
 
@@ -201,7 +200,6 @@
   p,
   li,
   figcaption {
-    max-width: 70ch;
     text-wrap: pretty;
   }
 

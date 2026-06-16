@@ -63,12 +63,12 @@ const translatePath = useTranslatedPath(lang);
 				body={t.nav.blog.desc}
 				transitionName="2"
 			/>
-		</ul>
+    </ul>
 	</main>
 	<style>
 		main {
 			margin-inline: auto;
-			width: 800px;
+      width: clamp(200px, 85dvw, 1000px);
 			max-width: calc(100% - 2rem);
 			line-height: 1.6;
 		}
@@ -83,7 +83,6 @@ const translatePath = useTranslatedPath(lang);
 			line-height: 1;
 			text-align: center;
 			transform: translateY(0.6rem);
-			margin-bottom: 0.75em;
 		}
 		p,
 		ul {
@@ -97,21 +96,19 @@ const translatePath = useTranslatedPath(lang);
 			background-size: 400%;
 		}
 		.instructions {
-			margin-bottom: 0.5rem;
 			border: 1px solid rgba(var(--accent-light), 25%);
 			background: linear-gradient(
 				rgba(var(--accent-dark), 66%),
 				rgba(var(--accent-dark), 33%)
 			);
-			padding: 1.4rem;
+			padding: 1.5rem;
 			border-radius: 1rem;
-			max-width: 80ch;
 		}
 
 		.link-grid {
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: 0.5rem;
+      gap: 0.5rem;
 		}
 
 		.email-link {
