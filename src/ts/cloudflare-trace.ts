@@ -1,7 +1,5 @@
 import { type } from "arktype";
 
-import { siteConfig } from "@/config";
-
 const ParsedDataSchema = type({
   ip: "string",
   uag: "string",
@@ -17,7 +15,7 @@ const TRACE_KEYS = ["ip", "uag", "tls", "loc", "http", "h"] as const;
 type TraceKey = (typeof TRACE_KEYS)[number];
 
 export async function fetchData(): Promise<ParsedData> {
-  const res = await fetch(`${siteConfig.url}/cdn-cgi/trace`);
+  const res = await fetch(`${window.location.origin}/cdn-cgi/trace`);
   const text = await res.text();
 
   const raw: Partial<Record<TraceKey, string>> = {};

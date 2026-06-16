@@ -1,5 +1,3 @@
-import * as v from "valibot";
-
 export type SiteConfig = {
   host: string;
   url: string;
@@ -27,7 +25,7 @@ export type SiteConfig = {
 export const siteConfig: SiteConfig = {
   host: "ozze.eu.org",
   get url() {
-    return v.parse(v.pipe(v.string(), v.url()), `https://${siteConfig.host}`);
+    return `https://${siteConfig.host}`;
   },
   title: "Åzze",
   Blogtitle: "Åzze's Blog",
@@ -47,10 +45,7 @@ export const siteConfig: SiteConfig = {
   },
   urls: {
     get giturl() {
-      return v.parse(
-        v.pipe(v.string(), v.url()),
-        `https://github.com/${siteConfig.author.contacts.github}/Main-website`,
-      );
+      return `https://github.com/${siteConfig.author.contacts.github}/Main-website`;
     },
   },
 };
