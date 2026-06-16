@@ -21,22 +21,6 @@ export default {
   build: {
     sourcemap: true,
     cssMinify: "lightningcss",
-    rolldownOptions: {
-      output: {
-        minify: true,
-        topLevelVar: true,
-        comments: {
-          legal: true,
-          annotation: false,
-          jsdoc: false,
-        },
-        sourcemap: true,
-      },
-      preserveEntrySignatures: false,
-      optimization: {
-        inlineConst: { mode: "smart", pass: 25 },
-      },
-    },
   },
   plugins: [oxlintPlugin()],
 } satisfies UserConfig;
