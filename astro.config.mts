@@ -3,9 +3,8 @@ import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
-import playformCompress from "@playform/compress";
 import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
-import purgecss from "astro-purgecss";
+import pageInsight from "astro-page-insight";
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
 import rehypeMathjax from "rehype-mathjax";
 import remarkMath from "remark-math";
@@ -35,7 +34,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     svelte(),
-    preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"] }),
+    preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"], devtools: true }),
     /* AstroPWA({
           strategies: 'injectManifest',
           srcDir: 'src',
@@ -90,35 +89,11 @@ export default defineConfig({
       filter: filterSitemapByDefaultLocale({ defaultLocale }),
     }),
     /* partytown(), */
-    purgecss({
-      keyframes: false,
-      safelist: {
-        standard: ["halloween", "butcherman", "lightrope"],
-        greedy: [
-          /*astro*/
-        ],
-      },
-      extractors: [
-        {
-          extractor: (content) => content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
-          extensions: ["astro", "html"],
-        },
-      ],
-    }),
-    playformCompress({
-      Image: false,
-      CSS: { lightningcss: { minify: true } },
-      SVG: false,
-      JavaScript: false,
-      Parser: {
-        CSS: "lightningcss",
-      },
-    }),
+    pageInsight(),
   ],
   trailingSlash: "never",
   build: {
     format: "file",
-    inlineStylesheets: "always",
   },
   scopedStyleStrategy: "class",
   security: {
@@ -127,20 +102,22 @@ export default defineConfig({
       { hostname: "gc.zgo.at", protocol: "https", port: "443" },
       { hostname: "keepandroidopen.org", protocol: "https", port: "443" },
     ],
-    /* csp: {
-            styleDirective: {
-                resources: ["'self'", "'nonce-preloadscripts'"],
-            },
-            scriptDirective: {
-                resources: ["'self'", 'cdn.jsdelivr.net', "'nonce-preloadscripts'"],
-            },
-        }, */
+    csp: {
+      directives: ["default-src 'self'", "img-src 'self' https://res.cloudinary.com"],
+      styleDirective: {
+        hashes: ["sha256-lfvLzRh67u2qNRREwSYQw1jS4uxEC3+oHCb9rqdTDLA="],
+      },
+      scriptDirective: {
+        resources: ["'self'", "cdn.jsdelivr.net", "static.cloudflareinsights.com"],
+      },
+    },
   },
   markdown: {
     processor: unified({
       remarkPlugins: [remarkReadingTime, remarkToc, remarkMath],
       rehypePlugins: [rehypeMathjax],
     }),
+    syntaxHighlight: "prism",
   },
   fonts: [
     {
