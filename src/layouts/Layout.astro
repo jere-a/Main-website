@@ -15,7 +15,8 @@ interface Props {
 	title?: string;
 	isNavbar?: boolean;
 	isFooter?: boolean;
-	isDark?: boolean;
+  isDark?: boolean;
+  isBanner?: boolean;
 	isSplash?: boolean;
 	isCopyright?: boolean;
 	activeNav?: string;
@@ -25,7 +26,8 @@ const {
 	title,
 	isNavbar = true,
 	isFooter = true,
-	isDark = true,
+  isDark = true,
+  isBanner = true,
 	isSplash = siteFeatures.params.functions.splashcursor,
 	activeNav,
 } = Astro.props;
@@ -46,17 +48,19 @@ const kaoid = 'kao';
 		{isSplash && <SplashCursor client:only="preact" />}
 		<header>
 			{isKao && <div id={kaoid} />}
-			{isNavbar && <NavMenu active={activeNav} />}
+      {isNavbar && <NavMenu active={activeNav} />}
 		</header>
 		<slot />
 		{siteFeatures.params.cookies.cookiesEnabled && <Cookies />}
 		{isFooter && <Footer />}
-		<script
-			is:inline
-			blocking="render"
-			crossorigin="anonymous"
-			src={`https://cdn.jsdelivr.net/gh/keepandroidopen/keepandroidopen.github.io@master/public/banner.min.js?size=mini&id=${kaoid}`}
-		></script>
+    {isBanner &&
+      <script
+        is:inline
+        blocking="render"
+        crossorigin="anonymous"
+        src={`https://cdn.jsdelivr.net/gh/keepandroidopen/keepandroidopen.github.io@master/public/banner.min.js?size=mini&id=${kaoid}`}
+      ></script>
+    }
 	</body>
 </html>
 

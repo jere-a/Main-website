@@ -1,38 +1,33 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { getLangFromUrl } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { escapeViewTransitionName } from '@vtbag/utensil-drawer/escape-view-transition-name';
 
-const lang: string = getLangFromUrl(Astro.url);
-const blogEntries = await getCollection('blog');
+import { JSDOM } from 'jsdom';
+import DOMPurify from 'dompurify';
+import truncateHTML from 'truncate-html';
+
+interface Props {
+  nav?: boolean;
+  banner?: boolean;
+}
+
+const { nav = true, banner = true } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = (await useTranslations(lang));
+
+const blogEntries = (await getCollection('blog', ({data}) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+})).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<Layout title="Blogs" activeNav="blog" isCopyright={false}>
+<Layout title="Blogs" activeNav="blog" isNavbar={nav} isBanner={banner} isCopyright={false}>
+  <h1>{t.nav.blog.title}</h1>
 	<ul>
 		{
-			blogEntries.map(async (post: any) => {
+			blogEntries.map(async (post) => {
 				const [postLang, ..._]: string[] = post.id.split('/');
-				const formattedDate = () => {
-					const d =
-						post.data.pubDate?.getDay() +
-						'-' +
-						post.data.pubDate?.getMonth() +
-						'-' +
-						post.data.pubDate?.getFullYear();
-
-					return d.toString();
-				};
-
-				const formattedText = (text: string): string => {
-					return (
-						text
-							.replace(/import\s.*?from\s.*?;/g, '')
-							.replace(/<\s.*?\/\s.*?>;/g, '')
-							.substring(0, 220) + '...'
-					);
-				};
-
 				const postTitle = post.data.title;
 				const bpostTitle = 'btitle' + postTitle;
 				const bpostTime = 'btime' + postTitle;
@@ -42,7 +37,7 @@ const blogEntries = await getCollection('blog');
 					return (
 						<li class="posts">
 							<a class="box" href={`/blog/${post.id}`}>
-								<h2
+								<h3
 									class="title fade-transition"
 									aria-label={postTitle}
 									style={{
@@ -50,7 +45,7 @@ const blogEntries = await getCollection('blog');
 									}}
 								>
 									{postTitle}
-								</h2>
+								</h3>
 								<time
 									class="publish-date fade-transition"
 									datetime={post.data.pubDate?.toISOString()}
@@ -58,15 +53,15 @@ const blogEntries = await getCollection('blog');
 										viewTransitionName: escapeViewTransitionName(bpostTime),
 									}}
 								>
-									{formattedDate}
+									{post.data.pubDate.toLocaleDateString()}
 								</time>
-								<p
-									aria-label={post.data.content}
+								<div
+									aria-label={post.data.title}
 									class="text fade-transition"
-									style={{ viewTransitionName: bpostContent }}
-								>
-									{formattedText(post.body)}
-								</p>
+                  style={{ viewTransitionName: bpostContent }}
+                >
+                  <Fragment set:html={DOMPurify(new JSDOM('').window).sanitize(truncateHTML(post.rendered?.html ?? "", 30, { byWords: true }))} />
+								</div>
 							</a>
 						</li>
 					);
@@ -81,23 +76,27 @@ const blogEntries = await getCollection('blog');
 	}
 
 	body {
-		margin: auto;
-		text-align: left;
-		word-wrap: break-word;
-		overflow-wrap: break-word;
-		scroll-behavior: smooth;
 		display: flex;
 	}
 
 	ul {
-		list-style-type: none;
 		padding: unset;
 		align-self: center;
 	}
 
 	ul li {
-		margin-top: 0.4em;
-	}
+    margin-top: 0.4em;
+    width: clamp(200px, 85dvw, 1000px);
+  }
+
+  h1 {
+    margin-inline: auto;
+  }
+
+  h3 {
+    padding: 0;
+    margin: 0;
+  }
 
 	.box {
 		display: grid;
@@ -105,7 +104,7 @@ const blogEntries = await getCollection('blog');
 		line-height: var(--line-height);
 		border: 1px solid rgba(var(--accent-light), 25%);
 		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
-		padding: 1.125rem;
+		padding: 1.5rem;
 		border-radius: 10px;
 	}
 
@@ -127,8 +126,12 @@ const blogEntries = await getCollection('blog');
 
 		max-height: calc(var(--max-lines) * 1em * var(--line-height));
 		line-height: var(--line-height);
-		overflow: hidden;
+    overflow: hidden;
 
-		color: oklch(68.69% 0 0);
+    color: oklch(68.69% 0 0);
+
+    p {
+      margin: .5rem 0 .5rem 0;
+    }
 	}
 </style>
