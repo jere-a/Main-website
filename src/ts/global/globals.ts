@@ -87,12 +87,6 @@ export function getQueryParam(name: string): string | null {
   return params.get(name);
 }
 
-export function isPWA(): boolean {
-  const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
-  const isIOS = (window.navigator as any).standalone === true;
-  return isStandalone || isIOS;
-}
-
 export async function getTemporal(): Promise<typeof import("@js-temporal/polyfill").Temporal> {
   const g = globalThis as unknown as {
     Temporal?: typeof import("@js-temporal/polyfill").Temporal;

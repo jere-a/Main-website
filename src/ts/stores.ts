@@ -1,7 +1,11 @@
 import { fromMediaQuery } from "@nanostores/media-query";
 import { atom } from "nanostores";
 
-import { isPWA } from "./global";
+function isPWA(): boolean {
+  const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
+  const isIOS = (window.navigator as any).standalone === true;
+  return isStandalone || isIOS;
+}
 
 export const isPrefersReducedMotion = fromMediaQuery("(prefers-reduced-motion: reduce)");
 
