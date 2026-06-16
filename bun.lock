@@ -10,6 +10,7 @@
         "@astrojs/check": "^0.9.9",
         "@astrojs/compiler-rs": "^0.2.2",
         "@astrojs/db": "^0.21.3",
+        "@astrojs/markdown-remark": "^7.2.0",
         "@astrojs/mdx": "^6.0.3",
         "@astrojs/partytown": "2.1.7",
         "@astrojs/preact": "^5.1.5",
@@ -57,6 +58,7 @@
         "katex": "^0.17.0",
         "lightningcss": "^1.32.0",
         "lucide-react": "^1.18.0",
+        "mdast-util-to-string": "^4.0.0",
         "nano-staged": "^1.0.2",
         "next": "^16.2.9",
         "oxfmt": "^0.54.0",
@@ -65,6 +67,7 @@
         "prettier-plugin-astro": "^0.14.1",
         "purgecss": "^8.0.0",
         "purgecss-from-html": "^8.0.0",
+        "reading-time": "^1.5.0",
         "rehype-mathjax": "^7.1.0",
         "remark-math": "^6.0.0",
         "remark-toc": "^9.0.0",
@@ -2691,6 +2694,8 @@
     "read-cache": ["read-cache@1.0.0", "", { "dependencies": { "pify": "2.3.0" } }, "sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA=="],
 
     "readdirp": ["readdirp@4.1.2", "", {}, "sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg=="],
+
+    "reading-time": ["reading-time@1.5.0", "", {}, "sha512-onYyVhBNr4CmAxFsKS7bz+uTLRakypIe4R+5A824vBSkQy/hB3fZepoVEf8OVAxzLvK+H/jm9TzpI3ETSm64Kg=="],
 
     "recma-build-jsx": ["recma-build-jsx@1.0.0", "", { "dependencies": { "@types/estree": "1.0.8", "estree-util-build-jsx": "3.0.1", "vfile": "6.0.3" } }, "sha512-8GtdyqaBcDfva+GUKDr3nev3VpKAhup1+RvkMvUxURHpW7QyIvk9F5wz7Vzo06CEMSilw6uArgRqhpiUcWp8ew=="],
 

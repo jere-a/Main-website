@@ -1,3 +1,4 @@
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
@@ -10,6 +11,7 @@ import rehypeMathjax from "rehype-mathjax";
 import remarkMath from "remark-math";
 import remarkToc from "remark-toc";
 
+import { remarkReadingTime } from "./remark-reading-time.mts";
 import { siteConfig } from "./src/config";
 
 export const defaultLocale = "fi";
@@ -135,11 +137,10 @@ export default defineConfig({
         }, */
   },
   markdown: {
-    remarkPlugins: [
-      [remarkToc, { heading: "toc", maxDepth: 3 }],
-      [remarkMath, {}],
-    ],
-    rehypePlugins: [rehypeMathjax],
+    processor: unified({
+      remarkPlugins: [remarkReadingTime, remarkToc, remarkMath],
+      rehypePlugins: [rehypeMathjax],
+    }),
   },
   fonts: [
     {
