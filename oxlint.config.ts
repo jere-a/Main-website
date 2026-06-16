@@ -8,5 +8,5 @@ export default defineConfig({
     "no-console": "error",
     "unicorn/escape-case": "warn",
   },
-  plugins: ["eslint", "typescript", "unicorn", "oxc", "import", "vitest"],
+  plugins: ["eslint", "typescript", "unicorn", "react", "oxc", "promise", "import", "vitest"],
 });
