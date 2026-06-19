@@ -7,8 +7,42 @@ prek = "latest"
 description = "Run dev environment for live website changes"
 run = "bun run dev"
 
+[tasks.fmt-check]
+description = "Run formatter check"
+run = "bun run fmt:check"
+
+[tasks.lint]
+description = "Lint the code"
+run = "bun run lint"
+
+[tasks.check-types]
+description = "Type-check with tsc"
+run = "bun run check-types"
+
+[tasks.test-check]
+description = "Run astro check"
+run = "bun run test:check"
+
+[tasks.test-vitest]
+description = "Run vitest tests"
+run = "bun run test:vitest"
+
+[tasks.check]
+depends = ["fmt-check", "lint", "check-types", "test-check", "test-vitest"]
+description = "Run all checks and tests in parallel"
+run = "true"
+
+[tasks.test]
+depends = ["check-types", "test-check", "test-vitest"]
+description = "Run all tests in parallel"
+run = "true"
+
+[tasks.fmt]
+description = "Format code"
+run = "bun run fmt"
+
 [tasks.build]
-depends = "test"
+depends = "check"
 description = "Build the web Application"
 run = "bun run build"
 
@@ -16,17 +50,3 @@ run = "bun run build"
 depends = "build"
 description = "Preview the web Application locally"
 run = "bun run preview"
-
-[tasks.test]
-depends = "lint"
-description = "Test the web Applications for compile errors"
-run = "bun run test"
-
-[tasks.fmt-check]
-description = "Run formatter in package.json"
-run = "bun run fmt:check"
-
-[tasks.lint]
-depends = "fmt-check"
-description = "Lint the code"
-run = "bun run lint"
