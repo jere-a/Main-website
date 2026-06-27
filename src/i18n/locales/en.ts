@@ -7,7 +7,7 @@ export const en = {
       desc: "Come to see what images i have taken.",
     },
     blog: {
-      title: "Blog",
+      title: "Blogs",
       desc: "Go check out my blog.",
     },
   },
