@@ -33,7 +33,6 @@ const {
 } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 
-const isKao = true;
 const kaoid = 'kao';
 ---
 
@@ -47,7 +46,7 @@ const kaoid = 'kao';
 	<body>
 		{isSplash && <SplashCursor client:only="preact" />}
 		<header>
-			{isKao && <div id={kaoid} />}
+			{isBanner && <div id={kaoid} />}
       {isNavbar && <NavMenu active={activeNav} />}
 		</header>
 		<slot />
