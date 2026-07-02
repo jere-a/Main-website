@@ -37,6 +37,9 @@ export const en = {
     morningMist: "Morning Mist.",
     colorfulBridge: "Colorful bridge at night",
     bridgeAtNight: "Bridge at night",
+    woodbird: "Wood Bird",
+    iris: "Siperian Iris",
+    lake: "Small water area",
   },
   notfound: {
     title: "Not Found",
