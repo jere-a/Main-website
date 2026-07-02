@@ -1,22 +1,19 @@
 version: 2
 
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: "bun"
     directory: "/"
     schedule:
       interval: "weekly"
-    versioning-strategy: increase
     groups:
       dependencies:
         patterns:
           - "*"
-        exclude-patterns:
-          - "@types/*"
       dev-dependencies:
         patterns:
-          - "@types/*"
+          - "*"
     commit-message:
-      prefix: "deps"
+      prefix: "build"
 
   - package-ecosystem: "github-actions"
     directory: "/"
