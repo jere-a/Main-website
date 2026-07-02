@@ -121,7 +121,7 @@ const blogEntries = (await getCollection('blog', ({data}) => {
 	}
 
 	.publish-date {
-		color: var(--text-muted);
+		color: var(--color-muted);
 		font-size: 0.875rem;
 		font-style: italic;
 	}
@@ -133,7 +133,7 @@ const blogEntries = (await getCollection('blog', ({data}) => {
 		line-height: var(--line-height);
     overflow: hidden;
 
-    color: oklch(68.69% 0 0);
+    color: var(--color-muted);
 
     p {
       margin: .5rem 0 .5rem 0;

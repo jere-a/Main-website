@@ -9,7 +9,7 @@ interface Props {
 const { href, title, body, transitionName } = Astro.props;
 ---
 
-<li class={`card card${transitionName}`}>
+<li class={`card card${transitionName} gradient-border glass-surface`}>
 	<a href={href}>
 		<h2 aria-label={title} class="title">
 			{title}
@@ -26,12 +26,9 @@ const { href, title, body, transitionName } = Astro.props;
 		padding: 1px;
 		background-size: 400%;
 		border-radius: 1rem;
-		position: relative;
-		background: hsl(from var(--surface-3) h s l / 0.25);
-		backdrop-filter: blur(20px);
 		background-position: 100%;
 		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(20px);
 	}
 	.card > a {
 		width: 100%;
@@ -52,17 +49,5 @@ const { href, title, body, transitionName } = Astro.props;
 		margin-bottom: 0;
 	}
 
-	.card::before {
-		content: '';
-		position: absolute;
-		z-index: -1;
-		inset: 0;
-		border-radius: inherit;
-		border: var(--border-width) solid transparent;
-		background: linear-gradient(var(--border-1), var(--border-2)) border-box;
-		mask:
-			linear-gradient(black, black) border-box,
-			linear-gradient(black, black) padding-box;
-		mask-composite: subtract;
-	}
+
 </style>

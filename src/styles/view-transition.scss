@@ -1,8 +1,5 @@
-@use "sass:list";
-
 $page-transition-animation-timing-function: cubic-bezier(0.465, 0.183, 153, 0.946);
 $page-transition-animation-duration: 400ms;
-$swap-angle: 25deg;
 $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
 
 @supports (view-transition-name: content) {
@@ -27,7 +24,6 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     --footer-height: 67px;
     --bottom-bar-height: 67px;
     --safe-area-max-inset-bottom: env(safe-area-max-inset-bottom, 36px);
-    --swap-angle: 25deg;
   }
 
   @media screen and (prefers-reduced-motion: no-preference) {
@@ -40,7 +36,7 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     animation-duration: $page-transition-animation-duration;
   }
 
-  #main-footer {
+  .main-footer {
     view-transition-name: main-footer;
     view-transition-class: slide-bottom;
   }
@@ -97,6 +93,7 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
       transform: translateY(calc(100% * var(--direction)));
       opacity: 0;
     }
+
     100% {
       transform: translateY(0%);
     }
@@ -106,6 +103,7 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     0% {
       transform: translateY(0%);
     }
+
     100% {
       transform: translateY(calc(100% * var(--direction)));
       opacity: 0;
@@ -129,6 +127,7 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
       transform: translateX(100%);
       opacity: 0;
     }
+
     100% {
       transform: translateX(0%);
       opacity: 1;
@@ -140,6 +139,7 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
       transform: translateX(0%);
       opacity: 1;
     }
+
     100% {
       transform: translateX(100%);
       opacity: 0;
@@ -162,11 +162,16 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     }
   }
 
+  .fade-transition {
+    view-transition-class: fade;
+  }
+
   @keyframes Bottom-In {
     from {
       transform: translateY(60px);
       opacity: 0;
     }
+
     to {
       transform: translateY(0);
       opacity: 1;

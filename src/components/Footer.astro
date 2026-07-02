@@ -13,7 +13,7 @@ const { isCopyright = true } = Astro.props;
 const copyrightText = `${t.footer.copyright} © 2024-${new Date().getFullYear()} Jere L`;
 ---
 
-<footer id="main-footer">
+<footer class="main-footer">
 	{
     isCopyright && ( <hacker-text>{copyrightText}</hacker-text> )
 	}
