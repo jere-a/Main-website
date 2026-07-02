@@ -7,7 +7,7 @@ export const fi = {
       desc: "Käy katsomassa minun ottamiani kuvia.",
     },
     blog: {
-      title: "Blogi",
+      title: "Blogit",
       desc: "Käy katsomassa blogiani.",
     },
   },
