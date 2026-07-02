@@ -38,6 +38,9 @@ export const fi = {
     morningMist: "Aamuinen usva.",
     colorfulBridge: "Värikäs silta pimeällä",
     bridgeAtNight: "Silta pimeällä",
+    woodbird: "Puu lintu",
+    iris: "Siperian Kurjen miekka",
+    lake: "Pieni vesi alue",
   },
   notfound: {
     title: "Ei löydetty",
