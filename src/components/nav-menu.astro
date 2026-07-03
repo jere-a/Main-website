@@ -55,7 +55,7 @@ const links: {
 		<ul class="nav-list" data-orientation="horizontal" dir="ltr">
 			{
 				links.map((item) => (
-					<li class="nav-card">
+					<li class="nav-card gradient-border glass-surface">
 						<a
 							href={item.href}
 							class={`${default_class_links} ${activefunc(active, item.active)}`}
@@ -148,31 +148,13 @@ const links: {
 	}
 
 	.nav-card {
-		--border-width: 1px;
 		border-radius: 0.25rem;
-		position: relative;
 		transition: filter 150ms ease-in-out;
-
-		background: hsl(from var(--surface-3) h s l / 0.25);
 		backdrop-filter: blur(20px);
 	}
 
 	.nav-card:hover {
 		cursor: pointer;
 		filter: brightness(180%) saturate(150%);
-	}
-
-	.nav-card::before {
-		content: '';
-		position: absolute;
-		z-index: -1;
-		inset: 0;
-		border-radius: inherit;
-		border: var(--border-width) solid transparent;
-		background: linear-gradient(var(--border-1), var(--border-2)) border-box;
-		mask:
-			linear-gradient(black, black) border-box,
-			linear-gradient(black, black) padding-box;
-		mask-composite: subtract;
 	}
 </style>

@@ -1,9 +1,9 @@
 .halloween {
-  font-family: var(--font-creepster), var(--font-family);
+  font-family: var(--font-creepster), var(--font-sans);
 }
 
 .butcherman {
-  font-family: var(--font-butcherman), var(--font-family);
+  font-family: var(--font-butcherman), var(--font-sans);
   font-weight: 300;
   line-height: 1.4;
   font-size: 1em;

@@ -79,7 +79,7 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
     background-repeat: no-repeat;
     transition: background-size 400ms;
     text-decoration: none;
-    color: grey;
+    color: var(--color-muted);
 
     &:hover {
       background-size: 0 1px,
@@ -89,13 +89,13 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
 
   time {
     font-size: 0.875em;
-    color: grey;
+    color: var(--color-muted);
     display: block;
   }
 
   .read-time {
     font-size: 0.875em;
-    color: grey;
+    color: var(--color-muted);
     margin: 0;
   }
 </style>
