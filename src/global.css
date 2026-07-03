@@ -33,8 +33,8 @@
     --color-surface: hsl(243, 26%, 15%);
     --color-border-1: hsl(259, 26%, 28%);
     --color-border-2: hsl(252, 9%, 22%);
-    --color-link: #bcc6f3;
-    --color-link-visited: #7166a9;
+    --color-link: #0066cc;
+    --color-link-visited: #551a8b;
     --color-muted: oklch(68.69% 0 0);
   }
 
@@ -46,6 +46,8 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
+    --color-link: #bcc6f3;
+    --color-link-visited: #7166a9;
   }
 
   *,
