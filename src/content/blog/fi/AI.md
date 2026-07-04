@@ -16,7 +16,5 @@ palveluita niin paljon.
 
 Isoimpana tekoälyn tekijänä on [ChatGPT] [OpenAI]:ta
 
-[ChatGPT]:
-  https://chatgpt.com/overview
-  "ChatGPT | Tekoäly-chatbotti tutustumiseen, oppimiseen ja luomiseen"
+[ChatGPT]: https://chatgpt.com/overview "ChatGPT | Tekoäly-chatbotti tutustumiseen, oppimiseen ja luomiseen"
 [OpenAI]: https://openai.com/about/ "Tietoja | OpenAI"
