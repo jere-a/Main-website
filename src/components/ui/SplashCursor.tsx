@@ -62,7 +62,7 @@ function pointerPrototype(): Pointer {
 
 const DEFAULTS: Required<SplashCursorProps> = {
   SIM_RESOLUTION: 128,
-  DYE_RESOLUTION: 1440,
+  DYE_RESOLUTION: 1024,
   CAPTURE_RESOLUTION: 512,
   DENSITY_DISSIPATION: 3.5,
   VELOCITY_DISSIPATION: 2,
@@ -980,10 +980,33 @@ function initSplashCursor(
   let lastUpdateTime = Date.now();
   let colorUpdateTimer = 0.0;
   let animationId: number | null = null;
+  let lastInteractionTime = Date.now();
+  let isAnimating = false;
+  const IDLE_TIMEOUT = 2000;
+
+  function startAnimation() {
+    if (isAnimating) return;
+    isAnimating = true;
+    lastUpdateTime = Date.now();
+    updateFrame();
+  }
+
+  function markActive() {
+    lastInteractionTime = Date.now();
+    if (!isAnimating) startAnimation();
+  }
 
   function updateFrame() {
     const dt = calcDeltaTime();
     if (resizeCanvas()) initFramebuffers();
+
+    const hasInput = pointers.some((p) => p.moved || p.down);
+    if (!hasInput && Date.now() - lastInteractionTime > IDLE_TIMEOUT) {
+      isAnimating = false;
+      animationId = null;
+      return;
+    }
+
     updateColors(dt);
     applyInputs();
     step(dt);
@@ -1347,6 +1370,7 @@ function initSplashCursor(
     const posY = scaleByPixelRatio(e.clientY);
     updatePointerDownData(pointer, -1, posX, posY);
     clickSplat(pointer);
+    markActive();
   });
 
   function handleFirstMouseMove(e: MouseEvent) {
@@ -1354,8 +1378,8 @@ function initSplashCursor(
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
     const color = generateColor();
-    updateFrame();
     updatePointerMoveData(pointer, posX, posY, color);
+    markActive();
     document.body.removeEventListener("mousemove", handleFirstMouseMove);
   }
   document.body.addEventListener("mousemove", handleFirstMouseMove);
@@ -1368,6 +1392,7 @@ function initSplashCursor(
       const color = pointer.color;
       updatePointerMoveData(pointer, posX, posY, color);
     }
+    markActive();
   });
 
   function handleFirstTouchStart(e: TouchEvent) {
@@ -1377,9 +1402,9 @@ function initSplashCursor(
       const touch = touches[i]!;
       const posX = scaleByPixelRatio(touch.clientX);
       const posY = scaleByPixelRatio(touch.clientY);
-      updateFrame();
       updatePointerDownData(pointer, touch.identifier, posX, posY);
     }
+    markActive();
     document.body.removeEventListener("touchstart", handleFirstTouchStart);
   }
   document.body.addEventListener("touchstart", handleFirstTouchStart);
@@ -1395,6 +1420,7 @@ function initSplashCursor(
         const posY = scaleByPixelRatio(touch.clientY);
         updatePointerDownData(pointer, touch.identifier, posX, posY);
       }
+      markActive();
     },
     false,
   );
@@ -1411,6 +1437,7 @@ function initSplashCursor(
         const posY = scaleByPixelRatio(touch.clientY);
         updatePointerMoveData(pointer, posX, posY, pointer.color);
       }
+      markActive();
     },
     false,
   );

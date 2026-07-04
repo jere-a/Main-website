@@ -1,18 +1,23 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
-import { escapeViewTransitionName } from '@vtbag/utensil-drawer/escape-view-transition-name';
+import Layout from "@/layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+import { escapeViewTransitionName } from "@vtbag/utensil-drawer/escape-view-transition-name";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils";
 
 export async function getStaticPaths() {
-	const blogEntries = await getCollection('blog');
+  const blogEntries = await getCollection("blog");
 
-	const paths = blogEntries.map((entry) => {
-		const [lang, ..._] = entry.id.split('/');
-		return { params: { lang, id: entry.id.slice(3) }, props: entry };
-	});
+  const paths = blogEntries.map((entry) => {
+    const [lang, ..._] = entry.id.split("/");
+    return { params: { lang, id: entry.id.slice(3) }, props: entry };
+  });
 
-	return paths;
+  return paths;
 }
+
+const lang = getLangFromUrl(Astro.url);
+const t = (await useTranslations(lang));
+const translatePath = useTranslatedPath(lang);
 
 const entry = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(entry);
@@ -20,43 +25,53 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
 
 <Layout title={entry.data.title} activeNav="blog" isSplash={false}>
   <article>
-	  <a href="/blog">Goto Blogs.</a>
-		<h1
-			aria-label={entry.data.title}
-			class="fade-transition"
-      style={{ viewTransitionName: `btitle${escapeViewTransitionName(entry.data.title)}` }}
-		>
-			{entry.data.title}
-		</h1>
-		<time
-			class="fade-transition"
-      style={{ viewTransitionName: `btime${escapeViewTransitionName(entry.data.title)}` }}
+    <a href={translatePath("/blog")}>{t.nav.blog.back}</a>
+    <h1
+      aria-label={entry.data.title}
+      class="fade-transition"
+      style={{
+        viewTransitionName: `btitle${escapeViewTransitionName(entry.data.title)}`,
+      }}
+    >
+      {entry.data.title}
+    </h1>
+    <time
+      class="fade-transition"
+      style={{
+        viewTransitionName: `btime${escapeViewTransitionName(entry.data.title)}`,
+      }}
       datetime={entry.data.pubDate.toISOString()}
-    >{entry.data.pubDate.toLocaleDateString()}</time
+      >{entry.data.pubDate.toLocaleDateString()}</time
     >
     <p class="read-time">{remarkPluginFrontmatter.minutesRead}</p>
-	  <Content
-		  class="fade-transition"
-		  style={{ ViewTransitionName: `bcontent${entry.data.title}` }}
+    <Content
+      class="fade-transition"
+      style={{ viewTransitionName: `bcontent${escapeViewTransitionName(entry.data.title)}` }}
     />
   </article>
 </Layout>
 
-<style>
-	body {
-		display: grid;
-		min-height: 100dvh;
-		grid-template-areas:
-			'header'
-			'main'
-			'footer';
-		grid-template-rows: 5rem minmax(0, 1fr) 5rem;
-		grid-template-columns: minmax(0, 1fr);
-	}
+<style is:global>
+  header nav {
+    margin-top: 0.2rem;
+  }
 
-	article {
-		justify-content: center;
-		grid-area: main;
+  body {
+    display: grid;
+    min-height: 100dvh;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-rows: 5rem minmax(0, 1fr) 5rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+</style>
+
+<style>
+  article {
+    justify-content: center;
+    grid-area: main;
     margin-inline: auto;
     width: clamp(200px, 90dvw, 1000px);
   }
@@ -82,7 +97,8 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
     color: var(--color-muted);
 
     &:hover {
-      background-size: 0 1px,
+      background-size:
+        0 1px,
         100% 1px;
     }
   }

@@ -9,6 +9,7 @@ export const en = {
     blog: {
       title: "Blogs",
       desc: "Go check out my blog.",
+      back: "Go to Blog",
     },
   },
   index: {

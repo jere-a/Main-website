@@ -1,174 +1,175 @@
-@import "./styles/prism-one-dark.css";
+/* @import "./styles/prism-one-dark.css"; */
 
-@layer base {
-  :root,
-  :host {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
+:root,
+:host {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
 
-    --font-sans:
-      ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol", "Noto Color Emoji";
-    --font-mono:
-      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-      monospace;
-    --spacing: 0.25rem;
+  --font-sans:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+  --spacing: 0.25rem;
 
-    --accent-rgb: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent-rgb)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
+  --accent-rgb: 136, 58, 234;
+  --accent-light: 224, 204, 250;
+  --accent-dark: 49, 10, 101;
+  --accent-gradient: linear-gradient(
+    45deg,
+    rgb(var(--accent-rgb)),
+    rgb(var(--accent-light)) 30%,
+    white 60%
+  );
 
-    --border-width: 1px;
-    --color-surface: hsl(243, 26%, 15%);
-    --color-border-1: hsl(259, 26%, 28%);
-    --color-border-2: hsl(252, 9%, 22%);
-    --color-link: #0066cc;
-    --color-link-visited: #551a8b;
-    --color-muted: oklch(68.69% 0 0);
+  --border-width: 1px;
+  --color-surface: hsl(243, 26%, 15%);
+  --color-border-1: hsl(259, 26%, 28%);
+  --color-border-2: hsl(252, 9%, 22%);
+  --color-link: #0066cc;
+  --color-link-visited: #551a8b;
+  --color-muted: oklch(68.69% 0 0);
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --color-link: #bcc6f3;
+  --color-link-visited: #7166a9;
+}
+
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog, p, h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
   }
+}
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --color-link: #bcc6f3;
-    --color-link-visited: #7166a9;
-  }
+body {
+  /* 4. Increase line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
 
-  *,
-  ::before,
-  ::after,
-  ::backdrop,
-  ::file-selector-button {
-    padding: 0;
-    box-sizing: border-box;
-  }
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
 
-  html,
-  :host {
-    line-height: 1.5;
-    tab-size: 4;
-    font-family: var(--font-sans);
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
-    background-size: 224px;
-  }
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
 
-  a {
-    color: var(--color-link);
-    overflow-wrap: break-word;
-    text-rendering: optimizeLegibility;
-  }
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
 
-  a:visited {
-    color: var(--color-link-visited);
-  }
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    text-wrap: balance;
-  }
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
 
-  code,
-  kbd,
-  samp,
-  pre {
-    font-family: var(--font-mono);
-    font-size: 1em;
-  }
+*,
+::before,
+::after,
+::backdrop,
+::file-selector-button {
+  padding: 0;
+}
 
-  ol,
-  ul,
-  menu {
-    list-style: none;
-  }
+html {
+  font-family: var(--font-sans);
+}
 
-  img,
-  svg,
-  video,
-  canvas,
-  audio,
-  iframe,
-  embed,
-  object {
-    display: block;
-  }
+a {
+  color: var(--color-link);
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
+}
 
-  img,
-  video {
-    max-width: 100%;
-    height: auto;
-  }
+a:visited {
+  color: var(--color-link-visited);
+}
 
-  button,
-  input,
-  select,
-  optgroup,
-  textarea,
-  ::file-selector-button {
-    font: inherit;
-    letter-spacing: inherit;
-    color: inherit;
-    border-radius: 0;
-    background: transparent;
-  }
+ol,
+ul,
+menu {
+  list-style: none;
+}
 
-  textarea {
-    resize: vertical;
-  }
+::placeholder {
+  opacity: 1;
+  color: color-mix(in oklab, currentcolor 50%, transparent);
+}
 
-  table {
-    text-indent: 0;
-    border-collapse: collapse;
-    border-color: inherit;
-  }
+body {
+  display: flex;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+  margin: 0;
+  flex-direction: column;
+}
 
-  ::placeholder {
-    opacity: 1;
-    color: color-mix(in oklab, currentcolor 50%, transparent);
-  }
-
-  body {
-    background: hsl(var(--background));
-    color: hsl(var(--foreground));
-    min-height: 100vh;
-    margin: 0;
-    flex-direction: column;
-  }
-
-  main {
-    flex: 1;
-  }
-
-  p,
-  li,
-  figcaption {
-    text-wrap: pretty;
-  }
-
-  a:focus-visible {
-    outline: 3px solid hsl(var(--border) / 0.9) !important;
-    outline-offset: 3px !important;
-  }
+a:focus-visible {
+  outline: 3px solid hsl(var(--border) / 0.9);
+  outline-offset: 3px;
 }
 
 .gradient-border {
