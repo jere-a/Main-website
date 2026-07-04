@@ -1,0 +1,53 @@
+name: Labeler
+
+on:
+  push:
+    branches: [master]
+    paths: [.github/labeler.yml]
+  pull_request_target:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  sync:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const content = fs.readFileSync('.github/labeler.yml', 'utf8');
+            const labels = content.split('\n')
+              .filter(line => /^\w/.test(line))
+              .map(line => line.split(':')[0].trim());
+            for (const name of labels) {
+              try {
+                await github.rest.issues.getLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name,
+                });
+              } catch {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name,
+                  color: 'ffffff',
+                });
+              }
+            }
+
+  label:
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

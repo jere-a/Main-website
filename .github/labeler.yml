@@ -1,0 +1,46 @@
+components:
+  - src/components/**/*
+content:
+  - src/content/**/*
+i18n:
+  - src/i18n/**/*
+pages:
+  - src/pages/**/*
+styles:
+  - src/styles/**/*
+  - src/global.css
+images:
+  - src/data/images/**/*
+fonts:
+  - src/data/fonts/**/*
+sounds:
+  - src/data/sounds/**/*
+types:
+  - src/types/**/*
+  - src/env.d.ts
+scripts:
+  - src/ts/**/*
+infrastructure:
+  - .github/**/*
+  - astro.config.mts
+  - vite.config.ts
+  - svelte.config.ts
+  - rolldown.config.ts
+  - turbo.json
+  - wrangler.toml
+  - mise.toml
+  - prek.toml
+  - tsconfig.json
+  - oxlint.config.ts
+  - playwright.config.ts
+  - vitest.config.ts
+  - .oxfmtrc.json
+dependencies:
+  - package.json
+  - bun.lock
+documentation:
+  - "**/*.md"
+  - LICENSE
+tests:
+  - "**/*.test.*"
+  - "**/*.spec.*"
