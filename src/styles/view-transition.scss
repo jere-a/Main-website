@@ -4,8 +4,7 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
 
 @supports (view-transition-name: content) {
   :root {
-    --page-transition-animation-timing-function: cubic-bezier(0.465, 0.183, 0.153, 0.946);
-    --anim-func-overshoot-out-soft: linear(
+    --overshoot-out-soft: linear(
       0,
       0.402 7.4%,
       0.711 15.3%,
@@ -21,8 +20,6 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
       1.004 91.3%,
       1
     );
-    --footer-height: 67px;
-    --bottom-bar-height: 67px;
     --safe-area-max-inset-bottom: env(safe-area-max-inset-bottom, 36px);
   }
 
@@ -63,8 +60,8 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
   }
 
   ::view-transition-group(.slide-top) {
-    animation-timing-function: var(--anim-func-overshoot-out-soft);
-    --direction: -1;
+    animation-timing-function: var(--overshoot-out-soft);
+    --dir: -1;
   }
 
   ::view-transition-old(.slide-top) {
@@ -76,8 +73,8 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
   }
 
   ::view-transition-group(.slide-bottom) {
-    animation-timing-function: var(--anim-func-overshoot-out-soft);
-    --direction: 1;
+    animation-timing-function: var(--overshoot-out-soft);
+    --dir: 1;
   }
 
   ::view-transition-old(.slide-bottom) {
@@ -90,7 +87,7 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
 
   @keyframes slide-in-top-bottom {
     0% {
-      transform: translateY(calc(100% * var(--direction)));
+      transform: translateY(calc(100% * var(--dir)));
       opacity: 0;
     }
 
@@ -105,13 +102,13 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     }
 
     100% {
-      transform: translateY(calc(100% * var(--direction)));
+      transform: translateY(calc(100% * var(--dir)));
       opacity: 0;
     }
   }
 
   ::view-transition-group(.slide-right) {
-    animation-timing-function: var(--anim-func-overshoot-out-soft);
+    animation-timing-function: var(--overshoot-out-soft);
   }
 
   ::view-transition-old(.slide-right) {
@@ -151,9 +148,9 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  @for $i from 1 through 7 {
+  @for $i from 1 through 10 {
     .card#{$i} {
-      view-transition-name: card#{$i};
+      view-transition-name: c#{$i};
     }
 
     ::view-transition-new(.card#{$i}) {
