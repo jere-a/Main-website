@@ -9,6 +9,7 @@ export const fi = {
     blog: {
       title: "Blogit",
       desc: "Käy katsomassa blogiani.",
+      back: "Mene Blogiin",
     },
   },
   index: {

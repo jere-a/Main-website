@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 import { escapeViewTransitionName } from "@vtbag/utensil-drawer/escape-view-transition-name";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils";
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
@@ -14,13 +15,17 @@ export async function getStaticPaths() {
   return paths;
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = (await useTranslations(lang));
+const translatePath = useTranslatedPath(lang);
+
 const entry = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(entry);
 ---
 
 <Layout title={entry.data.title} activeNav="blog" isSplash={false}>
   <article>
-    <a href="/blog">Goto Blogs.</a>
+    <a href={translatePath("/blog")}>{t.nav.blog.back}</a>
     <h1
       aria-label={entry.data.title}
       class="fade-transition"
@@ -41,18 +46,16 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
     <p class="read-time">{remarkPluginFrontmatter.minutesRead}</p>
     <Content
       class="fade-transition"
-      style={{ ViewTransitionName: `bcontent${entry.data.title}` }}
+      style={{ viewTransitionName: `bcontent${escapeViewTransitionName(entry.data.title)}` }}
     />
   </article>
 </Layout>
 
 <style is:global>
-  nav {
-    margin-top: 0.2rem !important;
+  header nav {
+    margin-top: 0.2rem;
   }
-</style>
 
-<style>
   body {
     display: grid;
     min-height: 100dvh;
@@ -63,7 +66,9 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
     grid-template-rows: 5rem minmax(0, 1fr) 5rem;
     grid-template-columns: minmax(0, 1fr);
   }
+</style>
 
+<style>
   article {
     justify-content: center;
     grid-area: main;

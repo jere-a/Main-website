@@ -159,6 +159,7 @@ menu {
 }
 
 body {
+  display: flex;
   background: hsl(var(--background));
   color: hsl(var(--foreground));
   min-height: 100vh;
