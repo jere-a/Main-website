@@ -10,7 +10,6 @@ jobs:
   review:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/dependency-review-action@v4
+      - uses: actions/dependency-review-action@d02fa39f790d6e8a4ecafab5848251ff12c20df7 # v4.9.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}

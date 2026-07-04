@@ -6,9 +6,12 @@ on:
     paths: [.github/labeler.yml]
   pull_request_target:
 
+concurrency:
+  group: labeler-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   sync:
@@ -18,8 +21,10 @@ jobs:
       contents: read
       issues: write
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/github-script@v9
+      - uses: actions/checkout@ee538cb8261b28db3ec0ac38de7b459e4de60909 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const fs = require('fs');
@@ -47,7 +52,10 @@ jobs:
   label:
     if: github.event_name == 'pull_request_target'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - uses: actions/labeler@v5
+      - uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
