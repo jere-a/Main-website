@@ -1,66 +1,66 @@
 components:
   - changed-files:
-    - any-glob-to-any-file: src/components/**/*
+      - any-glob-to-any-file: src/components/**/*
 content:
   - changed-files:
-    - any-glob-to-any-file: src/content/**/*
+      - any-glob-to-any-file: src/content/**/*
 i18n:
   - changed-files:
-    - any-glob-to-any-file: src/i18n/**/*
+      - any-glob-to-any-file: src/i18n/**/*
 pages:
   - changed-files:
-    - any-glob-to-any-file: src/pages/**/*
+      - any-glob-to-any-file: src/pages/**/*
 styles:
   - changed-files:
-    - any-glob-to-any-file:
-      - src/styles/**/*
-      - src/global.css
+      - any-glob-to-any-file:
+          - src/styles/**/*
+          - src/global.css
 images:
   - changed-files:
-    - any-glob-to-any-file: src/data/images/**/*
+      - any-glob-to-any-file: src/data/images/**/*
 fonts:
   - changed-files:
-    - any-glob-to-any-file: src/data/fonts/**/*
+      - any-glob-to-any-file: src/data/fonts/**/*
 sounds:
   - changed-files:
-    - any-glob-to-any-file: src/data/sounds/**/*
+      - any-glob-to-any-file: src/data/sounds/**/*
 types:
   - changed-files:
-    - any-glob-to-any-file:
-      - src/types/**/*
-      - src/env.d.ts
+      - any-glob-to-any-file:
+          - src/types/**/*
+          - src/env.d.ts
 scripts:
   - changed-files:
-    - any-glob-to-any-file: src/ts/**/*
+      - any-glob-to-any-file: src/ts/**/*
 infrastructure:
   - changed-files:
-    - any-glob-to-any-file:
-      - .github/**/*
-      - astro.config.mts
-      - vite.config.ts
-      - svelte.config.ts
-      - rolldown.config.ts
-      - turbo.json
-      - wrangler.toml
-      - mise.toml
-      - prek.toml
-      - tsconfig.json
-      - oxlint.config.ts
-      - playwright.config.ts
-      - vitest.config.ts
-      - .oxfmtrc.json
+      - any-glob-to-any-file:
+          - .github/**/*
+          - astro.config.mts
+          - vite.config.ts
+          - svelte.config.ts
+          - rolldown.config.ts
+          - turbo.json
+          - wrangler.toml
+          - mise.toml
+          - prek.toml
+          - tsconfig.json
+          - oxlint.config.ts
+          - playwright.config.ts
+          - vitest.config.ts
+          - .oxfmtrc.json
 dependencies:
   - changed-files:
-    - any-glob-to-any-file:
-      - package.json
-      - bun.lock
+      - any-glob-to-any-file:
+          - package.json
+          - bun.lock
 documentation:
   - changed-files:
-    - any-glob-to-any-file:
-      - "**/*.md"
-      - LICENSE
+      - any-glob-to-any-file:
+          - "**/*.md"
+          - LICENSE
 tests:
   - changed-files:
-    - any-glob-to-any-file:
-      - "**/*.test.*"
-      - "**/*.spec.*"
+      - any-glob-to-any-file:
+          - "**/*.test.*"
+          - "**/*.spec.*"
