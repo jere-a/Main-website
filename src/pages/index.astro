@@ -4,6 +4,7 @@ import Social from '../components/Social.astro';
 import Card from '../components/Card.astro';
 import { siteConfig } from '@/config.ts';
 import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils.ts';
+import { Mail } from '@lucide/astro';
 
 const giturl = siteConfig.urls.giturl || 'https://git.new/I3vys7Q';
 
@@ -46,8 +47,9 @@ const translatePath = useTranslatedPath(lang);
 			>{t.index.intro.end}<a
 				class="email-link"
 				href="mailto:info@ozze.eu.org?subject=Haluaisin%20Kysy%C3%A4..."
-				title="Send Me email">info@ozze.eu.org</a
-			>
+        title="Send Me email">
+        <Mail /> info@ozze.eu.org
+      </a>
 		</p>
 		{/* <HowOldSite lang={lang} time={[2024, 5, 27]} /> */}
 		<ul class="link-grid cards">
@@ -111,13 +113,23 @@ const translatePath = useTranslatedPath(lang);
       gap: 0.5rem;
 		}
 
-		.email-link {
-			background: linear-gradient(90deg, rgba(255, 0, 0, 0.3), rgba(47, 255, 0, 0.3));
+    .email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2em;
 
-			border-radius: 5px;
+      padding: 0.1em 0.2em;
+
+      background: linear-gradient(90deg, rgba(255, 0, 0, 0.3), rgba(47, 255, 0, 0.3));
+
+			border-radius: 10px;
 			text-decoration: underline;
-			font-family: var(--font-sans);
-		}
+      font-family: var(--font-sans);
+
+      .lucide-mail {
+        color: white;
+      }
+    }
 
 		.github-corner:hover .octo-arm {
 			animation: octocat-wave 560ms ease-in-out;
