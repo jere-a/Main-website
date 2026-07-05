@@ -6,7 +6,7 @@
         "name": "@astrojs/ts-plugin"
       }
     ],
-    "target": "es2024" /* the last available year will be updated when needed */,
+    "target": "esnext",
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "esModuleInterop": true,

@@ -1,3 +1,4 @@
+// oxlint-disable promise/prefer-await-to-then
 import { type DefaultSchema, type Lang, useTranslations } from "@/i18n";
 import { detectLanguage, getTemporal } from "@/ts/global";
 
@@ -36,21 +37,21 @@ const holidays = [
     from: [10, 1],
     to: [11, 10],
     target: [10, 31],
-    load: () => import("@/ts/global/holidays/halloween.ts").then((m) => m.main_halloween),
+    load: async () => import("@/ts/global/holidays/halloween.ts").then((m) => m.main_halloween),
   },
   {
     key: "christmas",
     from: [11, 30],
     to: [12, 25],
     target: [12, 24],
-    load: () => import("@/ts/global/holidays/christmas.ts").then((m) => m.christmas),
+    load: async () => import("@/ts/global/holidays/christmas.ts").then((m) => m.christmas),
   },
   {
     key: "newyear",
     from: [12, 26],
     to: [1, 8, 1],
     target: [12, 31],
-    load: () => import("@/ts/global/holidays/newYear.ts").then((m) => m.newYear),
+    load: async () => import("@/ts/global/holidays/newYear.ts").then((m) => m.newYear),
   },
 ] as const satisfies readonly HolidayDef[];
 
@@ -86,14 +87,13 @@ export async function isHoliday(): Promise<ActiveHoliday | null> {
 
   // Important: in January, we are still inside the previous New Year season.
   const seasonYear = today.month === 1 ? today.year - 1 : today.year;
+  const holidayLabels = await labels();
 
   for (const h of holidays) {
     const from = dateMs(h.from, seasonYear);
     const to = dateMs(h.to, seasonYear);
 
     if (now >= from && now <= to) {
-      const holidayLabels = await labels();
-
       return {
         key: h.key,
         name: holidayLabels[h.key],

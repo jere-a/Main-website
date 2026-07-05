@@ -1,3 +1,4 @@
+// oxlint-disable typescript/no-unsafe-type-assertion
 /// <reference lib="webworker" />
 
 declare const self: ServiceWorkerGlobalScope;
@@ -98,12 +99,15 @@ registerRoute(
   }),
 );
 
-self.addEventListener("activate", async () => {
-  clientsClaim();
-  const clients = await self.clients.matchAll({ type: "window" });
-  for (const client of clients) {
-    client.postMessage({ type: "PWA_RELOAD" });
-  }
+self.addEventListener("activate", () => {
+  void (async () => {
+    clientsClaim();
+    const clients = await self.clients.matchAll({ type: "window" });
+    for (const client of clients) {
+      // oxlint-disable-next-line unicorn/require-post-message-target-origin
+      client.postMessage({ type: "PWA_RELOAD" });
+    }
+  });
 });
 
 skipWaiting();

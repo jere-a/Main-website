@@ -1,7 +1,9 @@
 /// <reference types="vitest" />
 import { getViteConfig } from "astro/config";
 
-export default getViteConfig({
+const config: Parameters<typeof getViteConfig>[0] & {
+  test: { environment: string; include: string[] };
+} = {
   build: {
     sourcemap: true,
   },
@@ -9,4 +11,6 @@ export default getViteConfig({
     environment: "jsdom",
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
   },
-});
+};
+
+export default getViteConfig(config);

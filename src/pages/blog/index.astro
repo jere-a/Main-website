@@ -19,7 +19,7 @@ const t = (await useTranslations(lang));
 
 const blogEntries = (await getCollection('blog', ({data}) => {
   return import.meta.env.PROD ? data.draft !== true : true;
-})).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+})).toSorted((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <Layout title="Blogs" activeNav="blog" isNavbar={nav} isBanner={banner} isCopyright={false}>

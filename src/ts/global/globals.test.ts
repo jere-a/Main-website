@@ -15,7 +15,7 @@ describe("throttle", () => {
     const fn = vi.fn<() => void>();
     const throttled = throttle(fn, 100);
 
-    throttled();
+    void throttled();
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
@@ -23,7 +23,7 @@ describe("throttle", () => {
     const fn = vi.fn<() => void>();
     const throttled = throttle(fn, 100);
 
-    throttled();
+    void throttled();
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
@@ -31,8 +31,8 @@ describe("throttle", () => {
     const fn = vi.fn<() => void>();
     const throttled = throttle(fn, 100);
 
-    throttled();
-    throttled();
+    void throttled();
+    void throttled();
 
     vi.advanceTimersByTime(100);
     expect(fn).toHaveBeenCalledTimes(2);
@@ -42,7 +42,7 @@ describe("throttle", () => {
     const fn = vi.fn<() => void>();
     const throttled = throttle(fn, 100);
 
-    throttled();
+    void throttled();
 
     vi.advanceTimersByTime(50);
     expect(fn).toHaveBeenCalledTimes(1);
@@ -53,7 +53,7 @@ describe("throttle", () => {
     const fn = vi.fn();
     const throttled = throttle(fn, 100);
 
-    throttled("arg1", 2);
+    void throttled("arg1", 2);
     expect(fn).toHaveBeenCalledWith("arg1", 2);
   });
 });

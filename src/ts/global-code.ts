@@ -5,9 +5,16 @@ import init from "./posthog.ts";
 
 const main = async () => {
   if ("requestIdleCallback" in window) {
-    requestIdleCallback(init, { timeout: 2000 });
+    requestIdleCallback(
+      () => {
+        void init();
+      },
+      { timeout: 2000 },
+    );
   } else {
-    setTimeout(init, 1000);
+    setTimeout(() => {
+      void init();
+    }, 1000);
   }
 
   on(
@@ -19,18 +26,16 @@ const main = async () => {
     "img, picture",
   );
 
-  on(document.body, "keydown", async (event) => {
+  on(document.body, "keydown", (event) => {
     const Arrow = "Arrow";
     const KeyMap = { U: "Up", D: "Down", L: "Left", R: "Right" } as const;
 
     if (event.key === `${Arrow}${KeyMap.U}`) {
       if (
         createSequenceMatcher(
-          "UUDDLRLRBA"
-            .split("")
-            .map((key) =>
-              key in KeyMap ? `${Arrow}${KeyMap[key as keyof typeof KeyMap]}` : key,
-            ) as HotkeySequence,
+          [..."UUDDLRLRBA"].map((key) =>
+            key in KeyMap ? `${Arrow}${KeyMap[key]}` : key,
+          ) as HotkeySequence,
           { timeout: 2000 },
         ).match(event)
       ) {

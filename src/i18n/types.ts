@@ -6,15 +6,24 @@ export const Langs = {
 } as const;
 
 export type Lang = (typeof Langs)[keyof typeof Langs];
-export const defaultLang: Lang = Langs.Fi;
+export const defaultLang = Langs.Fi;
 
-export type DefaultSchema = typeof fi;
+type Stringify<T> = {
+  readonly [K in keyof T]: T[K] extends object ? Stringify<T[K]> : string;
+};
 
-const loaders = Object.fromEntries(
-  Object.values(Langs).map((lang) => [
-    lang,
-    () => import(`./locales/${lang}.ts`).then((m) => m[lang as keyof typeof m]),
-  ]),
-) as Record<Lang, () => Promise<DefaultSchema>>;
+export type DefaultSchema = Stringify<typeof fi>;
 
-export const translationLoaders = loaders;
+type LocaleModule = {
+  [K in Lang]: DefaultSchema;
+};
+
+async function loadLocale(lang: Lang): Promise<DefaultSchema> {
+  const module: LocaleModule = await import(`./locales/${lang}.ts`);
+  return module[lang];
+}
+
+export const translationLoaders: Record<Lang, () => Promise<DefaultSchema>> = {
+  [Langs.Fi]: () => loadLocale(Langs.Fi),
+  [Langs.En]: () => loadLocale(Langs.En),
+};

@@ -179,7 +179,7 @@ function initSplashCursor(
     let gl = canvas.getContext("webgl2", params) as WebGL2RenderingContext | null;
 
     if (!gl) {
-      gl = (canvas.getContext("webgl", params) ||
+      gl = (canvas.getContext("webgl", params) ??
         canvas.getContext("experimental-webgl", params)) as WebGL2RenderingContext | null;
     }
 
@@ -193,10 +193,8 @@ function initSplashCursor(
     let halfFloat = null;
 
     if (isWebGL2) {
-      (gl as WebGL2RenderingContext).getExtension("EXT_color_buffer_float");
-      supportLinearFiltering = !!(gl as WebGL2RenderingContext).getExtension(
-        "OES_texture_float_linear",
-      );
+      gl.getExtension("EXT_color_buffer_float");
+      supportLinearFiltering = !!gl.getExtension("OES_texture_float_linear");
     } else {
       halfFloat = gl.getExtension("OES_texture_half_float");
       supportLinearFiltering = !!gl.getExtension("OES_texture_half_float_linear");
@@ -205,32 +203,17 @@ function initSplashCursor(
     gl.clearColor(0, 0, 0, 1);
 
     const halfFloatTexType = isWebGL2
-      ? (gl as WebGL2RenderingContext).HALF_FLOAT
-      : (halfFloat && (halfFloat as any).HALF_FLOAT_OES) || 0;
+      ? gl.HALF_FLOAT
+      : ((halfFloat && (halfFloat as any).HALF_FLOAT_OES) ?? 0);
 
     let formatRGBA: any;
     let formatRG: any;
     let formatR: any;
 
     if (isWebGL2) {
-      formatRGBA = getSupportedFormat(
-        gl,
-        (gl as WebGL2RenderingContext).RGBA16F,
-        gl.RGBA,
-        halfFloatTexType,
-      );
-      formatRG = getSupportedFormat(
-        gl,
-        (gl as WebGL2RenderingContext).RG16F,
-        (gl as WebGL2RenderingContext).RG,
-        halfFloatTexType,
-      );
-      formatR = getSupportedFormat(
-        gl,
-        (gl as WebGL2RenderingContext).R16F,
-        (gl as WebGL2RenderingContext).RED,
-        halfFloatTexType,
-      );
+      formatRGBA = getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, halfFloatTexType);
+      formatRG = getSupportedFormat(gl, gl.RG16F, gl.RG, halfFloatTexType);
+      formatR = getSupportedFormat(gl, gl.R16F, gl.RED, halfFloatTexType);
     } else {
       formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
       formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
@@ -257,7 +240,7 @@ function initSplashCursor(
   ): { internalFormat: number; format: number } | null {
     if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
       if ("drawBuffers" in gl) {
-        const gl2 = gl as WebGL2RenderingContext;
+        const gl2 = gl;
         switch (internalFormat) {
           case gl2.R16F:
             return getSupportedFormat(gl2, gl2.RG16F, gl2.RG, type);

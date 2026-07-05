@@ -15,11 +15,13 @@ if (!notshow.includes(pathname) && notFoundEl) {
   notFoundEl.innerText = `Sivu jota yrität käyttää on tarkoitettu näytettäväksi jos etsimääsi sivua ei löydy.`;
 }
 
-posthog.onFeatureFlags(async () => {
-  if (posthog.isFeatureEnabled("fetchipp") || siteFeatures.params.functions.fetchIPP) {
-    const data = await fetchData().then((a) => a);
-    if (infoEl) {
-      infoEl.innerText = `Yhteyttä yrittänyt ip osoite: ${data.ip}\nUserAgent: ${data.uag}`;
+posthog.onFeatureFlags(() => {
+  void (async () => {
+    if (posthog.isFeatureEnabled("fetchipp") || siteFeatures.params.functions.fetchIPP) {
+      const data = await fetchData();
+      if (infoEl) {
+        infoEl.innerText = `Yhteyttä yrittänyt ip osoite: ${data.ip}\nUserAgent: ${data.uag}`;
+      }
     }
-  }
+  })();
 });
