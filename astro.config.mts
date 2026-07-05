@@ -91,6 +91,7 @@ export default defineConfig({
     /* partytown(), */
     pageInsight(),
   ],
+  compressHTML: true,
   trailingSlash: "never",
   build: {
     format: "file",
