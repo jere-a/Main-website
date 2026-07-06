@@ -30,7 +30,9 @@ export default defineConfig({
     chromeDevtoolsWorkspace: true,
     clientPrerender: true,
   },
-  prefetch: true,
+  prefetch: {
+    defaultStrategy: "viewport",
+  },
   integrations: [
     mdx(),
     svelte(),

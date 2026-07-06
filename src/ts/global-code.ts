@@ -12,6 +12,31 @@ const main = async () => {
 
   on(
     document.body,
+    "mousedown",
+    (e) => {
+      const el = e.target as Element;
+
+      if (el?.tagName === "A") {
+        const anchor = el as HTMLAnchorElement;
+        const url = new URL(String(anchor.href), window.location.href);
+        if (
+          url.origin === window.location.origin &&
+          e.button === 0 &&
+          !e.altKey &&
+          !e.ctrlKey &&
+          !e.metaKey &&
+          !e.shiftKey
+        ) {
+          e.preventDefault();
+          window.location.href = url.href;
+        }
+      }
+    },
+    "a",
+  );
+
+  on(
+    document.body,
     "contextmenu",
     (e) => {
       e.preventDefault();
@@ -26,6 +51,7 @@ const main = async () => {
     if (event.key === `${Arrow}${KeyMap.U}`) {
       if (
         createSequenceMatcher(
+          // oxlint-disable-next-line unicorn/prefer-spread
           "UUDDLRLRBA"
             .split("")
             .map((key) =>

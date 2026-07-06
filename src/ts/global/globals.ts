@@ -65,20 +65,26 @@ export const addCSSFromURL = (url: string): void => {
 
 export function on<K extends keyof HTMLElementEventMap>(
   element: Element,
-  eventName: K,
+  eventName: K | K[],
   handler: EventHandler<HTMLElementEventMap[K]>,
   selector?: string,
 ): (event: Event) => void {
   const wrappedHandler = (event: Event): void => {
     if (selector) {
-      const target = event.target as Element | null;
-      const matched = target?.closest(selector);
+      const target = event.target as Element;
+      const matched = target.closest(selector);
       if (matched) handler.call(matched, event as HTMLElementEventMap[K]);
       return;
     }
     handler.call(element, event as HTMLElementEventMap[K]);
   };
-  element.addEventListener(eventName, wrappedHandler);
+  if (Array.isArray(eventName)) {
+    for (const event of eventName) {
+      element.addEventListener(event, wrappedHandler);
+    }
+  } else {
+    element.addEventListener(eventName, wrappedHandler);
+  }
   return wrappedHandler;
 }
 
