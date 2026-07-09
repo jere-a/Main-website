@@ -1,4 +1,4 @@
-import { unified } from "@astrojs/markdown-remark";
+import { unified, type RemarkPlugin } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
@@ -119,12 +119,7 @@ export default defineConfig({
   },
   markdown: {
     processor: unified({
-      remarkPlugins: [
-        // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-        remarkReadingTime as never,
-        remarkToc,
-        remarkMath,
-      ],
+      remarkPlugins: [remarkReadingTime as unknown as RemarkPlugin, remarkToc, remarkMath],
       rehypePlugins: [rehypeMathjax],
     }),
     syntaxHighlight: "prism",

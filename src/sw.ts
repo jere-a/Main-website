@@ -16,6 +16,8 @@ import {
 import { NavigationRoute, registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 
+import { catchErrorTyped } from "@/ts/global/globals";
+
 precacheAndRoute(self.__WB_MANIFEST || [], {
   directoryIndex: "index.html",
   cleanURLs: true,
@@ -100,14 +102,16 @@ registerRoute(
 );
 
 self.addEventListener("activate", () => {
-  void (async () => {
-    clientsClaim();
-    const clients = await self.clients.matchAll({ type: "window" });
-    for (const client of clients) {
-      // oxlint-disable-next-line unicorn/require-post-message-target-origin
-      client.postMessage({ type: "PWA_RELOAD" });
-    }
-  });
+  void catchErrorTyped(
+    (async () => {
+      clientsClaim();
+      const clients = await self.clients.matchAll({ type: "window" });
+      for (const client of clients) {
+        // oxlint-disable-next-line unicorn/require-post-message-target-origin
+        client.postMessage({ type: "PWA_RELOAD" });
+      }
+    })(),
+  );
 });
 
 skipWaiting();

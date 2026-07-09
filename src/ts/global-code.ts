@@ -4,17 +4,18 @@ import { on, isHoliday } from "./global/index";
 import init from "./posthog.ts";
 
 const main = async () => {
+  const runInit = () => {
+    void init().catch((e) => {
+      // oxlint-disable-next-line no-console
+      console.error("init failed", e);
+      throw e;
+    });
+  };
+
   if ("requestIdleCallback" in window) {
-    requestIdleCallback(
-      () => {
-        void init();
-      },
-      { timeout: 2000 },
-    );
+    requestIdleCallback(runInit, { timeout: 2000 });
   } else {
-    setTimeout(() => {
-      void init();
-    }, 1000);
+    setTimeout(runInit, 1000);
   }
 
   on(

@@ -40,14 +40,30 @@ export const throttle = <Args extends Array<unknown>>(
       void (async () => {
         timer = null;
         if (waiting) {
-          await cb(...waiting);
+          await catchErrorTyped(Promise.resolve(cb(...waiting)));
           waiting = null;
-          timer = setTimeout(() => {}, delay);
         }
       })();
     }, delay);
   };
 };
+
+export async function catchErrorTyped<T, E extends new (message?: string) => Error>(
+  promise: Promise<T>,
+  errorsToCatch?: E[],
+): Promise<[undefined, T] | [InstanceType<E>]> {
+  return promise
+    .then((data) => {
+      return [undefined, data] as [undefined, T];
+    })
+    .catch((error) => {
+      if (errorsToCatch === undefined || errorsToCatch.some((e) => error instanceof e)) {
+        return [error];
+      }
+
+      throw error;
+    });
+}
 
 export const injectCSS = (css: string): HTMLStyleElement => {
   const el = document.createElement("style");
