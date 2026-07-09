@@ -1,4 +1,4 @@
-import { defaultLang, type Lang, Langs } from "@/i18n";
+import { defaultLang, type Lang, Langs } from "../../i18n";
 
 type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
 
