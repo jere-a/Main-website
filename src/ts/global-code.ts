@@ -8,7 +8,6 @@ const main = async () => {
     void init().catch((e) => {
       // oxlint-disable-next-line no-console
       console.error("init failed", e);
-      throw e;
     });
   };
 
@@ -44,7 +43,6 @@ const main = async () => {
   );
 
   on(document.body, "keydown", (event) => {
-    if (event.key !== "ArrowUp") return;
     if (!konamiCode.match(event)) return;
 
     // oxlint-disable-next-line no-console
