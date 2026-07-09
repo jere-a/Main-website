@@ -52,17 +52,15 @@ export async function catchErrorTyped<T, E extends new (message?: string) => Err
   promise: Promise<T>,
   errorsToCatch?: E[],
 ): Promise<[undefined, T] | [InstanceType<E>]> {
-  return promise
-    .then((data) => {
-      return [undefined, data] as [undefined, T];
-    })
-    .catch((error) => {
-      if (errorsToCatch === undefined || errorsToCatch.some((e) => error instanceof e)) {
-        return [error];
-      }
-
-      throw error;
-    });
+  try {
+    const data = await promise;
+    return [undefined, data] as [undefined, T];
+  } catch (error) {
+    if (errorsToCatch === undefined || errorsToCatch.some((e) => error instanceof e)) {
+      return [error] as [InstanceType<E>];
+    }
+    throw error;
+  }
 }
 
 export const injectCSS = (css: string): HTMLStyleElement => {
