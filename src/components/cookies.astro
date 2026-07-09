@@ -15,12 +15,12 @@
 			const cookieButton = document.querySelector<HTMLButtonElement>('#js-cookie-button');
 			if (Cookies.get('cookie-box') !== '1' && cookieBox && cookieButton) {
 				cookieBox.classList.remove('cookie-box-hide');
-				cookieButton.onclick = function () {
+				cookieButton.addEventListener('click', function () {
 					Cookies.set('cookie-box', '1', {
 						expires: siteFeatures.params.cookies.expire_days,
 					});
 					cookieBox.classList.add('cookie-box-hide');
-				};
+				});
 			}
 		})();
 	}

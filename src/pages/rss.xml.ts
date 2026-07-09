@@ -23,7 +23,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       tags: post.data.tags,
       content: sanitizeHtml(parser.render(post.body ?? ""), {
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+        allowedTags: [...sanitizeHtml.defaults.allowedTags, "img"],
       }),
       pubDate: post.data.pubDate,
       // Compute RSS link from post `slug`

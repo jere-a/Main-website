@@ -1,31 +1,29 @@
-import { defaultLang, type Lang, Langs } from "@/i18n";
+import { defaultLang, type Lang, Langs } from "../../i18n";
 
 type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
 
-const langs = Object.values(Langs) as readonly Lang[];
+const langs = Object.values(Langs);
 
 export const detectLanguage = (lang?: string): Lang => {
   const candidates = [
     lang,
-    document?.documentElement.lang,
-    ...(navigator?.languages ?? []),
-    navigator?.language,
+    document.documentElement.lang,
+    ...navigator.languages,
+    navigator.language,
   ];
 
   for (const candidate of candidates) {
     if (!candidate) continue;
 
     const code = candidate.slice(0, 2).toLowerCase();
-
-    if (langs.includes(code as Lang)) {
-      return code as Lang;
-    }
+    const matched = langs.find((l) => l === code);
+    if (matched) return matched;
   }
 
   return defaultLang;
 };
 
-export const throttle = <Args extends unknown[]>(
+export const throttle = <Args extends Array<unknown>>(
   cb: (...args: Args) => void | Promise<void>,
   delay = 1000,
 ) => {
@@ -38,16 +36,32 @@ export const throttle = <Args extends unknown[]>(
       return;
     }
     await cb(...args);
-    timer = setTimeout(async () => {
-      timer = null;
-      if (waiting) {
-        await cb(...waiting);
-        waiting = null;
-        timer = setTimeout(() => {}, delay);
-      }
+    timer = setTimeout(() => {
+      void (async () => {
+        timer = null;
+        if (waiting) {
+          await catchErrorTyped(Promise.resolve(cb(...waiting)));
+          waiting = null;
+        }
+      })();
     }, delay);
   };
 };
+
+export async function catchErrorTyped<T, E extends new (message?: string) => Error>(
+  promise: Promise<T>,
+  errorsToCatch?: E[],
+): Promise<[undefined, T] | [InstanceType<E>]> {
+  try {
+    const data = await promise;
+    return [undefined, data] as [undefined, T];
+  } catch (error) {
+    if (errorsToCatch === undefined || errorsToCatch.some((e) => error instanceof e)) {
+      return [error] as [InstanceType<E>];
+    }
+    throw error;
+  }
+}
 
 export const injectCSS = (css: string): HTMLStyleElement => {
   const el = document.createElement("style");
@@ -68,33 +82,33 @@ export function on<K extends keyof HTMLElementEventMap>(
   eventName: K,
   handler: EventHandler<HTMLElementEventMap[K]>,
   selector?: string,
-): (event: Event) => void {
-  const wrappedHandler = (event: Event): void => {
+): (event: HTMLElementEventMap[K]) => void {
+  const wrappedHandler = (event: HTMLElementEventMap[K]): void => {
     if (selector) {
-      const target = event.target as Element | null;
-      const matched = target?.closest(selector);
-      if (matched) handler.call(matched, event as HTMLElementEventMap[K]);
-      return;
+      const target = event.target;
+      if (target instanceof Element) {
+        const matched = target.closest(selector);
+        if (matched) handler.call(matched, event);
+        return;
+      }
     }
-    handler.call(element, event as HTMLElementEventMap[K]);
+    handler.call(element, event);
   };
-  element.addEventListener(eventName, wrappedHandler);
+  element.addEventListener(eventName, wrappedHandler as EventListener);
   return wrappedHandler;
 }
 
-export function getQueryParam(name: string): string | null {
-  const params = new URLSearchParams(window.location.search);
-  return params.get(name);
+export function getQueryParam(name: string): string | undefined {
+  return new URLSearchParams(window.location.search).get(name) ?? undefined;
 }
 
-export async function getTemporal(): Promise<typeof import("@js-temporal/polyfill").Temporal> {
-  const g = globalThis as unknown as {
-    Temporal?: typeof import("@js-temporal/polyfill").Temporal;
-  };
-  if (g.Temporal) {
-    return g.Temporal;
+import type { Temporal as TemporalType } from "@js-temporal/polyfill";
+
+export async function getTemporal(): Promise<typeof TemporalType | typeof globalThis.Temporal> {
+  // oxlint-disable-next-line typescript/no-unnecessary-condition
+  if ("Temporal" in globalThis && globalThis.Temporal) {
+    return globalThis.Temporal;
   }
 
-  const { Temporal } = await import("@js-temporal/polyfill");
-  return Temporal;
+  return (await import("@js-temporal/polyfill")).Temporal;
 }

@@ -1,3 +1,4 @@
+// oxlint-disable typescript/no-unsafe-type-assertion
 /// <reference lib="webworker" />
 
 declare const self: ServiceWorkerGlobalScope;
@@ -14,6 +15,8 @@ import {
 } from "workbox-precaching";
 import { NavigationRoute, registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
+
+import { catchErrorTyped } from "@/ts/global/globals";
 
 precacheAndRoute(self.__WB_MANIFEST || [], {
   directoryIndex: "index.html",
@@ -98,12 +101,17 @@ registerRoute(
   }),
 );
 
-self.addEventListener("activate", async () => {
-  clientsClaim();
-  const clients = await self.clients.matchAll({ type: "window" });
-  for (const client of clients) {
-    client.postMessage({ type: "PWA_RELOAD" });
-  }
+self.addEventListener("activate", () => {
+  void catchErrorTyped(
+    (async () => {
+      clientsClaim();
+      const clients = await self.clients.matchAll({ type: "window" });
+      for (const client of clients) {
+        // oxlint-disable-next-line unicorn/require-post-message-target-origin
+        client.postMessage({ type: "PWA_RELOAD" });
+      }
+    })(),
+  );
 });
 
 skipWaiting();

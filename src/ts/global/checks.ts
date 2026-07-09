@@ -1,11 +1,13 @@
+const mqm = (q: string) => window.matchMedia?.(q);
+
 export const deviceCapabilities = () => {
   const hasTouch =
-    (navigator.maxTouchPoints ?? 0) > 0 ||
-    window.matchMedia?.("(any-pointer: coarse)").matches ||
+    navigator.maxTouchPoints > 0 ||
+    mqm("(any-pointer: coarse)")?.matches ||
     "ontouchstart" in window;
-  const hasHover = window.matchMedia?.("(any-hover: hover)").matches ?? false;
-  const hasFinePointer = window.matchMedia?.("(any-pointer: fine)").matches ?? false;
-  const isSmallViewport = window.matchMedia?.("(max-width: 768px)").matches ?? false;
+  const hasHover = mqm("(any-hover: hover)")?.matches ?? false;
+  const hasFinePointer = mqm("(any-pointer: fine)")?.matches ?? false;
+  const isSmallViewport = mqm("(max-width: 768px)")?.matches ?? false;
 
   return {
     hasTouch,

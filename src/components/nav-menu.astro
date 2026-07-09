@@ -15,8 +15,8 @@ const translatePath = useTranslatedPath(lang);
 const languages = Object.keys(translationLoaders) as Lang[];
 
 const navigationMenuTriggerStyle = 'nav-link';
-const activefunc = (active: string | undefined, activetab: string | undefined): string => {
-	return active === activetab ? 'nav-link-active' : '';
+const activefunc = (currentActive: string | undefined, activetab: string | undefined): string => {
+	return currentActive === activetab ? 'nav-link-active' : '';
 };
 
 const default_class_links = `${navigationMenuTriggerStyle} navItem`;

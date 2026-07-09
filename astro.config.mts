@@ -1,4 +1,4 @@
-import { unified } from "@astrojs/markdown-remark";
+import { unified, type RemarkPlugin } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
@@ -91,6 +91,7 @@ export default defineConfig({
     /* partytown(), */
     pageInsight(),
   ],
+  compressHTML: true,
   trailingSlash: "never",
   build: {
     format: "file",
@@ -118,7 +119,7 @@ export default defineConfig({
   },
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkReadingTime, remarkToc, remarkMath],
+      remarkPlugins: [remarkReadingTime as unknown as RemarkPlugin, remarkToc, remarkMath],
       rehypePlugins: [rehypeMathjax],
     }),
     syntaxHighlight: "prism",

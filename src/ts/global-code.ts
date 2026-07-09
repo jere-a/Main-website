@@ -4,10 +4,17 @@ import { on, isHoliday } from "./global/index";
 import init from "./posthog.ts";
 
 const main = async () => {
+  const runInit = () => {
+    void init().catch((e) => {
+      // oxlint-disable-next-line no-console
+      console.error("init failed", e);
+    });
+  };
+
   if ("requestIdleCallback" in window) {
-    requestIdleCallback(init, { timeout: 2000 });
+    requestIdleCallback(runInit, { timeout: 2000 });
   } else {
-    setTimeout(init, 1000);
+    setTimeout(runInit, 1000);
   }
 
   on(
@@ -19,25 +26,27 @@ const main = async () => {
     "img, picture",
   );
 
-  on(document.body, "keydown", async (event) => {
-    const Arrow = "Arrow";
-    const KeyMap = { U: "Up", D: "Down", L: "Left", R: "Right" } as const;
+  const konamiCode = createSequenceMatcher(
+    [
+      "ArrowUp",
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowLeft",
+      "ArrowRight",
+      "B",
+      "A",
+    ] satisfies HotkeySequence,
+    { timeout: 2000 },
+  );
 
-    if (event.key === `${Arrow}${KeyMap.U}`) {
-      if (
-        createSequenceMatcher(
-          "UUDDLRLRBA"
-            .split("")
-            .map((key) =>
-              key in KeyMap ? `${Arrow}${KeyMap[key as keyof typeof KeyMap]}` : key,
-            ) as HotkeySequence,
-          { timeout: 2000 },
-        ).match(event)
-      ) {
-        // oxlint-disable-next-line no-console
-        console.log(atob("S29uYW1pIGNvZGUgYWN0aXZhdGVkLg=="));
-      }
-    }
+  on(document.body, "keydown", (event) => {
+    if (!konamiCode.match(event)) return;
+
+    // oxlint-disable-next-line no-console
+    console.log(atob("S29uYW1pIGNvZGUgYWN0aXZhdGVkLg=="));
   });
 
   addEventListener("vite:preloadError", () => {
