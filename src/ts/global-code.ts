@@ -26,23 +26,28 @@ const main = async () => {
     "img, picture",
   );
 
-  on(document.body, "keydown", (event) => {
-    const Arrow = "Arrow";
-    const KeyMap = { U: "Up", D: "Down", L: "Left", R: "Right" } as const;
+  const konamiCode = createSequenceMatcher(
+    [
+      "ArrowUp",
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowLeft",
+      "ArrowRight",
+      "B",
+      "A",
+    ] satisfies HotkeySequence,
+    { timeout: 2000 },
+  );
 
-    if (event.key === `${Arrow}${KeyMap.U}`) {
-      if (
-        createSequenceMatcher(
-          [..."UUDDLRLRBA"].map((key) =>
-            key in KeyMap ? `${Arrow}${KeyMap[key]}` : key,
-          ) as HotkeySequence,
-          { timeout: 2000 },
-        ).match(event)
-      ) {
-        // oxlint-disable-next-line no-console
-        console.log(atob("S29uYW1pIGNvZGUgYWN0aXZhdGVkLg=="));
-      }
-    }
+  on(document.body, "keydown", (event) => {
+    if (event.key !== "ArrowUp") return;
+    if (!konamiCode.match(event)) return;
+
+    // oxlint-disable-next-line no-console
+    console.log(atob("S29uYW1pIGNvZGUgYWN0aXZhdGVkLg=="));
   });
 
   addEventListener("vite:preloadError", () => {
