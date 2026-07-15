@@ -1,3 +1,6 @@
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /index.html
   Link: <https://ozze.eu.org/index.html>; rel="canonical"
   Link: <https://ozze.eu.org/index.html>; rel=preconnect
