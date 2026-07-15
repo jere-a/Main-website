@@ -32,9 +32,7 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
       style={{
         viewTransitionName: `btitle${escapeViewTransitionName(entry.data.title)}`,
       }}
-    >
-      {entry.data.title}
-    </h1>
+    >{entry.data.title}</h1>
     <time
       class="fade-transition"
       style={{

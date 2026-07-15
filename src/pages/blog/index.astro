@@ -45,18 +45,14 @@ const blogEntries = (await getCollection('blog', ({data}) => {
 									style={{
 										viewTransitionName: escapeViewTransitionName(bpostTitle),
 									}}
-								>
-									{postTitle}
-								</h3>
+								>{postTitle}</h3>
 								<time
 									class="publish-date fade-transition"
 									datetime={post.data.pubDate?.toISOString()}
 									style={{
 										viewTransitionName: escapeViewTransitionName(bpostTime),
 									}}
-								>
-									{post.data.pubDate.toLocaleDateString()}
-								</time>
+								>{post.data.pubDate.toLocaleDateString()}</time>
 								<div
 									aria-label={post.data.title}
 									class="text fade-transition"
