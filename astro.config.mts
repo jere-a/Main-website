@@ -3,6 +3,7 @@ import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
+import embeds from "astro-embed/integration";
 import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
 import pageInsight from "astro-page-insight";
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
@@ -32,6 +33,7 @@ export default defineConfig({
   },
   prefetch: true,
   integrations: [
+    embeds(),
     mdx(),
     svelte(),
     preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"], devtools: true }),
