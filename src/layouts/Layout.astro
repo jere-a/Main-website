@@ -8,11 +8,14 @@ import Footer from '@/components/Footer.astro';
 import SplashCursor from '@/components/ui/SplashCursor';
 import Cookies from '@/components/cookies.astro';
 
+import type { Lang } from '@/i18n/types';
+
 import '@/styles/view-transition.scss';
 import '@/global.css';
 
 interface Props {
-	title?: string;
+  title?: string;
+  lang?: Lang;
 	isNavbar?: boolean;
 	isFooter?: boolean;
   isDark?: boolean;
@@ -23,7 +26,8 @@ interface Props {
 }
 
 const {
-	title,
+  title,
+  lang = getLangFromUrl(Astro.url),
 	isNavbar = true,
 	isFooter = true,
   isDark = true,
@@ -31,7 +35,6 @@ const {
 	isSplash = siteFeatures.params.functions.splashcursor,
 	activeNav,
 } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
 
 const kaoid = 'kao';
 ---
@@ -47,7 +50,7 @@ const kaoid = 'kao';
 		{isSplash && <SplashCursor client:only="preact" />}
 		<header>
 			{isBanner && <div id={kaoid} />}
-      {isNavbar && <NavMenu active={activeNav} />}
+      {isNavbar && <NavMenu active={activeNav} lang={lang} />}
 		</header>
 		<slot />
 		{siteFeatures.params.cookies.cookiesEnabled && <Cookies />}

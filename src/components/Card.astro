@@ -11,10 +11,8 @@ const { href, title, body, transitionName } = Astro.props;
 
 <li class={`card card${transitionName} gradient-border glass-surface`}>
 	<a href={href}>
-		<h2 aria-label={title} class="title">
-			{title}
-			<span>&rarr;</span>
-		</h2>
+    <h2 aria-label={title} class="title">{title}<span>&rarr;</span>
+    </h2>
 		<p aria-label={body} class="body">{body}</p>
 	</a>
 </li>

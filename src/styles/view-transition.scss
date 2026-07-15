@@ -47,6 +47,15 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     view-transition-class: slide-top;
   }
 
+  ::view-transition-group(title) {
+    overflow: clip;
+  }
+  ::view-transition-old(title),
+  ::view-transition-new(title) {
+    block-size: 100%;
+    inline-size: auto;
+  }
+
   .github-corner {
     view-transition-name: github;
     view-transition-class: slide-right;
@@ -147,7 +156,7 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  @for $i from 1 through 10 {
+  @for $i from 0 through 10 {
     .card#{$i} {
       view-transition-name: c#{$i};
     }
