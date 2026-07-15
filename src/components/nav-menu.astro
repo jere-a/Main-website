@@ -3,12 +3,12 @@ import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils
 import { translationLoaders, type Lang } from '@/i18n/types';
 
 interface Props {
-	active: string | undefined;
+  active: string | undefined;
+  lang?: Lang;
 }
 
-const { active } = Astro.props;
+const { active, lang = getLangFromUrl(Astro.url) } = Astro.props;
 
-const lang = getLangFromUrl(Astro.url);
 const t = (await useTranslations(lang));
 const translatePath = useTranslatedPath(lang);
 

@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 import { escapeViewTransitionName } from "@vtbag/utensil-drawer/escape-view-transition-name";
-import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils";
+import { useTranslations, useTranslatedPath } from "@/i18n/utils";
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
@@ -15,15 +15,15 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const lang = getLangFromUrl(Astro.url);
-const t = (await useTranslations(lang));
-const translatePath = useTranslatedPath(lang);
-
 const entry = Astro.props;
+
+const t = (await useTranslations(entry.data.lang));
+const translatePath = useTranslatedPath(entry.data.lang);
+
 const { Content, remarkPluginFrontmatter } = await render(entry);
 ---
 
-<Layout title={entry.data.title} activeNav="blog" isSplash={false}>
+<Layout title={entry.data.title} activeNav="blog" isSplash={false} lang={entry.data.lang}>
   <article>
     <a href={translatePath("/blog")}>{t.nav.blog.back}</a>
     <h1
