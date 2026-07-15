@@ -84,6 +84,7 @@
     "vite": "^8.1.5",
     "vite-plugin-pwa": "^1.3.0",
     "vite-react": "^5.0.0",
+    "workbox-recipes": "^7.4.1",
     "workbox-window": "^7.4.1"
   },
   "devDependencies": {

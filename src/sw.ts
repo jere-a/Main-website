@@ -5,18 +5,28 @@ declare const self: ServiceWorkerGlobalScope;
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import type { WorkboxPlugin } from "workbox-core";
-import { clientsClaim, skipWaiting } from "workbox-core";
+import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import * as navigationPreload from "workbox-navigation-preload";
-import {
-  cleanupOutdatedCaches,
-  createHandlerBoundToURL,
-  precacheAndRoute,
-} from "workbox-precaching";
+import { cleanupOutdatedCaches, precacheAndRoute } from "workbox-precaching";
+import { imageCache } from "workbox-recipes";
 import { NavigationRoute, registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { StaleWhileRevalidate, NetworkFirst, CacheFirst } from "workbox-strategies";
 
 import { catchErrorTyped } from "@/ts/global/globals";
+
+const DAY = 24 * 60 * 60;
+
+const createPlugins = (maxEntries: number, maxAgeDays?: number) =>
+  [
+    new ExpirationPlugin({
+      maxEntries,
+      maxAgeSeconds: maxAgeDays ? maxAgeDays * DAY : 30 * DAY,
+    }),
+    new CacheableResponsePlugin({
+      statuses: [0, 200],
+    }),
+  ] as unknown as WorkboxPlugin[];
 
 precacheAndRoute(self.__WB_MANIFEST || [], {
   directoryIndex: "index.html",
@@ -26,78 +36,54 @@ precacheAndRoute(self.__WB_MANIFEST || [], {
 cleanupOutdatedCaches();
 navigationPreload.enable();
 
-const sharedPlugins = [
-  new ExpirationPlugin({
-    maxEntries: 200,
-    maxAgeSeconds: 30 * 24 * 60 * 60,
-  }) as WorkboxPlugin,
-  new CacheableResponsePlugin({
-    statuses: [0, 200],
-  }) as WorkboxPlugin,
-];
+const sharedPlugins = createPlugins(200);
 
+/*
+ * HTML navigation
+ *
+ * Network first:
+ * - fresh content after deploys
+ * - cached fallback when offline
+ */
 registerRoute(
   new NavigationRoute(
-    new StaleWhileRevalidate({
-      cacheName: "navigations",
+    new NetworkFirst({
+      cacheName: "pages",
+      networkTimeoutSeconds: 3,
       plugins: sharedPlugins,
     }),
   ),
 );
-registerRoute(new NavigationRoute(createHandlerBoundToURL("/404")));
 
+/*
+ * Static build assets
+ *
+ * Astro/Vite assets are hashed, so they are immutable.
+ */
 registerRoute(
-  ({ request }): boolean => {
-    return [
-      "style",
-      "script",
-      "document",
-      "worker",
-      "embed",
-      "track",
-      "serviceworker",
-      "sharedworker",
-    ].includes(request.destination);
-  },
-  new StaleWhileRevalidate({
+  ({ request }) =>
+    ["style", "script", "worker", "sharedworker", "serviceworker", "embed", "track"].includes(
+      request.destination,
+    ),
+  new CacheFirst({
     cacheName: "assets",
-    plugins: sharedPlugins,
+    plugins: createPlugins(350),
   }),
 );
 
-registerRoute(
-  ({ request }): boolean => {
-    return ["image", "audio", "font"].includes(request.destination);
-  },
-  new StaleWhileRevalidate({
-    cacheName: "static-assets",
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 350,
-        maxAgeSeconds: 30 * 24 * 60 * 60,
-      }) as WorkboxPlugin,
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }) as WorkboxPlugin,
-    ],
-  }),
-);
+imageCache({
+  maxEntries: 120,
+});
 
+/*
+ * CDN assets
+ */
 registerRoute(
-  ({ url }): boolean => {
-    return url.origin.includes("jsdelivr") || url.origin.includes("cdn.jsdelivr");
-  },
+  ({ url }) =>
+    url.origin === "https://cdn.jsdelivr.net" || url.origin === "https://fastly.jsdelivr.net",
   new StaleWhileRevalidate({
     cacheName: "cdn-assets",
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 50,
-        maxAgeSeconds: 30 * 24 * 60 * 60,
-      }) as WorkboxPlugin,
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }) as WorkboxPlugin,
-    ],
+    plugins: createPlugins(50),
   }),
 );
 
@@ -113,5 +99,3 @@ self.addEventListener("activate", () => {
     })(),
   );
 });
-
-skipWaiting();
