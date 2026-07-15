@@ -41,7 +41,7 @@ const translatePath = useTranslatedPath(lang);
 		</h1>
 
 		<p class="holidays"></p>
-		<p class="instructions card0">
+		<p class="instructions cards card0">
 			{t.index.intro.start}<Social href="https://ggl.link/3bM14PP" platform="YT"
 				>{t.index.intro.youtubeLabel}</Social
 			>{t.index.intro.end}<a
@@ -104,7 +104,7 @@ const translatePath = useTranslatedPath(lang);
 				rgba(var(--accent-dark), 33%)
 			);
 			padding: 1.5rem;
-			border-radius: 1rem;
+      border-radius: 1rem;
 		}
 
 		.link-grid {
@@ -125,6 +125,8 @@ const translatePath = useTranslatedPath(lang);
 			border-radius: 10px;
 			text-decoration: underline;
       font-family: var(--font-sans);
+
+      view-transition-name: email;
 
       .lucide-mail {
         color: white;

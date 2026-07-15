@@ -44,10 +44,9 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
       >{entry.data.pubDate.toLocaleDateString()}</time
     >
     <p class="read-time">{remarkPluginFrontmatter.minutesRead}</p>
-    <Content
-      class="fade-transition"
-      style={{ viewTransitionName: `bcontent${escapeViewTransitionName(entry.data.title)}` }}
-    />
+    <div class="fade-transition" style={{ viewTransitionName: `bcontent${escapeViewTransitionName(entry.data.title)}` }}>
+      <Content />
+    </div>
   </article>
 </Layout>
 

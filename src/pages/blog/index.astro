@@ -17,16 +17,18 @@ const { nav = true, banner = true } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = (await useTranslations(lang));
 
+let index = 0;
+
 const blogEntries = (await getCollection('blog', ({data}) => {
   return import.meta.env.PROD ? data.draft !== true : true;
 })).toSorted((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <Layout title="Blogs" activeNav="blog" isNavbar={nav} isBanner={banner} isCopyright={false}>
-  <h1>{t.nav.blog.title}</h1>
-	<ul>
+  <h1 class="hero_text">{t.nav.blog.title}</h1>
+	<ul class="cards">
 		{
-			blogEntries.map(async (post) => {
+    blogEntries.map(async (post) => {
 				const [postLang, ..._]: string[] = post.id.split('/');
 				const postTitle = post.data.title;
 				const bpostTitle = 'btitle' + postTitle;
@@ -35,7 +37,7 @@ const blogEntries = (await getCollection('blog', ({data}) => {
 
 				if (lang === postLang)
 					return (
-						<li class="posts">
+            <li class={`posts card${index++}`}>
 							<a class="box" href={`/blog/${post.id}`}>
 								<h3
 									class="title fade-transition"
@@ -58,7 +60,7 @@ const blogEntries = (await getCollection('blog', ({data}) => {
 								<div
 									aria-label={post.data.title}
 									class="text fade-transition"
-                  style={{ viewTransitionName: bpostContent }}
+                  style={{ viewTransitionName: escapeViewTransitionName(bpostContent) }}
                 >
                   <Fragment set:html={DOMPurify(new JSDOM('').window).sanitize(truncateHTML(post.rendered?.html ?? "", 30, { byWords: true }))} />
 								</div>
