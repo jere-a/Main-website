@@ -1,3 +1,11 @@
+/**
+ * WebGL fluid cursor simulation.
+ *
+ * Self-contained fluid dynamics effect that renders interactive dye splashes on pointer movement.
+ * Adapted from https://github.com/PavelDoGreat/WebGL-Fluid-Simulation. WebGL helpers are tightly
+ * coupled through the `gl` context closure, so this module is kept as a single unit rather than
+ * split into smaller files.
+ */
 // oxlint-disable no-console
 // oxlint-disable no-shadow no-explicit-any no-unnecessary-condition no-unsafe-type-assertion consistent-return
 // oxlint-disable unicorn/consistent-function-scoping
@@ -7,8 +15,8 @@ import { useStore } from "@nanostores/preact";
 import posthog from "posthog-js";
 import { useEffect, useRef, useMemo } from "preact/hooks";
 
-import { isMobile } from "@/ts/global";
-import { isPrefersReducedMotion } from "@/ts/stores";
+import { isPrefersReducedMotion } from "@/lib/stores";
+import { isMobile } from "@/lib/utils";
 
 interface ColorRGB {
   r: number;

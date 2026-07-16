@@ -6,8 +6,8 @@
 import posthog from "posthog-js";
 
 import { siteFeatures } from "@/configFeatures";
-import { fetchData } from "@/ts/cloudflare-trace";
-import { catchErrorTyped } from "@/ts/global/async.ts";
+import { fetchData } from "@/lib/cloudflare-trace";
+import { catchErrorTyped } from "@/lib/utils/async.ts";
 
 /** Paths that should show the default "this page is for debugging" message. */
 const DEBUG_PATHS = ["404", "404.html", "404.htm", "404/index.html", "404/index.htm"];

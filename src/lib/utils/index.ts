@@ -1,6 +1,7 @@
 export * from "./checks.ts";
 export * from "./globals.ts";
-export * from "./holidays.ts";
+export { isHoliday, holidayTimeTo } from "../holidays/index.ts";
+export type { ActiveHoliday } from "../holidays/index.ts";
 
 export { detectLanguage } from "./language.ts";
 export { throttle, catchErrorTyped } from "./async.ts";
