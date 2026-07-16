@@ -1,4 +1,7 @@
 // oxlint-disable no-console
+// oxlint-disable no-shadow no-explicit-any no-unnecessary-condition no-unsafe-type-assertion consistent-return
+// oxlint-disable unicorn/consistent-function-scoping
+// oxlint-disable typescript/prefer-nullish-coalescing
 "use client";
 import { useStore } from "@nanostores/preact";
 import posthog from "posthog-js";
@@ -87,7 +90,7 @@ export default function SplashCursor(props: SplashCursorProps) {
 
   useEffect(() => {
     const shouldSkip =
-      posthog.isFeatureEnabled("splashcursor") ||
+      posthog.isFeatureEnabled("splashcursor") === true ||
       typeof window === "undefined" ||
       isMobile() ||
       prefersReducedMotion ||

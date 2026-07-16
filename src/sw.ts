@@ -28,7 +28,7 @@ const createPlugins = (maxEntries: number, maxAgeDays?: number) =>
     }),
   ] as unknown as WorkboxPlugin[];
 
-precacheAndRoute(self.__WB_MANIFEST || [], {
+precacheAndRoute(self.__WB_MANIFEST, {
   directoryIndex: "index.html",
   cleanURLs: true,
 });

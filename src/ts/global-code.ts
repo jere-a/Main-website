@@ -4,7 +4,9 @@ import { on, isHoliday } from "./global/index";
 import init from "./posthog.ts";
 
 const main = async () => {
+  // oxlint-disable-next-line unicorn/consistent-function-scoping
   const runInit = () => {
+    // oxlint-disable-next-line promise/prefer-await-to-then
     void init().catch((e) => {
       // oxlint-disable-next-line no-console
       console.error("init failed", e);

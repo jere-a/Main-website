@@ -3,6 +3,7 @@ import katex from "katex";
 import "@/styles/katex/katex.css";
 
 const { formula = "" } = Astro.props;
+// oxlint-disable-next-line import/no-named-as-default-member
 const html = katex.renderToString(formula, { throwOnError: false });
 ---
 
