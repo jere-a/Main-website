@@ -15,8 +15,8 @@ const parser = new MarkdownIt({
 export async function GET(context: APIContext) {
   const blog = await getCollection("blog");
   return rss({
-    title: siteConfig.Blogtitle,
-    description: siteConfig.rss_description,
+    title: siteConfig.blogTitle,
+    description: siteConfig.rssDescription,
     site: context.site ?? "",
     xmlns: { atom: "http://www.w3.org/2005/Atom" },
     items: blog.map((post: CollectionEntry<"blog">) => ({
