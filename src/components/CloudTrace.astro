@@ -5,7 +5,7 @@
 	import { fetchData } from '@/ts/cloudflare-trace';
 
 	if (siteFeatures.params.functions.fetchIPP) {
-		const data = await fetchData().then((a) => a);
+		const data = await fetchData();
 		const ipEl = document.querySelector<HTMLParagraphElement>('.ip');
 		if (ipEl) ipEl.innerText = data.ip;
 	}

@@ -13,11 +13,7 @@ interface Props {
 
 const { class: className, cloudinary_id, title, body, alt, transitionName } = Astro.props;
 
-const _altfunc = (): string => {
-	if (alt !== undefined) return alt;
-	else if (alt === undefined) return title;
-	else return '';
-};
+const imageAlt = alt ?? title;
 ---
 
 <div class={`card card${transitionName} gradient-border`}>
@@ -28,7 +24,7 @@ const _altfunc = (): string => {
         class={`image ${className}`}
         loading="eager"
         fetchpriority="high"
-        alt={_altfunc()}
+        alt={imageAlt}
       />
     }
 

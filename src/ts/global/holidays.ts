@@ -40,7 +40,7 @@ const holidays = [
     from: [10, 1],
     to: [11, 10],
     target: [10, 31],
-    load: async () => import("@/ts/global/holidays/halloween.ts").then((m) => m.main_halloween),
+    load: async () => import("@/ts/global/holidays/halloween.ts").then((m) => m.halloween),
   },
   {
     key: "christmas",
