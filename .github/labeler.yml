@@ -15,9 +15,12 @@ styles:
       - any-glob-to-any-file:
           - src/styles/**/*
           - src/global.css
-images:
+icons:
   - changed-files:
-      - any-glob-to-any-file: src/data/images/**/*
+      - any-glob-to-any-file: src/data/icons/**/*
+gallery:
+  - changed-files:
+      - any-glob-to-any-file: src/data/gallery/**/*
 fonts:
   - changed-files:
       - any-glob-to-any-file: src/data/fonts/**/*
@@ -29,9 +32,12 @@ types:
       - any-glob-to-any-file:
           - src/types/**/*
           - src/env.d.ts
-scripts:
+lib:
   - changed-files:
-      - any-glob-to-any-file: src/ts/**/*
+      - any-glob-to-any-file: src/lib/**/*
+holidays:
+  - changed-files:
+      - any-glob-to-any-file: src/lib/holidays/**/*
 infrastructure:
   - changed-files:
       - any-glob-to-any-file:
