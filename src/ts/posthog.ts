@@ -1,4 +1,5 @@
 import type { PostHogConfig, CaptureResult } from "posthog-js";
+import posthog from "posthog-js";
 
 import { siteConfig } from "@/config";
 
@@ -26,15 +27,13 @@ const init = async (): Promise<void> => {
   const isLocal = LOCAL.has(location.hostname);
   const isDev = isTest || isLocal;
 
-  const posthog = (await import("posthog-js")).default;
-
   const config = {
     api_host: `https://t.${siteConfig.host}`,
     ui_host: "https://eu.posthog.com",
     defaults: "2026-05-30",
-    capture_pageview: "history_change",
     strict_script_versioning: true,
     secure_cookie: true,
+    opt_out_capturing_by_default: true,
     custom_blocked_useragents: LIGHTHOUSE_USER_AGENTS,
     ...(isDev && {
       debug: true,
