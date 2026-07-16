@@ -2,7 +2,8 @@ import posthog from "posthog-js";
 
 // oxlint-disable promise/prefer-await-to-then
 import { type DefaultSchema, type Lang, useTranslations } from "@/i18n";
-import { detectLanguage, getTemporal } from "@/ts/global/globals";
+import { detectLanguage } from "@/ts/global/language.ts";
+import { getTemporal } from "@/ts/global/temporal.ts";
 
 const Temporal = await getTemporal();
 
