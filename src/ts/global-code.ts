@@ -1,10 +1,16 @@
+/**
+ * Client-side entry point. Runs on every page load: initializes analytics, sets up global event
+ * handlers (context menu suppression, Konami code easter egg), and triggers holiday effects when
+ * applicable.
+ */
+
 import { createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 
 import { on, isHoliday } from "./global/index";
 import init from "./posthog.ts";
 
-const main = async () => {
-  // oxlint-disable-next-line unicorn/consistent-function-scoping
+/** Defer PostHog init to idle time or fallback after 1s. */
+const schedulePosthogInit = () => {
   const runInit = () => {
     // oxlint-disable-next-line promise/prefer-await-to-then
     void init().catch((e) => {
@@ -18,7 +24,10 @@ const main = async () => {
   } else {
     setTimeout(runInit, 1000);
   }
+};
 
+/** Disable right-click context menu on images. */
+const suppressImageContextMenu = () => {
   on(
     document.body,
     "contextmenu",
@@ -27,7 +36,10 @@ const main = async () => {
     },
     "img, picture",
   );
+};
 
+/** Log a message when the Konami code sequence is entered. */
+const setupKonamiCode = () => {
   const konamiCode = createSequenceMatcher(
     [
       "ArrowUp",
@@ -50,13 +62,27 @@ const main = async () => {
     // oxlint-disable-next-line no-console
     console.log(atob("S29uYW1pIGNvZGUgYWN0aXZhdGVkLg=="));
   });
+};
 
+/** Reload the page if Vite fails to load a chunk (hot module reload edge case). */
+const handleVitePreloadError = () => {
   addEventListener("vite:preloadError", () => {
     window.location.reload();
   });
+};
 
+/** Run holiday effects if today falls within a holiday season. */
+const loadHolidayEffect = async () => {
   const holiday = await isHoliday();
   await holiday?.runScript();
+};
+
+const main = async () => {
+  schedulePosthogInit();
+  suppressImageContextMenu();
+  setupKonamiCode();
+  handleVitePreloadError();
+  await loadHolidayEffect();
 };
 
 export default main;

@@ -1,3 +1,8 @@
+/**
+ * New Year's Eve holiday effect. Displays fireworks animation with optional sound effects. Sound is
+ * enabled only after the first user interaction (pointer or key).
+ */
+
 import { Fireworks } from "fireworks-js";
 
 import exp0 from "@/data/sounds/explosion0.mp3";
@@ -7,12 +12,12 @@ import exp2 from "@/data/sounds/explosion2.mp3";
 let fireworks: Fireworks | null = null;
 let container: HTMLDivElement | null = null;
 
-// Enable sound only after user interaction
+/** Enable sound after user interaction. */
 const enableSound = () => {
   fireworks?.updateOptions({ sound: { enabled: true } });
 };
 
-// Cleanup function
+/** Stop fireworks and remove the container from the DOM. */
 const cleanup = () => {
   fireworks?.stop();
   fireworks = null;
@@ -23,9 +28,9 @@ const cleanup = () => {
   }
 };
 
-// Initialize fireworks
+/** Create the fireworks container, start the animation, and listen for user interaction. */
 const init = () => {
-  cleanup(); // ensure no leftover instance
+  cleanup();
 
   container = document.createElement("div");
   container.className = "fireworks-container";
@@ -55,7 +60,7 @@ const init = () => {
   window.addEventListener("keydown", enableSound, { once: true });
 };
 
-// Fire-and-forget exported function (optional manual trigger)
+/** Start the New Year's fireworks effect. No-op on the server. */
 export const newYear = async () => {
   if (typeof window === "undefined") return;
   init();
