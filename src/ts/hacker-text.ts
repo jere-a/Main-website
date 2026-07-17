@@ -1,3 +1,13 @@
+/**
+ * Hacker text animation effect. Progressively reveals the target text by replacing random
+ * characters at each tick, creating a "matrix decode" visual effect.
+ *
+ * @param element - The DOM element to animate text into
+ * @param targetText - The final text to reveal
+ * @param letters - Character set for random replacements (default: A-Z)
+ * @param delay - Milliseconds between each animation tick (default: 30)
+ * @param iterations - Speed factor: higher = faster reveal (default: 1.5)
+ */
 const hackerText = (
   element: HTMLElement,
   targetText: string,
