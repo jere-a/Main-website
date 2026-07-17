@@ -1,3 +1,8 @@
+/**
+ * PostHog analytics initialization. Configures tracking with privacy-first defaults (opt-out by
+ * default). Disables tracking in dev/test environments and for Lighthouse user agents.
+ */
+
 import type { PostHogConfig, CaptureResult } from "posthog-js";
 import posthog from "posthog-js";
 
@@ -9,12 +14,16 @@ declare global {
   }
 }
 
-const LOCAL = new Set(["localhost", "127.0.0.1", "::1"]);
-const LIGHTHOUSE_USER_AGENTS = [
+/** Hostnames where analytics should be disabled. */
+const LOCALHOST_HOSTNAMES = new Set(["localhost", "127.0.0.1", "::1"]);
+
+/** User agent strings to block from analytics (Lighthouse audits). */
+const BLOCKED_USER_AGENTS = [
   "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36",
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
 ];
 
+/** Initialize PostHog. Safe to call multiple times (idempotent). */
 const init = async (): Promise<void> => {
   if (typeof window === "undefined" || window.__posthog_initialized) return;
   window.__posthog_initialized = true;
@@ -24,7 +33,7 @@ const init = async (): Promise<void> => {
     VITEST?: string | boolean;
   };
   const isTest = env.MODE === "test" || !!env.VITEST || env.CI === "true";
-  const isLocal = LOCAL.has(location.hostname);
+  const isLocal = LOCALHOST_HOSTNAMES.has(location.hostname);
   const isDev = isTest || isLocal;
 
   const config = {
@@ -34,7 +43,7 @@ const init = async (): Promise<void> => {
     strict_script_versioning: true,
     secure_cookie: true,
     opt_out_capturing_by_default: true,
-    custom_blocked_useragents: LIGHTHOUSE_USER_AGENTS,
+    custom_blocked_useragents: BLOCKED_USER_AGENTS,
     ...(isDev && {
       debug: true,
       advanced_disable_feature_flags: true,
@@ -50,7 +59,7 @@ const init = async (): Promise<void> => {
     }),
   } satisfies Partial<PostHogConfig>;
 
-  posthog.init(siteConfig.posthog_id, config);
+  posthog.init(siteConfig.posthogApiKey, config);
 };
 
 export default init;

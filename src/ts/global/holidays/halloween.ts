@@ -1,21 +1,20 @@
+/**
+ * Halloween holiday effect. Applies a dark CSS stylesheet and adds "halloween" class to all <p>
+ * elements. Elements with class "holidays" also get the "butcherman" font class.
+ */
+
 import cssSheet from "@/styles/holidays/halloween.css?inline" with { type: "css" };
 
 const sheet = new CSSStyleSheet();
 sheet.replaceSync(cssSheet);
 
-export const main_halloween = async () => {
+export const halloween = async () => {
   document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
 
-  document.querySelectorAll("p").forEach((e) => {
-    if (typeof e !== "string") {
-      e.classList.add("halloween");
-      if (e.classList.contains("holidays")) {
-        e.classList.add("butcherman");
-      }
-    } else {
-      document.querySelectorAll<HTMLElement>(e).forEach((elem) => {
-        elem.classList.add("halloween");
-      });
+  document.querySelectorAll("p").forEach((p) => {
+    p.classList.add("halloween");
+    if (p.classList.contains("holidays")) {
+      p.classList.add("butcherman");
     }
   });
 };
