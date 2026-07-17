@@ -3,6 +3,7 @@ import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
+import AstroPWA from "@vite-pwa/astro";
 import embeds from "astro-embed/integration";
 import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
 import pageInsight from "astro-page-insight";
@@ -37,47 +38,47 @@ export default defineConfig({
     mdx(),
     svelte(),
     preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"], devtools: true }),
-    /* AstroPWA({
-          strategies: 'injectManifest',
-          srcDir: 'src',
-          filename: 'sw.ts',
-          manifest: {
-              name: "Åzze's website",
-              short_name: 'Åzze',
-              description: siteConfig.description,
-              theme_color: '#310a65',
-              id: 'ozze',
-              start_url: '/?source=pwa',
-              display: 'standalone',
-              dir: 'ltr',
-              icons: [
-                  {
-                      src: '/pwa-192x192.png',
-                      sizes: '192x192',
-                      type: 'image/png',
-                      purpose: 'any',
-                  },
-                  {
-                      src: '/pwa-512x512.png',
-                      sizes: '512x512',
-                      type: 'image/png',
-                      purpose: 'any',
-                  },
-                  {
-                      src: '/pwa-maskable-192x192.png',
-                      sizes: '192x192',
-                      type: 'image/png',
-                      purpose: 'maskable',
-                  },
-                  {
-                      src: '/pwa-maskable-512x512.png',
-                      sizes: '512x512',
-                      type: 'image/png',
-                      purpose: 'maskable',
-                  },
-              ],
+    AstroPWA({
+      strategies: "injectManifest",
+      srcDir: "src",
+      filename: "sw.ts",
+      manifest: {
+        name: "Åzze's website",
+        short_name: "Åzze",
+        description: siteConfig.description,
+        theme_color: "#310a65",
+        id: "ozze",
+        start_url: "/?source=pwa",
+        display: "standalone",
+        dir: "ltr",
+        icons: [
+          {
+            src: "/pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any",
           },
-      }), */
+          {
+            src: "/pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "/pwa-maskable-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "/pwa-maskable-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
+        ],
+      },
+    }),
     i18n({
       locales,
       defaultLocale,
