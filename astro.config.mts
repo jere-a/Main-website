@@ -122,7 +122,7 @@ export default defineConfig({
   },
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkReadingTime as unknown as RemarkPlugin, remarkToc, remarkMath],
+      remarkPlugins: [remarkReadingTime as unknown as RemarkPlugin, remarkToc, remarkMath], // oxlint-disable-line typescript/no-unsafe-type-assertion
       rehypePlugins: [rehypeMathjax],
     }),
     syntaxHighlight: "prism",

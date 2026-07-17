@@ -63,6 +63,7 @@ export default defineConfig({
 
     // Import
     "import/no-duplicates": "error",
+    "import/no-unassigned-import": "off",
 
     // Promise
     "promise/no-return-wrap": "warn",

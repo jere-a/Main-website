@@ -57,6 +57,7 @@ export async function catchErrorTyped<T, E extends new (message?: string) => Err
     return [undefined, data] as [undefined, T];
   } catch (error) {
     if (errorsToCatch === undefined || errorsToCatch.some((e) => error instanceof e)) {
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
       return [error] as [InstanceType<E>];
     }
     throw error;
@@ -94,7 +95,7 @@ export function on<K extends keyof HTMLElementEventMap>(
     }
     handler.call(element, event);
   };
-  element.addEventListener(eventName, wrappedHandler as EventListener);
+  element.addEventListener(eventName, wrappedHandler as EventListener); // oxlint-disable-line typescript/no-unsafe-type-assertion
   return wrappedHandler;
 }
 
