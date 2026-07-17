@@ -80,6 +80,7 @@
     "sass": "^1.101.0",
     "truncate-html": "^1.2.2",
     "valibot": "^1.4.2",
+    "vanilla-cookieconsent": "3.1.0",
     "vite": "^8.1.5",
     "vite-plugin-pwa": "^1.3.0",
     "vite-react": "^5.0.0",
