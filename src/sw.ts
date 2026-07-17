@@ -13,7 +13,7 @@ import { imageCache } from "workbox-recipes";
 import { NavigationRoute, registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate, NetworkFirst, CacheFirst } from "workbox-strategies";
 
-import { catchErrorTyped } from "@/ts/global/globals";
+import { catchErrorTyped } from "@/lib/utils/globals";
 
 const DAY = 24 * 60 * 60;
 

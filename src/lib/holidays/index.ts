@@ -2,8 +2,8 @@ import posthog from "posthog-js";
 
 // oxlint-disable promise/prefer-await-to-then
 import { type DefaultSchema, type Lang, useTranslations } from "@/i18n";
-import { detectLanguage } from "@/ts/global/language.ts";
-import { getTemporal } from "@/ts/global/temporal.ts";
+import { detectLanguage } from "@/lib/utils/language.ts";
+import { getTemporal } from "@/lib/utils/temporal.ts";
 
 const Temporal = await getTemporal();
 
@@ -40,21 +40,21 @@ const holidays = [
     from: [10, 1],
     to: [11, 10],
     target: [10, 31],
-    load: async () => import("@/ts/global/holidays/halloween.ts").then((m) => m.halloween),
+    load: async () => import("./halloween.ts").then((m) => m.halloween),
   },
   {
     key: "christmas",
     from: [11, 30],
     to: [12, 25],
     target: [12, 24],
-    load: async () => import("@/ts/global/holidays/christmas.ts").then((m) => m.christmas),
+    load: async () => import("./christmas.ts").then((m) => m.christmas),
   },
   {
     key: "newyear",
     from: [12, 26],
     to: [1, 8, 1],
     target: [12, 31],
-    load: async () => import("@/ts/global/holidays/newYear.ts").then((m) => m.newYear),
+    load: async () => import("./newYear.ts").then((m) => m.newYear),
   },
 ] as const satisfies readonly HolidayDef[];
 

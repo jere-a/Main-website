@@ -11,7 +11,11 @@
     "jsxImportSource": "preact",
     "esModuleInterop": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@utils/*": ["./src/lib/utils/*"],
+      "@components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"]
     },
     "types": ["vite-plugin-pwa/client", "vite-plugin-pwa/info"],
     "strict": true,

@@ -6,8 +6,8 @@
 
 import { createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 
-import { on, isHoliday } from "./global/index";
-import init from "./posthog.ts";
+import init from "./analytics.ts";
+import { on, isHoliday } from "./utils/index";
 
 /** Defer PostHog init to idle time or fallback after 1s. */
 const schedulePosthogInit = () => {

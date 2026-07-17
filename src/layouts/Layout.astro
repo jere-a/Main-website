@@ -3,7 +3,7 @@ import { Font } from 'astro:assets';
 import { getLangFromUrl } from '@/i18n/utils';
 import { siteFeatures } from '@/configFeatures';
 import CommonHead from '@/components/CommonHead.astro';
-import NavMenu from '@/components/nav-menu.astro';
+import NavMenu from '@/components/NavMenu.astro';
 import Footer from '@/components/Footer.astro';
 import SplashCursor from '@/components/ui/SplashCursor';
 
@@ -69,6 +69,6 @@ const kaoid = 'kao';
 <script>
   // oxlint-disable-next-line import/no-unassigned-import
   import "@/cookieconsent-config.ts";
-	import global from '@/ts/global-code';
+	import global from '@/lib/entry';
 	global();
 </script>

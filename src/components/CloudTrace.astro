@@ -2,7 +2,7 @@
 
 <script>
 	import { siteFeatures } from '@/configFeatures';
-	import { fetchData } from '@/ts/cloudflare-trace';
+	import { fetchData } from '@/lib/cloudflare-trace';
 
 	if (siteFeatures.params.functions.fetchIPP) {
 		const data = await fetchData();
