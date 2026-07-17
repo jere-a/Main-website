@@ -42,7 +42,6 @@
     "@nanostores/media-query": "^0.1.2",
     "@nanostores/react": "^1.1.0",
     "@posthog/types": "^1.395.0",
-    "@sentry/astro": "^10.66.0",
     "@tanstack/hotkeys": "^0.8.0",
     "@tsparticles/engine": "^4.3.2",
     "@tsparticles/preset-snow": "^4.3.2",
