@@ -35,6 +35,42 @@ export const isMobile = (): boolean => {
   const caps = deviceCapabilities();
   return caps.prefersMobileUI || caps.prefersTouchUI;
 };
+
+export const JSEngine = {
+  V8: "v8",
+  SPIDERMONKEY: "spidermonkey",
+  JAVASCRIPTCORE: "javascriptcore",
+  UNKNOWN: "unknown",
+} as const;
+
+export type JSEngine = (typeof JSEngine)[keyof typeof JSEngine];
+
+function detectJSEngine(): JSEngine {
+  const constructor = [].constructor;
+  try {
+    (-1).toFixed(-1);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+
+    const identifier = message.length + String(constructor).replace(constructor.name, "").length;
+
+    return (
+      {
+        80: JSEngine.V8,
+        58: JSEngine.SPIDERMONKEY,
+        77: JSEngine.JAVASCRIPTCORE,
+      }[identifier] ?? JSEngine.UNKNOWN
+    );
+  }
+
+  return JSEngine.UNKNOWN;
+}
+
+export const JS_ENGINE = detectJSEngine();
+
+export const IS_BLINK = JS_ENGINE === JSEngine.V8;
+export const IS_GECKO = JS_ENGINE === JSEngine.SPIDERMONKEY;
+export const IS_WEBKIT = JS_ENGINE === JSEngine.JAVASCRIPTCORE;
 declare global {
   interface Navigator {
     /** Firefox-only OS information string. */
