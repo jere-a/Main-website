@@ -71,6 +71,25 @@ export const JS_ENGINE = detectJSEngine();
 export const IS_BLINK = JS_ENGINE === JSEngine.V8;
 export const IS_GECKO = JS_ENGINE === JSEngine.SPIDERMONKEY;
 export const IS_WEBKIT = JS_ENGINE === JSEngine.JAVASCRIPTCORE;
+
+interface BraveNavigator extends Navigator {
+  brave?: {
+    isBrave(): Promise<boolean>;
+  };
+}
+
+export function isBraveBrowser(): boolean {
+  const nav = navigator as BraveNavigator;
+
+  return typeof nav.brave?.isBrave === "function";
+}
+
+export const POSSIBLE_BRAVE =
+  IS_BLINK && "flat" in Array.prototype && !("ReportingObserver" in globalThis);
+
+export const BRAVE_RESISTANCE =
+  POSSIBLE_BRAVE && "keyboard" in navigator && navigator.keyboard === null;
+
 declare global {
   interface Navigator {
     /** Firefox-only OS information string. */
