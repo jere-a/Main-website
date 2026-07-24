@@ -43,9 +43,7 @@ infrastructure:
       - any-glob-to-any-file:
           - .github/**/*
           - astro.config.mts
-          - vite.config.ts
           - svelte.config.ts
-          - rolldown.config.ts
           - turbo.json
           - wrangler.toml
           - mise.toml

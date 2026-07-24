@@ -8,10 +8,14 @@ import embeds from "astro-embed/integration";
 import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
 import pageInsight from "astro-page-insight";
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
+import browserslist from "browserslist";
+import { browserslistToTargets, Features } from "lightningcss";
 import rehypeMathjax from "rehype-mathjax";
 import remarkMath from "remark-math";
 import remarkToc from "remark-toc";
+import oxlintPlugin from "vite-plugin-oxlint";
 
+import package_json from "./package.json";
 import { remarkReadingTime } from "./remark-reading-time.mts";
 import { siteConfig } from "./src/config";
 
@@ -139,4 +143,34 @@ export default defineConfig({
       cssVariable: "--font-butcherman",
     },
   ],
+  vite: {
+    resolve: {
+      extensions: [".ts", ".mts", ".mjs", ".js", ".jsx", ".tsx", ".json"],
+    },
+    server: { allowedHosts: ["prerelease.ozze.eu.org"] },
+    css: {
+      devSourcemap: true,
+      transformer: "lightningcss",
+      lightningcss: {
+        exclude: Features.Nesting,
+        targets: browserslistToTargets(browserslist(package_json.browserslist)),
+      },
+    },
+    build: {
+      sourcemap: true,
+      cssMinify: "lightningcss",
+      rolldownOptions: {
+        output: {
+          topLevelVar: true,
+          comments: false,
+          strictExecutionOrder: true,
+        },
+        preserveEntrySignatures: false,
+        optimization: {
+          inlineConst: { mode: "all", pass: 100 },
+        },
+      },
+    },
+    plugins: [oxlintPlugin()],
+  },
 });
