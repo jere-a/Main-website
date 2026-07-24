@@ -1,3 +1,5 @@
+import { assertExists } from "@utils/typecheck";
+
 /** Async and timing utilities for client-side code. */
 
 /**
@@ -20,10 +22,9 @@ export const throttle = <Args extends Array<unknown>>(
     timer = setTimeout(() => {
       void (async () => {
         timer = null;
-        if (waiting) {
-          await catchErrorTyped(Promise.resolve(cb(...waiting)));
-          waiting = null;
-        }
+        assertExists(waiting);
+        await catchErrorTyped(Promise.resolve(cb(...waiting)));
+        waiting = null;
       })();
     }, delay);
   };

@@ -1,3 +1,4 @@
+import { assertExists } from "@utils/typecheck";
 import posthog from "posthog-js";
 
 // oxlint-disable promise/prefer-await-to-then
@@ -64,9 +65,8 @@ let labelCache: HolidayLabels | undefined;
 const labels = async (): Promise<HolidayLabels> => {
   const lang = detectLanguage();
 
-  if (labelCache && labelLang === lang) {
-    return labelCache;
-  }
+  assertExists(labelCache);
+  if (labelLang === lang) return labelCache;
 
   labelLang = lang;
   labelCache = (await useTranslations(lang)).holiday;
@@ -138,7 +138,8 @@ let formatters: UnitFormatters | undefined;
 const getFormatters = (): UnitFormatters => {
   const lang = detectLanguage();
 
-  if (formatters && formatterLang === lang) return formatters;
+  assertExists(formatters);
+  if (formatterLang === lang) return formatters;
 
   formatterLang = lang;
 

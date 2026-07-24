@@ -1,5 +1,7 @@
 /** DOM manipulation utilities for client-side code. */
 
+import { assertExists } from "./typecheck";
+
 type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
 
 /** Inject a CSS string into the document head as a <style> element. */
@@ -29,14 +31,14 @@ export function on<K extends keyof HTMLElementEventMap>(
   selector?: string,
 ): (event: HTMLElementEventMap[K]) => void {
   const wrappedHandler = (event: HTMLElementEventMap[K]): void => {
-    if (selector) {
-      const target = event.target;
-      if (target instanceof Element) {
-        const matched = target.closest(selector);
-        if (matched) handler.call(matched, event);
-        return;
-      }
+    assertExists(selector);
+    const target = event.target;
+    if (target instanceof Element) {
+      const matched = target.closest(selector);
+      if (matched) handler.call(matched, event);
+      return;
     }
+
     handler.call(element, event);
   };
   element.addEventListener(eventName, wrappedHandler as EventListener); // oxlint-disable-line typescript/no-unsafe-type-assertion
