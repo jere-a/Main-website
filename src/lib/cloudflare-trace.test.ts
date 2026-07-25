@@ -15,6 +15,7 @@ loc=US
 http=2
 h=abc123`;
 
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     vi.spyOn(global, "fetch").mockResolvedValue({
       text: () => Promise.resolve(traceResponse),
     } as Response);
@@ -31,6 +32,7 @@ h=abc123`;
   it("throws on invalid/missing required fields", async () => {
     const incomplete = `ip=1.2.3.4`;
 
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     vi.spyOn(global, "fetch").mockResolvedValue({
       text: () => Promise.resolve(incomplete),
     } as Response);
@@ -46,6 +48,7 @@ loc=
 http=
 h=`;
 
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     vi.spyOn(global, "fetch").mockResolvedValue({
       text: () => Promise.resolve(traceResponse),
     } as Response);
@@ -64,6 +67,7 @@ loc=FI
 http=2
 h=xyz`;
 
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     vi.spyOn(global, "fetch").mockResolvedValue({
       text: () => Promise.resolve(traceResponse),
     } as Response);
@@ -74,6 +78,7 @@ h=xyz`;
   });
 
   it("calls fetch with the correct URL", async () => {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     vi.spyOn(global, "fetch").mockResolvedValue({
       text: () => Promise.resolve("ip=x\nuag=x\ntls=x\nloc=x\nhttp=x\nh=x"),
     } as Response);
@@ -81,6 +86,7 @@ h=xyz`;
     await fetchData();
 
     expect(global.fetch).toHaveBeenCalledTimes(1);
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     const url = (global.fetch as unknown as ReturnType<typeof vi.fn>).mock.calls[0]?.[0];
     expect(url).toContain("/cdn-cgi/trace");
   });

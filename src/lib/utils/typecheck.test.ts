@@ -103,7 +103,7 @@ describe("isBoolean", () => {
 describe("isBigInt", () => {
   it("returns true for bigints", () => {
     expect(isBigInt(BigInt(0))).toBe(true);
-    expect(isBigInt(BigInt(9007199254740993))).toBe(true);
+    expect(isBigInt(9007199254740993n)).toBe(true);
     expect(isBigInt(BigInt(-1))).toBe(true);
   });
 
@@ -129,6 +129,7 @@ describe("isFunction", () => {
   it("returns true for functions", () => {
     expect(isFunction(() => {})).toBe(true);
     expect(isFunction(function () {})).toBe(true);
+    // oxlint-disable-next-line typescript/no-extraneous-class
     expect(isFunction(class {})).toBe(true);
     expect(isFunction(Math.max)).toBe(true);
     expect(isFunction(async () => {})).toBe(true);
@@ -229,8 +230,11 @@ describe("assertExists", () => {
 
 describe("assertNever", () => {
   it("always throws", () => {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     expect(() => assertNever(null as never)).toThrow("Unexpected value: null");
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     expect(() => assertNever(42 as never)).toThrow("Unexpected value: 42");
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     expect(() => assertNever("x" as never)).toThrow("Unexpected value: x");
   });
 });

@@ -24,6 +24,7 @@ describe("getTemporal", () => {
     expect(result).toBeDefined();
     expect(result.PlainDate).toBeDefined();
 
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     if (original) {
       vi.stubGlobal("Temporal", original);
     }

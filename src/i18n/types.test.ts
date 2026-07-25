@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 
 import { Langs, defaultLang, translationLoaders } from "./types";
-import type { Lang } from "./types";
 
 describe("Langs", () => {
   it("defines Fi and En language codes", () => {
@@ -57,8 +56,8 @@ describe("translationLoaders", () => {
     const fi = await translationLoaders.fi();
     const en = await translationLoaders.en();
 
-    const fiKeys = Object.keys(fi).sort();
-    const enKeys = Object.keys(en).sort();
+    const fiKeys = Object.keys(fi).toSorted();
+    const enKeys = Object.keys(en).toSorted();
     expect(fiKeys).toEqual(enKeys);
   });
 
@@ -66,7 +65,7 @@ describe("translationLoaders", () => {
     const fi = await translationLoaders.fi();
     const en = await translationLoaders.en();
 
-    expect(Object.keys(fi.holiday).sort()).toEqual(Object.keys(en.holiday).sort());
+    expect(Object.keys(fi.holiday).toSorted()).toEqual(Object.keys(en.holiday).toSorted());
   });
 
   it("translation values are strings", async () => {

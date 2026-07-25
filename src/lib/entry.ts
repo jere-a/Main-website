@@ -9,15 +9,15 @@ import { createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 import init from "./analytics.ts";
 import { on, isHoliday } from "./utils/index";
 
-const schedulePosthogInit = () => {
-  const runInit = () => {
-    // oxlint-disable-next-line promise/prefer-await-to-then
-    void init().catch((e) => {
-      // oxlint-disable-next-line no-console
-      console.error("init failed", e);
-    });
-  };
+const runInit = () => {
+  // oxlint-disable-next-line promise/prefer-await-to-then
+  void init().catch((e) => {
+    // oxlint-disable-next-line no-console
+    console.error("init failed", e);
+  });
+};
 
+const schedulePosthogInit = () => {
   if ("requestIdleCallback" in window) {
     requestIdleCallback(runInit, { timeout: 2000 });
   } else {

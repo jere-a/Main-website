@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("astro-i18n-aut", () => ({
   getLocale: (url: URL) => {
     const segment = url.pathname.split("/")[1];
-    return segment || undefined;
+    return segment ?? undefined;
   },
   getLocaleUrl: (path: string, lang: string) => `/${lang}${path}`,
 }));
@@ -86,6 +86,7 @@ describe("i18n utils", () => {
 
     it("falls back to defaultLang for invalid lang", async () => {
       const { useTranslatedPath } = await import("./utils");
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
       const path = useTranslatedPath("de" as never)("/about");
       expect(path).toContain("fi");
     });

@@ -14,8 +14,8 @@ function stubMatchMedia(matches: Record<string, boolean>) {
   vi.stubGlobal("matchMedia", (query: string) => ({
     matches: matches[query] ?? false,
     media: query,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
+    addEventListener: vi.fn<(...args: unknown[]) => void>(),
+    removeEventListener: vi.fn<(...args: unknown[]) => void>(),
   }));
 }
 
@@ -61,7 +61,7 @@ describe("isBraveBrowser", () => {
   });
 
   it("returns false when isBrave is not a function", async () => {
-    vi.stubGlobal("navigator", { ...navigator, brave: {} });
+    vi.stubGlobal("navigator", { platform: "", vendor: "", maxTouchPoints: 0, brave: {} });
     const { isBraveBrowser } = await import("./checks");
     expect(isBraveBrowser()).toBe(false);
   });

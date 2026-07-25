@@ -71,7 +71,7 @@ describe("on", () => {
   it("attaches an event listener and fires handler", () => {
     const div = document.createElement("div");
     document.body.appendChild(div);
-    const handler = vi.fn();
+    const handler = vi.fn<(event: Event) => void>();
 
     on(div, "click", handler);
 
@@ -82,9 +82,10 @@ describe("on", () => {
   it("returns the wrapped handler for removal", () => {
     const div = document.createElement("div");
     document.body.appendChild(div);
-    const handler = vi.fn();
+    const handler = vi.fn<(event: Event) => void>();
 
     const wrapped = on(div, "click", handler);
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     div.removeEventListener("click", wrapped as EventListener);
 
     div.dispatchEvent(new Event("click", { bubbles: true }));
@@ -97,7 +98,7 @@ describe("on", () => {
     parent.appendChild(child);
     document.body.appendChild(parent);
 
-    const handler = vi.fn();
+    const handler = vi.fn<(event: Event) => void>();
     on(parent, "click", handler, "span");
 
     child.dispatchEvent(new Event("click", { bubbles: true }));
@@ -110,7 +111,7 @@ describe("on", () => {
     parent.appendChild(child);
     document.body.appendChild(parent);
 
-    const handler = vi.fn();
+    const handler = vi.fn<(event: Event) => void>();
     on(parent, "click", handler, "button");
 
     child.dispatchEvent(new Event("click", { bubbles: true }));

@@ -25,31 +25,31 @@ describe("detectLanguage", () => {
 
   it("falls back to navigator.languages", () => {
     document.documentElement.lang = "";
-    vi.stubGlobal("navigator", { ...navigator, languages: ["fi-FI", "en-US"], language: "" });
+    vi.stubGlobal("navigator", { languages: ["fi-FI", "en-US"], language: "" });
     expect(detectLanguage()).toBe("fi");
   });
 
   it("falls back to navigator.language", () => {
     document.documentElement.lang = "";
-    vi.stubGlobal("navigator", { ...navigator, languages: [], language: "en-GB" });
+    vi.stubGlobal("navigator", { languages: [], language: "en-GB" });
     expect(detectLanguage()).toBe("en");
   });
 
   it("returns defaultLang for unsupported languages", () => {
     document.documentElement.lang = "";
-    vi.stubGlobal("navigator", { ...navigator, languages: ["zh-CN"], language: "zh-CN" });
+    vi.stubGlobal("navigator", { languages: ["zh-CN"], language: "zh-CN" });
     expect(detectLanguage()).toBe("fi");
   });
 
   it("returns defaultLang when everything is empty", () => {
     document.documentElement.lang = "";
-    vi.stubGlobal("navigator", { ...navigator, languages: [], language: "" });
+    vi.stubGlobal("navigator", { languages: [], language: "" });
     expect(detectLanguage()).toBe("fi");
   });
 
   it("prioritizes argument over document and navigator", () => {
     document.documentElement.lang = "en";
-    vi.stubGlobal("navigator", { ...navigator, languages: ["fi-FI"], language: "fi" });
+    vi.stubGlobal("navigator", { languages: ["fi-FI"], language: "fi" });
     expect(detectLanguage("en")).toBe("en");
   });
 

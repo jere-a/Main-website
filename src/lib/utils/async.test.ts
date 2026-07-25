@@ -57,7 +57,7 @@ describe("throttle", () => {
   });
 
   it("calls the callback immediately on first invocation", async () => {
-    const cb = vi.fn().mockResolvedValue(undefined);
+    const cb = vi.fn<(...args: string[]) => Promise<void>>().mockResolvedValue(undefined);
     const throttled = throttle(cb, 1000);
 
     await throttled("a");
@@ -66,7 +66,7 @@ describe("throttle", () => {
   });
 
   it("skips calls while throttled", async () => {
-    const cb = vi.fn().mockResolvedValue(undefined);
+    const cb = vi.fn<(...args: string[]) => Promise<void>>().mockResolvedValue(undefined);
     const throttled = throttle(cb, 1000);
 
     await throttled("first");
@@ -78,7 +78,7 @@ describe("throttle", () => {
   });
 
   it("executes the latest throttled call after delay", async () => {
-    const cb = vi.fn().mockResolvedValue(undefined);
+    const cb = vi.fn<(...args: string[]) => Promise<void>>().mockResolvedValue(undefined);
     const throttled = throttle(cb, 1000);
 
     await throttled("first");
@@ -93,7 +93,7 @@ describe("throttle", () => {
   });
 
   it("passes multiple arguments", async () => {
-    const cb = vi.fn().mockResolvedValue(undefined);
+    const cb = vi.fn<(...args: unknown[]) => Promise<void>>().mockResolvedValue(undefined);
     const throttled = throttle(cb, 1000);
 
     await throttled("x", 42, true);
