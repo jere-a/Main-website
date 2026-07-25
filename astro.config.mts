@@ -143,4 +143,34 @@ export default defineConfig({
       cssVariable: "--font-butcherman",
     },
   ],
+  vite: {
+    resolve: {
+      extensions: [".ts", ".mts", ".mjs", ".js", ".jsx", ".tsx", ".json"],
+    },
+    server: { allowedHosts: ["prerelease.ozze.eu.org"] },
+    css: {
+      devSourcemap: true,
+      transformer: "lightningcss",
+      lightningcss: {
+        exclude: Features.Nesting,
+        targets: browserslistToTargets(browserslist(package_json.browserslist)),
+      },
+    },
+    build: {
+      sourcemap: true,
+      cssMinify: "lightningcss",
+      rolldownOptions: {
+        output: {
+          topLevelVar: true,
+          comments: false,
+          strictExecutionOrder: true,
+        },
+        preserveEntrySignatures: false,
+        optimization: {
+          inlineConst: { mode: "all", pass: 100 },
+        },
+      },
+    },
+    plugins: [oxlintPlugin()],
+  },
 });

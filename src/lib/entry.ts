@@ -9,7 +9,6 @@ import { createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 import init from "./analytics.ts";
 import { on, isHoliday } from "./utils/index";
 
-/** Defer PostHog init to idle time or fallback after 1s. */
 const schedulePosthogInit = () => {
   const runInit = () => {
     // oxlint-disable-next-line promise/prefer-await-to-then
@@ -26,7 +25,6 @@ const schedulePosthogInit = () => {
   }
 };
 
-/** Disable right-click context menu on images. */
 const suppressImageContextMenu = () => {
   on(
     document.body,
@@ -38,7 +36,6 @@ const suppressImageContextMenu = () => {
   );
 };
 
-/** Log a message when the Konami code sequence is entered. */
 const setupKonamiCode = () => {
   const konamiCode = createSequenceMatcher(
     [
@@ -64,14 +61,12 @@ const setupKonamiCode = () => {
   });
 };
 
-/** Reload the page if Vite fails to load a chunk (hot module reload edge case). */
 const handleVitePreloadError = () => {
   addEventListener("vite:preloadError", () => {
     window.location.reload();
   });
 };
 
-/** Run holiday effects if today falls within a holiday season. */
 const loadHolidayEffect = async () => {
   const holiday = await isHoliday();
   await holiday?.runScript();

@@ -90,7 +90,6 @@ registerRoute(
 self.addEventListener("activate", () => {
   void catchErrorTyped(
     (async () => {
-      clientsClaim();
       const clients = await self.clients.matchAll({ type: "window" });
       for (const client of clients) {
         // oxlint-disable-next-line unicorn/require-post-message-target-origin
@@ -99,3 +98,6 @@ self.addEventListener("activate", () => {
     })(),
   );
 });
+
+void self.skipWaiting();
+clientsClaim();

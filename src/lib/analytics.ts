@@ -23,18 +23,37 @@ const BLOCKED_USER_AGENTS = [
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
 ];
 
-/** Initialize PostHog. Safe to call multiple times (idempotent). */
-const init = async (): Promise<void> => {
-  if (typeof window === "undefined" || window.__posthog_initialized) return;
-  window.__posthog_initialized = true;
-
+function isDevMode(): boolean {
   const env = import.meta.env as ImportMetaEnv & {
     CI?: string;
     VITEST?: string | boolean;
   };
   const isTest = env.MODE === "test" || !!env.VITEST || env.CI === "true";
   const isLocal = LOCALHOST_HOSTNAMES.has(location.hostname);
-  const isDev = isTest || isLocal;
+
+  return isTest || isLocal;
+}
+
+/** Initialize PostHog. Safe to call multiple times (idempotent). */
+const init = async (): Promise<void> => {
+  if (typeof window === "undefined" || window.__posthog_initialized) return;
+  window.__posthog_initialized = true;
+
+  const isDev = isDevMode();
+
+  const devConfig = {
+    debug: true,
+    advanced_disable_feature_flags: true,
+    autocapture: false,
+    disable_session_recording: true,
+    before_send: (event: CaptureResult | null): CaptureResult | null => {
+      if (event) {
+        // oxlint-disable-next-line no-console
+        console.log(`posthog event: ${event.event}`, event);
+      }
+      return null;
+    },
+  };
 
   const config = {
     api_host: `https://t.${siteConfig.host}`,
@@ -44,19 +63,7 @@ const init = async (): Promise<void> => {
     secure_cookie: true,
     opt_out_capturing_by_default: true,
     custom_blocked_useragents: BLOCKED_USER_AGENTS,
-    ...(isDev && {
-      debug: true,
-      advanced_disable_feature_flags: true,
-      autocapture: false,
-      disable_session_recording: true,
-      before_send: (event: CaptureResult | null): CaptureResult | null => {
-        if (event) {
-          // oxlint-disable-next-line no-console
-          console.log(`posthog event: ${event.event}`, event);
-        }
-        return null;
-      },
-    }),
+    ...(isDev && devConfig),
   } satisfies Partial<PostHogConfig>;
 
   posthog.init(siteConfig.posthogApiKey, config);
