@@ -66,10 +66,16 @@ describe("siteConfig", () => {
     );
   });
 
-  it("giturl getter is reactive to host changes", () => {
+  it("giturl getter is reactive to github username changes", () => {
     const original = siteConfig.author.contacts.github;
-    // The getter uses siteConfig.author.contacts.github dynamically
-    expect(siteConfig.urls.giturl).toContain(original);
+    try {
+      siteConfig.author.contacts.github = "test-user";
+      expect(siteConfig.urls.giturl).toBe(
+        "https://github.com/test-user/Main-website",
+      );
+    } finally {
+      siteConfig.author.contacts.github = original;
+    }
   });
 
   it("satisfies the SiteConfig type shape", () => {

@@ -99,4 +99,18 @@ describe("throttle", () => {
     await throttled("x", 42, true);
     expect(cb).toHaveBeenCalledWith("x", 42, true);
   });
+
+  it("completes timer path without error when no follow-up call is made", async () => {
+    const cb = vi.fn<(...args: string[]) => Promise<void>>().mockResolvedValue(undefined);
+    const throttled = throttle(cb, 1000);
+
+    await throttled("only");
+    expect(cb).toHaveBeenCalledTimes(1);
+    expect(cb).toHaveBeenCalledWith("only");
+
+    vi.advanceTimersByTime(1000);
+    await vi.advanceTimersByTimeAsync(0);
+
+    expect(cb).toHaveBeenCalledTimes(1);
+  });
 });

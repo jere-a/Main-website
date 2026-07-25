@@ -214,7 +214,7 @@ function initSplashCursor(
 
     gl.clearColor(0, 0, 0, 1);
 
-    const halfFloatTexType = isWebGL2 ? gl.HALF_FLOAT : (halfFloat?.HALF_FLOAT_OES ?? 0);
+    const halfFloatTexType = isWebGL2 ? gl.HALF_FLOAT : (halfFloat?.HALF_FLOAT_OES ?? gl.UNSIGNED_BYTE);
 
     let formatRGBA: colorFormat;
     let formatRG: colorFormat;
