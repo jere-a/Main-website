@@ -58,6 +58,7 @@ monella kantilla suosittu [ChatGPT]:n vaihtoehdoksi.
 - ChatGPT: [https://chatgpt.com/overview][ChatGPT]
 - OpenAI: [https://openai.com/about/][OpenAI]
 - Anthropic: [https://www.anthropic.com/][Anthropic]
+- Claude: [https://www.anthropic.com/company][Claude]
 - Google Gemini: [https://gemini.google.com/][Gemini]
 
 [80 Näkökulmaa tekoälyyn]: https://www.intory.fi/materiaalipankki/80-nakokulmaa-tekoalyyn-opas-nuorten-parissa-toimiville/ "80 Näkökulmaa tekoälyyn - Opas nuorten parissa toimiville - Jarno Alastalo"
