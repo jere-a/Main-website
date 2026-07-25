@@ -20,7 +20,7 @@ const entry = Astro.props;
 const t = (await useTranslations(entry.data.lang));
 const translatePath = useTranslatedPath(entry.data.lang);
 
-const { Content, remarkPluginFrontmatter } = await render(entry);
+const { Content } = await render(entry);
 ---
 
 <Layout title={entry.data.title} activeNav="blog" isSplash={false} lang={entry.data.lang}>
@@ -41,7 +41,6 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
       datetime={entry.data.pubDate.toISOString()}
       >{entry.data.pubDate.toLocaleDateString()}</time
     >
-    <p class="read-time">{remarkPluginFrontmatter.minutesRead}</p>
     <div class="fade-transition" style={{ viewTransitionName: `bcontent${escapeViewTransitionName(entry.data.title)}` }}>
       <Content />
     </div>
@@ -104,11 +103,5 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
     font-size: 0.875em;
     color: var(--color-muted);
     display: block;
-  }
-
-  .read-time {
-    font-size: 0.875em;
-    color: var(--color-muted);
-    margin: 0;
   }
 </style>

@@ -1,5 +1,4 @@
-import { unified, type RemarkPlugin } from "@astrojs/markdown-remark";
-import mdx from "@astrojs/mdx";
+import { satteri } from "@astrojs/markdown-satteri";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
@@ -10,13 +9,9 @@ import pageInsight from "astro-page-insight";
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
 import browserslist from "browserslist";
 import { browserslistToTargets, Features } from "lightningcss";
-import rehypeMathjax from "rehype-mathjax";
-import remarkMath from "remark-math";
-import remarkToc from "remark-toc";
 import oxlintPlugin from "vite-plugin-oxlint";
 
 import package_json from "./package.json";
-import { remarkReadingTime } from "./remark-reading-time.mts";
 import { siteConfig } from "./src/config";
 
 export const defaultLocale = "fi";
@@ -35,11 +30,11 @@ export default defineConfig({
     svgOptimizer: svgoOptimizer(),
     chromeDevtoolsWorkspace: true,
     clientPrerender: true,
+    contentIntellisense: true,
   },
   prefetch: true,
   integrations: [
     embeds(),
-    mdx(),
     svelte(),
     preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"], devtools: true }),
     AstroPWA({
@@ -125,9 +120,14 @@ export default defineConfig({
     },
   },
   markdown: {
-    processor: unified({
-      remarkPlugins: [remarkReadingTime as unknown as RemarkPlugin, remarkToc, remarkMath], // oxlint-disable-line typescript/no-unsafe-type-assertion
-      rehypePlugins: [rehypeMathjax],
+    processor: satteri({
+      features: {
+        math: true,
+        headingAttributes: true,
+        superscript: true,
+        subscript: true,
+        smartPunctuation: true,
+      },
     }),
     syntaxHighlight: "prism",
   },
