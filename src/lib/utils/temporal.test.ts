@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, afterEach } from "vitest";
 
 import { getTemporal } from "./temporal";
 
@@ -17,7 +17,7 @@ describe("getTemporal", () => {
 
   it("imports polyfill when Temporal is not on globalThis", async () => {
     const original = globalThis.Temporal;
-    // `@ts-expect-error` testing absence
+    // @ts-expect-error testing absence
     delete globalThis.Temporal;
 
     const result = await getTemporal();
