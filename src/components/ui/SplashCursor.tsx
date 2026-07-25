@@ -179,6 +179,8 @@ function initSplashCursor(
     config.SHADING = false;
   }
 
+  type colorFormat = { internalFormat: number; format: number } | null;
+
   function getWebGLContext(canvas: HTMLCanvasElement) {
     const params = {
       alpha: true,
@@ -212,13 +214,11 @@ function initSplashCursor(
 
     gl.clearColor(0, 0, 0, 1);
 
-    const halfFloatTexType = isWebGL2
-      ? gl.HALF_FLOAT
-      : ((halfFloat && (halfFloat as any).HALF_FLOAT_OES) ?? 0);
+    const halfFloatTexType = isWebGL2 ? gl.HALF_FLOAT : (halfFloat?.HALF_FLOAT_OES ?? 0);
 
-    let formatRGBA: any;
-    let formatRG: any;
-    let formatR: any;
+    let formatRGBA: colorFormat;
+    let formatRG: colorFormat;
+    let formatR: colorFormat;
 
     if (isWebGL2) {
       formatRGBA = getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, halfFloatTexType);
@@ -247,7 +247,7 @@ function initSplashCursor(
     internalFormat: number,
     format: number,
     type: number,
-  ): { internalFormat: number; format: number } | null {
+  ): colorFormat {
     if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
       if ("drawBuffers" in gl) {
         const gl2 = gl;
@@ -878,8 +878,11 @@ function initSplashCursor(
 
     const texType = ext.halfFloatTexType;
     const rgba = ext.formatRGBA;
+    assertExists(rgba);
     const rg = ext.formatRG;
+    assertExists(rg);
     const r = ext.formatR;
+    assertExists(r);
     const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
     gl.disable(gl.BLEND);
 
