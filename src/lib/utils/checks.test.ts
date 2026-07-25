@@ -50,12 +50,22 @@ describe("isBraveBrowser", () => {
     expect(isBraveBrowser()).toBe(false);
   });
 
+describe("isBraveBrowser", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("returns false when navigator.brave is absent", async () => {
+    const { isBraveBrowser } = await import("./checks");
+    expect(isBraveBrowser()).toBe(false);
+  });
+
   it("returns false when isBrave is not a function", async () => {
     vi.stubGlobal("navigator", { ...navigator, brave: {} });
     const { isBraveBrowser } = await import("./checks");
     expect(isBraveBrowser()).toBe(false);
-    vi.unstubAllGlobals();
   });
+});
 });
 
 describe("detectOperatingSystem", () => {

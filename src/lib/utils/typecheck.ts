@@ -87,8 +87,11 @@ export const assertFunction = (
   error?: string | Error,
 ): asserts value is AnyFunction => assertType(value, "function", error);
 
-export const assertObject = (value: unknown, error?: string | Error): asserts value is object => {
+export const assertObject = (
+  value: unknown,
+  error: string | Error = "Expected object.",
+): asserts value is object => {
   if (!isObject(value)) {
-    throw isString(error) ? new TypeError(error) : (error ?? new TypeError("Expected object."));
+    throw isString(error) ? new TypeError(error) : error;
   }
 };

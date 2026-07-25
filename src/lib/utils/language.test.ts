@@ -5,7 +5,7 @@ import { detectLanguage } from "./language";
 describe("detectLanguage", () => {
   afterEach(() => {
     document.documentElement.lang = "";
-    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it("returns a supported language when argument matches", () => {
