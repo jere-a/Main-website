@@ -1,4 +1,5 @@
 import { describe, expect, it, afterEach } from "vitest";
+
 import { getQueryParam } from "./url";
 
 describe("getQueryParam", () => {

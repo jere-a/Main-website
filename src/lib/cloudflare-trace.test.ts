@@ -1,4 +1,5 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
+
 import { fetchData } from "./cloudflare-trace";
 
 describe("fetchData", () => {

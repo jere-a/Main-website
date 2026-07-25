@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { Langs, defaultLang, translationLoaders } from "./types";
 import type { Lang } from "./types";
 

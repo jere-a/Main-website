@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { siteFeatures } from "./configFeatures";
+
 import { siteConfig } from "./config";
+import { siteFeatures } from "./configFeatures";
 
 describe("siteFeatures", () => {
   it("contains the siteConfig", () => {

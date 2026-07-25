@@ -1,4 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+
 import { catchErrorTyped, throttle } from "./async";
 
 describe("catchErrorTyped", () => {

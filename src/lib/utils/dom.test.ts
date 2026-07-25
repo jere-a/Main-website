@@ -1,4 +1,5 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
+
 import { injectCSS, addCSSFromURL, on } from "./dom";
 
 describe("injectCSS", () => {

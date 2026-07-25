@@ -1,4 +1,5 @@
 import { describe, expect, it, afterEach, vi } from "vitest";
+
 import { detectLanguage } from "./language";
 
 describe("detectLanguage", () => {

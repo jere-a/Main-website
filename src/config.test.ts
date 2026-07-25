@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { siteConfig } from "./config";
 import type { SiteConfig } from "./config";
 
