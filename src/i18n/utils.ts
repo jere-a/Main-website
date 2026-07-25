@@ -18,7 +18,6 @@ export const langs = Object.values(Langs);
 /** Type guard: check if a value is a valid Lang. */
 export const isLang = (v: string): v is Lang => includes(langs, v);
 
-/** Load translations for the given language. Defaults to the default language. */
 export async function useTranslations(lang: Lang = defaultLang) {
   return await translationLoaders[lang]();
 }
@@ -29,10 +28,6 @@ export const getLangFromUrl = (url: URL): Lang => {
   return maybeLang && isLang(maybeLang) ? maybeLang : defaultLang;
 };
 
-/**
- * Create a function that generates localized paths. Returns a function: (path, overrideLang?) =>
- * localized URL string.
- */
 export const useTranslatedPath = (lang: Lang) => {
   const baseLang: Lang = isLang(lang) ? lang : defaultLang;
 
