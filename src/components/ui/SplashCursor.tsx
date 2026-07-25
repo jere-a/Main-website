@@ -12,6 +12,7 @@
 // oxlint-disable typescript/prefer-nullish-coalescing
 "use client";
 import { useStore } from "@nanostores/preact";
+import { assertExists } from "@utils/typecheck";
 import posthog from "posthog-js";
 import { useEffect, useRef, useMemo } from "preact/hooks";
 
@@ -194,9 +195,7 @@ function initSplashCursor(
         canvas.getContext("experimental-webgl", params)) as WebGL2RenderingContext | null;
     }
 
-    if (!gl) {
-      throw new Error("Unable to initialize WebGL.");
-    }
+    assertExists(gl, new Error("Unable to initialize WebGL."));
 
     const isWebGL2 = "drawBuffers" in gl;
 
@@ -317,6 +316,7 @@ function initSplashCursor(
   ): WebGLShader | null {
     const shaderSource = addKeywords(source, keywords);
     const shader = gl.createShader(type);
+    assertExists(shader, new Error("Error creating gl shader."));
     if (!shader) return null;
     gl.shaderSource(shader, shaderSource);
     gl.compileShader(shader);

@@ -3,6 +3,7 @@
  * fetches Cloudflare trace data to show the visitor's IP.
  */
 
+import { assertExists } from "@utils/typecheck";
 import posthog from "posthog-js";
 
 import { siteFeatures } from "@/configFeatures";
@@ -26,9 +27,11 @@ posthog.onFeatureFlags(() => {
   void (async () => {
     if (posthog.isFeatureEnabled("fetchipp") || siteFeatures.params.functions.fetchIPP) {
       const [, data] = await catchErrorTyped(fetchData());
-      if (data && infoEl) {
-        infoEl.innerText = `Yhteyttä yrittänyt ip osoite: ${data.ip}\nUserAgent: ${data.uag}`;
-      }
+
+      assertExists(infoEl);
+      assertExists(data);
+
+      infoEl.innerText = `Yhteyttä yrittänyt ip osoite: ${data.ip}\nUserAgent: ${data.uag}`;
     }
   })();
 });
