@@ -24,15 +24,46 @@ Yksi tunnetuimmista tekoälypalveluista on [ChatGPT], jonka on kehittänyt
 [OpenAI]. Muita tunnettuja tekoälyä kehittäviä yrityksiä ovat esimerkiksi
 [Anthropic] sekä [Google], jonka tekoälypalvelun nimi on [Gemini].
 
+[Gemini] on saatavilla suurimmassa osassa uusista android[^android] puhelimista
+ja toimii puhelimen avustajana jonka voi yleisesti kytkeä päälle painamalla
+Virta painiketta pohjassa pienen hetken.[^power-button]
+
+Toisinaan [Anthropic]:la on heidän tehokkain tekoälypalvelunsa [Claude], joka on
+monella kantilla suosittu [ChatGPT]:n vaihtoehdoksi.
+
+[^android]:
+    Googlen kehittämä puhelimen käyttöjärjestelmä jota muut puhelin valmistajat
+    ovat muokanneet omaan käyttöönsä esimerkiksi Samsung, OnePlus[^oneplus]
+
+[^oneplus]:
+    OnePlus on lähdössä pois euroopan markkinoilta ja sen mukana suomestakin:
+    **Lue Lisää**:
+    <https://www.puhelinvertailu.com/uutiset/2026/07/16/oneplus-poistui-euroopasta>
+    ja
+    <https://www.puhelinvertailu.com/uutiset/2026/07/17/mita-tapahtuu-oneplus-puhelimille-opas>
+
+[^power-button]: Painike voi olla eri vanhemmilla laitteilla.
+
+---
+
 ## Lähteet
+
+### Kirja / Dokumentti
+
+- 80 Näkökulmaa tekoälyyn:
+  [https://www.intory.fi/materiaalipankki/80-nakokulmaa-tekoalyyn-opas-nuorten-parissa-toimiville/][80 Näkökulmaa tekoälyyn]
+
+### Yhtiöt
 
 - ChatGPT: [https://chatgpt.com/overview][ChatGPT]
 - OpenAI: [https://openai.com/about/][OpenAI]
 - Anthropic: [https://www.anthropic.com/][Anthropic]
 - Google Gemini: [https://gemini.google.com/][Gemini]
 
+[80 Näkökulmaa tekoälyyn]: https://www.intory.fi/materiaalipankki/80-nakokulmaa-tekoalyyn-opas-nuorten-parissa-toimiville/ "80 Näkökulmaa tekoälyyn - Opas nuorten parissa toimiville - Jarno Alastalo"
 [ChatGPT]: https://chatgpt.com/overview "ChatGPT | Tekoäly-chatbotti tutustumiseen, oppimiseen ja luomiseen"
 [OpenAI]: https://openai.com/about/ "Tietoja | OpenAI"
 [Anthropic]: https://www.anthropic.com/ "Home \\ Anthropic"
+[Claude]: https://www.anthropic.com/company "Claude"
 [Google]: https://google.com "Google Etusivu"
 [Gemini]: https://gemini.google.com/ "Google Gemini Kotisivu"
