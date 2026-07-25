@@ -31,9 +31,7 @@ Yksi tunnetuimmista tekoälypalveluista on [ChatGPT], jonka on kehittänyt
 - Anthropic: [https://www.anthropic.com/][Anthropic]
 - Google Gemini: [https://gemini.google.com/][Gemini]
 
-[ChatGPT]:
-  https://chatgpt.com/overview
-  "ChatGPT | Tekoäly-chatbotti tutustumiseen, oppimiseen ja luomiseen"
+[ChatGPT]: https://chatgpt.com/overview "ChatGPT | Tekoäly-chatbotti tutustumiseen, oppimiseen ja luomiseen"
 [OpenAI]: https://openai.com/about/ "Tietoja | OpenAI"
 [Anthropic]: https://www.anthropic.com/ "Home \\ Anthropic"
 [Google]: https://google.com "Google Etusivu"
