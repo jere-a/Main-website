@@ -1,7 +1,5 @@
 /** DOM manipulation utilities for client-side code. */
 
-import { assertExists } from "./typecheck";
-
 type EventHandler<E extends Event = Event> = (this: Element, event: E) => void;
 
 /** Inject a CSS string into the document head as a <style> element. */
@@ -31,7 +29,11 @@ export function on<K extends keyof HTMLElementEventMap>(
   selector?: string,
 ): (event: HTMLElementEventMap[K]) => void {
   const wrappedHandler = (event: HTMLElementEventMap[K]): void => {
-    assertExists(selector);
+    if (!selector) {
+      handler.call(element, event);
+      return;
+    }
+
     const target = event.target;
     if (target instanceof Element) {
       const matched = target.closest(selector);

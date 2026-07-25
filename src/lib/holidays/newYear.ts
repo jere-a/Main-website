@@ -3,6 +3,7 @@
  * enabled only after the first user interaction (pointer or key).
  */
 
+import { assertExists } from "@utils/typecheck";
 import { Fireworks } from "fireworks-js";
 
 import exp0 from "@/data/sounds/explosion0.mp3";
@@ -22,10 +23,10 @@ const cleanup = () => {
   fireworks?.stop();
   fireworks = null;
 
-  if (container) {
-    container.remove();
-    container = null;
-  }
+  assertExists(container);
+
+  container.remove();
+  container = null;
 };
 
 /** Create the fireworks container, start the animation, and listen for user interaction. */

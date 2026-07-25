@@ -11,7 +11,7 @@
     "check-types": "tsc --noEmit",
     "test:vitest": "vitest run",
     "test:check": "astro check",
-    "test": "bun run check-types && bun run test:check",
+    "test": "bun run check-types && bun run test:check && bun run test:vitest",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "lint:github": "oxlint --format=github",
