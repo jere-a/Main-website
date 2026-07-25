@@ -70,9 +70,7 @@ describe("siteConfig", () => {
     const original = siteConfig.author.contacts.github;
     try {
       siteConfig.author.contacts.github = "test-user";
-      expect(siteConfig.urls.giturl).toBe(
-        "https://github.com/test-user/Main-website",
-      );
+      expect(siteConfig.urls.giturl).toBe("https://github.com/test-user/Main-website");
     } finally {
       siteConfig.author.contacts.github = original;
     }
