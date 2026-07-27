@@ -1,6 +1,6 @@
 /**
- * Reactive client-side stores using nanostores. Tracks online status, PWA mode, and reduced-motion
- * preference.
+ * Reactive client-side stores using nanostores. Tracks online status, PWA mode, and user
+ * accessibility preferences.
  */
 
 import { fromMediaQuery } from "@nanostores/media-query";
@@ -8,30 +8,30 @@ import { atom } from "nanostores";
 
 declare global {
   interface Navigator {
-    standalone: boolean;
+    standalone?: boolean;
   }
 }
 
-/** Check if the app is running as a standalone PWA. */
-function isPWA(): boolean {
-  const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
-  const isIOS = window.navigator.standalone;
-  return isStandalone || isIOS;
+/** Check whether the app is running as an installed PWA. */
+function getIsPWA(): boolean {
+  return window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
 }
 
-/** Reactive store: true when the user prefers reduced motion. */
-export const isPrefersReducedMotion = fromMediaQuery("(prefers-reduced-motion: reduce)");
+export const $prefersReducedMotion = fromMediaQuery("(prefers-reduced-motion: reduce)");
 
-/** Reactive store: true when the browser is online. */
-export const $isOnline = atom<boolean>(navigator.onLine);
+export const $isOnline = atom(navigator.onLine);
 
-const update = () => $isOnline.set(navigator.onLine);
+function updateOnlineStatus(): void {
+  $isOnline.set(navigator.onLine);
+}
 
-window.addEventListener("online", update);
-window.addEventListener("offline", update);
+window.addEventListener("online", updateOnlineStatus);
+window.addEventListener("offline", updateOnlineStatus);
 
-/** Reactive store: true when running as a PWA. */
-export const $isPWA = atom<boolean>(isPWA());
+export const $isPWA = atom(getIsPWA());
 
-window.addEventListener("load", () => $isPWA.set(isPWA()));
-window.addEventListener("popstate", () => $isPWA.set(isPWA()));
+const standaloneQuery = window.matchMedia("(display-mode: standalone)");
+
+standaloneQuery.addEventListener("change", () => {
+  $isPWA.set(getIsPWA());
+});
