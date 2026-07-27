@@ -1,5 +1,5 @@
 import { assertExists } from "@utils/typecheck";
-import posthog from "posthog-js";
+import posthog from "@lib/analytics";
 
 // oxlint-disable promise/prefer-await-to-then
 import { type DefaultSchema, type Lang, useTranslations } from "@/i18n";

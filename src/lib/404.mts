@@ -3,10 +3,9 @@
  * fetches Cloudflare trace data to show the visitor's IP.
  */
 
+import posthog from "@lib/analytics";
 import { assertExists } from "@utils/typecheck";
-import posthog from "posthog-js";
 
-import { siteFeatures } from "@/configFeatures";
 import { fetchData } from "@/lib/cloudflare-trace";
 import { catchErrorTyped } from "@/lib/utils/async.ts";
 
@@ -25,7 +24,7 @@ if (!DEBUG_PATHS.includes(pathname) && notFoundEl) {
 
 posthog.onFeatureFlags(() => {
   void (async () => {
-    if (posthog.isFeatureEnabled("fetchipp") || siteFeatures.params.functions.fetchIPP) {
+    if (posthog.isFeatureEnabled("fetchipp")) {
       const [, data] = await catchErrorTyped(fetchData());
 
       assertExists(infoEl);

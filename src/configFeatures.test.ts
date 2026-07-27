@@ -12,14 +12,12 @@ describe("siteFeatures", () => {
     expect(typeof siteFeatures.params.functions.holidayEffects).toBe("boolean");
     expect(typeof siteFeatures.params.functions.howOldSite).toBe("boolean");
     expect(typeof siteFeatures.params.functions.fetchIPP).toBe("boolean");
-    expect(typeof siteFeatures.params.functions.splashcursor).toBe("boolean");
   });
 
   it("all feature flags default to true", () => {
     expect(siteFeatures.params.functions.holidayEffects).toBe(true);
     expect(siteFeatures.params.functions.howOldSite).toBe(true);
     expect(siteFeatures.params.functions.fetchIPP).toBe(true);
-    expect(siteFeatures.params.functions.splashcursor).toBe(true);
   });
 
   it("config.host matches siteConfig.host", () => {

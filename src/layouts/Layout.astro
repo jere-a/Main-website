@@ -1,11 +1,9 @@
 ---
 import { Font } from 'astro:assets';
 import { getLangFromUrl } from '@/i18n/utils';
-import { siteFeatures } from '@/configFeatures';
 import CommonHead from '@/components/CommonHead.astro';
 import NavMenu from '@/components/NavMenu.astro';
 import Footer from '@/components/Footer.astro';
-import SplashCursor from '@/components/ui/SplashCursor';
 
 import type { Lang } from '@/i18n/types';
 
@@ -31,7 +29,6 @@ const {
 	isFooter = true,
   isDark = true,
   isBanner = true,
-	isSplash = siteFeatures.params.functions.splashcursor,
 	activeNav,
 } = Astro.props;
 
@@ -46,7 +43,6 @@ const kaoid = 'kao';
 		<slot name="head" />
 	</head>
 	<body>
-		{isSplash && <SplashCursor client:only="preact" />}
 		<header>
 			{isBanner && <div id={kaoid} />}
       {isNavbar && <NavMenu active={activeNav} lang={lang} />}

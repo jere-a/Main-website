@@ -69,4 +69,6 @@ const init = async (): Promise<void> => {
   posthog.init(siteConfig.posthogApiKey, config);
 };
 
-export default init;
+export { init };
+
+export default posthog;
