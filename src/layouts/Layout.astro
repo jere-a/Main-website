@@ -65,7 +65,6 @@ const kaoid = 'kao';
     <link type="text/plain" rel="author" href={`${Astro.site}humans.txt`} />
     <link rel="expect" href="#the_unexpected" blocking="render" />
 
-    <script src="/src/pwa.ts"></script>
     { pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} /> }
 
 		<Font cssVariable="--font-creepster" />
@@ -94,6 +93,7 @@ const kaoid = 'kao';
 
 <script>
   // oxlint-disable-next-line import/no-unassigned-import
+  import "@/pwa";
   import "@/cookieconsent-config.ts";
 	import global from '@/lib/entry';
 	global();
