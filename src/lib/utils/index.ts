@@ -1,7 +1,7 @@
 export * from "./checks.ts";
 export * from "./globals.ts";
 export * from "./typecheck.ts";
-export { isHoliday, holidayTimeTo } from "../holidays/index.ts";
+export * from "../holidays/index.ts";
 export type { ActiveHoliday } from "../holidays/index.ts";
 
 export { detectLanguage } from "./language.ts";

@@ -1,5 +1,5 @@
-import { assertExists } from "@utils/typecheck";
 import posthog from "@lib/analytics";
+import { atom, onMount } from "nanostores";
 
 // oxlint-disable promise/prefer-await-to-then
 import { type DefaultSchema, type Lang, useTranslations } from "@/i18n";
@@ -65,8 +65,9 @@ let labelCache: HolidayLabels | undefined;
 const labels = async (): Promise<HolidayLabels> => {
   const lang = detectLanguage();
 
-  assertExists(labelCache);
-  if (labelLang === lang) return labelCache;
+  if (labelLang === lang && labelCache) {
+    return labelCache;
+  }
 
   labelLang = lang;
   labelCache = (await useTranslations(lang)).holiday;
@@ -138,8 +139,9 @@ let formatters: UnitFormatters | undefined;
 const getFormatters = (): UnitFormatters => {
   const lang = detectLanguage();
 
-  assertExists(formatters);
-  if (formatterLang === lang) return formatters;
+  if (formatterLang === lang && formatters) {
+    return formatters;
+  }
 
   formatterLang = lang;
 
@@ -180,3 +182,46 @@ export function holidayTimeTo(targetTime: number): HolidayTime {
     seconds,
   };
 }
+
+export const $holiday = atom<ActiveHoliday | null>(null);
+
+onMount($holiday, () => {
+  let cancelled = false;
+
+  void isHoliday().then((holiday) => {
+    if (!cancelled) {
+      $holiday.set(holiday);
+    }
+    return undefined;
+  });
+
+  return () => {
+    cancelled = true;
+  };
+});
+
+export const $holidayTime = atom<HolidayTime | null>(null);
+
+onMount($holidayTime, () => {
+  let timer: number;
+
+  const start = async () => {
+    const holiday = await isHoliday();
+
+    if (!holiday) {
+      $holidayTime.set(null);
+      return;
+    }
+
+    const update = () => {
+      $holidayTime.set(holidayTimeTo(holiday.timeto));
+    };
+
+    update();
+    timer = window.setInterval(update, 1000);
+  };
+
+  void start();
+
+  return () => clearInterval(timer);
+});
