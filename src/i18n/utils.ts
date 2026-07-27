@@ -12,14 +12,11 @@ function includes<T extends readonly string[]>(array: T, value: string): value i
   return array.includes(value);
 }
 
-/** Array of all supported language codes. */
-export const langs = Object.values(Langs);
-
 /** Type guard: check if a value is a valid Lang. */
-export const isLang = (v: string): v is Lang => includes(langs, v);
+export const isLang = (v: string): v is Lang => includes(Langs, v);
 
 export async function useTranslations(lang: Lang = defaultLang) {
-  return await translationLoaders[lang]();
+  return translationLoaders[lang]();
 }
 
 /** Extract the language code from a URL, falling back to defaultLang. */

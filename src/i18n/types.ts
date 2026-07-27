@@ -5,17 +5,11 @@
 
 import type { fi } from "./locales/fi.ts";
 
-/** Supported language codes. */
-export const Langs = {
-  Fi: "fi",
-  En: "en",
-} as const;
+export const Langs = ["fi", "en"] as const;
 
-/** Union type of supported language codes. */
-export type Lang = (typeof Langs)[keyof typeof Langs];
+export type Lang = (typeof Langs)[number];
 
-/** Fallback language when no match is found. */
-export const defaultLang = Langs.Fi;
+export const defaultLang: Lang = "fi";
 
 /** Recursively stringify all leaf values of a type (translation values are always strings). */
 type Stringify<T> = {
@@ -25,18 +19,7 @@ type Stringify<T> = {
 /** The canonical translation schema, derived from the Finnish locale. */
 export type DefaultSchema = Stringify<typeof fi>;
 
-type LocaleModule = {
-  [K in Lang]: DefaultSchema;
-};
-
-/** Dynamically import a locale file and return its translation object. */
-async function loadLocale(lang: Lang): Promise<DefaultSchema> {
-  const module: LocaleModule = await import(`./locales/${lang}.ts`);
-  return module[lang];
-}
-
-/** Lazy-loaded translation functions keyed by language code. */
-export const translationLoaders: Record<Lang, () => Promise<DefaultSchema>> = {
-  [Langs.Fi]: () => loadLocale(Langs.Fi),
-  [Langs.En]: () => loadLocale(Langs.En),
-};
+export const translationLoaders = {
+  fi: () => import("./locales/fi").then((m) => m.fi),
+  en: () => import("./locales/en").then((m) => m.en),
+} satisfies Record<Lang, () => Promise<DefaultSchema>>;

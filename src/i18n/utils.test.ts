@@ -34,14 +34,6 @@ describe("i18n utils", () => {
     });
   });
 
-  describe("langs", () => {
-    it("contains all supported language codes", async () => {
-      const { langs } = await import("./utils");
-      expect(langs).toContain("fi");
-      expect(langs).toContain("en");
-    });
-  });
-
   describe("getLangFromUrl", () => {
     it("extracts language from URL path", async () => {
       const { getLangFromUrl } = await import("./utils");
