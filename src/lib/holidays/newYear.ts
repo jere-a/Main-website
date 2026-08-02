@@ -3,7 +3,7 @@
  * enabled only after the first user interaction (pointer or key).
  */
 
-import { assertExists } from "@utils/typecheck";
+import { assertExists } from "@utils/index";
 import { Fireworks } from "fireworks-js";
 
 import exp0 from "@/data/sounds/explosion0.mp3";

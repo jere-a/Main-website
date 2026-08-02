@@ -4,7 +4,7 @@
  */
 
 import posthog from "@lib/analytics";
-import { assertExists } from "@utils/typecheck";
+import { assertExists } from "@utils/index";
 
 import { fetchData } from "@/lib/cloudflare-trace";
 import { catchErrorTyped } from "@/lib/utils/async.ts";
