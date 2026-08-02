@@ -4,8 +4,8 @@ import { Langs, defaultLang, translationLoaders } from "./types";
 
 describe("Langs", () => {
   it("defines Fi and En language codes", () => {
-    expect(Langs.Fi).toBe("fi");
-    expect(Langs.En).toBe("en");
+    expect(Langs[0]).toBe("fi");
+    expect(Langs[1]).toBe("en");
   });
 
   it("has exactly 2 entries", () => {
@@ -20,7 +20,7 @@ describe("defaultLang", () => {
   });
 
   it("matches Langs.Fi", () => {
-    expect(defaultLang).toBe(Langs.Fi);
+    expect(defaultLang).toBe(Langs[0]);
   });
 });
 

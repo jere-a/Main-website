@@ -17,6 +17,7 @@ export const fi = {
     h1: {
       title: "Åzze",
     },
+    social_youtube: "Käy katsomassa Youtube kanavani.",
     title: "Koti",
     intro: {
       start:
