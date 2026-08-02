@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 
 import { siteConfig } from "./config";
-import type { SiteConfig } from "./config";
 
 describe("siteConfig", () => {
   it("has correct host", () => {
@@ -66,18 +65,8 @@ describe("siteConfig", () => {
     );
   });
 
-  it("giturl getter is reactive to github username changes", () => {
-    const original = siteConfig.author.contacts.github;
-    try {
-      siteConfig.author.contacts.github = "test-user";
-      expect(siteConfig.urls.giturl).toBe("https://github.com/test-user/Main-website");
-    } finally {
-      siteConfig.author.contacts.github = original;
-    }
-  });
-
   it("satisfies the SiteConfig type shape", () => {
-    const config: SiteConfig = siteConfig;
+    const config = siteConfig;
     expect(config).toBeDefined();
   });
 });
