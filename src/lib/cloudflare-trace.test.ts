@@ -37,7 +37,7 @@ h=abc123`;
       text: () => Promise.resolve(incomplete),
     } as Response);
 
-    await expect(fetchData()).rejects.toThrow("Invalid trace data");
+    await expect(fetchData()).rejects.toThrow('Invalid key: Expected "uag" but received undefined');
   });
 
   it("handles empty values for fields", async () => {

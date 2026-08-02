@@ -1,18 +1,18 @@
 /** Cloudflare trace endpoint fetcher. Parses the /cdn-cgi/trace response into a validated object. */
 
-import { type } from "arktype";
+import * as v from "valibot";
 
 /** Schema for the key-value fields returned by Cloudflare's trace endpoint. */
-const ParsedDataSchema = type({
-  ip: "string",
-  uag: "string",
-  tls: "string",
-  loc: "string",
-  http: "string",
-  h: "string",
+const ParsedDataSchema = v.object({
+  ip: v.string(),
+  uag: v.string(),
+  tls: v.string(),
+  loc: v.string(),
+  http: v.string(),
+  h: v.string(),
 });
 
-export type ParsedData = typeof ParsedDataSchema.infer;
+export type ParsedData = v.InferInput<typeof ParsedDataSchema>;
 
 /** Recognized keys from the trace endpoint response. */
 const TRACE_KEYS = ["ip", "uag", "tls", "loc", "http", "h"] as const;
@@ -37,11 +37,5 @@ export async function fetchData(): Promise<ParsedData> {
     }
   }
 
-  const result = ParsedDataSchema(raw);
-
-  if (result instanceof type.errors) {
-    throw new Error(`Invalid trace data: ${result.summary}`);
-  }
-
-  return result;
+  return v.parse(ParsedDataSchema, raw);
 }
