@@ -6,8 +6,8 @@
 
 import { createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 
-import init from "./analytics.ts";
-import { on, isHoliday } from "./utils/index";
+import { init } from "./analytics.ts";
+import { on, $holiday } from "./utils/index";
 
 const runInit = () => {
   // oxlint-disable-next-line promise/prefer-await-to-then
@@ -67,17 +67,25 @@ const handleVitePreloadError = () => {
   });
 };
 
-const loadHolidayEffect = async () => {
-  const holiday = await isHoliday();
-  await holiday?.runScript();
+const loadHolidayEffect = () => {
+  let currentKey: string | null = null;
+
+  return $holiday.subscribe((holiday) => {
+    if (!holiday || holiday.key === currentKey) {
+      return;
+    }
+
+    currentKey = holiday.key;
+    void holiday.runScript();
+  });
 };
 
-const main = async () => {
+const main = () => {
   schedulePosthogInit();
   suppressImageContextMenu();
   setupKonamiCode();
   handleVitePreloadError();
-  await loadHolidayEffect();
+  loadHolidayEffect();
 };
 
 export default main;

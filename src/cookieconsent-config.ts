@@ -1,4 +1,4 @@
-import posthog from "posthog-js";
+import posthog from "@lib/analytics";
 import * as CookieConsent from "vanilla-cookieconsent";
 
 import cookieConsentCss from "vanilla-cookieconsent/dist/cookieconsent.css?inline" with { type: "css" };
