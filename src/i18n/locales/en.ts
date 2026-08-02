@@ -4,7 +4,7 @@ export const en = {
     about: "About",
     images: {
       title: "Images",
-      desc: "Come to see what images i have taken.",
+      desc: "Come to see what images I have taken.",
     },
     blog: {
       title: "Blogs",
@@ -13,10 +13,11 @@ export const en = {
     },
   },
   index: {
-    github: "View source on GitHub",
+    github: "View source on GitHub.",
     h1: {
       title: "Åzze",
     },
+    social_youtube: "Go and see my YouTube channel.",
     title: "Home",
     intro: {
       start: "I made this page when I became interested in building this. You can find me on ",
@@ -31,7 +32,7 @@ export const en = {
   images: {
     title: "Images",
     subtitle: "My photos from various places.",
-    winterLandscape: "Winter Landscape From the Bridge.",
+    winterLandscape: "Winter Landscape from the Bridge.",
     bigRoot: "Big Stump.",
     blueSky: "Blue Sky.",
     sunflower: "Dandelion.",

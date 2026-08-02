@@ -1,4 +1,6 @@
 ---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils.ts';
+
 interface Props {
   href: string;
   platform: string;
@@ -7,11 +9,16 @@ interface Props {
 const { href, platform } = Astro.props;
 
 const youtube = platform === "YT";
+
+
+// Language
+const lang = getLangFromUrl(Astro.url);
+const t = (await useTranslations(lang));
 ---
 
 {
   youtube && (
-  <a class="yt" title="Go and see my Youtube channel" href={href}><slot /></a>
+  <a class="yt" title={t.index.social_youtube} href={href}><slot /></a>
   )
 }
 
