@@ -80,7 +80,7 @@ const dateMs = ([month, day, offset = 0]: HolidayDate, year: number): number =>
     .epochMilliseconds;
 
 export async function isHoliday(): Promise<ActiveHoliday | null> {
-  if (!posthog.featureFlags.isFeatureEnabled("holiday-effects")) {
+  if (!posthog.isFeatureEnabled("holiday-effects")) {
     return null;
   }
 
