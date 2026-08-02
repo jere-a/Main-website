@@ -157,17 +157,18 @@ export default defineConfig({
       },
     },
     build: {
-      sourcemap: true,
       cssMinify: "lightningcss",
       rolldownOptions: {
+        checks: {
+          circularDependency: true,
+        },
         output: {
-          topLevelVar: true,
           comments: false,
           strictExecutionOrder: true,
         },
         preserveEntrySignatures: false,
         optimization: {
-          inlineConst: { mode: "all", pass: 100 },
+          inlineConst: { mode: "smart", pass: 100 },
         },
       },
     },
