@@ -21,7 +21,7 @@ function stubMatchMedia(matches: Record<string, boolean>) {
 
 describe("JSEngine", () => {
   it("has correct enum values", async () => {
-    const { JSEngine } = await import("./checks");
+    const { JSEngine } = await import(".");
     expect(JSEngine.V8).toBe("v8");
     expect(JSEngine.SPIDERMONKEY).toBe("spidermonkey");
     expect(JSEngine.JAVASCRIPTCORE).toBe("javascriptcore");
@@ -31,7 +31,7 @@ describe("JSEngine", () => {
 
 describe("Platform", () => {
   it("has all platform constants", async () => {
-    const { Platform } = await import("./checks");
+    const { Platform } = await import(".");
     expect(Platform.IOS).toBe("ios");
     expect(Platform.MACOS).toBe("macos");
     expect(Platform.WINDOWS).toBe("windows");
@@ -46,7 +46,7 @@ describe("Platform", () => {
 
 describe("isBraveBrowser", () => {
   it("returns false when navigator.brave is absent", async () => {
-    const { isBraveBrowser } = await import("./checks");
+    const { isBraveBrowser } = await import(".");
     expect(isBraveBrowser()).toBe(false);
   });
 
@@ -56,13 +56,13 @@ describe("isBraveBrowser", () => {
     });
 
     it("returns false when navigator.brave is absent", async () => {
-      const { isBraveBrowser } = await import("./checks");
+      const { isBraveBrowser } = await import(".");
       expect(isBraveBrowser()).toBe(false);
     });
 
     it("returns false when isBrave is not a function", async () => {
       vi.stubGlobal("navigator", { platform: "", vendor: "", maxTouchPoints: 0, brave: {} });
-      const { isBraveBrowser } = await import("./checks");
+      const { isBraveBrowser } = await import(".");
       expect(isBraveBrowser()).toBe(false);
     });
   });
@@ -76,98 +76,98 @@ describe("detectOperatingSystem", () => {
   it("detects Windows from navigator.platform", async () => {
     stubNav({ platform: "Win32" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("windows");
   });
 
   it("detects Linux", async () => {
     stubNav({ platform: "Linux x86_64" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("linux");
   });
 
   it("detects Android", async () => {
     stubNav({ platform: "Android 10" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("android");
   });
 
   it("detects macOS from macintel without touch", async () => {
     stubNav({ platform: "MacIntel", maxTouchPoints: 0 });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("macos");
   });
 
   it("detects iOS from macintel with touch", async () => {
     stubNav({ platform: "MacIntel", maxTouchPoints: 5 });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("ios");
   });
 
   it("detects iOS from iPhone platform string", async () => {
     stubNav({ platform: "iPhone" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("ios");
   });
 
   it("detects vendor as apple", async () => {
     stubNav({ platform: "MacIntel", maxTouchPoints: 0, vendor: "Apple Computer, Inc." });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().vendor).toBe("apple");
   });
 
   it("returns empty object for unrecognized platform", async () => {
     stubNav({ platform: "SomethingElse" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBeUndefined();
   });
 
   it("detects FreeBSD", async () => {
     stubNav({ platform: "FreeBSD" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("freebsd");
   });
 
   it("detects OpenBSD", async () => {
     stubNav({ platform: "OpenBSD" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("openbsd");
   });
 
   it("detects Chromium OS", async () => {
     stubNav({ platform: "Chromium OS" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("chromium_os");
   });
 
   it("detects General Mobile Device as ios_gmd", async () => {
     stubNav({ platform: "general mobile device" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("ios_gmd");
   });
 
   it("detects iOS from ipad platform string", async () => {
     stubNav({ platform: "iPad" });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().platform).toBe("ios");
   });
 
   it("returns non-apple vendor as undefined", async () => {
     stubNav({ platform: "Win32", vendor: "Google Inc." });
     vi.resetModules();
-    const { detectOperatingSystem } = await import("./checks");
+    const { detectOperatingSystem } = await import(".");
     expect(detectOperatingSystem().vendor).toBeUndefined();
   });
 });
@@ -181,7 +181,7 @@ describe("deviceCapabilities", () => {
     stubMatchMedia({});
     stubNav({ maxTouchPoints: 0 });
     vi.resetModules();
-    const { deviceCapabilities } = await import("./checks");
+    const { deviceCapabilities } = await import(".");
     const caps = deviceCapabilities();
     expect(caps).toHaveProperty("hasTouch");
     expect(caps).toHaveProperty("hasHover");
@@ -196,7 +196,7 @@ describe("deviceCapabilities", () => {
     stubMatchMedia({});
     stubNav({ maxTouchPoints: 0 });
     vi.resetModules();
-    const { deviceCapabilities } = await import("./checks");
+    const { deviceCapabilities } = await import(".");
     const caps = deviceCapabilities();
     expect(typeof caps.hasTouch).toBe("boolean");
     expect(typeof caps.hasHover).toBe("boolean");
@@ -214,7 +214,7 @@ describe("deviceCapabilities", () => {
     });
     stubNav({ maxTouchPoints: 5 });
     vi.resetModules();
-    const { deviceCapabilities } = await import("./checks");
+    const { deviceCapabilities } = await import(".");
     expect(deviceCapabilities().prefersMobileUI).toBe(true);
   });
 
@@ -225,7 +225,7 @@ describe("deviceCapabilities", () => {
     });
     stubNav({ maxTouchPoints: 0 });
     vi.resetModules();
-    const { deviceCapabilities } = await import("./checks");
+    const { deviceCapabilities } = await import(".");
     expect(deviceCapabilities().prefersDesktopUI).toBe(true);
   });
 
@@ -233,7 +233,7 @@ describe("deviceCapabilities", () => {
     stubMatchMedia({});
     stubNav({ maxTouchPoints: 0 });
     vi.resetModules();
-    const { isMobile } = await import("./checks");
+    const { isMobile } = await import(".");
     expect(typeof isMobile()).toBe("boolean");
   });
 });
