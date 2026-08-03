@@ -80,34 +80,37 @@ const dateMs = ([month, day, offset = 0]: HolidayDate, year: number): number =>
     .epochMilliseconds;
 
 export async function isHoliday(): Promise<ActiveHoliday | null> {
-  if (posthog.isFeatureEnabled("holiday-effects")) {
-    const now = Temporal.Now.instant().epochMilliseconds;
-    const today = Temporal.Now.plainDateISO();
+  const holidayLabels = await labels();
+  posthog.onFeatureFlags(() => {
+    if (posthog.isFeatureEnabled("holiday-effects")) {
+      const now = Temporal.Now.instant().epochMilliseconds;
+      const today = Temporal.Now.plainDateISO();
 
-    // Important: in January, we are still inside the previous New Year season.
-    const seasonYear = today.month === 1 ? today.year - 1 : today.year;
-    const holidayLabels = await labels();
+      // Important: in January, we are still inside the previous New Year season.
+      const seasonYear = today.month === 1 ? today.year - 1 : today.year;
 
-    for (const h of holidays) {
-      const from = dateMs(h.from, seasonYear);
-      const to = dateMs(h.to, seasonYear);
+      for (const h of holidays) {
+        const from = dateMs(h.from, seasonYear);
+        const to = dateMs(h.to, seasonYear);
 
-      if (now >= from && now <= to) {
-        return {
-          key: h.key,
-          name: holidayLabels[h.key],
-          from,
-          to,
-          timeto: dateMs(h.target, seasonYear),
-          loadScript: h.load,
-          runScript: async () => {
-            const script = await h.load();
-            await script();
-          },
-        };
+        if (now >= from && now <= to) {
+          return {
+            key: h.key,
+            name: holidayLabels[h.key],
+            from,
+            to,
+            timeto: dateMs(h.target, seasonYear),
+            loadScript: h.load,
+            runScript: async () => {
+              const script = await h.load();
+              await script();
+            },
+          };
+        }
       }
     }
-  }
+    return null;
+  });
 
   return null;
 }
