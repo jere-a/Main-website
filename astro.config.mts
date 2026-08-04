@@ -8,10 +8,9 @@ import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
 import pageInsight from "astro-page-insight";
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
 import browserslist from "browserslist";
-import { browserslistToTargets, Features } from "lightningcss";
+import { browserslistToTargets } from "lightningcss";
 import oxlintPlugin from "vite-plugin-oxlint";
 
-import package_json from "./package.json";
 import { siteConfig } from "./src/config";
 
 export const defaultLocale = "fi";
@@ -152,19 +151,24 @@ export default defineConfig({
       devSourcemap: true,
       transformer: "lightningcss",
       lightningcss: {
-        exclude: Features.Nesting,
-        targets: browserslistToTargets(browserslist(package_json.browserslist)),
+        targets: browserslistToTargets(browserslist("defaults")),
       },
     },
     build: {
-      cssMinify: "lightningcss",
       rolldownOptions: {
         checks: {
           circularDependency: true,
         },
         output: {
+          codeSplitting: {
+            groups: [
+              {
+                name: "analytics",
+                test: /node_modules[\\/]posthog-js/,
+              },
+            ],
+          },
           comments: false,
-          strictExecutionOrder: true,
         },
         preserveEntrySignatures: false,
         optimization: {

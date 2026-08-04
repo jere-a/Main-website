@@ -2,9 +2,6 @@
   "name": "website",
   "version": "0.0.1",
   "type": "module",
-  "exports": {
-    "./biome": "./biome.json"
-  },
   "scripts": {
     "pre-commit": "nano-staged",
     "check-types": "tsc --noEmit",
@@ -116,10 +113,6 @@
   "nano-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": "bun run lint"
   },
-  "browserslist": [
-    "supports es6-module",
-    "not dead"
-  ],
   "packageManager": "pnpm@11.0.0",
   "trustedDependencies": [
     "@parcel/watcher",

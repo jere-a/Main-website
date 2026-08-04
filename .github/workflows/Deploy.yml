@@ -35,7 +35,7 @@ jobs:
             ${{ runner.os }}-deps-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm ci
 
       - name: Test
         run: mise run test
