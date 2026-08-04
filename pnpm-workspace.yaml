@@ -5,3 +5,4 @@ allowBuilds:
   core-js: true
   esbuild: true
   puppeteer: false
+  workerd: true
