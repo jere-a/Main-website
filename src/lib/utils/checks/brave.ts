@@ -13,7 +13,11 @@ export function isBraveBrowser(): boolean {
 }
 
 export function isBrave() {
-  return isEngine(JSEngine.V8) && "flat" in Array.prototype && !("ReportingObserver" in globalThis);
+  return (
+    isEngine(JSEngine.V8) &&
+    "flat" in Array.prototype &&
+    (navigator as BraveNavigator).brave?.isBrave()
+  );
 }
 
 export function BraveResistance() {
