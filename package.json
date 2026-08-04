@@ -92,7 +92,7 @@
     "@vite-pwa/astro": "^1.2.0",
     "@vitest/coverage-v8": "^4.1.10",
     "astro": "^7.1.6",
-    "markdown-it": "^15.0.0",
+    "markdown-it": "^14.3.0",
     "nanostores": "^1.4.2",
     "oxlint": "^1.76.0",
     "oxlint-tsgolint": "^7.0.2001",
