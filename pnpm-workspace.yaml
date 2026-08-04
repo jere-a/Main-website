@@ -4,4 +4,4 @@ allowBuilds:
   "@tsparticles/engine": true
   core-js: true
   esbuild: true
-  puppeteer: set this to true or false
+  puppeteer: false
