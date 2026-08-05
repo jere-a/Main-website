@@ -1,27 +1,79 @@
-import { describe, expect, it, vi, afterEach } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import hackerText from "./hacker-text";
 
 describe("hackerText", () => {
   afterEach(() => {
     vi.useRealTimers();
+    vi.restoreAllMocks();
   });
 
-  it("sets element text to target text after animation completes", () => {
+  it("resolves target text with default options", () => {
     vi.useFakeTimers();
     const el = document.createElement("div");
     el.innerText = "";
 
-    hackerText(el, "HI", undefined, 30, 1);
+    hackerText(el, "Hi");
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 15; i++) {
       vi.advanceTimersByTime(30);
     }
 
-    expect(el.innerText).toBe("HI");
+    expect(el.innerText).toBe("Hi");
   });
 
-  it("works with empty target text", () => {
+  it.each([
+    ["empty", ""],
+    ["lowercase", "hello world"],
+    ["mixed case", "HeLLo WoRLD"],
+    ["digits and symbols", "H1 W2! a-b_c"],
+    ["unicode", "héllo wörld"],
+    ["single character", "Z"],
+  ])("resolves %s target text", (_label, target) => {
+    vi.useFakeTimers();
+    const el = document.createElement("div");
+
+    hackerText(el, target, undefined, 10, 1);
+
+    for (let i = 0; i < target.length + 5; i++) {
+      vi.advanceTimersByTime(10);
+    }
+
+    expect(el.innerText).toBe(target);
+  });
+
+  it("reveals letters left to right using only the letters set", () => {
+    vi.useFakeTimers();
+    vi.spyOn(Math, "random").mockReturnValue(0);
+    const el = document.createElement("div");
+
+    hackerText(el, "ABC", "XY", 10, 1);
+
+    vi.advanceTimersByTime(10);
+    expect(el.innerText).toBe("XXX");
+
+    vi.advanceTimersByTime(10);
+    expect(el.innerText).toBe("AXX");
+
+    vi.advanceTimersByTime(10);
+    expect(el.innerText).toBe("ABC");
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("stops the interval after the target is fully revealed", () => {
+    vi.useFakeTimers();
+    const el = document.createElement("div");
+
+    hackerText(el, "HI", undefined, 10, 1);
+
+    vi.advanceTimersByTime(10);
+    expect(vi.getTimerCount()).toBeGreaterThan(0);
+
+    vi.advanceTimersByTime(200);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("clears the interval immediately for empty target text", () => {
     vi.useFakeTimers();
     const el = document.createElement("div");
 
@@ -29,48 +81,10 @@ describe("hackerText", () => {
     vi.advanceTimersByTime(30);
 
     expect(el.innerText).toBe("");
+    expect(vi.getTimerCount()).toBe(0);
   });
 
-  it("respects custom letters character set", () => {
-    vi.useFakeTimers();
-    const el = document.createElement("div");
-
-    hackerText(el, "AB", "AB", 30, 10);
-
-    for (let i = 0; i < 50; i++) {
-      vi.advanceTimersByTime(30);
-    }
-
-    expect(el.innerText).toBe("AB");
-  });
-
-  it("resolves single character text", () => {
-    vi.useFakeTimers();
-    const el = document.createElement("div");
-
-    hackerText(el, "X", undefined, 10, 1);
-
-    for (let i = 0; i < 5; i++) {
-      vi.advanceTimersByTime(10);
-    }
-
-    expect(el.innerText).toBe("X");
-  });
-
-  it("resolves multi-word target text", () => {
-    vi.useFakeTimers();
-    const el = document.createElement("div");
-
-    hackerText(el, "HELLO WORLD", undefined, 10, 2);
-
-    for (let i = 0; i < 100; i++) {
-      vi.advanceTimersByTime(10);
-    }
-
-    expect(el.innerText).toBe("HELLO WORLD");
-  });
-
-  it("uses iterations parameter as speed factor", () => {
+  it("uses the iterations parameter as a speed factor", () => {
     vi.useFakeTimers();
     const el = document.createElement("div");
 

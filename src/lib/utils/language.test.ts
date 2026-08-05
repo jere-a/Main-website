@@ -56,5 +56,35 @@ describe("detectLanguage", () => {
   it("case-insensitive matching", () => {
     expect(detectLanguage("EN")).toBe("en");
     expect(detectLanguage("FI")).toBe("fi");
+    expect(detectLanguage("En")).toBe("en");
+    expect(detectLanguage("fI")).toBe("fi");
+  });
+
+  it("accepts three-letter codes by slicing the first two characters", () => {
+    expect(detectLanguage("eng")).toBe("en");
+    expect(detectLanguage("fi-fi")).toBe("fi");
+  });
+
+  it("matches case-insensitively on document.lang", () => {
+    document.documentElement.lang = "EN-US";
+    expect(detectLanguage()).toBe("en");
+  });
+
+  it("falls back to document/navigator when the argument is an empty string", () => {
+    document.documentElement.lang = "fi";
+    vi.stubGlobal("navigator", { languages: [], language: "en" });
+    expect(detectLanguage("")).toBe("fi");
+  });
+
+  it("skips an undefined navigator.language", () => {
+    document.documentElement.lang = "";
+    vi.stubGlobal("navigator", { languages: [], language: undefined });
+    expect(detectLanguage()).toBe("fi");
+  });
+
+  it("continues past unsupported languages to the next supported one", () => {
+    document.documentElement.lang = "";
+    vi.stubGlobal("navigator", { languages: ["zh-CN", "de", "EN-GB"], language: "" });
+    expect(detectLanguage()).toBe("en");
   });
 });

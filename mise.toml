@@ -18,13 +18,18 @@ description = "Preview the web Application locally"
 run = "pnpm run preview"
 
 [tasks.test]
-depends = "fmt-check"
+depends = "coverage"
 description = "Test the web Applications for compile errors"
 run = "pnpm run test"
 
 [tasks.fmt-check]
 description = "Run formatter in package.json"
 run = "pnpm run fmt:check"
+
+[tasks.coverage]
+depends = "fmt-check"
+description = "Run vitest for coverage testing"
+run = "pnpm run coverage"
 
 [tasks.lint]
 depends = "fmt-check"

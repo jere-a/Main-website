@@ -1,25 +1,27 @@
+import { isFunction } from "@utils/typecheck.ts";
+
 import { isEngine, JSEngine } from "./engine.ts";
 
 interface BraveNavigator extends Navigator {
   brave?: {
-    isBrave(): Promise<boolean>;
+    isBrave?: () => Promise<boolean>;
   };
 }
 
-export function isBraveBrowser(): boolean {
-  const nav = navigator as BraveNavigator;
+export async function isBrave(): Promise<boolean> {
+  const isBraveFn = (navigator as BraveNavigator).brave?.isBrave;
 
-  return typeof nav.brave?.isBrave === "function";
+  if (!isEngine(JSEngine.V8) || !isFunction(isBraveFn)) {
+    return false;
+  }
+
+  return isBraveFn().catch(() => false);
 }
 
-export function isBrave() {
-  return (
-    isEngine(JSEngine.V8) &&
-    "flat" in Array.prototype &&
-    (navigator as BraveNavigator).brave?.isBrave()
-  );
-}
+export async function braveResistance(): Promise<boolean> {
+  if (!(await isBrave())) {
+    return false;
+  }
 
-export function BraveResistance() {
-  return isBrave() && "keyboard" in navigator && navigator.keyboard === null;
+  return "keyboard" in navigator && navigator.keyboard === null;
 }

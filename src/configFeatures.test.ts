@@ -8,16 +8,12 @@ describe("siteFeatures", () => {
     expect(siteFeatures.config).toBe(siteConfig);
   });
 
-  it("has params.functions with boolean flags", () => {
-    expect(typeof siteFeatures.params.functions.holidayEffects).toBe("boolean");
-    expect(typeof siteFeatures.params.functions.howOldSite).toBe("boolean");
-    expect(typeof siteFeatures.params.functions.fetchIPP).toBe("boolean");
-  });
-
-  it("all feature flags default to true", () => {
-    expect(siteFeatures.params.functions.holidayEffects).toBe(true);
-    expect(siteFeatures.params.functions.howOldSite).toBe(true);
-    expect(siteFeatures.params.functions.fetchIPP).toBe(true);
+  it.each([
+    ["holidayEffects", true],
+    ["howOldSite", true],
+    ["fetchIPP", true],
+  ] as const)("%s is a boolean flag enabled by default", (flag, expected) => {
+    expect(siteFeatures.params.functions[flag]).toBe(expected);
   });
 
   it("config.host matches siteConfig.host", () => {
