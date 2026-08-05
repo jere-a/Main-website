@@ -135,11 +135,13 @@ export default defineConfig({
       provider: fontProviders.google(),
       name: "Creepster",
       cssVariable: "--font-creepster",
+      subsets: ["latin"],
     },
     {
       provider: fontProviders.google(),
       name: "Butcherman",
       cssVariable: "--font-butcherman",
+      subsets: ["latin"],
     },
   ],
   vite: {
