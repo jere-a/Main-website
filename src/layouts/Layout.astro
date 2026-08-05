@@ -34,7 +34,9 @@ const {
 	activeNav,
 } = Astro.props;
 
-const titleFormat = `${siteConfig.title} | ${title}`
+const titleFormat = title
+  ? `${siteConfig.title} | ${title}`
+  : siteConfig.title;
 
 const kaoid = 'kao';
 ---
