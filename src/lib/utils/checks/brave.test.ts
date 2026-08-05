@@ -39,6 +39,12 @@ describe("Brave", () => {
       expect(await isBrave()).toBe(false);
     });
 
+    it("returns false when navigator is unavailable", async () => {
+      vi.stubGlobal("navigator", undefined);
+
+      await expect(isBrave()).resolves.toBe(false);
+    });
+
     it("returns true when Brave reports true", async () => {
       mockNavigator({ isBrave: vi.fn<() => Promise<boolean>>().mockResolvedValue(true) });
 
@@ -61,6 +67,12 @@ describe("Brave", () => {
   });
 
   describe("braveResistance", () => {
+    it("resolves false when navigator is unavailable", async () => {
+      vi.stubGlobal("navigator", undefined);
+
+      await expect(braveResistance()).resolves.toBe(false);
+    });
+
     it.each([
       ["not Brave", undefined, {}],
       [

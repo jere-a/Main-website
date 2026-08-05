@@ -79,10 +79,10 @@ describe("fetchData", () => {
     await expect(fetchData()).rejects.toThrow('Invalid key: Expected "ip" but received undefined');
   });
 
-  it("keeps only the part before the second '=' as the value", async () => {
+  it("preserves extra '=' characters within the value", async () => {
     mockFetchText("ip=1.2.3.4=extra\nuag=Agent\ntls=TLSv1.2\nloc=US\nhttp=2\nh=x");
 
-    expect((await fetchData()).ip).toBe("1.2.3.4");
+    expect((await fetchData()).ip).toBe("1.2.3.4=extra");
   });
 
   it("skips blank lines within the response", async () => {
@@ -97,8 +97,8 @@ describe("fetchData", () => {
     mockFetchText("ip=1.2.3.4\r\nuag=Agent\r\ntls=TLSv1.2\r\nloc=US\r\nhttp=2\r\nh=x");
 
     const result = await fetchData();
-    expect(result.ip).toBe("1.2.3.4\r");
-    expect(result.uag).toBe("Agent\r");
+    expect(result.ip).toBe("1.2.3.4");
+    expect(result.uag).toBe("Agent");
     expect(result.h).toBe("x");
   });
 

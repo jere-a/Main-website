@@ -20,6 +20,6 @@ type Stringify<T> = {
 export type DefaultSchema = Stringify<typeof fi>;
 
 export const translationLoaders = {
-  fi: () => import("./locales/fi").then((m) => m.fi),
-  en: () => import("./locales/en").then((m) => m.en),
+  fi: async () => (await import("./locales/fi")).fi,
+  en: async () => (await import("./locales/en")).en,
 } satisfies Record<Lang, () => Promise<DefaultSchema>>;

@@ -20,9 +20,15 @@ function stubNavigator(maxTouchPoints: number) {
 }
 
 describe("deviceCapabilities", () => {
+  let ontouchstartDescriptor: PropertyDescriptor | undefined;
+
   afterEach(() => {
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-    delete (window as unknown as { ontouchstart?: unknown }).ontouchstart;
+    if (ontouchstartDescriptor) {
+      Object.defineProperty(window, "ontouchstart", ontouchstartDescriptor);
+    } else {
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      delete (window as unknown as { ontouchstart?: unknown }).ontouchstart;
+    }
     vi.unstubAllGlobals();
   });
 
@@ -68,6 +74,7 @@ describe("deviceCapabilities", () => {
   it("detects touch via ontouchstart when maxTouchPoints is 0", () => {
     stubMatchMedia({});
     stubNavigator(0);
+    ontouchstartDescriptor = Object.getOwnPropertyDescriptor(window, "ontouchstart");
     Object.defineProperty(window, "ontouchstart", { value: null, configurable: true });
     const caps = deviceCapabilities();
     expect(caps.hasTouch).toBe(true);

@@ -94,20 +94,20 @@ describe("i18n utils", () => {
       const { useTranslatedPath } = await import("./utils");
       // oxlint-disable-next-line typescript/no-unsafe-type-assertion
       const path = useTranslatedPath(lang as never)("/about");
-      expect(path).toContain("fi");
+      expect(path).toBe("/fi/about");
     });
 
     it("supports a lang override", async () => {
       const { useTranslatedPath } = await import("./utils");
       const path = useTranslatedPath("fi")("/about", "en");
-      expect(path).toContain("en");
+      expect(path).toBe("/en/about");
     });
 
     it("ignores an invalid lang override", async () => {
       const { useTranslatedPath } = await import("./utils");
       // oxlint-disable-next-line typescript/no-unsafe-type-assertion
       const path = useTranslatedPath("fi")("/about", "de" as never);
-      expect(path).toContain("fi");
+      expect(path).toBe("/fi/about");
     });
   });
 

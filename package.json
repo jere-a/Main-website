@@ -91,6 +91,7 @@
     "@vitest/coverage-istanbul": "^4.1.10",
     "@vitest/coverage-v8": "^4.1.10",
     "astro": "^7.1.6",
+    "happy-dom": "^20.11.1",
     "markdown-it": "^15.0.0",
     "nanostores": "^1.4.2",
     "oxlint": "^1.76.0",
