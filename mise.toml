@@ -18,7 +18,7 @@ description = "Preview the web Application locally"
 run = "pnpm run preview"
 
 [tasks.test]
-depends = "lint"
+depends = "fmt-check"
 description = "Test the web Applications for compile errors"
 run = "pnpm run test"
 
