@@ -4,24 +4,24 @@ export const fi = {
     about: "Tietoja",
     images: {
       title: "Kuvat",
-      desc: "Käy katsomassa minun ottamiani kuvia.",
+      desc: "Katso kuviani.",
     },
     blog: {
       title: "Blogit",
-      desc: "Käy katsomassa blogiani.",
-      back: "Mene Blogiin",
+      desc: "Lue Blogiani.",
+      back: "Blogiin",
     },
   },
   index: {
-    github: "Näytä lähde koodi GitHub:issa",
+    github: "Näytä lähdekoodi GitHubissa",
     h1: {
       title: "Åzze",
     },
-    social_youtube: "Käy katsomassa Youtube kanavani.",
+    social_youtube: "Katso YouTube-kanavaani.",
     title: "Koti",
     intro: {
       start:
-        "Olen tehnyt tämän sivun kun tuli kiinnostuksen kohteeksi tämän rakentaminen. Minut löytää ",
+        "Olen tehnyt tämän sivun kun tuli kiinnostuksen kohteeksi tämän rakentaminen. Löydät minut ",
       youtubeLabel: "Youtubesta",
       end: " ja minulle voi myös lähettää palautetta osoitteeseen: ",
     },
@@ -32,21 +32,21 @@ export const fi = {
   },
   images: {
     title: "Kuvat",
-    subtitle: "Minun ottamiani kuvia eri paikoista.",
-    winterLandscape: "Talvinen Maisema Sillalta.",
+    subtitle: "Ottamiani kuvia eri paikoista.",
+    winterLandscape: "Talvimaisema Sillalta.",
     bigRoot: "Iso Kanto.",
     blueSky: "Sininen Taivas.",
     sunflower: "Voi kukka.",
-    morningMist: "Aamuinen usva.",
+    morningMist: "Aamu-usva.",
     colorfulBridge: "Värikäs silta pimeällä",
     bridgeAtNight: "Silta pimeällä",
-    woodbird: "Puu lintu",
+    woodbird: "Puulintu",
     iris: "Siperian Kurjen miekka",
-    lake: "Pieni vesi alue",
+    lake: "Pieni vesialue",
   },
   notfound: {
     title: "Ei löydetty",
-    message: "Sivu jota yrität käyttää ei löytynyt.",
+    message: "Sivua ei löytynyt.",
   },
   youtube: {
     title: "Youtube",
@@ -56,7 +56,7 @@ export const fi = {
   },
   holiday: {
     christmas: "Joulu",
-    newyear: "Uusi Vuosi",
+    newyear: "Uusivuosi",
     halloween: "Halloween",
   },
 } as const;
