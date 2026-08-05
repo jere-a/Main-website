@@ -46,6 +46,10 @@ description = "Build application"
 depends = ["checks"]
 run = "astro build"
 
+[tasks.build-ci]
+description = "Build application in ci with coverage checks"
+depends = ["coverage"]
+
 [tasks.ci]
 description = "Complete CI pipeline"
-depends = ["coverage", "build"]
+depends = ["build-ci"]
