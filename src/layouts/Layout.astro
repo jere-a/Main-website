@@ -3,7 +3,6 @@ import { Font } from 'astro:assets';
 import { getLangFromUrl } from '@/i18n/utils';
 import NavMenu from '@/components/NavMenu.astro';
 import Footer from '@/components/Footer.astro';
-import { SEOMetadata } from 'astro-seo-metadata';
 import { pwaInfo } from 'virtual:pwa-info';
 import { siteConfig } from '@/config';
 
@@ -11,6 +10,7 @@ import type { Lang } from '@/i18n/types';
 
 import '@/styles/view-transition.scss';
 import '@/global.css';
+import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
 interface Props {
   title?: string;
@@ -34,43 +34,65 @@ const {
 	activeNav,
 } = Astro.props;
 
+const titleFormat = `${siteConfig.title} | ${title}`
+
 const kaoid = 'kao';
 ---
 
 <html class:list={[{ dark: isDark }]} lang={lang}>
-	<head>
-    <SEOMetadata
-	    siteName={siteConfig.siteName}
-	    title={siteConfig.title + ' | ' + title}
-	    description={siteConfig.description}
-	    favicon={'/favicon.ico'}
-	    author={siteConfig.mainAuthor}
-	    copyright="ISC"
-	    astroSitemap={true}
-	    canonicalUrl={Astro.url.toString()}
-	    type={'website'}
-	    astroGenerator={true}
-    />
-
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
-    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
-    <meta name="theme-color" content="#310a65" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#20004A" media="(prefers-color-scheme: dark)" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
-    <link rel="dns-prefetch" href="https://t.ozze.eu.org" />
-    <link rel="alternate" type="application/rss+xml" title="Åzze" href={`${Astro.site}rss.xml`} />
-    <link type="text/plain" rel="author" href={`${Astro.site}humans.txt`} />
-    <link rel="expect" href="#the_unexpected" blocking="render" />
-
-    { pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} /> }
-
-		<Font cssVariable="--font-creepster" />
-		<Font cssVariable="--font-butcherman" />
-		<slot name="head" />
-	</head>
+  <head>
+  	<meta charset="utf-8" />
+  	<meta name="viewport" content="width=device-width" />
+  	<title>{titleFormat}</title>
+  	<meta name="generator" content={Astro.generator} />
+  	<meta name="author" content={siteConfig.mainAuthor} />
+  	<link rel="canonical" href={Astro.url.toString()} />
+  
+  	<meta
+  		name="description"
+  		property="og:description"
+  		content={siteConfig.description}
+  	/>
+  	<meta property="og:type" content="website" />
+  	<meta property="og:site_name" content={siteConfig.siteName} />
+  	<meta property="og:title" content={titleFormat} />
+  	<meta property="og:image:alt" content={siteConfig.description} />
+  
+  	<meta name="apple-mobile-web-app-title" content={siteConfig.siteName} />
+  	<meta
+  		name="theme-color"
+  		content="#310a65"
+  		media="(prefers-color-scheme: light)"
+  	/>
+  	<meta
+  		name="theme-color"
+  		content="#20004A"
+  		media="(prefers-color-scheme: dark)"
+  	/>
+  
+  	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  	<link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+  	<link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+  
+  	<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+  	<link
+  		rel="alternate"
+  		type="application/rss+xml"
+  		title="Åzze"
+  		href={`${Astro.site}rss.xml`}
+  	/>
+  	<link rel="author" type="text/plain" href={`${Astro.site}humans.txt`} />
+  
+  	<link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
+  	<link rel="dns-prefetch" href="https://t.ozze.eu.org" />
+  	<link rel="expect" href="#the_unexpected" blocking="render" />
+  
+  	{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+  
+  	<Font cssVariable="--font-creepster" />
+  	<Font cssVariable="--font-butcherman" />
+  	<slot name="head" />
+  </head>
 	<body>
 		<header>
 			{isBanner && <div id={kaoid} />}
@@ -93,6 +115,7 @@ const kaoid = 'kao';
 <script>
   // oxlint-disable-next-line import/no-unassigned-import
   import "@/pwa";
+  import "@/cookieconsent-config";
 	import global from '@/lib/entry';
 	global();
 </script>

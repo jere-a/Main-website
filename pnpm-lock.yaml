@@ -98,9 +98,6 @@ importers:
       astro-page-insight:
         specifier: ^0.10.2
         version: 0.10.2(astro@7.1.6(@astrojs/markdown-remark@7.2.2)(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(less@4.8.1)(rollup@2.80.0)(sass@1.102.0)(terser@5.49.0)(yaml@2.9.0))(typescript@6.0.3)
-      astro-seo-metadata:
-        specifier: ^0.6.0
-        version: 0.6.0
       astrojs-service-worker:
         specifier: ^2.0.2
         version: 2.0.2(@types/babel__core@7.20.5)(astro@7.1.6(@astrojs/markdown-remark@7.2.2)(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(less@4.8.1)(rollup@2.80.0)(sass@1.102.0)(terser@5.49.0)(yaml@2.9.0))
@@ -3375,9 +3372,6 @@ packages:
     resolution: {integrity: sha512-EPYO0ztscjG/fXN1jY1e3CE6vIfDSF5bG1sEIZKQY4egwEn9pZlnrtWghRootc7AzOKsL+iJiWvH2KvNTbefdg==}
     peerDependencies:
       astro: ^4.0.0 || ^5.0.0
-
-  astro-seo-metadata@0.6.0:
-    resolution: {integrity: sha512-2wN3kHy4KOorieZxvzYdnXl8h3imUrZdKE+N5xLA3T9/fxHXqNXtXEuJSYFSLU+EfpUcdS6jMncuBC4nQpAIuA==}
 
   astro@7.1.6:
     resolution: {integrity: sha512-83x9rYbHazMaZkYrAFRVZXSQx2moFkz0F7cjTDUF3GWfS0a3p2vZXG1ZdhV86rStHApQCodBJW+XTD37xISIrQ==}
@@ -10216,8 +10210,6 @@ snapshots:
       - supports-color
       - typescript
       - utf-8-validate
-
-  astro-seo-metadata@0.6.0: {}
 
   astro@7.1.6(@astrojs/markdown-remark@7.2.2)(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(less@4.8.1)(rollup@2.80.0)(sass@1.102.0)(terser@5.49.0)(yaml@2.9.0):
     dependencies:
