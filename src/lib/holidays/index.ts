@@ -87,12 +87,18 @@ const plainDate = ([month, day, offset = 0]: HolidayDate, year: number): Tempora
 
 const epochMs = (date: TemporalPlaindate): number => date.toZonedDateTime("UTC").epochMilliseconds;
 
+const featureFlagsReady = new Promise<void>((resolve) => {
+  posthog.onFeatureFlags(() => resolve());
+});
+
 export async function isHoliday(): Promise<ActiveHoliday | null> {
-  const holidayLabels = await labels();
+  await featureFlagsReady;
 
   if (!posthog.isFeatureEnabled("holiday-effects")) {
     return null;
   }
+
+  const holidayLabels = await labels();
 
   const today = Temporal.Now.plainDateISO();
 

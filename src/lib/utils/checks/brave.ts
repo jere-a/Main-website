@@ -9,6 +9,10 @@ interface BraveNavigator extends Navigator {
 }
 
 export async function isBrave(): Promise<boolean> {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
+
   const isBraveFn = (navigator as BraveNavigator).brave?.isBrave;
 
   if (!isEngine(JSEngine.V8) || !isFunction(isBraveFn)) {
