@@ -38,6 +38,10 @@ const titleFormat = title
   ? `${siteConfig.title} | ${title}`
   : siteConfig.title;
 
+const canonicalURL = new URL(Astro.url.pathname, siteConfig.url);
+const rssURL = new URL('rss.xml', Astro.site ?? siteConfig.url);
+const humansURL = new URL('humans.txt', Astro.site ?? siteConfig.url);
+
 const kaoid = 'kao';
 ---
 
@@ -48,7 +52,7 @@ const kaoid = 'kao';
   	<title>{titleFormat}</title>
   	<meta name="generator" content={Astro.generator} />
   	<meta name="author" content={siteConfig.mainAuthor} />
-  	<link rel="canonical" href={Astro.url.toString()} />
+  	<link rel="canonical" href={canonicalURL} />
   
   	<meta
   		name="description"
@@ -56,11 +60,16 @@ const kaoid = 'kao';
   		content={siteConfig.description}
   	/>
   	<meta property="og:type" content="website" />
-  	<meta property="og:site_name" content={siteConfig.siteName} />
+  	<meta property="og:url" content={canonicalURL} />
+  	{siteConfig.siteName && (
+  		<meta property="og:site_name" content={siteConfig.siteName} />
+  	)}
   	<meta property="og:title" content={titleFormat} />
   	<meta property="og:image:alt" content={siteConfig.description} />
   
-  	<meta name="apple-mobile-web-app-title" content={siteConfig.siteName} />
+  	{siteConfig.siteName && (
+  		<meta name="apple-mobile-web-app-title" content={siteConfig.siteName} />
+  	)}
   	<meta
   		name="theme-color"
   		content="#310a65"
@@ -81,13 +90,12 @@ const kaoid = 'kao';
   		rel="alternate"
   		type="application/rss+xml"
   		title="Åzze"
-  		href={`${Astro.site}rss.xml`}
+  		href={rssURL}
   	/>
-  	<link rel="author" type="text/plain" href={`${Astro.site}humans.txt`} />
-  
+  	<link rel="author" type="text/plain" href={humansURL} />
+
   	<link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
   	<link rel="dns-prefetch" href="https://t.ozze.eu.org" />
-  	<link rel="expect" href="#the_unexpected" blocking="render" />
   
   	{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
   
