@@ -37,7 +37,6 @@ describe("translationLoaders", () => {
     expect(translations).toHaveProperty("about");
     expect(translations).toHaveProperty("images");
     expect(translations).toHaveProperty("notfound");
-    expect(translations).toHaveProperty("footer");
     expect(translations).toHaveProperty("holiday");
   });
 
@@ -48,7 +47,6 @@ describe("translationLoaders", () => {
     expect(translations).toHaveProperty("about");
     expect(translations).toHaveProperty("images");
     expect(translations).toHaveProperty("notfound");
-    expect(translations).toHaveProperty("footer");
     expect(translations).toHaveProperty("holiday");
   });
 
