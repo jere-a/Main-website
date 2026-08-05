@@ -51,9 +51,6 @@ export const fi = {
   youtube: {
     title: "Youtube",
   },
-  footer: {
-    copyright: "Tekijänoikeus",
-  },
   holiday: {
     christmas: "Joulu",
     newyear: "Uusivuosi",

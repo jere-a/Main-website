@@ -50,9 +50,6 @@ export const en = {
   youtube: {
     title: "Youtube",
   },
-  footer: {
-    copyright: "Copyright",
-  },
   holiday: {
     christmas: "Christmas",
     newyear: "New Year",

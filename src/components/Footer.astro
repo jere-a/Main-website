@@ -1,16 +1,11 @@
 ---
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
-
 interface Props {
 	isCopyright?: boolean;
 }
 
-const lang = getLangFromUrl(Astro.url);
-const t = (await useTranslations(lang));
-
 const { isCopyright = true } = Astro.props;
 
-const copyrightText = `${t.footer.copyright} © 2024-${new Date().getFullYear()} Jere L`;
+const copyrightText = `© 2024-${new Date().getFullYear()} Jere L`;
 ---
 
 <footer class="main-footer">
