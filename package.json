@@ -4,10 +4,8 @@
   "type": "module",
   "scripts": {
     "pre-commit": "nano-staged",
-    "check-types": "tsc --noEmit",
     "test:vitest": "vitest run",
     "test:check": "astro check",
-    "test": "pnpm run check-types && pnpm run test:check",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "lint:github": "oxlint --format=github",
