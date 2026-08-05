@@ -6,9 +6,6 @@ prek = "latest"
 [env]
 _.path = "./node_modules/.bin"
 
-[settings]
-task_output = "prefix"
-
 [tasks.install]
 description = "Install dependencies"
 run = "pnpm install --frozen-lockfile"
