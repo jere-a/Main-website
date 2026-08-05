@@ -7,7 +7,7 @@ import type { Temporal as TemporalType } from "@js-temporal/polyfill";
 
 export async function getTemporal(): Promise<typeof TemporalType | typeof globalThis.Temporal> {
   // oxlint-disable-next-line typescript/no-unnecessary-condition
-  if ("Temporal" in globalThis && globalThis.Temporal) {
+  if (globalThis.Temporal) {
     return globalThis.Temporal;
   }
 
