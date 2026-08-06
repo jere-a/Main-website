@@ -3,30 +3,53 @@ pnpm = "11"
 node = "26.3"
 prek = "latest"
 
-[tasks.dev]
-description = "Run dev environment for live website changes"
-run = "pnpm run dev"
+[env]
+_.path = "./node_modules/.bin"
 
-[tasks.build]
-depends = "test"
-description = "Build the web Application"
-run = "pnpm run build"
-
-[tasks.preview]
-depends = "build"
-description = "Preview the web Application locally"
-run = "pnpm run preview"
-
-[tasks.test]
-depends = "fmt-check"
-description = "Test the web Applications for compile errors"
-run = "pnpm run test"
+[tasks.install]
+description = "Install dependencies"
+run = "pnpm install --frozen-lockfile"
 
 [tasks.fmt-check]
-description = "Run formatter in package.json"
-run = "pnpm run fmt:check"
+depends = "install"
+deny_all = true
+allow_read = ["."]
+description = "Check formatting"
+run = "oxfmt --check"
 
 [tasks.lint]
-depends = "fmt-check"
-description = "Lint the code"
-run = "pnpm run lint"
+depends = "install"
+description = "Lint source code"
+run = "oxlint"
+
+[tasks.astro-check]
+depends = "install"
+description = "Check Astro and TypeScript"
+run = "astro check"
+
+[tasks.checks]
+description = "Run static checks"
+depends = ["fmt-check", "astro-check"]
+
+[tasks.test]
+description = "Run unit tests"
+depends = ["checks"]
+run = "vitest run"
+
+[tasks.coverage]
+description = "Run tests with coverage"
+depends = ["checks"]
+run = "vitest run --coverage"
+
+[tasks.build]
+description = "Build application"
+depends = ["checks"]
+run = "astro build"
+
+[tasks.build-ci]
+description = "Build application in ci with coverage checks"
+depends = ["coverage"]
+run = [{ task = "build" }]
+[tasks.ci]
+description = "Complete CI pipeline"
+depends = ["build-ci"]

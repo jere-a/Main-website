@@ -16,43 +16,48 @@ describe("i18n utils", () => {
       expect(isLang("en")).toBe(true);
     });
 
-    it("returns false for unsupported languages", async () => {
+    it.each([
+      ["de", "unsupported language"],
+      ["fr", "unsupported language"],
+      ["", "empty string"],
+      ["english", "full language name"],
+      ["FI", "uppercase code"],
+      ["EN", "uppercase code"],
+      ["fi-fi", "region-qualified code"],
+    ])("returns false for %s (%s)", async (value) => {
       const { isLang } = await import("./utils");
-      expect(isLang("de")).toBe(false);
-      expect(isLang("fr")).toBe(false);
+      expect(isLang(value)).toBe(false);
     });
 
-    it("returns false for empty string", async () => {
+    it("returns false for null and undefined", async () => {
       const { isLang } = await import("./utils");
-      expect(isLang("")).toBe(false);
-    });
-
-    it("returns false for strings that are not language codes", async () => {
-      const { isLang } = await import("./utils");
-      expect(isLang("english")).toBe(false);
-      expect(isLang("finnish")).toBe(false);
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      expect(isLang(null as never)).toBe(false);
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      expect(isLang(undefined as never)).toBe(false);
     });
   });
 
   describe("getLangFromUrl", () => {
-    it("extracts language from URL path", async () => {
+    it.each([
+      ["https://ozze.eu.org/en/about", "en"],
+      ["https://ozze.eu.org/fi/koti", "fi"],
+      ["https://ozze.eu.org/en/blog/some-post", "en"],
+      ["https://ozze.eu.org/en/", "en"],
+      ["https://ozze.eu.org/en/about?x=1", "en"],
+    ])("extracts %s -> %s", async (url, expected) => {
       const { getLangFromUrl } = await import("./utils");
-      expect(getLangFromUrl(new URL("https://ozze.eu.org/en/about"))).toBe("en");
+      expect(getLangFromUrl(new URL(url))).toBe(expected);
     });
 
-    it("extracts fi from URL path", async () => {
+    it.each([
+      ["https://ozze.eu.org/", "root path"],
+      ["https://ozze.eu.org/de/hallo", "unrecognized language prefix"],
+      ["https://ozze.eu.org/EN/about", "uppercase language prefix"],
+      ["https://ozze.eu.org/about", "path without language prefix"],
+    ])("returns defaultLang for %s (%s)", async (url) => {
       const { getLangFromUrl } = await import("./utils");
-      expect(getLangFromUrl(new URL("https://ozze.eu.org/fi/koti"))).toBe("fi");
-    });
-
-    it("returns defaultLang for root path", async () => {
-      const { getLangFromUrl } = await import("./utils");
-      expect(getLangFromUrl(new URL("https://ozze.eu.org/"))).toBe("fi");
-    });
-
-    it("returns defaultLang for unrecognized language prefix", async () => {
-      const { getLangFromUrl } = await import("./utils");
-      expect(getLangFromUrl(new URL("https://ozze.eu.org/de/hallo"))).toBe("fi");
+      expect(getLangFromUrl(new URL(url))).toBe("fi");
     });
   });
 
@@ -62,40 +67,55 @@ describe("i18n utils", () => {
       expect(typeof useTranslatedPath("fi")).toBe("function");
     });
 
-    it("generates path for fi", async () => {
-      const { useTranslatedPath } = await import("./utils");
-      const path = useTranslatedPath("fi")("/about");
-      expect(path).toContain("fi");
-      expect(path).toContain("about");
-    });
-
-    it("generates path for en", async () => {
-      const { useTranslatedPath } = await import("./utils");
-      const path = useTranslatedPath("en")("/about");
-      expect(path).toContain("en");
-      expect(path).toContain("about");
-    });
-
-    it("falls back to defaultLang for invalid lang", async () => {
+    it.each([
+      ["fi", "/about"],
+      ["en", "/about"],
+    ])("generates a path for %s", async (lang, path) => {
       const { useTranslatedPath } = await import("./utils");
       // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-      const path = useTranslatedPath("de" as never)("/about");
-      expect(path).toContain("fi");
+      const generated = useTranslatedPath(lang as never)(path);
+      expect(generated).toBe(`/${lang}/about`);
     });
 
-    it("supports lang override", async () => {
+    it("strips the trailing /index suffix", async () => {
+      const { useTranslatedPath } = await import("./utils");
+      expect(useTranslatedPath("fi")("/blog/index")).toBe("/fi/blog");
+    });
+
+    it("handles an empty path", async () => {
+      const { useTranslatedPath } = await import("./utils");
+      expect(useTranslatedPath("fi")("")).toBe("/fi");
+    });
+
+    it.each([
+      ["de", "unsupported lang"],
+      ["FI", "uppercase lang"],
+    ])("falls back to defaultLang for %s (%s)", async (lang) => {
+      const { useTranslatedPath } = await import("./utils");
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      const path = useTranslatedPath(lang as never)("/about");
+      expect(path).toBe("/fi/about");
+    });
+
+    it("supports a lang override", async () => {
       const { useTranslatedPath } = await import("./utils");
       const path = useTranslatedPath("fi")("/about", "en");
-      expect(path).toContain("en");
+      expect(path).toBe("/en/about");
+    });
+
+    it("ignores an invalid lang override", async () => {
+      const { useTranslatedPath } = await import("./utils");
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      const path = useTranslatedPath("fi")("/about", "de" as never);
+      expect(path).toBe("/fi/about");
     });
   });
 
   describe("useTranslations", () => {
-    it("returns translations for default language", async () => {
+    it("returns Finnish translations by default", async () => {
       const { useTranslations } = await import("./utils");
       const t = await useTranslations();
-      expect(t).toHaveProperty("nav");
-      expect(t).toHaveProperty("index");
+      expect(t.nav.home).toBe("Koti");
     });
 
     it("returns translations for English", async () => {
@@ -108,6 +128,12 @@ describe("i18n utils", () => {
       const { useTranslations } = await import("./utils");
       const t = await useTranslations("fi");
       expect(t.nav.home).toBe("Koti");
+    });
+
+    it.each(["de", "", "EN"])("throws for unsupported language %j", async (lang) => {
+      const { useTranslations } = await import("./utils");
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      await expect(useTranslations(lang as never)).rejects.toThrow("not a function");
     });
   });
 });

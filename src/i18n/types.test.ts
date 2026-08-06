@@ -2,15 +2,28 @@ import { describe, expect, it } from "vitest";
 
 import { Langs, defaultLang, translationLoaders } from "./types";
 
+const leafKeys = (value: object, prefix = ""): string[] =>
+  Object.entries(value).flatMap(([key, child]) =>
+    child !== null && typeof child === "object"
+      ? leafKeys(child, `${prefix}${key}.`)
+      : [`${prefix}${key}`],
+  );
+
+const valueAt = (root: object, key: string): unknown =>
+  key.split(".").reduce<unknown>(
+    (acc, part) =>
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      (acc as Record<string, unknown>)[part],
+    root,
+  );
+
 describe("Langs", () => {
-  it("defines Fi and En language codes", () => {
-    expect(Langs[0]).toBe("fi");
-    expect(Langs[1]).toBe("en");
+  it("defines Fi and En language codes in order", () => {
+    expect(Langs).toEqual(["fi", "en"]);
   });
 
-  it("has exactly 2 entries", () => {
-    expect(Object.keys(Langs)).toHaveLength(2);
-    expect(Object.values(Langs)).toHaveLength(2);
+  it("contains defaultLang", () => {
+    expect(Langs).toContain(defaultLang);
   });
 });
 
@@ -19,56 +32,44 @@ describe("defaultLang", () => {
     expect(defaultLang).toBe("fi");
   });
 
-  it("matches Langs.Fi", () => {
+  it("matches the first entry of Langs", () => {
     expect(defaultLang).toBe(Langs[0]);
   });
 });
 
 describe("translationLoaders", () => {
-  it("has loaders for all supported languages", () => {
-    expect(typeof translationLoaders.fi).toBe("function");
-    expect(typeof translationLoaders.en).toBe("function");
+  it("has a loader for every supported language", () => {
+    for (const lang of Langs) {
+      expect(typeof translationLoaders[lang]).toBe("function");
+    }
   });
 
-  it("fi loader returns an object with expected top-level keys", async () => {
-    const translations = await translationLoaders.fi();
-    expect(translations).toHaveProperty("nav");
-    expect(translations).toHaveProperty("index");
-    expect(translations).toHaveProperty("about");
-    expect(translations).toHaveProperty("images");
-    expect(translations).toHaveProperty("notfound");
-    expect(translations).toHaveProperty("holiday");
+  it.each(["fi", "en"] as const)("%s loader returns a translations object", async (lang) => {
+    const translations = await translationLoaders[lang]();
+    expect(typeof translations).toBe("object");
+    expect(translations).not.toBeNull();
   });
 
-  it("en loader returns an object with expected top-level keys", async () => {
-    const translations = await translationLoaders.en();
-    expect(translations).toHaveProperty("nav");
-    expect(translations).toHaveProperty("index");
-    expect(translations).toHaveProperty("about");
-    expect(translations).toHaveProperty("images");
-    expect(translations).toHaveProperty("notfound");
-    expect(translations).toHaveProperty("holiday");
-  });
-
-  it("both locales have the same structure", async () => {
+  it("both locales share identical leaf key structure", async () => {
     const fi = await translationLoaders.fi();
     const en = await translationLoaders.en();
 
-    const fiKeys = Object.keys(fi).toSorted();
-    const enKeys = Object.keys(en).toSorted();
-    expect(fiKeys).toEqual(enKeys);
+    expect(leafKeys(fi).length).toBeGreaterThan(0);
+    expect(leafKeys(fi).toSorted()).toEqual(leafKeys(en).toSorted());
   });
 
-  it("holiday keys match between locales", async () => {
+  it("every leaf value is a non-empty string in both locales", async () => {
     const fi = await translationLoaders.fi();
     const en = await translationLoaders.en();
 
-    expect(Object.keys(fi.holiday).toSorted()).toEqual(Object.keys(en.holiday).toSorted());
-  });
-
-  it("translation values are strings", async () => {
-    const fi = await translationLoaders.fi();
-    expect(typeof fi.nav.home).toBe("string");
-    expect(typeof fi.index.title).toBe("string");
+    for (const translations of [fi, en]) {
+      const label = translations === fi ? "fi" : "en";
+      for (const key of leafKeys(translations)) {
+        const value = valueAt(translations, key);
+        expect(typeof value, `${label}.${key}`).toBe("string");
+        // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+        expect((value as string).length, `${label}.${key}`).toBeGreaterThan(0);
+      }
+    }
   });
 });

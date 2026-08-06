@@ -45,6 +45,26 @@ describe("catchErrorTyped", () => {
     const result = await catchErrorTyped(Promise.resolve(data));
     expect(result).toEqual([undefined, data]);
   });
+
+  it("returns [undefined, undefined] when the promise resolves to undefined", async () => {
+    const result = await catchErrorTyped(Promise.resolve(undefined));
+    expect(result).toEqual([undefined, undefined]);
+  });
+
+  it("returns the rejected non-Error value when no filter is provided", async () => {
+    const result = await catchErrorTyped(Promise.reject("string error"));
+    expect(result).toEqual(["string error"]);
+  });
+
+  it("re-throws non-Error rejections when a filter is provided", async () => {
+    await expect(catchErrorTyped(Promise.reject("string error"), [TypeError])).rejects.toBe(
+      "string error",
+    );
+  });
+
+  it("re-throws all errors when the filter is an empty array", async () => {
+    await expect(catchErrorTyped(Promise.reject(new Error("x")), [])).rejects.toThrow("x");
+  });
 });
 
 describe("throttle", () => {
@@ -112,5 +132,50 @@ describe("throttle", () => {
     await vi.advanceTimersByTimeAsync(0);
 
     expect(cb).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses the default delay of 1000ms when delay is omitted", async () => {
+    const cb = vi.fn<(...args: string[]) => Promise<void>>().mockResolvedValue(undefined);
+    const throttled = throttle(cb);
+
+    await throttled("first");
+    await throttled("second");
+    expect(cb).toHaveBeenCalledTimes(1);
+
+    vi.advanceTimersByTime(999);
+    await vi.advanceTimersByTimeAsync(0);
+    expect(cb).toHaveBeenCalledTimes(1);
+
+    vi.advanceTimersByTime(1);
+    await vi.advanceTimersByTimeAsync(0);
+    expect(cb).toHaveBeenCalledTimes(2);
+    expect(cb).toHaveBeenLastCalledWith("second");
+  });
+
+  it("does not stay throttled when the callback rejects", async () => {
+    const cb = vi.fn<(...args: string[]) => Promise<void>>();
+    cb.mockRejectedValueOnce(new Error("fail")).mockResolvedValue(undefined);
+    const throttled = throttle(cb, 1000);
+
+    await expect(throttled("first")).rejects.toThrow("fail");
+    await throttled("second");
+
+    expect(cb).toHaveBeenCalledTimes(2);
+  });
+
+  it("runs the next call immediately after the trailing call fires", async () => {
+    const cb = vi.fn<(...args: string[]) => Promise<void>>().mockResolvedValue(undefined);
+    const throttled = throttle(cb, 1000);
+
+    await throttled("first");
+    await throttled("trailing");
+
+    vi.advanceTimersByTime(1000);
+    await vi.advanceTimersByTimeAsync(0);
+    expect(cb).toHaveBeenCalledTimes(2);
+
+    await throttled("next");
+    expect(cb).toHaveBeenCalledTimes(3);
+    expect(cb).toHaveBeenLastCalledWith("next");
   });
 });
