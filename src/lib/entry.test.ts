@@ -93,7 +93,7 @@ describe("entry main", () => {
     expect(h.init).toHaveBeenCalledTimes(1);
   });
 
-  it("logs an error when posthog init fails", () => {
+  it("logs an error when posthog init fails", async () => {
     vi.useFakeTimers();
     const error = new Error("boom");
     h.init.mockRejectedValue(error);
@@ -101,7 +101,7 @@ describe("entry main", () => {
 
     main();
     vi.advanceTimersByTime(1000);
-    void vi.waitFor(() => expect(log).toHaveBeenCalledWith("init failed", error));
+    await vi.waitFor(() => expect(log).toHaveBeenCalledWith("init failed", error));
   });
 
   it("suppresses the context menu on images and pictures", () => {
