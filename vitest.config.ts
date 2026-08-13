@@ -17,7 +17,17 @@ export default defineConfig({
     },
   },
   test: {
-    environment: "jsdom",
+    environment: "happy-dom",
+    coverage: {
+      provider: "istanbul",
+      include: [
+        "src/lib/**/*.{js,mjs,cjs,ts,mts,cts}",
+        "src/i18n/**/*.{js,mjs,cjs,ts,mts,cts}",
+        "src/config.ts",
+        "src/configFeatures.ts",
+        "!src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts}",
+      ],
+    },
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
   },
 });

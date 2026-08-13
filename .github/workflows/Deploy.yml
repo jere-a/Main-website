@@ -34,42 +34,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-deps-
 
-      - name: Install dependencies
-        run: pnpm ci
+      - name: mise-en-place CI
+        run: mise run ci
 
-      - name: Test
-        run: mise run test
-
-  deploy:
-    if: github.ref == 'refs/heads/master'
-    needs: [test]
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    env:
-      PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ vars.PUBLIC_CLOUDINARY_CLOUD_NAME }}
-
-    steps:
-      - uses: actions/checkout@v7.0.1
-
-      - name: Setup mise-en-place
-        uses: jdx/mise-action@v4
-
-      - name: Cache dependencies
-        uses: actions/cache@v6
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-deps-${{ hashFiles('pnpm.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-deps-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm run build
-
-      - name: Deploy Worker
+      - name: Deploy
+        if: github.ref == 'refs/heads/master'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

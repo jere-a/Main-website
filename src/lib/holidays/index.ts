@@ -1,3 +1,4 @@
+import type { Temporal as TemporalType } from "@js-temporal/polyfill";
 import posthog from "@lib/analytics";
 import { atom, onMount } from "nanostores";
 
@@ -75,42 +76,60 @@ const labels = async (): Promise<HolidayLabels> => {
   return labelCache;
 };
 
-const dateMs = ([month, day, offset = 0]: HolidayDate, year: number): number =>
-  Temporal.PlainDate.from({ year: year + offset, month, day }).toZonedDateTime("UTC")
-    .epochMilliseconds;
+type TemporalPlaindate = Temporal.PlainDate | TemporalType.PlainDate;
+
+const plainDate = ([month, day, offset = 0]: HolidayDate, year: number): TemporalPlaindate =>
+  Temporal.PlainDate.from({
+    year: year + offset,
+    month,
+    day,
+  });
+
+const epochMs = (date: TemporalPlaindate): number => date.toZonedDateTime("UTC").epochMilliseconds;
+
+const featureFlagsReady = new Promise<void>((resolve) => {
+  posthog.onFeatureFlags(() => resolve());
+});
 
 export async function isHoliday(): Promise<ActiveHoliday | null> {
-  const holidayLabels = await labels();
-  posthog.onFeatureFlags(() => {
-    if (posthog.isFeatureEnabled("holiday-effects")) {
-      const now = Temporal.Now.instant().epochMilliseconds;
-      const today = Temporal.Now.plainDateISO();
+  await featureFlagsReady;
 
-      // Important: in January, we are still inside the previous New Year season.
-      const seasonYear = today.month === 1 ? today.year - 1 : today.year;
-
-      for (const h of holidays) {
-        const from = dateMs(h.from, seasonYear);
-        const to = dateMs(h.to, seasonYear);
-
-        if (now >= from && now <= to) {
-          return {
-            key: h.key,
-            name: holidayLabels[h.key],
-            from,
-            to,
-            timeto: dateMs(h.target, seasonYear),
-            loadScript: h.load,
-            runScript: async () => {
-              const script = await h.load();
-              await script();
-            },
-          };
-        }
-      }
-    }
+  if (!posthog.isFeatureEnabled("holiday-effects")) {
     return null;
-  });
+  }
+
+  const holidayLabels = await labels();
+
+  const today = Temporal.Now.plainDateISO();
+
+  // Important: in January, we are still inside the previous New Year season.
+  const seasonYear = today.month === 1 ? today.year - 1 : today.year;
+
+  for (const h of holidays) {
+    const from = plainDate(h.from, seasonYear);
+    const to = plainDate(h.to, seasonYear);
+
+    if (
+      Temporal.PlainDate.compare(today, from) >= 0 &&
+      Temporal.PlainDate.compare(today, to) <= 0
+    ) {
+      const target = plainDate(h.target, seasonYear);
+
+      return {
+        key: h.key,
+        name: holidayLabels[h.key],
+        from: epochMs(from),
+        to: epochMs(to),
+        timeto: epochMs(target),
+        loadScript: h.load,
+        runScript: async () => {
+          await (
+            await h.load()
+          )();
+        },
+      };
+    }
+  }
 
   return null;
 }

@@ -53,4 +53,25 @@ describe("getQueryParam", () => {
     expect(getQueryParam("b")).toBe("2");
     expect(getQueryParam("c")).toBe("3");
   });
+
+  it("is case-sensitive for parameter keys", () => {
+    window.history.replaceState(null, "", "/?Foo=1");
+    expect(getQueryParam("Foo")).toBe("1");
+    expect(getQueryParam("foo")).toBeUndefined();
+  });
+
+  it("supports an empty parameter name", () => {
+    window.history.replaceState(null, "", "/?=value");
+    expect(getQueryParam("")).toBe("value");
+  });
+
+  it("decodes plus signs as spaces", () => {
+    window.history.replaceState(null, "", "/?q=a+b");
+    expect(getQueryParam("q")).toBe("a b");
+  });
+
+  it("handles unicode values", () => {
+    window.history.replaceState(null, "", "/?q=héllo");
+    expect(getQueryParam("q")).toBe("héllo");
+  });
 });

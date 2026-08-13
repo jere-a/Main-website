@@ -170,6 +170,7 @@ describe("assertType", () => {
   it("throws TypeError with default message for mismatch", () => {
     expect(() => assertType(42, "string")).toThrow(TypeError);
     expect(() => assertType(42, "string")).toThrow("Expected string.");
+    expect(() => assertType(42, "undefined")).toThrow("Expected undefined.");
   });
 
   it("throws TypeError with custom string message", () => {
@@ -236,6 +237,8 @@ describe("assertNever", () => {
     expect(() => assertNever(42 as never)).toThrow("Unexpected value: 42");
     // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     expect(() => assertNever("x" as never)).toThrow("Unexpected value: x");
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+    expect(() => assertNever(undefined as never)).toThrow("Unexpected value: undefined");
   });
 });
 
@@ -312,5 +315,11 @@ describe("assertObject", () => {
     expect(() => assertObject(0)).toThrow(TypeError);
     expect(() => assertObject("")).toThrow(TypeError);
     expect(() => assertObject(true)).toThrow(TypeError);
+    expect(() => assertObject(null)).toThrow("Expected object.");
+  });
+
+  it("throws provided Error object directly", () => {
+    const err = new Error("not an object");
+    expect(() => assertObject(null, err)).toThrow(err);
   });
 });

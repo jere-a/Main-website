@@ -29,11 +29,13 @@ export async function fetchData(): Promise<ParsedData> {
 
   const raw: Partial<Record<TraceKey, string>> = {};
 
-  for (const line of text.split("\n")) {
-    const [key, value] = line.split("=");
+  for (const line of text.split(/\r?\n/)) {
+    const eqIndex = line.indexOf("=");
+    const key = eqIndex === -1 ? line : line.slice(0, eqIndex);
+    const value = eqIndex === -1 ? "" : line.slice(eqIndex + 1);
 
     if (key && isTraceKey(key)) {
-      raw[key] = value ?? "";
+      raw[key] = value;
     }
   }
 

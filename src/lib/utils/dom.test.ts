@@ -79,6 +79,29 @@ describe("on", () => {
     expect(handler).toHaveBeenCalledTimes(1);
   });
 
+  it("passes the event to the handler", () => {
+    const div = document.createElement("div");
+    document.body.appendChild(div);
+    const handler = vi.fn<(this: Element, event: Event) => void>();
+
+    on(div, "click", handler);
+
+    const event = new Event("click", { bubbles: true });
+    div.dispatchEvent(event);
+    expect(handler).toHaveBeenCalledWith(event);
+  });
+
+  it("calls the handler with the element as this", () => {
+    const div = document.createElement("div");
+    document.body.appendChild(div);
+    const handler = vi.fn<(this: Element, event: Event) => void>();
+
+    on(div, "click", handler);
+
+    div.dispatchEvent(new Event("click", { bubbles: true }));
+    expect(handler.mock.instances[0]).toBe(div);
+  });
+
   it("returns the wrapped handler for removal", () => {
     const div = document.createElement("div");
     document.body.appendChild(div);
@@ -98,11 +121,28 @@ describe("on", () => {
     parent.appendChild(child);
     document.body.appendChild(parent);
 
-    const handler = vi.fn<(event: Event) => void>();
+    const handler = vi.fn<(this: Element, event: Event) => void>();
     on(parent, "click", handler, "span");
 
     child.dispatchEvent(new Event("click", { bubbles: true }));
     expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler.mock.instances[0]).toBe(child);
+  });
+
+  it("with selector: matches deeply nested descendants", () => {
+    const parent = document.createElement("div");
+    const inner = document.createElement("p");
+    const child = document.createElement("span");
+    inner.appendChild(child);
+    parent.appendChild(inner);
+    document.body.appendChild(parent);
+
+    const handler = vi.fn<(this: Element, event: Event) => void>();
+    on(parent, "click", handler, "p span");
+
+    child.dispatchEvent(new Event("click", { bubbles: true }));
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler.mock.instances[0]).toBe(child);
   });
 
   it("with selector: does not fire when target does not match", () => {
@@ -116,5 +156,17 @@ describe("on", () => {
 
     child.dispatchEvent(new Event("click", { bubbles: true }));
     expect(handler).not.toHaveBeenCalled();
+  });
+
+  it("with selector: calls handler on the element when target is not an Element", () => {
+    const div = document.createElement("div");
+    const handler = vi.fn<(event: Event) => void>();
+
+    const wrapped = on(div, "click", handler, "span");
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+    wrapped({ target: null } as unknown as Parameters<typeof wrapped>[0]);
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler.mock.instances[0]).toBe(div);
   });
 });

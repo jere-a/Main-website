@@ -44,3 +44,6 @@ src/styles/layout/
 
 .unreach
 .env
+
+# coverage
+coverage
