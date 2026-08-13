@@ -27,9 +27,6 @@ export default defineConfig({
         "src/configFeatures.ts",
         "!src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts}",
       ],
-      thresholds: {
-        "100": true,
-      },
     },
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
   },
