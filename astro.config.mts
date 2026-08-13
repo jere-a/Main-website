@@ -5,7 +5,6 @@ import svelte from "@astrojs/svelte";
 import AstroPWA from "@vite-pwa/astro";
 import embeds from "astro-embed/integration";
 import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
-import pageInsight from "astro-page-insight";
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
 import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
@@ -90,7 +89,6 @@ export default defineConfig({
       filter: filterSitemapByDefaultLocale({ defaultLocale }),
     }),
     /* partytown(), */
-    pageInsight(),
   ],
   compressHTML: true,
   trailingSlash: "never",

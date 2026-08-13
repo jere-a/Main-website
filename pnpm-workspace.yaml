@@ -6,3 +6,6 @@ allowBuilds:
   esbuild: true
   puppeteer: false
   workerd: true
+overrides:
+  esbuild: ">=0.28.1"
+  serialize-javascript: ">=7.0.3"

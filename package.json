@@ -49,7 +49,6 @@
     "astro-cloudinary": "^1.4.0",
     "astro-embed": "^0.13.1",
     "astro-i18n-aut": "^0.7.3",
-    "astro-page-insight": "^0.10.2",
     "astrojs-service-worker": "^2.0.2",
     "browserslist": "^4.28.8",
     "class-variance-authority": "^0.7.1",
