@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, afterEach } from "vitest";
+import { describe, expect, it, vi, afterEach, beforeEach } from "vitest";
 
 import { injectCSS, addCSSFromURL, on } from "./dom";
 
@@ -64,109 +64,381 @@ describe("addCSSFromURL", () => {
 });
 
 describe("on", () => {
+  let root: HTMLDivElement;
+
+  beforeEach(() => {
+    root = document.createElement("div");
+    document.body.append(root);
+  });
+
   afterEach(() => {
-    document.body.innerHTML = "";
+    root.remove();
   });
 
-  it("attaches an event listener and fires handler", () => {
-    const div = document.createElement("div");
-    document.body.appendChild(div);
-    const handler = vi.fn<(event: Event) => void>();
+  describe("direct events", () => {
+    it("calls the handler for an event", () => {
+      const handler = vi.fn();
 
-    on(div, "click", handler);
+      on(root, "click", handler);
 
-    div.dispatchEvent(new Event("click", { bubbles: true }));
-    expect(handler).toHaveBeenCalledTimes(1);
+      root.click();
+
+      expect(handler).toHaveBeenCalledOnce();
+      expect(handler.mock.contexts[0]).toBe(root);
+    });
+
+    it("supports multiple events", () => {
+      const handler = vi.fn();
+
+      on(root, ["click", "dblclick"], handler);
+
+      root.click();
+      root.dispatchEvent(new MouseEvent("dblclick", { bubbles: true }));
+
+      expect(handler).toHaveBeenCalledTimes(2);
+    });
+
+    it("does not call the handler for other events", () => {
+      const handler = vi.fn();
+
+      on(root, "click", handler);
+
+      root.dispatchEvent(new Event("input"));
+
+      expect(handler).not.toHaveBeenCalled();
+    });
+
+    it("can unsubscribe", () => {
+      const handler = vi.fn();
+
+      const off = on(root, "click", handler);
+
+      off();
+
+      root.click();
+
+      expect(handler).not.toHaveBeenCalled();
+    });
+
+    it("can unsubscribe from multiple events at once", () => {
+      const handler = vi.fn();
+
+      const off = on(root, ["click", "dblclick"], handler);
+
+      off();
+
+      root.click();
+      root.dispatchEvent(new MouseEvent("dblclick", { bubbles: true }));
+
+      expect(handler).not.toHaveBeenCalled();
+    });
   });
 
-  it("passes the event to the handler", () => {
-    const div = document.createElement("div");
-    document.body.appendChild(div);
-    const handler = vi.fn<(this: Element, event: Event) => void>();
+  describe("delegation", () => {
+    it("calls the handler when the target matches the selector", () => {
+      const button = document.createElement("button");
+      root.append(button);
 
-    on(div, "click", handler);
+      const handler = vi.fn();
 
-    const event = new Event("click", { bubbles: true });
-    div.dispatchEvent(event);
-    expect(handler).toHaveBeenCalledWith(event);
+      on(root, "click", handler, "button");
+
+      button.click();
+
+      expect(handler).toHaveBeenCalledOnce();
+      expect(handler.mock.contexts[0]).toBe(button);
+    });
+
+    it("uses the closest matching ancestor", () => {
+      const button = document.createElement("button");
+      const span = document.createElement("span");
+
+      button.append(span);
+      root.append(button);
+
+      const handler = vi.fn();
+
+      on(root, "click", handler, "button");
+
+      span.click();
+
+      expect(handler).toHaveBeenCalledOnce();
+      expect(handler.mock.contexts[0]).toBe(button);
+    });
+
+    it("does not call the handler when nothing matches", () => {
+      const div = document.createElement("div");
+      root.append(div);
+
+      const handler = vi.fn();
+
+      on(root, "click", handler, "button");
+
+      div.click();
+
+      expect(handler).not.toHaveBeenCalled();
+    });
+
+    it("supports multiple delegated handlers for the same event", () => {
+      const button = document.createElement("button");
+      const link = document.createElement("a");
+
+      root.append(button, link);
+
+      const buttonHandler = vi.fn();
+      const linkHandler = vi.fn();
+
+      on(root, "click", buttonHandler, "button");
+      on(root, "click", linkHandler, "a");
+
+      button.click();
+      link.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+      expect(buttonHandler).toHaveBeenCalledOnce();
+      expect(linkHandler).toHaveBeenCalledOnce();
+    });
+
+    it("only invokes handlers whose selectors match", () => {
+      const button = document.createElement("button");
+      root.append(button);
+
+      const buttonHandler = vi.fn();
+      const linkHandler = vi.fn();
+
+      on(root, "click", buttonHandler, "button");
+      on(root, "click", linkHandler, "a");
+
+      button.click();
+
+      expect(buttonHandler).toHaveBeenCalledOnce();
+      expect(linkHandler).not.toHaveBeenCalled();
+    });
+
+    it("does not handle events originating outside the bound element", () => {
+      const outsideButton = document.createElement("button");
+      document.body.append(outsideButton);
+
+      const handler = vi.fn();
+
+      on(root, "click", handler, "button");
+
+      outsideButton.click();
+
+      expect(handler).not.toHaveBeenCalled();
+
+      outsideButton.remove();
+    });
   });
 
-  it("calls the handler with the element as this", () => {
-    const div = document.createElement("div");
-    document.body.appendChild(div);
-    const handler = vi.fn<(this: Element, event: Event) => void>();
+  describe("multiple registrations", () => {
+    it("allows the same handler to be registered multiple times", () => {
+      const handler = vi.fn();
 
-    on(div, "click", handler);
+      on(root, "click", handler);
+      on(root, "click", handler);
 
-    div.dispatchEvent(new Event("click", { bubbles: true }));
-    expect(handler.mock.instances[0]).toBe(div);
+      root.click();
+
+      expect(handler).toHaveBeenCalledTimes(2);
+    });
+
+    it("unsubscribing one registration keeps the other", () => {
+      const handler = vi.fn();
+
+      const off1 = on(root, "click", handler);
+      on(root, "click", handler);
+
+      off1();
+
+      root.click();
+
+      expect(handler).toHaveBeenCalledOnce();
+    });
   });
 
-  it("returns the wrapped handler for removal", () => {
-    const div = document.createElement("div");
-    document.body.appendChild(div);
-    const handler = vi.fn<(event: Event) => void>();
+  describe("document-level delegation", () => {
+    it("uses only one document listener for the same event", () => {
+      const addEventListener = vi.spyOn(document, "addEventListener");
 
-    const wrapped = on(div, "click", handler);
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-    div.removeEventListener("click", wrapped as EventListener);
+      const first = vi.fn();
+      const second = vi.fn();
 
-    div.dispatchEvent(new Event("click", { bubbles: true }));
-    expect(handler).not.toHaveBeenCalled();
+      on(document, "click", first, "button");
+      on(document, "click", second, ".link");
+
+      const clickListeners = addEventListener.mock.calls.filter(
+        ([eventName]) => eventName === "click",
+      );
+
+      expect(clickListeners).toHaveLength(1);
+    });
+
+    it("shares one document listener between different selectors", () => {
+      const addEventListener = vi.spyOn(document, "addEventListener");
+
+      on(document, "click", vi.fn(), "button");
+      on(document, "click", vi.fn(), "a");
+      on(document, "click", vi.fn(), ".item");
+
+      const clickListeners = addEventListener.mock.calls.filter(
+        ([eventName]) => eventName === "click",
+      );
+
+      expect(clickListeners).toHaveLength(1);
+    });
+
+    it("shares one listener when different functions register the same event", () => {
+      const addEventListener = vi.spyOn(document, "addEventListener");
+
+      const first = (): void => {};
+      const second = (): void => {};
+
+      on(document, "click", first);
+      on(document, "click", second);
+
+      const clickListeners = addEventListener.mock.calls.filter(
+        ([eventName]) => eventName === "click",
+      );
+
+      expect(clickListeners).toHaveLength(1);
+    });
+
+    it("uses separate listeners for different event types", () => {
+      const addEventListener = vi.spyOn(document, "addEventListener");
+
+      on(document, "click", vi.fn());
+      on(document, "input", vi.fn());
+
+      const clickListeners = addEventListener.mock.calls.filter(
+        ([eventName]) => eventName === "click",
+      );
+
+      const inputListeners = addEventListener.mock.calls.filter(
+        ([eventName]) => eventName === "input",
+      );
+
+      expect(clickListeners).toHaveLength(1);
+      expect(inputListeners).toHaveLength(1);
+    });
+
+    it("dispatches an event to all matching handlers", () => {
+      const button = document.createElement("button");
+      root.append(button);
+
+      const first = vi.fn();
+      const second = vi.fn();
+
+      on(document, "click", first, "button");
+      on(document, "click", second, "button");
+
+      button.click();
+
+      expect(first).toHaveBeenCalledOnce();
+      expect(second).toHaveBeenCalledOnce();
+    });
+
+    it("removes the document listener when the last registration is removed", () => {
+      const addEventListener = vi.spyOn(document, "addEventListener");
+      const removeEventListener = vi.spyOn(document, "removeEventListener");
+
+      const off = on(document, "click", vi.fn(), "button");
+
+      expect(
+        addEventListener.mock.calls.filter(([eventName]) => eventName === "click"),
+      ).toHaveLength(1);
+
+      off();
+
+      expect(
+        removeEventListener.mock.calls.filter(([eventName]) => eventName === "click"),
+      ).toHaveLength(1);
+    });
+
+    it("does not remove the shared listener while registrations remain", () => {
+      const removeEventListener = vi.spyOn(document, "removeEventListener");
+
+      const off1 = on(document, "click", vi.fn(), "button");
+      on(document, "click", vi.fn(), "a");
+
+      off1();
+
+      expect(
+        removeEventListener.mock.calls.filter(([eventName]) => eventName === "click"),
+      ).toHaveLength(0);
+    });
   });
 
-  it("with selector: fires only when target matches", () => {
-    const parent = document.createElement("div");
-    const child = document.createElement("span");
-    parent.appendChild(child);
-    document.body.appendChild(parent);
+  describe("event arrays", () => {
+    it("registers every event in the array", () => {
+      const handler = vi.fn();
 
-    const handler = vi.fn<(this: Element, event: Event) => void>();
-    on(parent, "click", handler, "span");
+      on(root, ["click", "mousedown", "mouseup"], handler);
 
-    child.dispatchEvent(new Event("click", { bubbles: true }));
-    expect(handler).toHaveBeenCalledTimes(1);
-    expect(handler.mock.instances[0]).toBe(child);
+      root.click();
+      root.dispatchEvent(new MouseEvent("mousedown"));
+      root.dispatchEvent(new MouseEvent("mouseup"));
+
+      expect(handler).toHaveBeenCalledTimes(3);
+    });
+
+    it("supports arrays with delegation", () => {
+      const button = document.createElement("button");
+      root.append(button);
+
+      const handler = vi.fn();
+
+      on(root, ["click", "mousedown"], handler, "button");
+
+      button.click();
+      button.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+
+      expect(handler).toHaveBeenCalledTimes(2);
+      expect(handler.mock.contexts[0]).toBe(button);
+      expect(handler.mock.contexts[1]).toBe(button);
+    });
+
+    it("does not register duplicate event names twice", () => {
+      const addEventListener = vi.spyOn(document, "addEventListener");
+
+      on(document, ["click", "click", "click"], vi.fn());
+
+      const clickListeners = addEventListener.mock.calls.filter(
+        ([eventName]) => eventName === "click",
+      );
+
+      expect(clickListeners).toHaveLength(1);
+    });
   });
 
-  it("with selector: matches deeply nested descendants", () => {
-    const parent = document.createElement("div");
-    const inner = document.createElement("p");
-    const child = document.createElement("span");
-    inner.appendChild(child);
-    parent.appendChild(inner);
-    document.body.appendChild(parent);
+  describe("handler arguments", () => {
+    it("passes the original event", () => {
+      const handler = vi.fn();
 
-    const handler = vi.fn<(this: Element, event: Event) => void>();
-    on(parent, "click", handler, "p span");
+      on(root, "click", handler);
 
-    child.dispatchEvent(new Event("click", { bubbles: true }));
-    expect(handler).toHaveBeenCalledTimes(1);
-    expect(handler.mock.instances[0]).toBe(child);
-  });
+      const event = new MouseEvent("click");
 
-  it("with selector: does not fire when target does not match", () => {
-    const parent = document.createElement("div");
-    const child = document.createElement("span");
-    parent.appendChild(child);
-    document.body.appendChild(parent);
+      root.dispatchEvent(event);
 
-    const handler = vi.fn<(event: Event) => void>();
-    on(parent, "click", handler, "button");
+      expect(handler).toHaveBeenCalledWith(event);
+    });
 
-    child.dispatchEvent(new Event("click", { bubbles: true }));
-    expect(handler).not.toHaveBeenCalled();
-  });
+    it("preserves the original event target", () => {
+      const button = document.createElement("button");
+      root.append(button);
 
-  it("with selector: calls handler on the element when target is not an Element", () => {
-    const div = document.createElement("div");
-    const handler = vi.fn<(event: Event) => void>();
+      const handler = vi.fn();
 
-    const wrapped = on(div, "click", handler, "span");
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-    wrapped({ target: null } as unknown as Parameters<typeof wrapped>[0]);
+      on(root, "click", handler, "button");
 
-    expect(handler).toHaveBeenCalledTimes(1);
-    expect(handler.mock.instances[0]).toBe(div);
+      const event = new MouseEvent("click", {
+        bubbles: true,
+      });
+
+      button.dispatchEvent(event);
+
+      expect(handler.mock.calls[0]?.[0]).toBe(event);
+      expect(event.target).toBe(button);
+    });
   });
 });

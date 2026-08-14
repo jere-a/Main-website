@@ -8,3 +8,4 @@ export { catchErrorTyped } from "./async.ts";
 export { injectCSS, addCSSFromURL, on } from "./dom.ts";
 export { getQueryParam } from "./url.ts";
 export { getTemporal } from "./temporal.ts";
+export { server } from "./server.ts";

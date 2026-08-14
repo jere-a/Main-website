@@ -18,6 +18,7 @@ export default defineConfig({
   },
   test: {
     environment: "happy-dom",
+    restoreMocks: true,
     coverage: {
       provider: "istanbul",
       include: [

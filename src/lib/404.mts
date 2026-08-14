@@ -5,6 +5,7 @@
 
 import posthog from "@lib/analytics";
 import { assertExists } from "@utils/index";
+import * as v from "valibot";
 
 import { fetchData } from "@/lib/cloudflare-trace";
 import { catchErrorTyped } from "@/lib/utils/async.ts";
@@ -25,10 +26,14 @@ if (!DEBUG_PATHS.includes(pathname) && notFoundEl) {
 posthog.onFeatureFlags(() => {
   void (async () => {
     if (posthog.isFeatureEnabled("fetchipp")) {
-      const [, data] = await catchErrorTyped(fetchData());
+      const [error, data] = await catchErrorTyped(fetchData(), [v.ValiError]);
+
+      if (error) {
+        console.error("Failed:", error);
+        return;
+      }
 
       assertExists(infoEl);
-      assertExists(data);
 
       infoEl.innerText = `Yhteyttä yrittänyt ip osoite: ${data.ip}\nUserAgent: ${data.uag}`;
     }

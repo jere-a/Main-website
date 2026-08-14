@@ -22,7 +22,7 @@ export async function useTranslations(lang: Lang = defaultLang) {
 /** Extract the language code from a URL, falling back to defaultLang. */
 export const getLangFromUrl = (url: URL): Lang => {
   const maybeLang = getLocale(url);
-  return maybeLang && isLang(maybeLang) ? maybeLang : defaultLang;
+  return isLang(maybeLang) ? maybeLang : defaultLang;
 };
 
 export const useTranslatedPath = (lang: Lang) => {
