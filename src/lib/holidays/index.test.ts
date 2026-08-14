@@ -268,7 +268,7 @@ describe("holidays", () => {
       const target = h.state.nowMs + 3 * hourMs;
 
       expect(freshHolidayTimeTo(target)).toMatchObject({
-        time: "hour:3 minute:0 second:0",
+        time: "hour:3 second:0",
         days: 0,
         hours: 3,
         minutes: 0,

@@ -1,32 +1,30 @@
-import { describe, expect, it, vi, afterEach } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { getTemporal } from "./temporal";
 
 describe("getTemporal", () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("returns global Temporal", async () => {
+    const temporal = { PlainDate: {} };
+    vi.stubGlobal("Temporal", temporal);
+
+    expect(await getTemporal()).toBe(temporal);
   });
 
-  it("returns globalThis.Temporal when available", async () => {
-    const fakeTemporal = { PlainDate: {} };
-    vi.stubGlobal("Temporal", fakeTemporal);
+  it.each([undefined, null, false, 0])("falls back to polyfill for %s", async (temporal) => {
+    vi.stubGlobal("Temporal", temporal);
 
     const result = await getTemporal();
-    expect(result).toBe(fakeTemporal);
-  });
 
-  it("imports polyfill when Temporal is not on globalThis", async () => {
-    const original = globalThis.Temporal;
-    // @ts-expect-error testing absence
-    delete globalThis.Temporal;
-
-    const result = await getTemporal();
     expect(result).toBeDefined();
     expect(result.PlainDate).toBeDefined();
+  });
 
-    // oxlint-disable-next-line typescript/no-unnecessary-condition
-    if (original) {
-      vi.stubGlobal("Temporal", original);
-    }
+  it("returns a truthy malformed Temporal unchanged", async () => {
+    const temporal = {};
+    vi.stubGlobal("Temporal", temporal);
+
+    expect(await getTemporal()).toBe(temporal);
   });
 });
