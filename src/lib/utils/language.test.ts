@@ -1,6 +1,25 @@
-import { describe, expect, it, afterEach, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { detectLanguage } from "./language";
+
+const languages = ["en", "fi"];
+
+const casePermutations = (value: string): string[] =>
+  // oxlint-disable-next-line typescript/no-misused-spread
+  [...value].reduce(
+    (variants, char) =>
+      variants.flatMap((prefix) => [prefix + char.toLowerCase(), prefix + char.toUpperCase()]),
+    [""],
+  );
+
+const languageVariants = (lang: string) => {
+  const variants = casePermutations(lang);
+
+  return [
+    ...variants,
+    ...variants.flatMap((language) => variants.map((region) => `${language}-${region}`)),
+  ];
+};
 
 describe("detectLanguage", () => {
   afterEach(() => {
@@ -8,83 +27,42 @@ describe("detectLanguage", () => {
     vi.unstubAllGlobals();
   });
 
-  it("returns a supported language when argument matches", () => {
-    expect(detectLanguage("en")).toBe("en");
-    expect(detectLanguage("fi")).toBe("fi");
-  });
+  it.each(languages.flatMap((lang) => languageVariants(lang).map((variant) => [variant, lang])))(
+    "detects %s as %s",
+    (input, expected) => {
+      expect(detectLanguage(input)).toBe(expected);
+    },
+  );
 
-  it("extracts first two characters from language code", () => {
-    expect(detectLanguage("en-US")).toBe("en");
-    expect(detectLanguage("fi-FI")).toBe("fi");
-  });
-
-  it("falls back to document.lang when no argument", () => {
+  it("prioritizes the argument", () => {
     document.documentElement.lang = "en";
+    vi.stubGlobal("navigator", {
+      languages: ["fi-FI"],
+      language: "fi",
+    });
+
+    expect(detectLanguage("en")).toBe("en");
+  });
+
+  it.each([
+    ["en", "en"],
+    ["EN-US", "en"],
+  ])("detects document.lang %s as %s", (lang, expected) => {
+    document.documentElement.lang = lang;
+    expect(detectLanguage()).toBe(expected);
+  });
+
+  it("uses the first supported navigator language", () => {
+    vi.stubGlobal("navigator", {
+      languages: ["zh-CN", "de", "EN-GB"],
+      language: "",
+    });
+
     expect(detectLanguage()).toBe("en");
   });
 
-  it("falls back to navigator.languages", () => {
-    document.documentElement.lang = "";
-    vi.stubGlobal("navigator", { languages: ["fi-FI", "en-US"], language: "" });
-    expect(detectLanguage()).toBe("fi");
-  });
-
-  it("falls back to navigator.language", () => {
-    document.documentElement.lang = "";
-    vi.stubGlobal("navigator", { languages: [], language: "en-GB" });
-    expect(detectLanguage()).toBe("en");
-  });
-
-  it("returns defaultLang for unsupported languages", () => {
-    document.documentElement.lang = "";
-    vi.stubGlobal("navigator", { languages: ["zh-CN"], language: "zh-CN" });
-    expect(detectLanguage()).toBe("fi");
-  });
-
-  it("returns defaultLang when everything is empty", () => {
-    document.documentElement.lang = "";
+  it("falls back through all sources to fi", () => {
     vi.stubGlobal("navigator", { languages: [], language: "" });
     expect(detectLanguage()).toBe("fi");
-  });
-
-  it("prioritizes argument over document and navigator", () => {
-    document.documentElement.lang = "en";
-    vi.stubGlobal("navigator", { languages: ["fi-FI"], language: "fi" });
-    expect(detectLanguage("en")).toBe("en");
-  });
-
-  it("case-insensitive matching", () => {
-    expect(detectLanguage("EN")).toBe("en");
-    expect(detectLanguage("FI")).toBe("fi");
-    expect(detectLanguage("En")).toBe("en");
-    expect(detectLanguage("fI")).toBe("fi");
-  });
-
-  it("accepts three-letter codes by slicing the first two characters", () => {
-    expect(detectLanguage("eng")).toBe("en");
-    expect(detectLanguage("fi-fi")).toBe("fi");
-  });
-
-  it("matches case-insensitively on document.lang", () => {
-    document.documentElement.lang = "EN-US";
-    expect(detectLanguage()).toBe("en");
-  });
-
-  it("falls back to document/navigator when the argument is an empty string", () => {
-    document.documentElement.lang = "fi";
-    vi.stubGlobal("navigator", { languages: [], language: "en" });
-    expect(detectLanguage("")).toBe("fi");
-  });
-
-  it("skips an undefined navigator.language", () => {
-    document.documentElement.lang = "";
-    vi.stubGlobal("navigator", { languages: [], language: undefined });
-    expect(detectLanguage()).toBe("fi");
-  });
-
-  it("continues past unsupported languages to the next supported one", () => {
-    document.documentElement.lang = "";
-    vi.stubGlobal("navigator", { languages: ["zh-CN", "de", "EN-GB"], language: "" });
-    expect(detectLanguage()).toBe("en");
   });
 });

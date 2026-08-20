@@ -20,8 +20,7 @@ type HolidayDate = readonly [month: number, day: number, yearOffset?: number];
 
 type HolidayDef = {
   key: HolidayKey;
-  from: HolidayDate;
-  to: HolidayDate;
+  range: readonly [from: HolidayDate, to: HolidayDate];
   target: HolidayDate;
   load: HolidayLoader;
 };
@@ -39,24 +38,30 @@ export type ActiveHoliday = {
 const holidays = [
   {
     key: "halloween",
-    from: [10, 1],
-    to: [11, 10],
+    range: [
+      [10, 1],
+      [11, 10],
+    ],
     target: [10, 31],
-    load: async () => import("./halloween.ts").then((m) => m.halloween),
+    load: () => import("./halloween.ts").then((m) => m.halloween),
   },
   {
     key: "christmas",
-    from: [11, 30],
-    to: [12, 25],
+    range: [
+      [11, 30],
+      [12, 25],
+    ],
     target: [12, 24],
-    load: async () => import("./christmas.ts").then((m) => m.christmas),
+    load: () => import("./christmas.ts").then((m) => m.christmas),
   },
   {
     key: "newyear",
-    from: [12, 26],
-    to: [1, 8, 1],
+    range: [
+      [12, 26],
+      [1, 8, 1],
+    ],
     target: [12, 31],
-    load: async () => import("./newYear.ts").then((m) => m.newYear),
+    load: () => import("./newYear.ts").then((m) => m.newYear),
   },
 ] as const satisfies readonly HolidayDef[];
 
@@ -91,6 +96,24 @@ const featureFlagsReady = new Promise<void>((resolve) => {
   posthog.onFeatureFlags(() => resolve());
 });
 
+const findHoliday = (today: TemporalPlaindate, year: number) => {
+  for (const holiday of holidays) {
+    const [from, to] = holiday.range;
+    const target = plainDate(holiday.target, year);
+    const start = plainDate(from, year);
+    const end = plainDate(to, year);
+
+    if (
+      Temporal.PlainDate.compare(today, start) >= 0 &&
+      Temporal.PlainDate.compare(today, end) <= 0
+    ) {
+      return { holiday, from: start, to: end, target };
+    }
+  }
+
+  return null;
+};
+
 export async function isHoliday(): Promise<ActiveHoliday | null> {
   await featureFlagsReady;
 
@@ -98,40 +121,25 @@ export async function isHoliday(): Promise<ActiveHoliday | null> {
     return null;
   }
 
-  const holidayLabels = await labels();
-
   const today = Temporal.Now.plainDateISO();
+  const year = today.month === 1 ? today.year - 1 : today.year;
+  const holiday = findHoliday(today, year);
 
-  // Important: in January, we are still inside the previous New Year season.
-  const seasonYear = today.month === 1 ? today.year - 1 : today.year;
-
-  for (const h of holidays) {
-    const from = plainDate(h.from, seasonYear);
-    const to = plainDate(h.to, seasonYear);
-
-    if (
-      Temporal.PlainDate.compare(today, from) >= 0 &&
-      Temporal.PlainDate.compare(today, to) <= 0
-    ) {
-      const target = plainDate(h.target, seasonYear);
-
-      return {
-        key: h.key,
-        name: holidayLabels[h.key],
-        from: epochMs(from),
-        to: epochMs(to),
-        timeto: epochMs(target),
-        loadScript: h.load,
-        runScript: async () => {
-          await (
-            await h.load()
-          )();
-        },
-      };
-    }
+  if (!holiday) {
+    return null;
   }
 
-  return null;
+  const holidayLabels = await labels();
+
+  return {
+    key: holiday.holiday.key,
+    name: holidayLabels[holiday.holiday.key],
+    from: epochMs(holiday.from),
+    to: epochMs(holiday.to),
+    timeto: epochMs(holiday.target),
+    loadScript: holiday.holiday.load,
+    runScript: async () => (await holiday.holiday.load())(),
+  };
 }
 
 type Duration = {
@@ -141,11 +149,11 @@ type Duration = {
   seconds: number;
 };
 
-interface HolidayTime extends Duration {
+type HolidayTime = Duration & {
   time: string;
-}
+};
 
-type Unit = "day" | "hour" | "minute" | "second";
+type Unit = keyof Omit<Duration, "days"> | "day";
 type UnitFormatters = Record<Unit, Intl.NumberFormat>;
 
 const unitOptions = {
@@ -159,48 +167,45 @@ let formatters: UnitFormatters | undefined;
 const getFormatters = (): UnitFormatters => {
   const lang = detectLanguage();
 
-  if (formatterLang === lang && formatters) {
-    return formatters;
-  }
+  if (formatterLang === lang && formatters) return formatters;
 
   formatterLang = lang;
-
-  formatters = {
+  return (formatters = {
     day: new Intl.NumberFormat(lang, { ...unitOptions, unit: "day" }),
-    hour: new Intl.NumberFormat(lang, { ...unitOptions, unit: "hour" }),
-    minute: new Intl.NumberFormat(lang, { ...unitOptions, unit: "minute" }),
-    second: new Intl.NumberFormat(lang, { ...unitOptions, unit: "second" }),
-  };
-
-  return formatters;
+    hours: new Intl.NumberFormat(lang, { ...unitOptions, unit: "hour" }),
+    minutes: new Intl.NumberFormat(lang, { ...unitOptions, unit: "minute" }),
+    seconds: new Intl.NumberFormat(lang, { ...unitOptions, unit: "second" }),
+  });
 };
 
 export function holidayTimeTo(targetTime: number): HolidayTime {
-  const totalSeconds = Math.floor(
-    Math.max(0, targetTime - Temporal.Now.instant().epochMilliseconds) / 1000,
+  let seconds = Math.max(
+    0,
+    Math.floor((targetTime - Temporal.Now.instant().epochMilliseconds) / 1000),
   );
 
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor(totalSeconds / 3600) % 24;
-  const minutes = Math.floor(totalSeconds / 60) % 60;
-  const seconds = totalSeconds % 60;
+  const days = Math.floor(seconds / 86400);
+  seconds %= 86400;
 
+  const hours = Math.floor(seconds / 3600);
+  seconds %= 3600;
+
+  const minutes = Math.floor(seconds / 60);
+  seconds %= 60;
+
+  const duration = { days, hours, minutes, seconds };
   const f = getFormatters();
 
-  let time = "";
+  const time = [
+    days && f.day.format(days),
+    hours && f.hours.format(hours),
+    minutes && f.minutes.format(minutes),
+    f.seconds.format(seconds),
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  if (days) time = f.day.format(days);
-  if (time || hours) time += `${time ? " " : ""}${f.hour.format(hours)}`;
-  if (time || minutes) time += `${time ? " " : ""}${f.minute.format(minutes)}`;
-  time += `${time ? " " : ""}${f.second.format(seconds)}`;
-
-  return {
-    time,
-    days,
-    hours,
-    minutes,
-    seconds,
-  };
+  return { time, ...duration };
 }
 
 export const $holiday = atom<ActiveHoliday | null>(null);
@@ -208,11 +213,9 @@ export const $holiday = atom<ActiveHoliday | null>(null);
 onMount($holiday, () => {
   let cancelled = false;
 
+  // oxlint-disable-next-line promise/always-return
   void isHoliday().then((holiday) => {
-    if (!cancelled) {
-      $holiday.set(holiday);
-    }
-    return undefined;
+    if (!cancelled) $holiday.set(holiday);
   });
 
   return () => {
@@ -223,11 +226,10 @@ onMount($holiday, () => {
 export const $holidayTime = atom<HolidayTime | null>(null);
 
 onMount($holidayTime, () => {
-  let timer: number;
+  let timer: number | undefined;
 
-  const start = async () => {
-    const holiday = await isHoliday();
-
+  // oxlint-disable-next-line promise/always-return
+  void isHoliday().then((holiday) => {
     if (!holiday) {
       $holidayTime.set(null);
       return;
@@ -239,9 +241,9 @@ onMount($holidayTime, () => {
 
     update();
     timer = window.setInterval(update, 1000);
+  });
+
+  return () => {
+    if (timer !== undefined) clearInterval(timer);
   };
-
-  void start();
-
-  return () => clearInterval(timer);
 });
