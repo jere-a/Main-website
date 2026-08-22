@@ -20,10 +20,7 @@ export async function catchErrorTyped<T, E extends readonly ErrorConstructor[]>(
   try {
     return [undefined, await promise] as const;
   } catch (error) {
-    if (
-      errorsToCatch === undefined ||
-      errorsToCatch.some((ErrorType) => error instanceof ErrorType)
-    ) {
+    if (!errorsToCatch || errorsToCatch.some((ErrorType) => error instanceof ErrorType)) {
       return [error] as const;
     }
 

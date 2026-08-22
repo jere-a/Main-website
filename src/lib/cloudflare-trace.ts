@@ -22,12 +22,15 @@ export type ParsedData = v.InferInput<typeof ParsedDataSchema>;
 export async function fetchData(): Promise<ParsedData> {
   const text = await fetch(`${window.location.origin}/cdn-cgi/trace`).then((r) => r.text());
 
-  const raw: Record<string, string> = {};
-
-  for (const line of text.split(/\r?\n/)) {
-    const i = line.indexOf("=");
-    if (i !== -1) raw[line.slice(0, i)] = line.slice(i + 1);
-  }
+  const raw = Object.fromEntries(
+    text
+      .split(/\r?\n/)
+      .filter((line) => line.includes("="))
+      .map((line) => {
+        const i = line.indexOf("=");
+        return [line.slice(0, i), line.slice(i + 1)];
+      }),
+  );
 
   return v.parse(ParsedDataSchema, raw);
 }

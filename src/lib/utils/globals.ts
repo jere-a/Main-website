@@ -4,6 +4,6 @@
  */
 export { detectLanguage } from "./language.ts";
 export { catchErrorTyped } from "./async.ts";
-export { injectCSS, addCSSFromURL, on } from "./dom.ts";
+export { on } from "./dom.ts";
 export { getQueryParam } from "./url.ts";
 export { getTemporal } from "./temporal.ts";

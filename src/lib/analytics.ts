@@ -28,7 +28,7 @@ function isDevMode(): boolean {
     CI?: string;
     VITEST?: string | boolean;
   };
-  const isTest = env.MODE === "test" || !!env.VITEST || env.CI === "true";
+  const isTest = env.MODE === "test";
   const isLocal = LOCALHOST_HOSTNAMES.has(location.hostname);
 
   return isTest || isLocal;
