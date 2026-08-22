@@ -6,6 +6,7 @@
     "pre-commit": "nano-staged",
     "test:vitest": "vitest run",
     "test:check": "astro check",
+    "test:mutation": "stryker run stryker.config.ts",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "lint:github": "oxlint --format=github",
@@ -83,6 +84,9 @@
   },
   "devDependencies": {
     "@nanostores/preact": "^1.1.0",
+    "@stryker-mutator/core": "^10.0.0",
+    "@stryker-mutator/typescript-checker": "^10.0.0",
+    "@stryker-mutator/vitest-runner": "^10.0.0",
     "@types/bun": "^1.3.14",
     "@types/jsdom": "^30.0.0",
     "@types/node": "^26.2.0",
