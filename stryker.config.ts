@@ -1,6 +1,6 @@
-import type { StrykerOptions } from "@stryker-mutator/api/core";
+import type { PartialStrykerOptions } from "@stryker-mutator/api/core";
 
-const config: StrykerOptions = {
+const config: PartialStrykerOptions = {
   plugins: ["@stryker-mutator/vitest-runner", "@stryker-mutator/typescript-checker"],
   testRunner: "vitest",
   reporters: ["clear-text", "html"],
