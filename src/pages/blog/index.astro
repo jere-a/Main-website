@@ -21,7 +21,7 @@ let index = 0;
 
 const blogEntries = (await getCollection('blog')).toSorted((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const blogsFilter = blogEntries.filter(post => (post.data.lang === lang) && (import.meta.env.PROD ? post.data.draft : true));
+const blogsFilter = blogEntries.filter(post => (post.data.lang === lang) && (import.meta.env.PROD ? !post.data.draft : true));
 ---
 
 <Layout title="Blogs" activeNav="blog" isNavbar={nav} isBanner={banner} isCopyright={false}>
