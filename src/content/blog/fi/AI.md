@@ -24,25 +24,25 @@ Yksi tunnetuimmista tekoälypalveluista on [ChatGPT], jonka on kehittänyt
 [OpenAI]. Muita tunnettuja tekoälyä kehittäviä yrityksiä ovat esimerkiksi
 [Anthropic] sekä [Google], jonka tekoälypalvelun nimi on [Gemini].
 
-[Gemini] on saatavilla suurimmassa osassa uusista android[^android] puhelimista
-ja toimii puhelimen avustajana jonka voi yleisesti kytkeä päälle painamalla
-Virta painiketta pohjassa pienen hetken.[^power-button]
+[Gemini] on saatavilla suurimmassa osassa uusista Android[^android]-puhelimista
+ja toimii puhelimen avustajana, jonka voi yleisesti kytkeä päälle painamalla
+virtapainiketta pohjassa pienen hetken.[^power-button]
 
-Toisinaan [Anthropic]:la on heidän tehokkain tekoälypalvelunsa [Claude], joka on
-monella kantilla suosittu [ChatGPT]:n vaihtoehdoksi.
+Toisinaan [Anthropic]:lla on heidän tehokkain tekoälypalvelunsa [Claude], joka on
+monella mailla suosittu [ChatGPT]:n vaihtoehdoksi.
 
 [^android]:
-    Googlen kehittämä puhelimen käyttöjärjestelmä jota muut puhelin valmistajat
-    ovat muokanneet omaan käyttöönsä esimerkiksi Samsung, OnePlus[^oneplus]
+    Googlen kehittämä puhelimen käyttöjärjestelmä, jota muut puhelinvalmistajat
+    ovat muokanneet omaan käyttöönsä, esimerkiksi Samsung ja OnePlus[^oneplus]
 
 [^oneplus]:
-    OnePlus on lähdössä pois euroopan markkinoilta ja sen mukana suomestakin:
-    **Lue Lisää**:
+    OnePlus on lähdössä pois Euroopan markkinoilta ja sen mukana suomestakin:
+    **Lue lisää**:
     <https://www.puhelinvertailu.com/uutiset/2026/07/16/oneplus-poistui-euroopasta>
     ja
     <https://www.puhelinvertailu.com/uutiset/2026/07/17/mita-tapahtuu-oneplus-puhelimille-opas>
 
-[^power-button]: Painike voi olla eri vanhemmilla laitteilla.
+[^power-button]: Painike voi olla eri paikassa vanhemmissa laitteissa.
 
 ---
 

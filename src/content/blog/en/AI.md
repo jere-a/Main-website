@@ -27,7 +27,7 @@ AI service is called [Gemini].
 
 ## Sources
 
-- This has been translated using [ChatGPT] to english from the finnish text.
+- This has been translated using [ChatGPT] to English from the Finnish text.
 
 - ChatGPT: [https://chatgpt.com/overview][ChatGPT]
 - OpenAI: [https://openai.com/about/][OpenAI]
