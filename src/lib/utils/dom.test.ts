@@ -16,7 +16,7 @@ describe("on", () => {
 
   describe("direct events", () => {
     it("calls the handler for an event", () => {
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, "click", handler);
 
@@ -27,7 +27,7 @@ describe("on", () => {
     });
 
     it("supports multiple events", () => {
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, ["click", "dblclick"], handler);
 
@@ -38,7 +38,7 @@ describe("on", () => {
     });
 
     it("does not call the handler for other events", () => {
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, "click", handler);
 
@@ -48,7 +48,7 @@ describe("on", () => {
     });
 
     it("can unsubscribe", () => {
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       const off = on(root, "click", handler);
 
@@ -60,7 +60,7 @@ describe("on", () => {
     });
 
     it("can unsubscribe from multiple events at once", () => {
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       const off = on(root, ["click", "dblclick"], handler);
 
@@ -78,7 +78,7 @@ describe("on", () => {
       const button = document.createElement("button");
       root.append(button);
 
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, "click", handler, "button");
 
@@ -95,7 +95,7 @@ describe("on", () => {
       button.append(span);
       root.append(button);
 
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, "click", handler, "button");
 
@@ -109,7 +109,7 @@ describe("on", () => {
       const div = document.createElement("div");
       root.append(div);
 
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, "click", handler, "button");
 
@@ -124,8 +124,8 @@ describe("on", () => {
 
       root.append(button, link);
 
-      const buttonHandler = vi.fn();
-      const linkHandler = vi.fn();
+      const buttonHandler = vi.fn<(event: Event) => void>();
+      const linkHandler = vi.fn<(event: Event) => void>();
 
       on(root, "click", buttonHandler, "button");
       on(root, "click", linkHandler, "a");
@@ -141,8 +141,8 @@ describe("on", () => {
       const button = document.createElement("button");
       root.append(button);
 
-      const buttonHandler = vi.fn();
-      const linkHandler = vi.fn();
+      const buttonHandler = vi.fn<(event: Event) => void>();
+      const linkHandler = vi.fn<(event: Event) => void>();
 
       on(root, "click", buttonHandler, "button");
       on(root, "click", linkHandler, "a");
@@ -157,7 +157,7 @@ describe("on", () => {
       const outsideButton = document.createElement("button");
       document.body.append(outsideButton);
 
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, "click", handler, "button");
 
@@ -171,7 +171,7 @@ describe("on", () => {
 
   describe("multiple registrations", () => {
     it("allows the same handler to be registered multiple times", () => {
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, "click", handler);
       on(root, "click", handler);
@@ -182,7 +182,7 @@ describe("on", () => {
     });
 
     it("unsubscribing one registration keeps the other", () => {
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       const off1 = on(root, "click", handler);
       on(root, "click", handler);
@@ -199,8 +199,8 @@ describe("on", () => {
     it("uses only one document listener for the same event", () => {
       const addEventListener = vi.spyOn(document, "addEventListener");
 
-      const first = vi.fn();
-      const second = vi.fn();
+      const first = vi.fn<(event: Event) => void>();
+      const second = vi.fn<(event: Event) => void>();
 
       on(document, "click", first, "button");
       on(document, "click", second, ".link");
@@ -264,8 +264,8 @@ describe("on", () => {
       const button = document.createElement("button");
       root.append(button);
 
-      const first = vi.fn();
-      const second = vi.fn();
+      const first = vi.fn<(event: Event) => void>();
+      const second = vi.fn<(event: Event) => void>();
 
       on(document, "click", first, "button");
       on(document, "click", second, "button");
@@ -309,7 +309,7 @@ describe("on", () => {
 
   describe("event arrays", () => {
     it("registers every event in the array", () => {
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, ["click", "mousedown", "mouseup"], handler);
 
@@ -324,7 +324,7 @@ describe("on", () => {
       const button = document.createElement("button");
       root.append(button);
 
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, ["click", "mousedown"], handler, "button");
 
@@ -351,7 +351,7 @@ describe("on", () => {
 
   describe("handler arguments", () => {
     it("passes the original event", () => {
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, "click", handler);
 
@@ -366,7 +366,7 @@ describe("on", () => {
       const button = document.createElement("button");
       root.append(button);
 
-      const handler = vi.fn();
+      const handler = vi.fn<(event: Event) => void>();
 
       on(root, "click", handler, "button");
 
