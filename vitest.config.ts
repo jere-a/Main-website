@@ -9,11 +9,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
-      "@lib": path.resolve(__dirname, "src/lib"),
-      "@utils": path.resolve(__dirname, "src/lib/utils"),
-      "@components": path.resolve(__dirname, "src/components"),
-      "@styles": path.resolve(__dirname, "src/styles"),
+      "@": path.resolve(import.meta.dirname, "src"),
+      "@lib": path.resolve(import.meta.dirname, "src/lib"),
+      "@utils": path.resolve(import.meta.dirname, "src/lib/utils"),
+      "@components": path.resolve(import.meta.dirname, "src/components"),
+      "@styles": path.resolve(import.meta.dirname, "src/styles"),
     },
   },
   test: {
