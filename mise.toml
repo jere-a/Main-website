@@ -8,7 +8,7 @@ _.path = "./node_modules/.bin"
 
 [tasks.install]
 description = "Install dependencies"
-run = "pnpm install --frozen-lockfile"
+run = "pnpm install --frozen-lockfile --prefer-offline"
 
 [tasks.fmt-check]
 depends = "install"
@@ -46,6 +46,24 @@ description = "Build application"
 depends = ["test"]
 run = "astro build"
 
+[tasks.mutate]
+description = "Run Stryker mutation testing"
+depends = ["install"]
+run = "stryker run"
+
+[tasks.unit-test]
+description = "Run unit tests (no pre-checks)"
+depends = ["install"]
+run = "vitest run"
+
+# CI-only task graph: independent static checks run in parallel, so the total
+# wait is the slowest check instead of the sum of all checks. Local `mise run
+# build` keeps the serial test-then-build chain.
+[tasks.ci-checks]
+description = "Run independent checks in parallel for CI"
+depends = ["fmt-check", "lint", "astro-check", "unit-test"]
+
 [tasks.ci]
 description = "Complete CI pipeline"
-depends = ["build"]
+depends = ["ci-checks"]
+run = "astro build"
