@@ -1,19 +1,16 @@
 import posthog from "@lib/analytics";
 import * as CookieConsent from "vanilla-cookieconsent";
 
-import cookieConsentCss from "vanilla-cookieconsent/dist/cookieconsent.css?inline" with { type: "css" };
-
-const sheet = new CSSStyleSheet();
-sheet.replaceSync(cookieConsentCss);
-
-document.adoptedStyleSheets.push(sheet);
-
-// Enable dark mode
-document.documentElement.classList.add("cc--darkmode");
+import "vanilla-cookieconsent/dist/cookieconsent.css";
 
 await CookieConsent.run({
   onConsent: () => {
     posthog.opt_in_capturing();
+  },
+  onModalReady: () => {
+    const documentElementClassList = document.documentElement.classList;
+    const ccDarkMode = "cc-darkmode";
+    if (!documentElementClassList.contains(ccDarkMode)) documentElementClassList.add(ccDarkMode);
   },
   guiOptions: {
     consentModal: {
@@ -64,8 +61,7 @@ await CookieConsent.run({
             },
             {
               title: 'Strictly Necessary Cookies <span class="pm__badge">Always Enabled</span>',
-              description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              description: "Necessary cookies",
               linkedCategory: "necessary",
             },
             {
@@ -104,8 +100,7 @@ await CookieConsent.run({
             {
               title:
                 'Ehdottoman välttämättömät evästeet <span class="pm__badge">aina käytössä</span>',
-              description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              description: "Välttämättömiä evästeitä.",
               linkedCategory: "necessary",
             },
             {
