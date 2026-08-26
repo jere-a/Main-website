@@ -26,13 +26,16 @@ jobs:
       - name: Setup mise-en-place
         uses: jdx/mise-action@v4
 
-      - name: Cache dependencies
+      # pnpm store cache: the store holds every package version, so a lockfile
+      # bump only downloads what changed. Caching node_modules instead forces a
+      # full re-link (or a stale tree) on every dependency change.
+      - name: Cache pnpm store
         uses: actions/cache@v6
         with:
-          path: node_modules
-          key: ${{ runner.os }}-deps-${{ hashFiles('pnpm.lock') }}
+          path: ~/.local/share/pnpm/store
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-deps-
+            pnpm-store-${{ runner.os }}-
 
       - name: mise-en-place CI
         run: mise run ci
