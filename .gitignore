@@ -47,3 +47,7 @@ src/styles/layout/
 
 # coverage
 coverage
+
+# local test reports and stryker scratch
+reports/
+.stryker-tmp/

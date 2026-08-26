@@ -1,28 +1,15 @@
 /**
- * Christmas holiday effect. Initializes snow particle animation and injects a decorative light rope
+ * Christmas holiday effect. Runs the snow particle animation and injects a decorative light rope
  * into the document body.
  */
 
-import { tsParticles } from "@tsparticles/engine";
-import { loadSnowPreset } from "@tsparticles/preset-snow";
+import { LIGHT_COUNT, createLightrope } from "./lightrope.ts";
+import { christmas as particles } from "./snow.ts";
 
-const LIGHT_COUNT = 42;
-
-export const christmas = async () => {
-  await loadSnowPreset(tsParticles);
-
-  await tsParticles.load({
-    id: "tsparticles",
-    options: {
-      preset: "snow",
-    },
-  });
-
-  const lightrope = document.createElement("ul");
-  lightrope.className = "lightrope";
-  for (let i = 0; i < LIGHT_COUNT; i++) {
-    const listItem = document.createElement("li");
-    lightrope.appendChild(listItem);
-  }
-  document.body.insertBefore(lightrope, document.body.firstChild);
+export const christmas = async (): Promise<void> => {
+  await particles();
+  document.body.insertBefore(createLightrope(), document.body.firstChild);
 };
+
+/** Exposed for tests. */
+export { LIGHT_COUNT };
