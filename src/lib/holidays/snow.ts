@@ -6,31 +6,15 @@
  * markup in the document until it runs.
  */
 
-import { tsParticles } from "@tsparticles/engine";
+import { tsParticles, type Container } from "@tsparticles/engine";
 import { loadSnowPreset } from "@tsparticles/preset-snow";
 
 /** id of the element the particle canvas is mounted into. */
-const CONTAINER_ID = "tsparticles";
-
-const ensureContainer = (): HTMLElement => {
-  const existing = document.getElementById(CONTAINER_ID);
-
-  if (existing) return existing;
-
-  const container = document.createElement("div");
-  container.id = CONTAINER_ID;
-  document.body.appendChild(container);
-
-  return container;
-};
+export const CONTAINER_ID = "tsparticles";
 
 /** Start the snow particle animation. Safe to call repeatedly: the preset loads only once. */
-export const snow = async (): Promise<void> => {
+export const snow = async (): Promise<Container | undefined> => {
   await loadSnowPreset(tsParticles);
-  await tsParticles.load({ id: CONTAINER_ID, options: { preset: "snow" } });
-};
 
-export const christmas = async (): Promise<void> => {
-  await snow();
-  ensureContainer();
+  return tsParticles.load({ id: CONTAINER_ID, options: { preset: "snow" } });
 };
