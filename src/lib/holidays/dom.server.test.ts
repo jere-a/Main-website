@@ -7,9 +7,8 @@ describe("prependToBody server guard", () => {
     try {
       const { prependToBody: fresh } = await import("./dom");
 
-      const element = { tagName: "DIV" } as unknown as HTMLElement;
-
-      expect(() => fresh(element)).not.toThrow();
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- stub element, guard returns before use
+      expect(() => fresh({ tagName: "DIV" } as HTMLElement)).not.toThrow();
     } finally {
       vi.unstubAllGlobals();
     }
