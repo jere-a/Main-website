@@ -70,7 +70,8 @@ const dispatch = (registration: Registration, target: EventTarget, event: Event)
     const matched = eventTarget.closest(selector);
     if (
       matched &&
-      (target instanceof Document || (target instanceof Element && target.contains(matched)))
+      (target === eventTarget.ownerDocument ||
+        (target instanceof Element && target.contains(matched)))
     ) {
       handler.call(matched, event);
     }

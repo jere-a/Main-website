@@ -167,6 +167,22 @@ describe("on", () => {
 
       outsideButton.remove();
     });
+
+    it("does not call the handler when closest resolves to an ancestor outside the root", () => {
+      const outer = document.createElement("button");
+      const div = document.createElement("div");
+
+      outer.append(root);
+      root.append(div);
+
+      const handler = vi.fn<(event: Event) => void>();
+
+      on(root, "click", handler, "button");
+
+      div.click();
+
+      expect(handler).not.toHaveBeenCalled();
+    });
   });
 
   describe("multiple registrations", () => {
@@ -188,6 +204,24 @@ describe("on", () => {
       on(root, "click", handler);
 
       off1();
+
+      root.click();
+
+      expect(handler).toHaveBeenCalledOnce();
+    });
+
+    it("can unsubscribe from within a currently running handler", () => {
+      const handler = vi.fn<(event: Event) => void>();
+
+      const off = on(root, "click", handler);
+
+      handler.mockImplementation(() => {
+        off();
+      });
+
+      root.click();
+
+      expect(handler).toHaveBeenCalledOnce();
 
       root.click();
 
