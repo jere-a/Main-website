@@ -6,22 +6,25 @@ interface Props {
 	title: string;
   body?: string;
   cloudinary_id: string;
+  width: number;
+  height: number;
 	alt?: string;
-	class?: string;
 	transitionName?: string;
 }
 
-const { class: className, cloudinary_id, title, body, alt, transitionName } = Astro.props;
+const { cloudinary_id, width, height, title, body, alt, transitionName } = Astro.props;
 
 const imageAlt = alt ?? title;
 ---
 
 <div class={`card card${transitionName} gradient-border`}>
-  <div>
     { cloudinary_id &&
       <CldImage
         src={cloudinary_id}
-        class={`image ${className}`}
+        width={width}
+        height={height}
+        sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, (max-width: 1280px) 33vw, 25vw"
+        class={`image`}
         loading="eager"
         fetchpriority="high"
         alt={imageAlt}
@@ -30,7 +33,6 @@ const imageAlt = alt ?? title;
 
 		<h2 class="title">{title}</h2>
 		{body !== undefined && <p class="body">{body}</p>}
-	</div>
 </div>
 
 <style>
@@ -40,20 +42,10 @@ const imageAlt = alt ?? title;
     border-radius: 1rem;
     corner-shape: superellipse(0.6);
 		backdrop-filter: blur(25px);
-		div {
-			width: 100%;
-			text-decoration: none;
-			line-height: 1.4;
+		.image {
 			padding: 0.8rem;
-			border-radius: 8px;
-			color: white;
-			opacity: 0.8;
+      corner-shape: superellipse(0.6);
 		}
-	}
-
-	.image {
-		border-radius: 8px;
-    corner-shape: superellipse(0.6);
 	}
 
 	h2 {
