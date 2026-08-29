@@ -48,7 +48,7 @@ const getSharedSlot = (target: EventTarget, name: string): SharedSlot => {
     entry = { listener: () => {}, registrations: [] };
     const self = entry;
     self.listener = (event: Event) => {
-      for (const registration of self.registrations) {
+      for (const registration of [...self.registrations]) {
         dispatch(registration, target, event);
       }
     };
@@ -68,7 +68,12 @@ const dispatch = (registration: Registration, target: EventTarget, event: Event)
   const eventTarget = event.target;
   if (eventTarget instanceof Element) {
     const matched = eventTarget.closest(selector);
-    if (matched) handler.call(matched, event);
+    if (
+      matched &&
+      (target instanceof Document || (target instanceof Element && target.contains(matched)))
+    ) {
+      handler.call(matched, event);
+    }
     return;
   }
 
