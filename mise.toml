@@ -58,5 +58,5 @@ run = "vitest run"
 
 [tasks.ci]
 description = "Complete CI pipeline"
-depends = ["build"]
+depends = ["lint", "unit-test", "build"]
 run = "astro build"
