@@ -48,7 +48,7 @@ const getSharedSlot = (target: EventTarget, name: string): SharedSlot => {
     entry = { listener: () => {}, registrations: [] };
     const self = entry;
     self.listener = (event: Event) => {
-      for (const registration of [...self.registrations]) {
+      for (const registration of self.registrations) {
         dispatch(registration, target, event);
       }
     };
