@@ -24,14 +24,18 @@ const BLOCKED_USER_AGENTS = [
 ];
 
 function isDevMode(): boolean {
-  const env = import.meta.env as ImportMetaEnv & {
-    CI?: string;
-    VITEST?: string | boolean;
-  };
-  const isTest = env.MODE === "test";
+  const isTest = import.meta.env.MODE === "test";
   const isLocal = LOCALHOST_HOSTNAMES.has(location.hostname);
 
   return isTest || isLocal;
+}
+
+function posthogSendEvent(event: CaptureResult | null): CaptureResult | null {
+  if (event) {
+    // oxlint-disable-next-line no-console
+    console.log(`posthog event: ${event.event}`, event);
+  }
+  return null;
 }
 
 /** Initialize PostHog. Safe to call multiple times (idempotent). */
@@ -46,13 +50,7 @@ const init = async (): Promise<void> => {
     advanced_disable_feature_flags: true,
     autocapture: false,
     disable_session_recording: true,
-    before_send: (event: CaptureResult | null): CaptureResult | null => {
-      if (event) {
-        // oxlint-disable-next-line no-console
-        console.log(`posthog event: ${event.event}`, event);
-      }
-      return null;
-    },
+    before_send: (event: CaptureResult | null) => posthogSendEvent(event),
   };
 
   const config = {
