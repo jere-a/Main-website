@@ -12,6 +12,9 @@ export const en = {
       back: "Go to Blog",
     },
   },
+  blog: {
+    noblogs: "There is nothing yet.",
+  },
   index: {
     github: "View source on GitHub.",
     h1: {

@@ -12,6 +12,9 @@ export const fi = {
       back: "Blogiin",
     },
   },
+  blog: {
+    noblogs: "Täällä ei ole vielä mitään.",
+  },
   index: {
     github: "Näytä lähdekoodi GitHubissa",
     h1: {
