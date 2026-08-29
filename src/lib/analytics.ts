@@ -4,7 +4,7 @@
  */
 
 import type { PostHogConfig, CaptureResult } from "posthog-js";
-import posthog from "posthog-js";
+import posthogModule from "posthog-js";
 
 import { siteConfig } from "@/config";
 
@@ -66,9 +66,9 @@ const init = async (): Promise<void> => {
     ...(isDev && devConfig),
   } satisfies Partial<PostHogConfig>;
 
-  posthog.init(siteConfig.posthogApiKey, config);
+  posthogModule.init(siteConfig.posthogApiKey, config);
 };
 
 export { init };
 
-export default posthog;
+export default posthogModule;

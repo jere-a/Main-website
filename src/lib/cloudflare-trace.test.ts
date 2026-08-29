@@ -43,21 +43,26 @@ describe("fetchData", () => {
       ["http", ["http/1.0", "http/1.1", "http/2", "http/3"], ["", "HTTP/2", "HTTP/4"]],
       ["h", ["example.com", "localhost"], [""]],
     ] as const)("%s accepts valid and rejects invalid values", async (key, valid, invalid) => {
-      for (const value of valid) {
-        mockFetchText(traceBody(validTrace({ [key]: value })));
-        await expect(fetchData()).resolves.toMatchObject({ [key]: value });
-        vi.restoreAllMocks();
-      }
+      await Promise.all(
+        valid.map(async (value) => {
+          mockFetchText(traceBody(validTrace({ [key]: value })));
+          await expect(fetchData()).resolves.toMatchObject({ [key]: value });
+          vi.restoreAllMocks();
+        }),
+      );
 
-      for (const value of invalid) {
-        mockFetchText(traceBody(validTrace({ [key]: value })));
-        await expect(fetchData()).rejects.toThrow();
-        vi.restoreAllMocks();
-      }
+      await Promise.all(
+        invalid.map(async (value) => {
+          mockFetchText(traceBody(validTrace({ [key]: value })));
+          await expect(fetchData()).rejects.toThrow();
+          vi.restoreAllMocks();
+        }),
+      );
     });
 
     it.each(["ip", "uag", "tls", "loc", "http", "h"])("requires %s", async (key) => {
       const trace = validTrace();
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
       delete trace[key as keyof typeof trace];
 
       mockFetchText(traceBody(trace));
@@ -139,6 +144,7 @@ describe("fetchData", () => {
     });
 
     it("propagates body errors", async () => {
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
       vi.spyOn(global, "fetch").mockResolvedValue({
         text: () => Promise.reject(new Error("read failed")),
       } as Response);

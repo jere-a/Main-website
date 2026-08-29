@@ -2,6 +2,9 @@ import { describe, expect, it, vi, afterEach, beforeEach } from "vitest";
 
 import { on } from "./dom";
 
+const first = (): void => {};
+const second = (): void => {};
+
 describe("on", () => {
   let root: HTMLDivElement;
 
@@ -262,9 +265,6 @@ describe("on", () => {
 
     it("shares one listener when different functions register the same event", () => {
       const addEventListener = vi.spyOn(document, "addEventListener");
-
-      const first = (): void => {};
-      const second = (): void => {};
 
       on(document, "click", first);
       on(document, "click", second);

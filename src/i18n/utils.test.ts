@@ -10,6 +10,7 @@ import { fi } from "./locales/fi.ts";
 import { getLangFromUrl, isLang, useTranslatedPath, useTranslations } from "./utils";
 
 const translations = { fi, en } as const;
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion
 const languages = Object.keys(translations) as (keyof typeof translations)[];
 
 describe("i18n utils", () => {
