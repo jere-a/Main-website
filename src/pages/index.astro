@@ -2,11 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import Social from '../components/Social.astro';
 import Card from '../components/Card.astro';
-import { siteConfig } from '@/config.ts';
+import * as siteConfig from '@/config.ts';
 import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils.ts';
 import { Mail } from '@lucide/astro';
 
-const giturl = siteConfig.urls.giturl || 'https://git.new/I3vys7Q';
+const giturl = siteConfig.gitUrl || 'https://git.new/I3vys7Q';
 
 // Language
 const lang = getLangFromUrl(Astro.url);

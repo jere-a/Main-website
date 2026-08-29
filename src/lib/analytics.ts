@@ -6,7 +6,7 @@
 import type { PostHogConfig, CaptureResult } from "posthog-js";
 import posthogModule from "posthog-js";
 
-import { siteConfig } from "@/config";
+import * as siteConfig from "@/config";
 
 declare global {
   interface Window {
