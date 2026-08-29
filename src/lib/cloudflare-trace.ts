@@ -5,7 +5,7 @@ import * as v from "valibot";
 const ParsedDataSchema = v.object({
   ip: v.pipe(v.string(), v.ip()),
   uag: v.pipe(v.string(), v.minLength(1)),
-  tls: v.picklist(["TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3"]),
+  tls: v.picklist(["TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3", "off"]),
   loc: v.pipe(v.string(), v.regex(/^[A-Z]{2}$/)),
   http: v.picklist(["http/1.0", "http/1.1", "http/2", "http/3"]),
   h: v.pipe(
