@@ -1,9 +1,3 @@
-/**
- * Device capability detection. Checks touch support, hover capability, pointer precision, and
- * viewport size to determine the user's likely device type.
- */
-
-/** Shorthand for window.matchMedia. */
 const mqm = (q: string) => window.matchMedia(q);
 
 /** Detect device capabilities from media queries and API checks. */

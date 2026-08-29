@@ -5,7 +5,9 @@ import { escapeViewTransitionName } from "@vtbag/utensil-drawer/escape-view-tran
 import { useTranslations, useTranslatedPath } from "@/i18n/utils";
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection("blog");
+  const blogEntries = (await getCollection("blog")).filter((post) =>
+    import.meta.env.PROD ? !post.data.draft : true
+  );
 
   const paths = blogEntries.map((entry) => {
     const [lang, ..._] = entry.id.split("/");

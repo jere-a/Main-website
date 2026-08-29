@@ -67,7 +67,7 @@ vi.mock("@/lib/utils/temporal", () => ({
   getTemporal: h.getTemporal,
 }));
 
-vi.mock("@/i18n", () => ({
+vi.mock("@/i18n/index.ts", () => ({
   useTranslations: h.useTranslations,
 }));
 
@@ -82,7 +82,6 @@ const hourMs = 3_600_000;
 const minuteMs = 60_000;
 
 type Countdown = {
-  time: string;
   days: number;
   hours: number;
   minutes: number;
@@ -250,7 +249,6 @@ describe("holidays", () => {
       const target = h.state.nowMs + (2 * dayMs + 3 * hourMs + 4 * minuteMs + 5 * 1000);
 
       expect(freshHolidayTimeTo(target)).toEqual({
-        time: "day:2 hour:3 minute:4 second:5",
         days: 2,
         hours: 3,
         minutes: 4,
@@ -258,17 +256,10 @@ describe("holidays", () => {
       });
     });
 
-    it("omits zero days and hours", () => {
-      const target = h.state.nowMs + (4 * minuteMs + 5 * 1000);
-
-      expect(freshHolidayTimeTo(target).time).toBe("minute:4 second:5");
-    });
-
     it("shows hours when days are zero", () => {
       const target = h.state.nowMs + 3 * hourMs;
 
       expect(freshHolidayTimeTo(target)).toMatchObject({
-        time: "hour:3 second:0",
         days: 0,
         hours: 3,
         minutes: 0,
@@ -280,7 +271,6 @@ describe("holidays", () => {
       const target = h.state.nowMs + 5 * 1000;
 
       expect(freshHolidayTimeTo(target)).toMatchObject({
-        time: "second:5",
         days: 0,
         hours: 0,
         minutes: 0,
@@ -292,32 +282,10 @@ describe("holidays", () => {
       const target = h.state.nowMs - 60_000;
 
       expect(freshHolidayTimeTo(target)).toMatchObject({
-        time: "second:0",
         days: 0,
         hours: 0,
         minutes: 0,
         seconds: 0,
-      });
-    });
-
-    it("caches formatters across calls in the same language", () => {
-      freshHolidayTimeTo(h.state.nowMs + dayMs);
-      freshHolidayTimeTo(h.state.nowMs + dayMs);
-
-      expect(nf).toHaveBeenCalledTimes(4);
-    });
-
-    it("rebuilds formatters when the language changes", () => {
-      freshHolidayTimeTo(h.state.nowMs + dayMs);
-      document.documentElement.lang = "fi";
-      freshHolidayTimeTo(h.state.nowMs + dayMs);
-
-      expect(nf).toHaveBeenCalledTimes(8);
-      expect(nf.mock.calls[4]?.[0]).toBe("fi");
-      expect(nf.mock.calls[4]?.[1]).toEqual({
-        style: "unit",
-        unitDisplay: "narrow",
-        unit: "day",
       });
     });
   });

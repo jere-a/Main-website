@@ -3,7 +3,7 @@ import posthog from "@lib/analytics";
 import { atom, onMount } from "nanostores";
 
 // oxlint-disable promise/prefer-await-to-then
-import { type DefaultSchema, type Lang, useTranslations } from "@/i18n";
+import { type DefaultSchema, type Lang, useTranslations } from "@/i18n/index.ts";
 import { detectLanguage } from "@/lib/utils/language.ts";
 import { getTemporal } from "@/lib/utils/temporal.ts";
 
@@ -149,36 +149,7 @@ type Duration = {
   seconds: number;
 };
 
-type HolidayTime = Duration & {
-  time: string;
-};
-
-type Unit = keyof Omit<Duration, "days"> | "day";
-type UnitFormatters = Record<Unit, Intl.NumberFormat>;
-
-const unitOptions = {
-  style: "unit",
-  unitDisplay: "narrow",
-} as const;
-
-let formatterLang: Lang | undefined;
-let formatters: UnitFormatters | undefined;
-
-const getFormatters = (): UnitFormatters => {
-  const lang = detectLanguage();
-
-  if (formatterLang === lang && formatters) return formatters;
-
-  formatterLang = lang;
-  return (formatters = {
-    day: new Intl.NumberFormat(lang, { ...unitOptions, unit: "day" }),
-    hours: new Intl.NumberFormat(lang, { ...unitOptions, unit: "hour" }),
-    minutes: new Intl.NumberFormat(lang, { ...unitOptions, unit: "minute" }),
-    seconds: new Intl.NumberFormat(lang, { ...unitOptions, unit: "second" }),
-  });
-};
-
-export function holidayTimeTo(targetTime: number): HolidayTime {
+export function holidayTimeTo(targetTime: number): Duration {
   let seconds = Math.max(
     0,
     Math.floor((targetTime - Temporal.Now.instant().epochMilliseconds) / 1000),
@@ -194,18 +165,8 @@ export function holidayTimeTo(targetTime: number): HolidayTime {
   seconds %= 60;
 
   const duration = { days, hours, minutes, seconds };
-  const f = getFormatters();
 
-  const time = [
-    days && f.day.format(days),
-    hours && f.hours.format(hours),
-    minutes && f.minutes.format(minutes),
-    f.seconds.format(seconds),
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  return { time, ...duration };
+  return { ...duration };
 }
 
 export const $holiday = atom<ActiveHoliday | null>(null);
@@ -223,7 +184,7 @@ onMount($holiday, () => {
   };
 });
 
-export const $holidayTime = atom<HolidayTime | null>(null);
+export const $holidayTime = atom<Duration | null>(null);
 
 onMount($holidayTime, () => {
   let timer: number | undefined;

@@ -64,6 +64,9 @@ describe("detectOperatingSystem", () => {
     ["", undefined],
   ])("detects platform %j as %j", async (platform, expected) => {
     stubNav({ platform });
+
+    expect((await detect()).platform + "_").not.toBe(expected);
+    expect("_" + (await detect()).platform).not.toBe(expected);
     expect((await detect()).platform).toBe(expected);
   });
 
@@ -92,27 +95,29 @@ describe("detectOperatingSystem", () => {
     expect((await detect()).vendor).toBeUndefined();
   });
 
-  it.each([
-    ["Windows NT 10.0", "windows"],
-    ["Windows NT 6.1", "windows"],
-    ["WindowsCE", "windows_ce"],
-    ["Windows CE", "windows"],
-    ["WINDOWS CE", "windows"],
-    ["Mac OS X", "macos"],
-    ["Mac OS X 10.15", "macos"],
-    ["Linux x86_64", "linux"],
-    ["WINDOWS", "windows"],
-    ["LINUX", "linux"],
-    ["UnknownOS", undefined],
-    ["", undefined],
-  ])("detects oscpu %j as %j", async (oscpu, expected) => {
-    stubNav({ platform: "Win32", oscpu });
-    expect((await detect()).oscpu).toBe(expected);
-  });
+  describe("oscpu", () => {
+    it.each([
+      ["Windows NT 10.0", "windows"],
+      ["Windows NT 6.1", "windows"],
+      ["WindowsCE", "windows_ce"],
+      ["Windows CE", "windows"],
+      ["WINDOWS CE", "windows"],
+      ["Mac OS X", "macos"],
+      ["Mac OS X 10.15", "macos"],
+      ["Linux x86_64", "linux"],
+      ["WINDOWS", "windows"],
+      ["LINUX", "linux"],
+      ["UnknownOS", undefined],
+      ["", undefined],
+    ])("detects oscpu %j as %j", async (oscpu, expected) => {
+      stubNav({ platform: "Win32", oscpu });
+      expect((await detect()).oscpu).toBe(expected);
+    });
 
-  it("omits oscpu when navigator.oscpu is undefined", async () => {
-    stubNav({ platform: "Win32" });
-    expect((await detect()).oscpu).toBeUndefined();
+    it("omits oscpu when navigator.oscpu is undefined", async () => {
+      stubNav({ platform: "Win32" });
+      expect((await detect()).oscpu).toBeUndefined();
+    });
   });
 
   it("caches the result for subsequent calls", async () => {

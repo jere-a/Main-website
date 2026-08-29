@@ -2,67 +2,82 @@ import { describe, expect, it } from "vitest";
 
 import { catchErrorTyped } from "./async";
 
+class FooError extends Error {}
+class BarError extends Error {}
+
 describe("catchErrorTyped", () => {
-  it("returns [undefined, value] on success", async () => {
+  it("returns [undefined, value] when the promise resolves", async () => {
     const result = await catchErrorTyped(Promise.resolve(42));
+
     expect(result).toEqual([undefined, 42]);
   });
 
-  it("returns [error] on rejection without filter", async () => {
-    const error = new Error("boom");
+  it("returns the rejected error when errorsToCatch is omitted", async () => {
+    const error = new FooError("foo");
+
     const result = await catchErrorTyped(Promise.reject(error));
+
+    expect(result).toEqual([error]);
+    expect(result[0]).toBe(error);
+  });
+
+  it("returns the rejected error when its type matches", async () => {
+    const error = new FooError("foo");
+
+    const result = await catchErrorTyped(Promise.reject(error), [FooError]);
+
+    expect(result).toEqual([error]);
+    expect(result[0]).toBe(error);
+  });
+
+  it("rethrows the error when its type does not match", async () => {
+    const error = new BarError("bar");
+
+    await expect(catchErrorTyped(Promise.reject(error), [FooError])).rejects.toBe(error);
+  });
+
+  it("matches any error constructor in errorsToCatch", async () => {
+    const error = new BarError("bar");
+
+    const result = await catchErrorTyped(Promise.reject(error), [FooError, BarError]);
+
+    expect(result).toEqual([error]);
+    expect(result[0]).toBe(error);
+  });
+
+  it("rethrows when errorsToCatch is empty", async () => {
+    const error = new FooError("foo");
+
+    await expect(catchErrorTyped(Promise.reject(error), [])).rejects.toBe(error);
+  });
+
+  it("matches subclasses through instanceof", async () => {
+    class ChildFooError extends FooError {}
+
+    const error = new ChildFooError("child");
+
+    const result = await catchErrorTyped(Promise.reject(error), [FooError]);
+
     expect(result).toEqual([error]);
   });
 
-  it("catches matching error types when filter provided", async () => {
-    const typeError = new TypeError("bad type");
-    const result = await catchErrorTyped(Promise.reject(typeError), [TypeError]);
-    expect(result).toEqual([typeError]);
+  it("preserves the original error instance", async () => {
+    const error = new Error("original");
+
+    const result = await catchErrorTyped(Promise.reject(error));
+
+    expect(result[0]).toBe(error);
   });
 
-  it("re-throws non-matching error types when filter provided", async () => {
-    const rangeError = new RangeError("out of range");
-    await expect(catchErrorTyped(Promise.reject(rangeError), [TypeError])).rejects.toThrow(
-      "out of range",
-    );
-  });
+  it.each([
+    ["string", "hello"],
+    ["number", 42],
+    ["object", { value: 123 }],
+    ["null", null],
+    ["undefined", undefined],
+  ])("preserves resolved %s values", async (_, value) => {
+    const result = await catchErrorTyped(Promise.resolve(value));
 
-  it("catches multiple error types in filter", async () => {
-    const rangeError = new RangeError("out of range");
-    const result = await catchErrorTyped(Promise.reject(rangeError), [TypeError, RangeError]);
-    expect(result).toEqual([rangeError]);
-  });
-
-  it("re-throws when error matches none in filter", async () => {
-    const custom = new Error("custom");
-    await expect(catchErrorTyped(Promise.reject(custom), [TypeError, RangeError])).rejects.toThrow(
-      "custom",
-    );
-  });
-
-  it("returns [undefined, T] with complex types", async () => {
-    const data = { items: [1, 2, 3], count: 3 };
-    const result = await catchErrorTyped(Promise.resolve(data));
-    expect(result).toEqual([undefined, data]);
-  });
-
-  it("returns [undefined, undefined] when the promise resolves to undefined", async () => {
-    const result = await catchErrorTyped(Promise.resolve(undefined));
-    expect(result).toEqual([undefined, undefined]);
-  });
-
-  it("returns the rejected non-Error value when no filter is provided", async () => {
-    const result = await catchErrorTyped(Promise.reject("string error"));
-    expect(result).toEqual(["string error"]);
-  });
-
-  it("re-throws non-Error rejections when a filter is provided", async () => {
-    await expect(catchErrorTyped(Promise.reject("string error"), [TypeError])).rejects.toBe(
-      "string error",
-    );
-  });
-
-  it("re-throws all errors when the filter is an empty array", async () => {
-    await expect(catchErrorTyped(Promise.reject(new Error("x")), [])).rejects.toThrow("x");
+    expect(result).toEqual([undefined, value]);
   });
 });

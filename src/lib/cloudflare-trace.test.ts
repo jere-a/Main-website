@@ -1,21 +1,21 @@
+// oxlint-disable vitest/require-to-throw-message
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { fetchData } from "./cloudflare-trace";
 
-const mockFetchText = (text: string) => {
+const mockFetchText = (text: string) =>
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   vi.spyOn(global, "fetch").mockResolvedValue({
     text: () => Promise.resolve(text),
   } as Response);
-};
 
-const validTrace = (overrides: Partial<Record<string, string>> = {}): Record<string, string> => ({
+const validTrace = (overrides: Partial<Record<string, string>> = {}) => ({
   ip: "1.2.3.4",
   uag: "Mozilla/5.0",
   tls: "TLSv1.3",
   loc: "US",
-  http: "2",
-  h: "abc123",
+  http: "http/2",
+  h: "example.com",
   ...overrides,
 });
 
@@ -25,112 +25,139 @@ const traceBody = (fields: Record<string, string>) =>
     .join("\n");
 
 describe("fetchData", () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
+  afterEach(() => vi.restoreAllMocks());
 
-  it("parses a valid trace response", async () => {
+  it("parses valid data", async () => {
     const trace = validTrace();
     mockFetchText(traceBody(trace));
 
-    expect(await fetchData()).toEqual(trace);
+    await expect(fetchData()).resolves.toEqual(trace);
   });
 
-  it.each([
-    ["ip", 'Invalid key: Expected "ip" but received undefined'],
-    ["uag", 'Invalid key: Expected "uag" but received undefined'],
-    ["tls", 'Invalid key: Expected "tls" but received undefined'],
-    ["loc", 'Invalid key: Expected "loc" but received undefined'],
-    ["http", 'Invalid key: Expected "http" but received undefined'],
-    ["h", 'Invalid key: Expected "h" but received undefined'],
-  ])("throws when the %s field is missing", async (missing, message) => {
-    const trace = validTrace();
-    delete trace[missing];
-    mockFetchText(traceBody(trace));
+  describe("validation", () => {
+    it.each([
+      ["ip", ["1.2.3.4", "::1", "2001:db8::1"], ["", "1.2.3", "invalid"]],
+      ["uag", ["Mozilla/5.0", "Agent/1.0"], [""]],
+      ["tls", ["TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3"], ["", "TLS", "TLSv1.4"]],
+      ["loc", ["FI", "US", "DE"], ["", "fi", "FIN", "F1"]],
+      ["http", ["http/1.0", "http/1.1", "http/2", "http/3"], ["", "HTTP/2", "HTTP/4"]],
+      ["h", ["example.com", "localhost"], [""]],
+    ] as const)("%s accepts valid and rejects invalid values", async (key, valid, invalid) => {
+      await Promise.all(
+        valid.map(async (value) => {
+          mockFetchText(traceBody(validTrace({ [key]: value })));
+          await expect(fetchData()).resolves.toMatchObject({ [key]: value });
+          vi.restoreAllMocks();
+        }),
+      );
 
-    await expect(fetchData()).rejects.toThrow(message);
+      await Promise.all(
+        invalid.map(async (value) => {
+          mockFetchText(traceBody(validTrace({ [key]: value })));
+          await expect(fetchData()).rejects.toThrow();
+          vi.restoreAllMocks();
+        }),
+      );
+    });
+
+    it.each(["ip", "uag", "tls", "loc", "http", "h"])("requires %s", async (key) => {
+      const trace = validTrace();
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      delete trace[key as keyof typeof trace];
+
+      mockFetchText(traceBody(trace));
+
+      await expect(fetchData()).rejects.toThrow();
+    });
   });
 
-  it("handles empty values for all fields", async () => {
-    mockFetchText("ip=\nuag=\ntls=\nloc=\nhttp=\nh=");
+  describe("parsing", () => {
+    it("ignores unknown keys", async () => {
+      mockFetchText(
+        traceBody({
+          ...validTrace(),
+          unknown: "value",
+        }),
+      );
 
-    expect(await fetchData()).toEqual({ ip: "", uag: "", tls: "", loc: "", http: "", h: "" });
+      await expect(fetchData()).resolves.toEqual(validTrace());
+    });
+
+    it("preserves '=' in values", async () => {
+      const trace = validTrace({ uag: "Agent=a=b" });
+      mockFetchText(traceBody(trace));
+
+      await expect(fetchData()).resolves.toMatchObject({
+        uag: "Agent=a=b",
+      });
+    });
+
+    it("accepts CRLF and blank lines", async () => {
+      mockFetchText(
+        [
+          "ip=1.2.3.4",
+          "",
+          "uag=Mozilla/5.0",
+          "tls=TLSv1.2",
+          "",
+          "loc=FI",
+          "http=http/2",
+          "h=example.com",
+        ].join("\r\n"),
+      );
+
+      await expect(fetchData()).resolves.toEqual(
+        validTrace({
+          tls: "TLSv1.2",
+          loc: "FI",
+        }),
+      );
+    });
+
+    it("rejects malformed key lines", async () => {
+      mockFetchText(
+        [
+          "IP=1.2.3.4",
+          "uag=Mozilla/5.0",
+          "tls=TLSv1.3",
+          "loc=FI",
+          "http=HTTP/2",
+          "h=example.com",
+        ].join("\n"),
+      );
+
+      await expect(fetchData()).rejects.toThrow();
+    });
+
+    it("rejects an empty response", async () => {
+      mockFetchText("");
+
+      await expect(fetchData()).rejects.toThrow();
+    });
   });
 
-  it("treats a known key line without '=' as an empty string", async () => {
-    mockFetchText("ip\nuag=Agent/1.0\ntls=TLSv1.3\nloc=FI\nhttp=2\nh=xyz");
+  describe("errors", () => {
+    it("propagates fetch errors", async () => {
+      vi.spyOn(global, "fetch").mockRejectedValue(new TypeError("network error"));
 
-    expect((await fetchData()).ip).toBe("");
+      await expect(fetchData()).rejects.toThrow("network error");
+    });
+
+    it("propagates body errors", async () => {
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      vi.spyOn(global, "fetch").mockResolvedValue({
+        text: () => Promise.reject(new Error("read failed")),
+      } as Response);
+
+      await expect(fetchData()).rejects.toThrow("read failed");
+    });
   });
 
-  it("ignores unrecognized keys", async () => {
-    mockFetchText(
-      "ip=5.6.7.8\nunknown_key=value\nuag=Agent/1.0\ntls=TLSv1.2\nloc=FI\nhttp=2\nh=xyz",
-    );
-
-    const result = await fetchData();
-    expect(result.ip).toBe("5.6.7.8");
-    expect(result.uag).toBe("Agent/1.0");
-  });
-
-  it("ignores uppercase and whitespace-padded keys", async () => {
-    mockFetchText("IP=1.2.3.4\nuag =Agent\ntls=TLSv1.2\nloc=US\nhttp=2\nh=x");
-
-    await expect(fetchData()).rejects.toThrow('Invalid key: Expected "ip" but received undefined');
-  });
-
-  it("preserves extra '=' characters within the value", async () => {
-    mockFetchText("ip=1.2.3.4=extra\nuag=Agent\ntls=TLSv1.2\nloc=US\nhttp=2\nh=x");
-
-    expect((await fetchData()).ip).toBe("1.2.3.4=extra");
-  });
-
-  it("skips blank lines within the response", async () => {
-    mockFetchText("ip=1.2.3.4\n\nuag=Agent\n\ntls=TLSv1.2\nloc=US\nhttp=2\nh=x");
-
-    const result = await fetchData();
-    expect(result.ip).toBe("1.2.3.4");
-    expect(result.uag).toBe("Agent");
-  });
-
-  it("parses CRLF line endings", async () => {
-    mockFetchText("ip=1.2.3.4\r\nuag=Agent\r\ntls=TLSv1.2\r\nloc=US\r\nhttp=2\r\nh=x");
-
-    const result = await fetchData();
-    expect(result.ip).toBe("1.2.3.4");
-    expect(result.uag).toBe("Agent");
-    expect(result.h).toBe("x");
-  });
-
-  it("throws when the response body is empty", async () => {
-    mockFetchText("");
-
-    await expect(fetchData()).rejects.toThrow('Invalid key: Expected "ip" but received undefined');
-  });
-
-  it("propagates fetch network errors", async () => {
-    vi.spyOn(global, "fetch").mockRejectedValue(new TypeError("network error"));
-
-    await expect(fetchData()).rejects.toThrow("network error");
-  });
-
-  it("propagates response body errors", async () => {
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-    vi.spyOn(global, "fetch").mockResolvedValue({
-      text: () => Promise.reject(new Error("read failed")),
-    } as Response);
-
-    await expect(fetchData()).rejects.toThrow("read failed");
-  });
-
-  it("calls fetch with the current origin trace endpoint", async () => {
+  it("fetches the trace endpoint", async () => {
     mockFetchText(traceBody(validTrace()));
 
     await fetchData();
 
-    expect(global.fetch).toHaveBeenCalledTimes(1);
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-    const url = (global.fetch as unknown as ReturnType<typeof vi.fn>).mock.calls[0]?.[0];
-    expect(url).toBe(`${window.location.origin}/cdn-cgi/trace`);
+    expect(global.fetch).toHaveBeenCalledWith(`${window.location.origin}/cdn-cgi/trace`);
   });
 });

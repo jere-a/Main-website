@@ -2,42 +2,35 @@
 
 import * as v from "valibot";
 
-/** Schema for the key-value fields returned by Cloudflare's trace endpoint. */
 const ParsedDataSchema = v.object({
-  ip: v.string(),
-  uag: v.string(),
-  tls: v.string(),
-  loc: v.string(),
-  http: v.string(),
-  h: v.string(),
+  ip: v.pipe(v.string(), v.ip()),
+  uag: v.pipe(v.string(), v.minLength(1)),
+  tls: v.picklist(["TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3", "off"]),
+  loc: v.pipe(v.string(), v.regex(/^[A-Z]{2}$/)),
+  http: v.picklist(["http/1.0", "http/1.1", "http/2", "http/3"]),
+  h: v.pipe(
+    v.string(),
+    v.minLength(1),
+    v.regex(
+      /^(?=.{1,253}$)(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/,
+    ),
+  ),
 });
 
 export type ParsedData = v.InferInput<typeof ParsedDataSchema>;
 
-/** Recognized keys from the trace endpoint response. */
-const TRACE_KEYS = ["ip", "uag", "tls", "loc", "http", "h"] as const;
-type TraceKey = (typeof TRACE_KEYS)[number];
-
-/** Type guard: check if a string is a valid trace key. */
-const isTraceKey = (key: string): key is TraceKey =>
-  (TRACE_KEYS as readonly string[]).includes(key);
-
-/** Fetch and parse Cloudflare trace data. Throws on invalid response. */
 export async function fetchData(): Promise<ParsedData> {
-  const res = await fetch(`${window.location.origin}/cdn-cgi/trace`);
-  const text = await res.text();
+  const text = await fetch(`${window.location.origin}/cdn-cgi/trace`).then((r) => r.text());
 
-  const raw: Partial<Record<TraceKey, string>> = {};
-
-  for (const line of text.split(/\r?\n/)) {
-    const eqIndex = line.indexOf("=");
-    const key = eqIndex === -1 ? line : line.slice(0, eqIndex);
-    const value = eqIndex === -1 ? "" : line.slice(eqIndex + 1);
-
-    if (key && isTraceKey(key)) {
-      raw[key] = value;
-    }
-  }
+  const raw = Object.fromEntries(
+    text
+      .split(/\r?\n/)
+      .filter((line) => line.includes("="))
+      .map((line) => {
+        const i = line.indexOf("=");
+        return [line.slice(0, i), line.slice(i + 1)];
+      }),
+  );
 
   return v.parse(ParsedDataSchema, raw);
 }
