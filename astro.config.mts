@@ -10,7 +10,7 @@ import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
 import oxlintPlugin from "vite-plugin-oxlint";
 
-import { siteConfig } from "./src/config";
+import * as siteConfig from "./src/config";
 
 export const defaultLocale = "fi";
 const locales = {

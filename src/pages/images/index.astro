@@ -7,47 +7,69 @@ const lang = getLangFromUrl(Astro.url);
 const t = (await useTranslations(lang));
 
 const images: {
-	src: string;
+  src: string;
+  width: number;
+  height: number;
 	title: string;
 }[] = [
 	{
-		src: "talvinen_maisema_2_om79rt",
+      src: "talvinen_maisema_2_om79rt",
+      width: 2000,
+      height: 1125,
 		title: t.images.winterLandscape,
 	},
 	{
-		src: "Iso_kanto_epmfrp",
+      src: "Iso_kanto_epmfrp",
+      width: 2000,
+      height: 1125,
 		title: t.images.bigRoot,
 	},
 	{
-		src: "sininen_taivas_lzk8uh",
+      src: "sininen_taivas_lzk8uh",
+      width: 2000,
+      height: 1500,
 		title: t.images.blueSky,
 	},
 	{
-		src: "auringon_kukka_2_sluble",
+      src: "auringon_kukka_2_sluble",
+      width: 1600,
+      height: 1200,
 		title: t.images.sunflower,
 	},
 	{
-		src: "Aamuinen_usva_wuukjq",
+      src: "Aamuinen_usva_wuukjq",
+      width: 4010,
+      height: 3008,
 		title: t.images.morningMist,
 	},
 	{
-		src: "Isompi_silta_pimeällä_kkeoee",
+      src: "Isompi_silta_pimeällä_kkeoee",
+      width: 1862,
+      height: 1463,
 		title: t.images.colorfulBridge,
 	},
 	{
-		src: "silta_pimeällä_blhpkq",
+      src: "silta_pimeällä_blhpkq",
+      width: 2000,
+      height: 1571,
 		title: t.images.bridgeAtNight,
   },
   {
-    src: "_MG_3181_hw2kj4",
+      src: "_MG_3181_hw2kj4",
+      width: 5198,
+      height: 3462,
     title: t.images.woodbird,
   },
   {
-    src: "_MG_3060_p2jlcu",
+      src: "_MG_3060_p2jlcu",
+      width: 5198,
+      height: 3462,
     title: t.images.iris,
   },
   {
-    src: "_MG_3119-hdr_ndpyap",
+      src: "_MG_3119-hdr_ndpyap",
+      width: 5198,
+      height: 3462,
     title: t.images.lake,
   }
 ];
@@ -60,7 +82,7 @@ const images: {
 		{
 			images.map((image, i) => (
 				<li>
-					<ImageHolder cloudinary_id={image.src} title={image.title} transitionName={`${i}`} />
+          <ImageHolder cloudinary_id={image.src} width={image.width} height={image.height} title={image.title} transitionName={`${i}`} />
 				</li>
 			))
 		}

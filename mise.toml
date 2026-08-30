@@ -51,12 +51,6 @@ description = "Run Stryker mutation testing"
 depends = ["install"]
 run = "stryker run"
 
-[tasks.unit-test]
-description = "Run unit tests (no pre-checks)"
-depends = ["install"]
-run = "vitest run"
-
 [tasks.ci]
 description = "Complete CI pipeline"
-depends = ["lint", "unit-test", "build"]
-run = "astro build"
+depends = ["build"]

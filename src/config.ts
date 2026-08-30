@@ -1,27 +1,19 @@
-export const siteConfig = {
-  host: "ozze.eu.org",
-  get url() {
-    return `https://${siteConfig.host}`;
-  },
-  title: "Åzze",
-  blogTitle: "Åzze's Blog",
-  siteName: "",
-  description: "Pieni nettisivuni.",
-  rssDescription: "Small Content Creator for the internet.",
-  postsPerPage: 7,
-  postsRecent: 200,
-  mainAuthor: "Jere E.L",
-  youtubeChannelId: "UCNAVV2j-Bmuu9ApfTYwYAeA",
-  posthogApiKey: "phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF",
-  mainLanguage: "fi-fi",
-  author: {
-    contacts: {
-      github: "jere-a",
-    },
-  },
-  urls: {
-    get giturl() {
-      return `https://github.com/${siteConfig.author.contacts.github}/Main-website`;
-    },
-  },
-} as const;
+export const host = "ozze.eu.org";
+export const url = `https://${host}`;
+
+export const title = "Åzze";
+export const blogTitle = "Åzze's Blog";
+export const siteName = "";
+export const description = "Pieni nettisivuni.";
+export const rssDescription = "Small Content Creator for the internet.";
+
+export const postsPerPage = 7;
+export const postsRecent = 200;
+
+export const mainAuthor = "Jere E.L";
+export const youtubeChannelId = "UCNAVV2j-Bmuu9ApfTYwYAeA";
+export const posthogApiKey = "phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF";
+export const mainLanguage = "fi-fi";
+
+export const github = "jere-a";
+export const gitUrl = `https://github.com/${github}/Main-website`;

@@ -4,7 +4,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import MarkdownIt from "markdown-it";
 import sanitizeHtml from "sanitize-html";
 
-import { siteConfig } from "@/config.ts";
+import * as siteConfig from "@/config";
 
 const parser = new MarkdownIt({
   html: true,
