@@ -17,10 +17,12 @@ declare global {
 /** Hostnames where analytics should be disabled. */
 const LOCALHOST_HOSTNAMES = new Set(["localhost", "127.0.0.1", "::1"]);
 
+const CHROME_119 = "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0";
+
 /** User agent strings to block from analytics (Lighthouse audits). */
 const BLOCKED_USER_AGENTS = [
-  "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36",
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+  `Mozilla/5.0 (Linux; Android 11; moto g power (2022)) ${CHROME_119} Mobile Safari/537.36`,
+  `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) ${CHROME_119} Safari/537.36`,
 ];
 
 function isDevMode(): boolean {
@@ -51,7 +53,7 @@ const init = async (): Promise<void> => {
     autocapture: false,
     disable_session_recording: true,
     before_send: (event: CaptureResult | null) => posthogSendEvent(event),
-  };
+  } satisfies Partial<PostHogConfig>;
 
   const config = {
     api_host: `https://t.${siteConfig.host}`,

@@ -160,14 +160,6 @@ export default defineConfig({
           circularDependency: true,
         },
         output: {
-          codeSplitting: {
-            groups: [
-              {
-                name: "analytics",
-                test: /node_modules[\\/]posthog-js/,
-              },
-            ],
-          },
           comments: false,
         },
         preserveEntrySignatures: false,
