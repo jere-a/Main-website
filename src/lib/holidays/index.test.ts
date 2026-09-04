@@ -40,11 +40,11 @@ const h = vi.hoisted(() => {
 
   return {
     state,
+    temporal,
     onFeatureFlags: vi.fn<(cb: () => void) => void>((cb: () => void) => cb()),
     isFeatureEnabled: vi.fn<(flag: string) => boolean>(
       (flag: string) => state.flags.get(flag) ?? false,
     ),
-    getTemporal: vi.fn<() => Promise<unknown>>(async () => temporal),
     useTranslations: vi.fn<(lang: string) => Promise<{ holiday: Record<string, string> }>>(
       async () => ({
         holiday: { halloween: "Halloween", christmas: "Christmas", newyear: "New Year" },
@@ -61,10 +61,6 @@ vi.mock("@lib/analytics", () => ({
     onFeatureFlags: h.onFeatureFlags,
     isFeatureEnabled: h.isFeatureEnabled,
   },
-}));
-
-vi.mock("@/lib/utils/temporal", () => ({
-  getTemporal: h.getTemporal,
 }));
 
 vi.mock("@/i18n/index.ts", () => ({
@@ -90,6 +86,7 @@ type Countdown = {
 
 describe("holidays", () => {
   beforeEach(() => {
+    vi.stubGlobal("Temporal", h.temporal);
     h.state.today = { year: 2026, month: 10, day: 15 };
     h.state.nowMs = Date.UTC(2026, 9, 15, 12, 0, 0);
     h.state.flags.set("holiday-effects", true);
@@ -192,6 +189,18 @@ describe("holidays", () => {
       h.state.today = { year, month, day };
 
       expect((await isHoliday())?.key).toBe(key);
+    });
+
+    it("returns null when globalThis.Temporal is unavailable", async () => {
+      const saved = globalThis.Temporal;
+      // @ts-expect-error testing missing Temporal
+      delete globalThis.Temporal;
+      vi.resetModules();
+      const mod = await import("./index");
+
+      expect(await mod.isHoliday()).toBeNull();
+
+      globalThis.Temporal = saved;
     });
   });
 
