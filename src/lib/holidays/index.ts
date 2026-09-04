@@ -1,13 +1,9 @@
-import type { Temporal as TemporalType } from "@js-temporal/polyfill";
 import posthog from "@lib/analytics";
 import { atom, onMount } from "nanostores";
 
 // oxlint-disable promise/prefer-await-to-then
 import { type DefaultSchema, type Lang, useTranslations } from "@/i18n/index.ts";
 import { detectLanguage } from "@/lib/utils/language.ts";
-import { getTemporal } from "@/lib/utils/temporal.ts";
-
-const Temporal = await getTemporal();
 
 type HolidayLabels = DefaultSchema["holiday"];
 type HolidayKey = keyof HolidayLabels;
@@ -81,22 +77,20 @@ const labels = async (): Promise<HolidayLabels> => {
   return labelCache;
 };
 
-type TemporalPlaindate = Temporal.PlainDate | TemporalType.PlainDate;
-
-const plainDate = ([month, day, offset = 0]: HolidayDate, year: number): TemporalPlaindate =>
+const plainDate = ([month, day, offset = 0]: HolidayDate, year: number) =>
   Temporal.PlainDate.from({
     year: year + offset,
     month,
     day,
   });
 
-const epochMs = (date: TemporalPlaindate): number => date.toZonedDateTime("UTC").epochMilliseconds;
+const epochMs = (date: Temporal.PlainDate): number => date.toZonedDateTime("UTC").epochMilliseconds;
 
 const featureFlagsReady = new Promise<void>((resolve) => {
   posthog.onFeatureFlags(() => resolve());
 });
 
-const findHoliday = (today: TemporalPlaindate, year: number) => {
+const findHoliday = (today: Temporal.PlainDate, year: number) => {
   for (const holiday of holidays) {
     const [from, to] = holiday.range;
     const target = plainDate(holiday.target, year);

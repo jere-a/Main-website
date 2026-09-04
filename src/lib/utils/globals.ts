@@ -6,4 +6,3 @@ export { detectLanguage } from "./language.ts";
 export { catchErrorTyped } from "./async.ts";
 export { on } from "./dom.ts";
 export { getQueryParam } from "./url.ts";
-export { getTemporal } from "./temporal.ts";
