@@ -77,6 +77,8 @@ const labels = async (): Promise<HolidayLabels> => {
   return labelCache;
 };
 
+const hasTemporal = typeof Temporal !== "undefined";
+
 const plainDate = ([month, day, offset = 0]: HolidayDate, year: number) =>
   Temporal.PlainDate.from({
     year: year + offset,
@@ -109,6 +111,8 @@ const findHoliday = (today: Temporal.PlainDate, year: number) => {
 };
 
 export async function isHoliday(): Promise<ActiveHoliday | null> {
+  if (!hasTemporal) return null;
+
   await featureFlagsReady;
 
   if (!posthog.isFeatureEnabled("holiday-effects")) {
@@ -144,6 +148,8 @@ type Duration = {
 };
 
 export function holidayTimeTo(targetTime: number): Duration {
+  if (!hasTemporal) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
   let seconds = Math.max(
     0,
     Math.floor((targetTime - Temporal.Now.instant().epochMilliseconds) / 1000),
