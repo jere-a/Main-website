@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from '@/i18n/utils.ts';
+import IconYoutube from '~icons/simple-icons/youtube';
 
 interface Props {
   href: string;
@@ -18,7 +19,7 @@ const t = (await useTranslations(lang));
 
 {
   youtube && (
-  <a class="yt" title={t.index.social_youtube} href={href}><slot /></a>
+  <a class="yt" title={t.index.social_youtube} href={href}><IconYoutube /> <slot /></a>
   )
 }
 

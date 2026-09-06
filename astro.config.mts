@@ -1,13 +1,15 @@
 import { satteri } from "@astrojs/markdown-satteri";
-import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
-import svelte from "@astrojs/svelte";
+// import preact from "@astrojs/preact";
+// import svelte from "@astrojs/svelte";
 import AstroPWA from "@vite-pwa/astro";
 import embeds from "astro-embed/integration";
 import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
 import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
+import Icons from "unplugin-icons/vite";
+import Macros from "unplugin-macros/vite";
 import oxlintPlugin from "vite-plugin-oxlint";
 
 import * as siteConfig from "./src/config";
@@ -33,8 +35,8 @@ export default defineConfig({
   prefetch: true,
   integrations: [
     embeds(),
-    svelte(),
-    preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"], devtools: true }),
+    // svelte(),
+    // preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"], devtools: true }),
     AstroPWA({
       strategies: "injectManifest",
       srcDir: "src",
@@ -168,6 +170,12 @@ export default defineConfig({
         },
       },
     },
-    plugins: [oxlintPlugin()],
+    plugins: [
+      Macros(),
+      Icons({
+        compiler: "astro",
+      }),
+      oxlintPlugin(),
+    ],
   },
 });

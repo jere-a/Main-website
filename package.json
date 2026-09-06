@@ -82,6 +82,7 @@
     "workbox-window": "^7.4.1"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.525",
     "@nanostores/preact": "^1.1.0",
     "@stryker-mutator/api": "^10.0.0",
     "@stryker-mutator/core": "^10.0.0",
@@ -104,6 +105,8 @@
     "sanitize-html": "^2.17.7",
     "svelte": "^5.57.0",
     "typescript": "^6.0.3",
+    "unplugin-icons": "^23.0.1",
+    "unplugin-macros": "^0.23.2",
     "vite-plugin-oxlint": "^2.2.0",
     "vitest": "^4.1.11",
     "workbox-build": "^7.4.1",
@@ -117,7 +120,7 @@
   "nano-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": "bun run lint"
   },
-  "packageManager": "pnpm@11.0.0",
+  "packageManager": "pnpm@12.0.0",
   "trustedDependencies": [
     "@parcel/watcher",
     "@posthog/cli",

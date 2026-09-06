@@ -17,7 +17,7 @@
       "@components/*": ["./src/components/*"],
       "@styles/*": ["./src/styles/*"]
     },
-    "types": ["vite-plugin-pwa/client", "vite-plugin-pwa/info"],
+    "types": ["vite-plugin-pwa/client", "vite-plugin-pwa/info", "unplugin-icons/types/astro"],
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "allowUnreachableCode": false,

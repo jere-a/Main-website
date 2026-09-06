@@ -3,7 +3,7 @@
  * specific site features independent of PostHog feature flags.
  */
 
-import * as siteConfig from "@/config";
+import * as siteConfig from "@/config" with { type: "macro" };
 
 export const siteFeatures = {
   config: siteConfig,
