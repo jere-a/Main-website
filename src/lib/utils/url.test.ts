@@ -12,7 +12,7 @@ describe("getQueryParam", () => {
     ["/?flag", "flag", ""],
     ["/?name=hello%20world", "name", "hello world"],
     ["/?q=a%26b%3Dc", "q", "a&b=c"],
-    ["/no-params", "any", undefined],
+    ["/no-params", "any", null],
     ["/?Foo=1", "Foo", "1"],
     ["/?=value", "", "value"],
     ["/?q=a+b", "q", "a b"],
@@ -34,6 +34,6 @@ describe("getQueryParam", () => {
     window.history.replaceState(null, "", "/?Foo=1");
 
     expect(getQueryParam("Foo")).toBe("1");
-    expect(getQueryParam("foo")).toBeUndefined();
+    expect(getQueryParam("foo")).toBeNull();
   });
 });
