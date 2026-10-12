@@ -13,7 +13,7 @@ export const postsRecent = 200;
 export const mainAuthor = "Jere E.L";
 export const youtubeChannelId = "UCNAVV2j-Bmuu9ApfTYwYAeA";
 export const posthogApiKey = "phc_5MXCIWNtl5iS3fpCybKZjGJoe1RIoJlpHGBwfZgfUFF";
-export const mainLanguage = "fi-fi";
+export const mainLanguage = "fi-FI";
 
 export const github = "jere-a";
 export const gitUrl = `https://github.com/${github}/Main-website`;
