@@ -5,7 +5,13 @@ import "vanilla-cookieconsent/dist/cookieconsent.css";
 
 await CookieConsent.run({
   onConsent: () => {
-    posthog.opt_in_capturing();
+    // Opt in only when the visitor actually accepted analytics. "Reject all" must not enable
+    // tracking; a returning visitor who rejected is explicitly opted back out.
+    if (CookieConsent.getUserPreferences().acceptType === "all") {
+      posthog.opt_in_capturing();
+    } else {
+      posthog.opt_out_capturing();
+    }
   },
   onModalReady: () => {
     const documentElementClassList = document.documentElement.classList;

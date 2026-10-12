@@ -129,6 +129,11 @@ const analytics = {
       pendingOptIn = true;
     }
   },
+
+  /** Opt the user out of capturing if the client is already loaded. */
+  opt_out_capturing(): void {
+    client?.opt_out_capturing();
+  },
 };
 
 export { init };
