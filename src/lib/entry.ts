@@ -9,12 +9,22 @@ import { createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
 import { init } from "./analytics.ts";
 import { on, $holiday } from "./utils/index";
 
-const runanalyticsInit = () => {
+const loadAnalytics = () => {
   // oxlint-disable-next-line promise/prefer-await-to-then
   void init().catch((e) => {
     // oxlint-disable-next-line no-console
     console.error("posthog init failed", e);
   });
+};
+
+const runanalyticsInit = () => {
+  // Defer the (heavy) analytics bundle until the browser is idle so it never contends with the
+  // first paint.
+  if (typeof window.requestIdleCallback === "function") {
+    window.requestIdleCallback(loadAnalytics, { timeout: 3000 });
+  } else {
+    window.setTimeout(loadAnalytics, 1000);
+  }
 };
 
 const suppressImageContextMenu = () => {
