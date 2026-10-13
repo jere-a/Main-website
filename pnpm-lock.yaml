@@ -127,13 +127,13 @@ importers:
         version: 0.4.3
       '@astrojs/mdx':
         specifier: ^8.0.3
-        version: 8.0.3(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@astrojs/markdown-satteri@0.4.3)(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+        version: 8.0.3(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@astrojs/markdown-satteri@0.4.3)(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       '@astrojs/partytown':
         specifier: 2.1.8
         version: 2.1.8
       '@astrojs/preact':
         specifier: ^6.0.6
-        version: 6.0.6(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(preact@11.0.0)(rollup@4.63.1)(sass@1.105.1)(supports-color@7.2.0)(terser@5.51.2)(yaml@2.9.0)
+        version: 6.0.6(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(preact@11.0.1)(rollup@4.63.1)(sass@1.105.1)(supports-color@7.2.0)(terser@5.51.2)(yaml@2.9.0)
       '@astrojs/rss':
         specifier: 4.0.19
         version: 4.0.19
@@ -142,7 +142,7 @@ importers:
         version: 3.7.4
       '@astrojs/svelte':
         specifier: ^9.0.1
-        version: 9.0.1(@types/node@26.6.4)(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(svelte@5.57.2)(terser@5.51.2)(typescript@6.0.3)(yaml@2.9.0)
+        version: 9.0.1(@types/node@26.6.5)(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(svelte@5.57.2)(terser@5.51.2)(typescript@6.0.3)(yaml@2.9.0)
       '@astrojs/ts-plugin':
         specifier: 1.10.12
         version: 1.10.12(typescript@6.0.3)
@@ -153,8 +153,8 @@ importers:
         specifier: ^10.6.0
         version: 10.6.0
       '@lucide/astro':
-        specifier: ^1.52.0
-        version: 1.52.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+        specifier: ^1.55.0
+        version: 1.55.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       '@msgpack/msgpack':
         specifier: ^3.1.3
         version: 3.1.3
@@ -165,8 +165,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1(nanostores@1.5.5)(react@19.2.8)
       '@posthog/types':
-        specifier: ^1.415.1
-        version: 1.415.1
+        specifier: ^1.415.2
+        version: 1.415.2
       '@tanstack/hotkeys':
         specifier: ^0.11.0
         version: 0.11.0
@@ -184,28 +184,28 @@ importers:
         version: 14.2.0
       '@vitejs/plugin-react':
         specifier: ^6.1.2
-        version: 6.1.2(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+        version: 6.1.2(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       '@vtbag/utensil-drawer':
         specifier: ^1.2.18
         version: 1.2.18
       arkregex:
-        specifier: ^0.0.12
-        version: 0.0.12
+        specifier: ^0.0.13
+        version: 0.0.13
       arktype:
-        specifier: ^2.2.7
-        version: 2.2.7
+        specifier: ^2.2.8
+        version: 2.2.8
       astro-cloudinary:
         specifier: ^1.4.0
-        version: 1.4.0(@swc/core@1.16.2)(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(postcss@8.5.28)(supports-color@7.2.0)(typescript@6.0.3)(yaml@2.9.0)
+        version: 1.4.0(@swc/core@1.16.2)(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(postcss@8.5.28)(supports-color@7.2.0)(typescript@6.0.3)(yaml@2.9.0)
       astro-embed:
         specifier: ^0.14.0
-        version: 0.14.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3)
+        version: 0.14.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3)
       astro-i18n-aut:
         specifier: ^0.8.1
-        version: 0.8.1(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+        version: 0.8.1(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       astrojs-service-worker:
         specifier: ^2.0.3
-        version: 2.0.3(@types/babel__core@7.20.5)(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(supports-color@7.2.0)
+        version: 2.0.3(@types/babel__core@7.20.5)(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(supports-color@7.2.0)
       browserslist:
         specifier: ^4.29.3
         version: 4.29.3
@@ -237,8 +237,8 @@ importers:
         specifier: ^1.33.0
         version: 1.33.0
       lucide-react:
-        specifier: ^1.52.0
-        version: 1.52.0(react@19.2.8)
+        specifier: ^1.55.0
+        version: 1.55.0(react@19.2.8)
       mdast-util-to-string:
         specifier: ^4.0.0
         version: 4.0.0
@@ -249,11 +249,11 @@ importers:
         specifier: ^0.72.0
         version: 0.72.0(svelte@5.57.2)
       posthog-js:
-        specifier: ^1.438.1
-        version: 1.438.1(preact-render-to-string@6.7.0)(react@19.2.8)
+        specifier: ^1.438.7
+        version: 1.438.7(preact-render-to-string@6.7.0)(react@19.2.8)
       preact:
-        specifier: ^11.0.0
-        version: 11.0.0(preact-render-to-string@6.7.0)
+        specifier: ^11.0.1
+        version: 11.0.1(preact-render-to-string@6.7.0)
       reading-time:
         specifier: ^1.5.0
         version: 1.5.0
@@ -273,14 +273,14 @@ importers:
         specifier: 3.1.0
         version: 3.1.0
       vite:
-        specifier: ^8.2.2
-        version: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+        specifier: ^8.3.4
+        version: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       vite-plugin-pwa:
         specifier: ^2.0.0
-        version: 2.0.0(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1)
+        version: 2.0.0(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1)
       vite-react:
         specifier: ^5.0.0
-        version: 5.0.0(supports-color@7.2.0)(typescript@6.0.3)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+        version: 5.0.0(supports-color@7.2.0)(typescript@6.0.3)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       workbox-cacheable-response:
         specifier: ^7.4.1
         version: 7.4.1
@@ -295,23 +295,23 @@ importers:
         version: 7.4.1
     devDependencies:
       '@iconify/json':
-        specifier: ^2.2.539
-        version: 2.2.539
+        specifier: ^2.2.541
+        version: 2.2.541
       '@nanostores/preact':
         specifier: ^1.1.1
-        version: 1.1.1(nanostores@1.5.5)(preact@11.0.0)
+        version: 1.1.1(nanostores@1.5.5)(preact@11.0.1)
       '@stryker-mutator/api':
         specifier: ^10.0.0
         version: 10.0.0
       '@stryker-mutator/core':
         specifier: ^10.0.0
-        version: 10.0.0(@types/node@26.6.4)
+        version: 10.0.0(@types/node@26.6.5)
       '@stryker-mutator/typescript-checker':
         specifier: ^10.0.0
-        version: 10.0.0(@stryker-mutator/core@10.0.0(@types/node@26.6.4))(typescript@6.0.3)
+        version: 10.0.0(@stryker-mutator/core@10.0.0(@types/node@26.6.5))(typescript@6.0.3)
       '@stryker-mutator/vitest-runner':
         specifier: ^10.0.0
-        version: 10.0.0(@stryker-mutator/core@10.0.0(@types/node@26.6.4))(vitest@5.0.3)
+        version: 10.0.0(@stryker-mutator/core@10.0.0(@types/node@26.6.5))(vitest@5.0.3)
       '@types/bun':
         specifier: ^1.4.2
         version: 1.4.2
@@ -319,14 +319,14 @@ importers:
         specifier: ^30.0.0
         version: 30.0.0
       '@types/node':
-        specifier: ^26.6.4
-        version: 26.6.4
+        specifier: ^26.6.5
+        version: 26.6.5
       '@types/sanitize-html':
         specifier: ^2.16.2
         version: 2.16.2
       '@vite-pwa/astro':
         specifier: ^1.2.0
-        version: 1.2.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(vite-plugin-pwa@2.0.0(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1))
+        version: 1.2.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(vite-plugin-pwa@2.0.0(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1))
       '@vitest/coverage-istanbul':
         specifier: ^5.0.3
         version: 5.0.3(vitest@5.0.3)
@@ -334,11 +334,11 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3(vitest@5.0.3)
       astro:
-        specifier: ^7.3.6
-        version: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+        specifier: ^7.3.8
+        version: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       happy-dom:
-        specifier: ^20.14.5
-        version: 20.14.5
+        specifier: ^20.14.6
+        version: 20.14.6
       markdown-it:
         specifier: ^15.0.2
         version: 15.0.2
@@ -347,10 +347,10 @@ importers:
         version: 1.5.5
       oxlint:
         specifier: ^1.87.0
-        version: 1.87.0(oxlint-tsgolint@7.0.2003)
+        version: 1.87.0(oxlint-tsgolint@7.0.2004)
       oxlint-tsgolint:
-        specifier: ^7.0.2003
-        version: 7.0.2003
+        specifier: ^7.0.2004
+        version: 7.0.2004
       patch-package:
         specifier: ^8.0.1
         version: 8.0.1
@@ -365,16 +365,16 @@ importers:
         version: 6.0.3
       unplugin-icons:
         specifier: ^24.0.0
-        version: 24.0.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(svelte@5.57.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+        version: 24.0.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(svelte@5.57.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       unplugin-macros:
         specifier: ^0.23.2
-        version: 0.23.2(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+        version: 0.23.2(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       vite-plugin-oxlint:
         specifier: ^2.2.0
-        version: 2.2.0(oxlint@1.87.0(oxlint-tsgolint@7.0.2003))(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+        version: 2.2.0(oxlint@1.87.0(oxlint-tsgolint@7.0.2004))(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       vitest:
         specifier: ^5.0.3
-        version: 5.0.3(@types/node@26.6.4)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.5)(jsdom@30.1.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+        version: 5.0.3(@types/node@26.6.5)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.6)(jsdom@30.1.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       workbox-build:
         specifier: ^7.4.1
         version: 7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0)
@@ -411,11 +411,11 @@ packages:
     peerDependencies:
       ajv: '>=8'
 
-  '@ark/schema@0.56.6':
-    resolution: {integrity: sha512-OmLv80BCF2ib+zjecrXDosip/CSnZSYBGjblhqWYZWFOzdLQka6QymHToE9u7Z/HZW2KA8Hwc8MCNXoI3uGSIA==}
+  '@ark/schema@0.56.7':
+    resolution: {integrity: sha512-jmoOJlYIc4k1uv8oYBDNOFnAsKk2a2D9t/D6npF2JUfW4ecPB0v6ce6lruKg7lkBxIBA8Z7UtxfmvephYbhUGQ==}
 
-  '@ark/util@0.56.6':
-    resolution: {integrity: sha512-mHqq0f0HyDd9YadpFl25w0QECAP7d8HGIUpEC85duD+L+xr4i/CwfOid/Z7zJFFF/47oLt6+pZB9RbqWpBYTYg==}
+  '@ark/util@0.56.7':
+    resolution: {integrity: sha512-z8pVnrPk/x9GC18yOp5wCe8rR2+Z6us4CTSg7dvxdsDLuA2xXYq+QETD1fO6f3fMuXe+PCjpvtCnhTW9RHLgEw==}
 
   '@asamuzakjp/css-color@7.1.3':
     resolution: {integrity: sha512-1t1U8Cm3RBl9vh3RAZhjkPaduzLSvQJRToRrxpGR/eDRW99mOREleuu+mWfiFa795bUzjwht7NgphCKTs2ianQ==}
@@ -1700,8 +1700,8 @@ packages:
       '@noble/hashes':
         optional: true
 
-  '@iconify/json@2.2.539':
-    resolution: {integrity: sha512-fcMTJ7NPvaLePQQ7Xmlwp+5bc+vJid6k4Pv4w47EPSjuq/Ty0im28RVMbdQRdVtvwqCKsfWbWNczYNMbs3sB/A==}
+  '@iconify/json@2.2.541':
+    resolution: {integrity: sha512-s89hthisPkDuwrhPPvYdDKczNAvW7y3OI19L0NXdlVFzmoFi4uO02P8UvHT02hSrQ22ZmPLhInf5K+Knn9TPew==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -2032,8 +2032,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@lucide/astro@1.52.0':
-    resolution: {integrity: sha512-Vyo3sHYPtLvP5fbvqrMSMutcRzu8tbZXG6xFylrDnpeGVjLisokqKrWKuEm6K4IKwxkTrKK/xyXkVBE0WjxZKg==}
+  '@lucide/astro@1.55.0':
+    resolution: {integrity: sha512-PjTTgicKDheri7BQaO5lGO47TPwQZBE6xSs5LnwXHcXvXn+6PF1SJU/7RqPbgaXTkTq7aGwyx5YBFGiWE8HbbQ==}
     peerDependencies:
       astro: ^4 || ^5 || ^6 || ^7
 
@@ -2231,33 +2231,33 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oxlint-tsgolint/darwin-arm64@7.0.2003':
-    resolution: {integrity: sha512-TgV33rXr6ueXBwvc+0nssUkTBSXHJxv77I8p4RCjDjCnvexHtmoPiudVRDfj3S3puMDdeQdHW6jdUgUPy3nr/w==}
+  '@oxlint-tsgolint/darwin-arm64@7.0.2004':
+    resolution: {integrity: sha512-uJk3ttju7Lz+Nv8WG4CsLyewoL1qf/Ny8S8OksJ7Bm/F14Tc9gMfW6arM1PCc57IzH/X/I79YsCWTgxX1FKibQ==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxlint-tsgolint/darwin-x64@7.0.2003':
-    resolution: {integrity: sha512-hY3FMAjIaPDdK3FNxyRXRfHPOFeoBn6dmnLyKZgQ2IbTTD1adXhl6PfCIqHhCPvurigv7nf7mYuWZZ19MmJzmg==}
+  '@oxlint-tsgolint/darwin-x64@7.0.2004':
+    resolution: {integrity: sha512-0BFfHTzDxNDFPcu0UZAXT6CyCJHAXM0dZveyDb4KEHa2qF/DSnOKOrmvK/wFuFol9kvijbGM9JfuOsor+zWXRw==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxlint-tsgolint/linux-arm64@7.0.2003':
-    resolution: {integrity: sha512-eAET4JpyfBbg8SO0K74o4R55tEjVC292pIyxGOw2XGf8x/HrPNyxwQ478jMYOM54FIVOHc8sJ6VRHxluy6lucw==}
+  '@oxlint-tsgolint/linux-arm64@7.0.2004':
+    resolution: {integrity: sha512-TAehQc+qdRXyDN3nl/r/3/oPrBVrbtrDeGMkFyG6mf+XphpoJ2lAMVFLclyvrVZCw02RbKROjyw8h72XwQQHcw==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxlint-tsgolint/linux-x64@7.0.2003':
-    resolution: {integrity: sha512-GXdyO/XyqDJ3s/llR/oOktLsYNjZtWSQBy0JMc+/0gsNPvTcseKPhn9c6KcFyWmnr6H4vljYALbujonqSzzEGw==}
+  '@oxlint-tsgolint/linux-x64@7.0.2004':
+    resolution: {integrity: sha512-LPunZvm6ZbWPfHMAyfZf9ci3HHvNEzLejO8zdqO3GoVGoSEHqqufHUD7+OgeatVSaJP7uXDJ2HaNOHIoH7go4Q==}
     cpu: [x64]
     os: [linux]
 
-  '@oxlint-tsgolint/win32-arm64@7.0.2003':
-    resolution: {integrity: sha512-TWauXnPfet0VgpmrstoAK58eJ4gbuwPUuUTQmYQAzE/RG1CpnxXtrKUJULf6lyerPE4KN3gM+DflIA1hOH+38Q==}
+  '@oxlint-tsgolint/win32-arm64@7.0.2004':
+    resolution: {integrity: sha512-FVWplzDImWhiuawnIZVETaQecv4GWom6Jv4Fx2xj7hhXXDZ5okEgiw1gTCImHTIQsi2ycC5oSxVwrn69bMh7iw==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxlint-tsgolint/win32-x64@7.0.2003':
-    resolution: {integrity: sha512-DoRmfe7j8VqNlukp8liRVW45GQDhzRccNenjD/pdzelgtffW47pCMd1xbJLkPaPbKnTwID3onn3VZlL7JbebEA==}
+  '@oxlint-tsgolint/win32-x64@7.0.2004':
+    resolution: {integrity: sha512-7PsxuUx11Ry9DYTWcljTzRbmZY9B6O9fFFfZV+aodQEMy6pfRT3fhoQRv9PtGN/89z1pPz3nFKrsFm6WqNtX7w==}
     cpu: [x64]
     os: [win32]
 
@@ -2470,14 +2470,14 @@ packages:
     peerDependencies:
       parse5: 7.x || 8.x
 
-  '@posthog/browser-common@0.9.2':
-    resolution: {integrity: sha512-kD0ayI59d+DVcqEFLFA1TU1B03PFNV/Hy18Yv1EOB24Px0CDDowkTR3pBE2j8MYeqtp+4XOoVTXrcJaJUp6zrg==}
+  '@posthog/browser-common@0.9.4':
+    resolution: {integrity: sha512-QlG0WZFG9iTp9cmXTypB4cgnxBAD3GImrj9AwmA84uh8uy5vIVgVLjoTTdOAW29XL+kh/eLn/5ZtBQt2JQfR+w==}
 
-  '@posthog/core@1.57.0':
-    resolution: {integrity: sha512-ZpIWCSkog0v4whufAXetagBsVLqE1Zjl5DsHC2squTy8nS/vqZ9W5JvWkJFgHK8hk5x1gdwMoXY7FK2S0YRT1Q==}
+  '@posthog/core@1.58.0':
+    resolution: {integrity: sha512-vluXIlVF6WGeHoQbsQK8Y1ywXZlJDU7YHEKiXAArQU38yFBpgxxfD0kInbYHtura4Fr7Z7H8WiDFvtMpCGehGg==}
 
-  '@posthog/types@1.415.1':
-    resolution: {integrity: sha512-7Qs2wcqipl8KcFpIkIKE1Wcj1djX4dEB3cfq907HrNpKK7/xKh3U4N4bkOD6h9+8j3SxWWrj9JNpE8CZXsE35w==}
+  '@posthog/types@1.415.2':
+    resolution: {integrity: sha512-BIIHPyXcPZuNTImrR1qLqLKFw7j9o8co6LG/9OpLtpWJ3RT0y89Lx6VCtd37N9/dkr/qW7y0uPjJxAxjsALHtw==}
 
   '@preact/preset-vite@2.10.6':
     resolution: {integrity: sha512-ZZ5RIT2ZVXg8UxRA8VZpoT8CdpDG7RFIqOT4bELqNBp85+HKvQBbgmh3gsoW1UOQXx26TLe+ZRNKI7q281Kckw==}
@@ -3238,8 +3238,8 @@ packages:
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
-  '@types/node@26.6.4':
-    resolution: {integrity: sha512-ldVPDCzj7fsaGZrLB0NuHuTvJcsNasysBAqMolr/cgxrLd1xbqxIr3XJiPnHHJUCxj5sNF1vnRj9aWnrVh5Jcg==}
+  '@types/node@26.6.5':
+    resolution: {integrity: sha512-uMzsv9stDdofIZBx4UGh4Z9ZgXnGC9seRDscilBcTHAeOFk67MZg/k9bWVfO+bk4qZmG+l52hRnLwUiH2LnJTg==}
 
   '@types/pngjs@6.0.5':
     resolution: {integrity: sha512-0k5eKfrA83JOZPppLtS2C7OUtyNAl2wKNxfyYl9Q5g9lPkgBl/9hNyAu6HuEH2J4XmIv2znEpkDd0SaZVxW6iQ==}
@@ -3629,11 +3629,11 @@ packages:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
     engines: {node: '>= 0.4'}
 
-  arkregex@0.0.12:
-    resolution: {integrity: sha512-sOxL0eX50pnRYO4OyajKZChGuuj/iHwC5tysiAaGOPBu+zJwJQckWn7/DRH2++ol5uaKpyRn7N0hKT7nDqGmgg==}
+  arkregex@0.0.13:
+    resolution: {integrity: sha512-c17sqCqiiZauxyoU1KZ2zbzCgeghGmc8dR2CrdQnlEtpq3bLhRLoLrxTL52M/8yQD8e/i1/IBRpRCNAuqJa7xQ==}
 
-  arktype@2.2.7:
-    resolution: {integrity: sha512-AbgM5SQvwCTURSR+ENfPtOG7cL5VZ0hqOVtoWyXKw2SviFddZhCBEUAjjVJYKCNFlPPR1VX5LGUKxsSqqc4Kdw==}
+  arktype@2.2.8:
+    resolution: {integrity: sha512-tZyLza7kO2vN8BXBKcj4t43IVMe8/ZyqlITH0chZv7FfEw+edLovpY922tqcK4mCjTpf4oNo2xV6np7tquP1ww==}
 
   array-buffer-byte-length@1.0.2:
     resolution: {integrity: sha512-LHE+8BuR7RYGDKvnrmcuSq3tDcKv9OFEXQt/HpbZhY7V6h0zlUXutnAD82GiFx9rdieCMjkvtcsPqBwgUl1Iiw==}
@@ -3677,8 +3677,8 @@ packages:
     peerDependencies:
       astro: ^5.0.0 || ^6.0.0 || ^7.0.0
 
-  astro@7.3.6:
-    resolution: {integrity: sha512-3q0MKxfE4cpr5IoQ9EWrN0gwxeT5tkCaSVe3SrGlLR5fnTIywHqjVqFokQkQiZexfwpNtB9dtBdUcXV9FuD+4w==}
+  astro@7.3.8:
+    resolution: {integrity: sha512-LHzDHSaV+YzZiR3EFndDYTLLeNeuMtP1qX1FLcCNUUHOCqTTIWPczy2UV3zpA5VqvJe5cWZolqM9Z8JFqR2i9w==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
     peerDependencies:
@@ -4522,8 +4522,8 @@ packages:
   h3@1.15.11:
     resolution: {integrity: sha512-L3THSe2MPeBwgIZVSH5zLdBBU90TOxarvhK9d04IDY2AmVS8j2Jz2LIWtwsGOU3lu2I5jCN7FNvVfY2+XyF+mg==}
 
-  happy-dom@20.14.5:
-    resolution: {integrity: sha512-x/RzkpWO40bTjIoT30iQtt64FLLmH/iRcUCN2X//bLx7H3ifkdfPXyqsro/OYtqzIAhiLMMA7mmiOR9C3NOKjQ==}
+  happy-dom@20.14.6:
+    resolution: {integrity: sha512-5DDsf4QmEIlRL6NkCv/fxSjYHHkZceL/IaYQdJc2h3G7DRTEai++VTjbfL0LB9geW2VrA3+vrjF3Efx+OTtX0Q==}
     engines: {node: '>=20.0.0'}
 
   has-bigints@1.1.0:
@@ -5063,8 +5063,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@1.52.0:
-    resolution: {integrity: sha512-TUgPtl5ZI9WgxOcbu4ckaC5B3l1qxPQrCMgb6OfUB9owx/OvSJfcf93SMgUWAxRw5/1XDfh9uI5F5iNGXCcGDQ==}
+  lucide-react@1.55.0:
+    resolution: {integrity: sha512-bSozQHiI3/8q7JvgoqVRGOYUi7fYT3siAZwmZsljjsOH2Husp/2ODdFf/leD+ZC/2yKfn7r8oh6yeoR3ITR5vA==}
     peerDependencies:
       '@types/react': '*'
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -5357,8 +5357,8 @@ packages:
     engines: {node: ^22 || >= 24}
     hasBin: true
 
-  nanoid@3.3.18:
-    resolution: {integrity: sha512-DTg4MJbGMWkfi6VZFdNt2/caMbQy4Ou+Op/hJQvGEWcnVfoA1QA+xzRKAzw9jD6+GVOOeYr/mIcuDSdug6F6+w==}
+  nanoid@3.3.20:
+    resolution: {integrity: sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -5477,8 +5477,8 @@ packages:
       vite-plus:
         optional: true
 
-  oxlint-tsgolint@7.0.2003:
-    resolution: {integrity: sha512-VnK4zlqgmgq/7ZcjzCk/WpN8kKFsYGcB85Io9qT3wL4K8Un3RKmJkp793crNETieMusPMKOA4a+Mw2wbteI6TQ==}
+  oxlint-tsgolint@7.0.2004:
+    resolution: {integrity: sha512-vQ9WDF3fiZJvRdSDosNOflerOCOpwol6vWzVDxW76RcU19cjTh7engvkHLvmv+tzedR8fAiJUVUGr6IVZdkzXQ==}
     hasBin: true
 
   oxlint@1.87.0:
@@ -5631,8 +5631,12 @@ packages:
     resolution: {integrity: sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==}
     engines: {node: ^10 || ^12 || >=14}
 
-  posthog-js@1.438.1:
-    resolution: {integrity: sha512-0ro5G2kkl2SJrXPmKRh/bzPa016hJ9FbbKXojgs7Q2aMLjzXiu3U7ogyBjbnz1XkgWwU6a5IrRMqycdHGuDHeg==}
+  postcss@8.5.29:
+    resolution: {integrity: sha512-49cGhUbXj8Qenv0iTMxA1cFBzxXoctpC9Ujd77t1WcbJIr6nF/eI7g/8MgxrYldFRuAXvja7xQRwavoW7kgrxQ==}
+    engines: {node: ^10 || ^12 || >=14}
+
+  posthog-js@1.438.7:
+    resolution: {integrity: sha512-fcP3x031ASiq0/xXpK7QccnnbEQlF4oO2nXyXID0QXkMIoNXuBZg7u0MdsxJYXFqFEgGGtNP83ynsm8PCxi9BA==}
     peerDependencies:
       '@types/react': '>=16.8.0'
       react: '>=16.8.0'
@@ -5655,8 +5659,8 @@ packages:
       preact-render-to-string:
         optional: true
 
-  preact@11.0.0:
-    resolution: {integrity: sha512-LRTLKuSe6VYPhvBDjwFaX+nuZnpsw6IN2GSboisAvhGsncylBmrbDCERhgKDn6yP2mAwbGvsB5OVyTe33M8gBg==}
+  preact@11.0.1:
+    resolution: {integrity: sha512-TNNwEq++jYNHy747LziCjPRVgEwnLSOIOAw/oYcjI3Tdnubx2EXtt76I0an8PATvUWtx/DX1kFIg1eFN+O/fkw==}
     peerDependencies:
       preact-render-to-string: '>=6.7.0'
     peerDependenciesMeta:
@@ -6041,6 +6045,10 @@ packages:
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
+    engines: {node: '>=0.10.0'}
+
+  source-map-js@1.2.2:
+    resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
 
   source-map-support@0.5.21:
@@ -6645,8 +6653,8 @@ packages:
       vite:
         optional: true
 
-  vite@8.3.3:
-    resolution: {integrity: sha512-cTAldKPImjg6c+gk48U19POPn3GCBzZwpdsN8ZMEEcbpes+6/wvfqUd0C2y3qYY4wsj8PwgFwrZ/1jBPVttMSg==}
+  vite@8.3.4:
+    resolution: {integrity: sha512-IftLE8phJhdNRIGNEV4JCCvfNScoZQVfcXaN8TQropWGJtOHcu+iAB9pHcuGvmEb/kddw0LBe/jS8ztdC6xdiQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -7060,11 +7068,11 @@ snapshots:
       jsonpointer: 5.0.1
       leven: 3.1.0
 
-  '@ark/schema@0.56.6':
+  '@ark/schema@0.56.7':
     dependencies:
-      '@ark/util': 0.56.6
+      '@ark/util': 0.56.7
 
-  '@ark/util@0.56.6': {}
+  '@ark/util@0.56.7': {}
 
   '@asamuzakjp/css-color@7.1.3':
     dependencies:
@@ -7099,7 +7107,7 @@ snapshots:
     dependencies:
       '@astro-community/astro-embed-utils': 0.2.0
 
-  '@astro-community/astro-embed-integration@0.13.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3)':
+  '@astro-community/astro-embed-integration@0.13.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3)':
     dependencies:
       '@astro-community/astro-embed-bluesky': 0.2.3(typescript@6.0.3)
       '@astro-community/astro-embed-gist': 0.1.0
@@ -7109,8 +7117,8 @@ snapshots:
       '@astro-community/astro-embed-vimeo': 0.3.12
       '@astro-community/astro-embed-youtube': 0.5.10
       '@types/unist': 3.0.3
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
-      astro-auto-import: 0.6.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      astro-auto-import: 0.6.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       unist-util-select: 5.1.0
     transitivePeerDependencies:
       - typescript
@@ -7273,11 +7281,11 @@ snapshots:
       github-slugger: 2.0.0
       satteri: 0.10.5
 
-  '@astrojs/mdx@8.0.3(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@astrojs/markdown-satteri@0.4.3)(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@astrojs/mdx@8.0.3(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@astrojs/markdown-satteri@0.4.3)(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@astrojs/internal-helpers': 0.12.0
       '@astrojs/markdown-satteri': 0.4.3
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       es-module-lexer: 3.0.3
     optionalDependencies:
       '@astrojs/markdown-remark': 7.3.2(supports-color@7.2.0)
@@ -7287,15 +7295,15 @@ snapshots:
       '@qwik.dev/partytown': 0.14.5
       mrmime: 2.0.1
 
-  '@astrojs/preact@6.0.6(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(preact@11.0.0)(rollup@4.63.1)(sass@1.105.1)(supports-color@7.2.0)(terser@5.51.2)(yaml@2.9.0)':
+  '@astrojs/preact@6.0.6(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(preact@11.0.1)(rollup@4.63.1)(sass@1.105.1)(supports-color@7.2.0)(terser@5.51.2)(yaml@2.9.0)':
     dependencies:
       '@astrojs/internal-helpers': 0.12.0
-      '@preact/preset-vite': 2.10.6(@babel/core@7.29.7(supports-color@7.2.0))(preact@11.0.0)(rollup@4.63.1)(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
-      '@preact/signals': 2.11.2(preact@11.0.0)
+      '@preact/preset-vite': 2.10.6(@babel/core@7.29.7(supports-color@7.2.0))(preact@11.0.1)(rollup@4.63.1)(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      '@preact/signals': 2.11.2(preact@11.0.1)
       devalue: 5.9.4
-      preact: 11.0.0(preact-render-to-string@6.7.0)
-      preact-render-to-string: 6.7.0(preact@11.0.0)
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      preact: 11.0.1(preact-render-to-string@6.7.0)
+      preact-render-to-string: 6.7.0(preact@11.0.1)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@types/node'
@@ -7328,15 +7336,15 @@ snapshots:
       sitemap: 9.0.1
       zod: 4.6.5
 
-  '@astrojs/svelte@9.0.1(@types/node@26.6.4)(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(svelte@5.57.2)(terser@5.51.2)(typescript@6.0.3)(yaml@2.9.0)':
+  '@astrojs/svelte@9.0.1(@types/node@26.6.5)(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(svelte@5.57.2)(terser@5.51.2)(typescript@6.0.3)(yaml@2.9.0)':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 7.3.0(svelte@5.57.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      '@sveltejs/vite-plugin-svelte': 7.3.0(svelte@5.57.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       svelte: 5.57.2
       svelte2tsx: 0.7.61(svelte@5.57.2)(typescript@6.0.3)
       typescript: 6.0.3
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
-      vitefu: 1.1.3(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vitefu: 1.1.3(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
     transitivePeerDependencies:
       - '@types/node'
       - '@vitejs/devtools'
@@ -8573,7 +8581,7 @@ snapshots:
 
   '@exodus/bytes@1.16.0': {}
 
-  '@iconify/json@2.2.539':
+  '@iconify/json@2.2.541':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 2.0.3
@@ -8695,122 +8703,122 @@ snapshots:
 
   '@inquirer/ansi@2.0.8': {}
 
-  '@inquirer/checkbox@5.2.4(@types/node@26.6.4)':
+  '@inquirer/checkbox@5.2.4(@types/node@26.6.5)':
     dependencies:
       '@inquirer/ansi': 2.0.8
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
       '@inquirer/figures': 2.0.9
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
-  '@inquirer/confirm@6.3.1(@types/node@26.6.4)':
+  '@inquirer/confirm@6.3.1(@types/node@26.6.5)':
     dependencies:
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
-  '@inquirer/core@12.0.2(@types/node@26.6.4)':
+  '@inquirer/core@12.0.2(@types/node@26.6.5)':
     dependencies:
       '@inquirer/ansi': 2.0.8
       '@inquirer/figures': 2.0.9
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
       cli-width: 4.1.0
       fast-wrap-ansi: 0.2.2
       mute-stream: 3.0.0
       signal-exit: 4.1.0
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
-  '@inquirer/editor@5.3.2(@types/node@26.6.4)':
+  '@inquirer/editor@5.3.2(@types/node@26.6.5)':
     dependencies:
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
-      '@inquirer/external-editor': 3.0.5(@types/node@26.6.4)
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
+      '@inquirer/external-editor': 3.0.5(@types/node@26.6.5)
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
-  '@inquirer/expand@5.1.4(@types/node@26.6.4)':
+  '@inquirer/expand@5.1.4(@types/node@26.6.5)':
     dependencies:
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
-  '@inquirer/external-editor@3.0.5(@types/node@26.6.4)':
+  '@inquirer/external-editor@3.0.5(@types/node@26.6.5)':
     dependencies:
       chardet: 2.2.0
       iconv-lite: 0.7.3
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
   '@inquirer/figures@2.0.9': {}
 
-  '@inquirer/input@5.1.5(@types/node@26.6.4)':
+  '@inquirer/input@5.1.5(@types/node@26.6.5)':
     dependencies:
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
-  '@inquirer/number@4.2.2(@types/node@26.6.4)':
+  '@inquirer/number@4.2.2(@types/node@26.6.5)':
     dependencies:
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
-  '@inquirer/password@5.2.1(@types/node@26.6.4)':
-    dependencies:
-      '@inquirer/ansi': 2.0.8
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
-    optionalDependencies:
-      '@types/node': 26.6.4
-
-  '@inquirer/prompts@8.7.1(@types/node@26.6.4)':
-    dependencies:
-      '@inquirer/checkbox': 5.2.4(@types/node@26.6.4)
-      '@inquirer/confirm': 6.3.1(@types/node@26.6.4)
-      '@inquirer/editor': 5.3.2(@types/node@26.6.4)
-      '@inquirer/expand': 5.1.4(@types/node@26.6.4)
-      '@inquirer/input': 5.1.5(@types/node@26.6.4)
-      '@inquirer/number': 4.2.2(@types/node@26.6.4)
-      '@inquirer/password': 5.2.1(@types/node@26.6.4)
-      '@inquirer/rawlist': 5.3.4(@types/node@26.6.4)
-      '@inquirer/search': 4.3.2(@types/node@26.6.4)
-      '@inquirer/select': 5.2.4(@types/node@26.6.4)
-    optionalDependencies:
-      '@types/node': 26.6.4
-
-  '@inquirer/rawlist@5.3.4(@types/node@26.6.4)':
-    dependencies:
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
-    optionalDependencies:
-      '@types/node': 26.6.4
-
-  '@inquirer/search@4.3.2(@types/node@26.6.4)':
-    dependencies:
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
-      '@inquirer/figures': 2.0.9
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
-    optionalDependencies:
-      '@types/node': 26.6.4
-
-  '@inquirer/select@5.2.4(@types/node@26.6.4)':
+  '@inquirer/password@5.2.1(@types/node@26.6.5)':
     dependencies:
       '@inquirer/ansi': 2.0.8
-      '@inquirer/core': 12.0.2(@types/node@26.6.4)
-      '@inquirer/figures': 2.0.9
-      '@inquirer/type': 4.1.1(@types/node@26.6.4)
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
-  '@inquirer/type@4.1.1(@types/node@26.6.4)':
+  '@inquirer/prompts@8.7.1(@types/node@26.6.5)':
+    dependencies:
+      '@inquirer/checkbox': 5.2.4(@types/node@26.6.5)
+      '@inquirer/confirm': 6.3.1(@types/node@26.6.5)
+      '@inquirer/editor': 5.3.2(@types/node@26.6.5)
+      '@inquirer/expand': 5.1.4(@types/node@26.6.5)
+      '@inquirer/input': 5.1.5(@types/node@26.6.5)
+      '@inquirer/number': 4.2.2(@types/node@26.6.5)
+      '@inquirer/password': 5.2.1(@types/node@26.6.5)
+      '@inquirer/rawlist': 5.3.4(@types/node@26.6.5)
+      '@inquirer/search': 4.3.2(@types/node@26.6.5)
+      '@inquirer/select': 5.2.4(@types/node@26.6.5)
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
+
+  '@inquirer/rawlist@5.3.4(@types/node@26.6.5)':
+    dependencies:
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
+    optionalDependencies:
+      '@types/node': 26.6.5
+
+  '@inquirer/search@4.3.2(@types/node@26.6.5)':
+    dependencies:
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
+      '@inquirer/figures': 2.0.9
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
+    optionalDependencies:
+      '@types/node': 26.6.5
+
+  '@inquirer/select@5.2.4(@types/node@26.6.5)':
+    dependencies:
+      '@inquirer/ansi': 2.0.8
+      '@inquirer/core': 12.0.2(@types/node@26.6.5)
+      '@inquirer/figures': 2.0.9
+      '@inquirer/type': 4.1.1(@types/node@26.6.5)
+    optionalDependencies:
+      '@types/node': 26.6.5
+
+  '@inquirer/type@4.1.1(@types/node@26.6.5)':
+    optionalDependencies:
+      '@types/node': 26.6.5
 
   '@isaacs/cliui@9.0.0': {}
 
@@ -8840,9 +8848,9 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@lucide/astro@1.52.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@lucide/astro@1.55.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
   '@mdx-js/mdx@3.1.1(supports-color@7.2.0)':
     dependencies:
@@ -8880,10 +8888,10 @@ snapshots:
     dependencies:
       nanostores: 1.5.5
 
-  '@nanostores/preact@1.1.1(nanostores@1.5.5)(preact@11.0.0)':
+  '@nanostores/preact@1.1.1(nanostores@1.5.5)(preact@11.0.1)':
     dependencies:
       nanostores: 1.5.5
-      preact: 11.0.0(preact-render-to-string@6.7.0)
+      preact: 11.0.1(preact-render-to-string@6.7.0)
 
   '@nanostores/react@2.0.1(nanostores@1.5.5)(react@19.2.8)':
     dependencies:
@@ -8985,22 +8993,22 @@ snapshots:
   '@oxfmt/binding-win32-x64-msvc@0.72.0':
     optional: true
 
-  '@oxlint-tsgolint/darwin-arm64@7.0.2003':
+  '@oxlint-tsgolint/darwin-arm64@7.0.2004':
     optional: true
 
-  '@oxlint-tsgolint/darwin-x64@7.0.2003':
+  '@oxlint-tsgolint/darwin-x64@7.0.2004':
     optional: true
 
-  '@oxlint-tsgolint/linux-arm64@7.0.2003':
+  '@oxlint-tsgolint/linux-arm64@7.0.2004':
     optional: true
 
-  '@oxlint-tsgolint/linux-x64@7.0.2003':
+  '@oxlint-tsgolint/linux-x64@7.0.2004':
     optional: true
 
-  '@oxlint-tsgolint/win32-arm64@7.0.2003':
+  '@oxlint-tsgolint/win32-arm64@7.0.2004':
     optional: true
 
-  '@oxlint-tsgolint/win32-x64@7.0.2003':
+  '@oxlint-tsgolint/win32-x64@7.0.2004':
     optional: true
 
   '@oxlint/binding-android-arm-eabi@1.87.0':
@@ -9121,30 +9129,30 @@ snapshots:
     dependencies:
       parse5: 8.0.1
 
-  '@posthog/browser-common@0.9.2':
+  '@posthog/browser-common@0.9.4':
     dependencies:
-      '@posthog/core': 1.57.0
-      '@posthog/types': 1.415.1
+      '@posthog/core': 1.58.0
+      '@posthog/types': 1.415.2
 
-  '@posthog/core@1.57.0':
+  '@posthog/core@1.58.0':
     dependencies:
-      '@posthog/types': 1.415.1
+      '@posthog/types': 1.415.2
 
-  '@posthog/types@1.415.1': {}
+  '@posthog/types@1.415.2': {}
 
-  '@preact/preset-vite@2.10.6(@babel/core@7.29.7(supports-color@7.2.0))(preact@11.0.0)(rollup@4.63.1)(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@preact/preset-vite@2.10.6(@babel/core@7.29.7(supports-color@7.2.0))(preact@11.0.1)(rollup@4.63.1)(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@7.2.0)
       '@babel/plugin-transform-react-jsx': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@7.2.0)
       '@babel/plugin-transform-react-jsx-development': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@7.2.0)
-      '@prefresh/vite': 2.4.12(preact@11.0.0)(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      '@prefresh/vite': 2.4.12(preact@11.0.1)(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       '@rollup/pluginutils': 5.4.0(rollup@4.63.1)
       babel-plugin-transform-hook-names: 1.0.2(@babel/core@7.29.7(supports-color@7.2.0))
       debug: 4.4.3(supports-color@7.2.0)
       magic-string: 0.30.21
       picocolors: 1.1.1
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
-      vite-prerender-plugin: 0.5.13(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite-prerender-plugin: 0.5.13(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       zimmerframe: 1.1.5
     transitivePeerDependencies:
       - preact
@@ -9153,28 +9161,28 @@ snapshots:
 
   '@preact/signals-core@1.14.4': {}
 
-  '@preact/signals@2.11.2(preact@11.0.0)':
+  '@preact/signals@2.11.2(preact@11.0.1)':
     dependencies:
       '@preact/signals-core': 1.14.4
-      preact: 11.0.0(preact-render-to-string@6.7.0)
+      preact: 11.0.1(preact-render-to-string@6.7.0)
 
   '@prefresh/babel-plugin@0.5.3': {}
 
-  '@prefresh/core@1.5.11(preact@11.0.0)':
+  '@prefresh/core@1.5.11(preact@11.0.1)':
     dependencies:
-      preact: 11.0.0(preact-render-to-string@6.7.0)
+      preact: 11.0.1(preact-render-to-string@6.7.0)
 
   '@prefresh/utils@1.2.1': {}
 
-  '@prefresh/vite@2.4.12(preact@11.0.0)(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@prefresh/vite@2.4.12(preact@11.0.1)(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@7.2.0)
       '@prefresh/babel-plugin': 0.5.3
-      '@prefresh/core': 1.5.11(preact@11.0.0)
+      '@prefresh/core': 1.5.11(preact@11.0.1)
       '@prefresh/utils': 1.2.1
       '@rollup/pluginutils': 4.2.1
-      preact: 11.0.0(preact-render-to-string@6.7.0)
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      preact: 11.0.1(preact-render-to-string@6.7.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -9451,9 +9459,9 @@ snapshots:
       tslib: 2.8.1
       typed-inject: 5.0.0
 
-  '@stryker-mutator/core@10.0.0(@types/node@26.6.4)':
+  '@stryker-mutator/core@10.0.0(@types/node@26.6.5)':
     dependencies:
-      '@inquirer/prompts': 8.7.1(@types/node@26.6.4)
+      '@inquirer/prompts': 8.7.1(@types/node@26.6.5)
       '@stryker-mutator/api': 10.0.0
       '@stryker-mutator/instrumenter': 10.0.0
       '@stryker-mutator/util': 10.0.0
@@ -9499,37 +9507,37 @@ snapshots:
       tslib: 2.8.1
       weapon-regex: 2.0.5
 
-  '@stryker-mutator/typescript-checker@10.0.0(@stryker-mutator/core@10.0.0(@types/node@26.6.4))(typescript@6.0.3)':
+  '@stryker-mutator/typescript-checker@10.0.0(@stryker-mutator/core@10.0.0(@types/node@26.6.5))(typescript@6.0.3)':
     dependencies:
       '@stryker-mutator/api': 10.0.0
-      '@stryker-mutator/core': 10.0.0(@types/node@26.6.4)
+      '@stryker-mutator/core': 10.0.0(@types/node@26.6.5)
       '@stryker-mutator/util': 10.0.0
       semver: 7.8.5
       typescript: 6.0.3
 
   '@stryker-mutator/util@10.0.0': {}
 
-  '@stryker-mutator/vitest-runner@10.0.0(@stryker-mutator/core@10.0.0(@types/node@26.6.4))(vitest@5.0.3)':
+  '@stryker-mutator/vitest-runner@10.0.0(@stryker-mutator/core@10.0.0(@types/node@26.6.5))(vitest@5.0.3)':
     dependencies:
       '@stryker-mutator/api': 10.0.0
-      '@stryker-mutator/core': 10.0.0(@types/node@26.6.4)
+      '@stryker-mutator/core': 10.0.0(@types/node@26.6.5)
       '@stryker-mutator/util': 10.0.0
       semver: 7.8.5
       tslib: 2.8.1
-      vitest: 5.0.3(@types/node@26.6.4)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.5)(jsdom@30.1.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vitest: 5.0.3(@types/node@26.6.5)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.6)(jsdom@30.1.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
 
   '@sveltejs/acorn-typescript@1.0.13(acorn@8.18.0)':
     dependencies:
       acorn: 8.18.0
 
-  '@sveltejs/vite-plugin-svelte@7.3.0(svelte@5.57.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@sveltejs/vite-plugin-svelte@7.3.0(svelte@5.57.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       deepmerge: 4.3.1
       magic-string: 1.2.3
       obug: 2.1.4
       svelte: 5.57.2
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
-      vitefu: 1.1.3(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vitefu: 1.1.3(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
 
   '@swc/core-darwin-arm64@1.16.2':
     optional: true
@@ -9740,7 +9748,7 @@ snapshots:
 
   '@types/jsdom@30.0.0':
     dependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
       '@types/tough-cookie': 4.0.5
       parse5: 8.0.1
       undici-types: 8.10.2
@@ -9772,13 +9780,13 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
-  '@types/node@26.6.4':
+  '@types/node@26.6.5':
     dependencies:
       undici-types: 8.9.0
 
   '@types/pngjs@6.0.5':
     dependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
   '@types/resolve@1.20.2': {}
 
@@ -9788,7 +9796,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
   '@types/tough-cookie@4.0.5': {}
 
@@ -9802,16 +9810,16 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
   '@ungap/structured-clone@1.4.0': {}
 
-  '@unpic/astro@0.0.47(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@unpic/astro@0.0.47(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@unpic/core': 0.0.49
       '@unpic/pixels': 1.3.0
       '@unpic/placeholder': 0.1.2
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       blurhash: 2.0.5
 
   '@unpic/core@0.0.49':
@@ -9828,12 +9836,12 @@ snapshots:
     dependencies:
       blurhash: 2.0.5
 
-  '@vite-pwa/astro@1.2.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(vite-plugin-pwa@2.0.0(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1))':
+  '@vite-pwa/astro@1.2.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(vite-plugin-pwa@2.0.0(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1))':
     dependencies:
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
-      vite-plugin-pwa: 2.0.0(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1)
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite-plugin-pwa: 2.0.0(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1)
 
-  '@vitejs/plugin-legacy@7.2.1(supports-color@7.2.0)(terser@5.51.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@vitejs/plugin-legacy@7.2.1(supports-color@7.2.0)(terser@5.51.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@7.2.0)
       '@babel/plugin-transform-dynamic-import': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))
@@ -9848,19 +9856,19 @@ snapshots:
       regenerator-runtime: 0.14.1
       systemjs: 6.15.1
       terser: 5.51.2
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-react-swc@4.3.3(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@vitejs/plugin-react-swc@4.3.3(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
       '@swc/core': 1.16.2
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  '@vitejs/plugin-react@5.2.0(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@vitejs/plugin-react@5.2.0(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@7.2.0)
       '@babel/plugin-transform-react-jsx-self': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))
@@ -9868,14 +9876,14 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-rc.3
       '@types/babel__core': 7.20.5
       react-refresh: 0.18.0
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-react@6.1.2(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@vitejs/plugin-react@6.1.2(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
   '@vitest/coverage-istanbul@5.0.3(vitest@5.0.3)':
     dependencies:
@@ -9888,7 +9896,7 @@ snapshots:
       magicast: 0.5.4
       obug: 2.1.4
       tinyrainbow: 3.1.1
-      vitest: 5.0.3(@types/node@26.6.4)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.5)(jsdom@30.1.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vitest: 5.0.3(@types/node@26.6.5)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.6)(jsdom@30.1.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
 
   '@vitest/coverage-v8@5.0.3(vitest@5.0.3)':
     dependencies:
@@ -9900,7 +9908,7 @@ snapshots:
       obug: 2.1.4
       std-env: 4.2.0
       tinyrainbow: 3.1.1
-      vitest: 5.0.3(@types/node@26.6.4)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.5)(jsdom@30.1.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vitest: 5.0.3(@types/node@26.6.5)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.6)(jsdom@30.1.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
 
   '@vitest/istanbul-lib-coverage@1.0.2': {}
 
@@ -9922,14 +9930,14 @@ snapshots:
       '@vitest/istanbul-lib-coverage': 1.0.2
       obug: 2.1.4
 
-  '@vitest/mocker@5.0.3(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@vitest/mocker@5.0.3(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.3
       estree-walker: 3.0.3
       magic-string: 1.4.3
     optionalDependencies:
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
   '@vitest/spy@5.0.3': {}
 
@@ -10119,15 +10127,15 @@ snapshots:
 
   aria-query@5.3.2: {}
 
-  arkregex@0.0.12:
+  arkregex@0.0.13:
     dependencies:
-      '@ark/util': 0.56.6
+      '@ark/util': 0.56.7
 
-  arktype@2.2.7:
+  arktype@2.2.8:
     dependencies:
-      '@ark/schema': 0.56.6
-      '@ark/util': 0.56.6
-      arkregex: 0.0.12
+      '@ark/schema': 0.56.7
+      '@ark/util': 0.56.7
+      arkregex: 0.0.13
 
   array-buffer-byte-length@1.0.2:
     dependencies:
@@ -10156,20 +10164,20 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-auto-import@0.6.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  astro-auto-import@0.6.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       acorn: 8.18.0
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
-  astro-cloudinary@1.4.0(@swc/core@1.16.2)(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(postcss@8.5.28)(supports-color@7.2.0)(typescript@6.0.3)(yaml@2.9.0):
+  astro-cloudinary@1.4.0(@swc/core@1.16.2)(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(postcss@8.5.28)(supports-color@7.2.0)(typescript@6.0.3)(yaml@2.9.0):
     dependencies:
       '@cloudinary-util/types': 1.6.0
       '@cloudinary-util/url-loader': 6.2.0
       '@cloudinary-util/util': 4.3.0
       '@cloudinary/url-gen': 1.22.0
-      '@unpic/astro': 0.0.47(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      '@unpic/astro': 0.0.47(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       '@unpic/core': 0.0.49
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       tsup: 8.5.1(@swc/core@1.16.2)(postcss@8.5.28)(supports-color@7.2.0)(typescript@6.0.3)(yaml@2.9.0)
       unpic: 3.22.0
     transitivePeerDependencies:
@@ -10182,31 +10190,31 @@ snapshots:
       - typescript
       - yaml
 
-  astro-embed@0.14.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3):
+  astro-embed@0.14.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3):
     dependencies:
       '@astro-community/astro-embed-baseline-status': 0.2.2
       '@astro-community/astro-embed-bluesky': 0.2.3(typescript@6.0.3)
       '@astro-community/astro-embed-gist': 0.1.0
-      '@astro-community/astro-embed-integration': 0.13.0(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3)
+      '@astro-community/astro-embed-integration': 0.13.0(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3)
       '@astro-community/astro-embed-link-preview': 0.3.1
       '@astro-community/astro-embed-mastodon': 0.1.1
       '@astro-community/astro-embed-twitter': 0.5.11
       '@astro-community/astro-embed-vimeo': 0.3.12
       '@astro-community/astro-embed-youtube': 0.5.10
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - typescript
 
-  astro-i18n-aut@0.8.1(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  astro-i18n-aut@0.8.1(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       dedent: 1.7.2
       fast-glob: 3.3.3
       slash: 5.1.0
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0):
+  astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0):
     dependencies:
       '@astrojs/compiler-rs': 0.5.1
       '@astrojs/internal-helpers': 0.12.0
@@ -10226,7 +10234,6 @@ snapshots:
       diff: 9.0.0
       dset: 3.1.4
       es-module-lexer: 3.0.3
-      esbuild: 0.28.2
       find-proc: 0.2.0
       flattie: 1.1.1
       fontace: 0.4.1
@@ -10256,14 +10263,14 @@ snapshots:
       unifont: 0.7.5
       unstorage: 1.17.5
       verkit: 0.5.0
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
-      vitefu: 1.1.3(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vitefu: 1.1.3(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       xxhash-wasm: 1.1.0
       yargs-parser: 22.0.0
       zod: 4.6.5
     optionalDependencies:
       '@astrojs/markdown-remark': 7.3.2(supports-color@7.2.0)
-      sharp: 0.35.4(@types/node@26.6.4)
+      sharp: 0.35.4(@types/node@26.6.5)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10283,6 +10290,7 @@ snapshots:
       - '@vitejs/devtools'
       - aws4fetch
       - db0
+      - esbuild
       - idb-keyval
       - ioredis
       - jiti
@@ -10296,9 +10304,9 @@ snapshots:
       - uploadthing
       - yaml
 
-  astrojs-service-worker@2.0.3(@types/babel__core@7.20.5)(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(supports-color@7.2.0):
+  astrojs-service-worker@2.0.3(@types/babel__core@7.20.5)(astro@7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(supports-color@7.2.0):
     dependencies:
-      astro: 7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.4)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      astro: 7.3.8(@astrojs/markdown-remark@7.3.2(supports-color@7.2.0))(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       workbox-build: 7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0)
     transitivePeerDependencies:
       - '@types/babel__core'
@@ -10397,11 +10405,11 @@ snapshots:
 
   buffer-image-size@0.6.4:
     dependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
   bun-types@1.4.2:
     dependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
 
   bundle-require@5.1.0(esbuild@0.28.2):
     dependencies:
@@ -10599,7 +10607,7 @@ snapshots:
   css-tree@2.2.1:
     dependencies:
       mdn-data: 2.0.28
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-tree@3.2.1:
     dependencies:
@@ -11226,9 +11234,9 @@ snapshots:
       ufo: 1.6.4
       uncrypto: 0.1.3
 
-  happy-dom@20.14.5:
+  happy-dom@20.14.6:
     dependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
       '@types/whatwg-mimetype': 3.0.2
       '@types/ws': 8.18.1
       buffer-image-size: 0.6.4
@@ -11824,7 +11832,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@1.52.0(react@19.2.8):
+  lucide-react@1.55.0(react@19.2.8):
     dependencies:
       react: 19.2.8
 
@@ -11854,7 +11862,7 @@ snapshots:
     dependencies:
       '@babel/parser': 7.29.8
       '@babel/types': 7.29.8
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   make-dir@5.1.0:
     optional: true
@@ -12387,7 +12395,7 @@ snapshots:
 
   nano-staged@1.0.2: {}
 
-  nanoid@3.3.18: {}
+  nanoid@3.3.20: {}
 
   nanostores@1.5.5: {}
 
@@ -12521,16 +12529,16 @@ snapshots:
       '@oxfmt/binding-win32-x64-msvc': 0.72.0
       svelte: 5.57.2
 
-  oxlint-tsgolint@7.0.2003:
+  oxlint-tsgolint@7.0.2004:
     optionalDependencies:
-      '@oxlint-tsgolint/darwin-arm64': 7.0.2003
-      '@oxlint-tsgolint/darwin-x64': 7.0.2003
-      '@oxlint-tsgolint/linux-arm64': 7.0.2003
-      '@oxlint-tsgolint/linux-x64': 7.0.2003
-      '@oxlint-tsgolint/win32-arm64': 7.0.2003
-      '@oxlint-tsgolint/win32-x64': 7.0.2003
+      '@oxlint-tsgolint/darwin-arm64': 7.0.2004
+      '@oxlint-tsgolint/darwin-x64': 7.0.2004
+      '@oxlint-tsgolint/linux-arm64': 7.0.2004
+      '@oxlint-tsgolint/linux-x64': 7.0.2004
+      '@oxlint-tsgolint/win32-arm64': 7.0.2004
+      '@oxlint-tsgolint/win32-x64': 7.0.2004
 
-  oxlint@1.87.0(oxlint-tsgolint@7.0.2003):
+  oxlint@1.87.0(oxlint-tsgolint@7.0.2004):
     optionalDependencies:
       '@oxlint/binding-android-arm-eabi': 1.87.0
       '@oxlint/binding-android-arm64': 1.87.0
@@ -12551,7 +12559,7 @@ snapshots:
       '@oxlint/binding-win32-arm64-msvc': 1.87.0
       '@oxlint/binding-win32-ia32-msvc': 1.87.0
       '@oxlint/binding-win32-x64-msvc': 1.87.0
-      oxlint-tsgolint: 7.0.2003
+      oxlint-tsgolint: 7.0.2004
 
   p-limit@7.3.3:
     dependencies:
@@ -12687,15 +12695,21 @@ snapshots:
 
   postcss@8.5.28:
     dependencies:
-      nanoid: 3.3.18
+      nanoid: 3.3.20
       picocolors: 1.1.1
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
-  posthog-js@1.438.1(preact-render-to-string@6.7.0)(react@19.2.8):
+  postcss@8.5.29:
     dependencies:
-      '@posthog/browser-common': 0.9.2
-      '@posthog/core': 1.57.0
-      '@posthog/types': 1.415.1
+      nanoid: 3.3.20
+      picocolors: 1.1.1
+      source-map-js: 1.2.2
+
+  posthog-js@1.438.7(preact-render-to-string@6.7.0)(react@19.2.8):
+    dependencies:
+      '@posthog/browser-common': 0.9.4
+      '@posthog/core': 1.58.0
+      '@posthog/types': 1.415.2
       core-js: 3.50.0
       dompurify: 3.4.16
       fflate: 0.4.9
@@ -12708,17 +12722,17 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  preact-render-to-string@6.7.0(preact@11.0.0):
+  preact-render-to-string@6.7.0(preact@11.0.1):
     dependencies:
-      preact: 11.0.0(preact-render-to-string@6.7.0)
+      preact: 11.0.1(preact-render-to-string@6.7.0)
 
   preact@10.29.8(preact-render-to-string@6.7.0):
     optionalDependencies:
-      preact-render-to-string: 6.7.0(preact@11.0.0)
+      preact-render-to-string: 6.7.0(preact@11.0.1)
 
-  preact@11.0.0(preact-render-to-string@6.7.0):
+  preact@11.0.1(preact-render-to-string@6.7.0):
     optionalDependencies:
-      preact-render-to-string: 6.7.0(preact@11.0.0)
+      preact-render-to-string: 6.7.0(preact@11.0.1)
 
   prettier@3.9.6: {}
 
@@ -13157,7 +13171,7 @@ snapshots:
       es-errors: 1.3.0
       es-object-atoms: 1.1.2
 
-  sharp@0.35.4(@types/node@26.6.4):
+  sharp@0.35.4(@types/node@26.6.5):
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
@@ -13188,7 +13202,7 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.4
       '@img/sharp-win32-ia32': 0.35.4
       '@img/sharp-win32-x64': 0.35.4
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
     optional: true
 
   shebang-command@2.0.0:
@@ -13262,6 +13276,8 @@ snapshots:
   smol-toml@1.9.0: {}
 
   source-map-js@1.2.1: {}
+
+  source-map-js@1.2.2: {}
 
   source-map-support@0.5.21:
     dependencies:
@@ -13712,13 +13728,13 @@ snapshots:
 
   unpic@3.22.0: {}
 
-  unplugin-icons@24.0.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(svelte@5.57.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  unplugin-icons@24.0.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(svelte@5.57.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       '@antfu/install-pkg': 1.1.0
       '@iconify/utils': 3.1.7
       local-pkg: 1.2.1
       obug: 2.2.1
-      unplugin: 3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      unplugin: 3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
     optionalDependencies:
       svelte: 5.57.2
     transitivePeerDependencies:
@@ -13732,12 +13748,12 @@ snapshots:
       - vite
       - webpack
 
-  unplugin-macros@0.23.2(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  unplugin-macros@0.23.2(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       import-without-cache: 0.4.0
       magic-string-ast: 2.1.1
       rolldown-string: 0.3.1(rolldown@1.2.7)
-      unplugin: 3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      unplugin: 3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       yuku-analyzer: 0.8.7
       yuku-ast: 0.8.7
       yuku-parser: 0.8.7
@@ -13752,7 +13768,7 @@ snapshots:
       - vite
       - webpack
 
-  unplugin@3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  unplugin@3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       picomatch: 4.0.7
@@ -13761,7 +13777,7 @@ snapshots:
       esbuild: 0.28.2
       rolldown: 1.2.7
       rollup: 4.63.1
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
   unstorage@1.17.5:
     dependencies:
@@ -13805,7 +13821,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite-plugin-html@3.2.2(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vite-plugin-html@3.2.2(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       colorette: 2.0.20
@@ -13819,45 +13835,45 @@ snapshots:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
-  vite-plugin-mkcert@1.17.12(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vite-plugin-mkcert@1.17.12(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       debug: 4.4.3(supports-color@7.2.0)
       picocolors: 1.1.1
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-oxlint@2.2.0(oxlint@1.87.0(oxlint-tsgolint@7.0.2003))(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vite-plugin-oxlint@2.2.0(oxlint@1.87.0(oxlint-tsgolint@7.0.2004))(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       cross-spawn: 7.0.6
-      oxlint: 1.87.0(oxlint-tsgolint@7.0.2003)
+      oxlint: 1.87.0(oxlint-tsgolint@7.0.2004)
       package-manager-detector: 1.8.0
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
-  vite-plugin-pwa@2.0.0(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1):
+  vite-plugin-pwa@2.0.0(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))(workbox-build@7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0))(workbox-window@7.4.1):
     dependencies:
       debug: 4.4.3(supports-color@7.2.0)
       pretty-bytes: 6.1.1
       tinyglobby: 0.2.17
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       workbox-build: 7.4.1(@types/babel__core@7.20.5)(supports-color@7.2.0)
       workbox-window: 7.4.1
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-qrcode@0.3.0(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vite-plugin-qrcode@0.3.0(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       qrcode-terminal: 0.12.0
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
-  vite-plugin-restart@1.0.0(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vite-plugin-restart@1.0.0(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       micromatch: 4.0.8
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
-  vite-prerender-plugin@0.5.13(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vite-prerender-plugin@0.5.13(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       kolorist: 1.8.0
       magic-string: 0.30.21
@@ -13865,48 +13881,48 @@ snapshots:
       simple-code-frame: 1.3.0
       source-map: 0.7.6
       stack-trace: 1.0.0
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
-  vite-react@5.0.0(supports-color@7.2.0)(typescript@6.0.3)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vite-react@5.0.0(supports-color@7.2.0)(typescript@6.0.3)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       '@types/html-minifier-terser': 7.0.2
-      '@vitejs/plugin-legacy': 7.2.1(supports-color@7.2.0)(terser@5.51.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
-      '@vitejs/plugin-react': 5.2.0(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
-      '@vitejs/plugin-react-swc': 4.3.3(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      '@vitejs/plugin-legacy': 7.2.1(supports-color@7.2.0)(terser@5.51.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      '@vitejs/plugin-react': 5.2.0(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      '@vitejs/plugin-react-swc': 4.3.3(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       less: 4.9.1(supports-color@7.2.0)
       sass: 1.105.1
       terser: 5.51.2
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
-      vite-plugin-html: 3.2.2(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
-      vite-plugin-mkcert: 1.17.12(supports-color@7.2.0)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
-      vite-plugin-qrcode: 0.3.0(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
-      vite-plugin-restart: 1.0.0(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
-      vite-tsconfig-paths: 5.1.4(supports-color@7.2.0)(typescript@6.0.3)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite-plugin-html: 3.2.2(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vite-plugin-mkcert: 1.17.12(supports-color@7.2.0)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vite-plugin-qrcode: 0.3.0(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vite-plugin-restart: 1.0.0(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      vite-tsconfig-paths: 5.1.4(supports-color@7.2.0)(typescript@6.0.3)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
     transitivePeerDependencies:
       - '@swc/helpers'
       - supports-color
       - typescript
 
-  vite-tsconfig-paths@5.1.4(supports-color@7.2.0)(typescript@6.0.3)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vite-tsconfig-paths@5.1.4(supports-color@7.2.0)(typescript@6.0.3)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       debug: 4.4.3(supports-color@7.2.0)
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@6.0.3)
     optionalDependencies:
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0):
+  vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
-      postcss: 8.5.28
+      postcss: 8.5.29
       rolldown: 1.2.12
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
       esbuild: 0.28.2
       fsevents: 2.3.3
       less: 4.9.1(supports-color@7.2.0)
@@ -13914,14 +13930,14 @@ snapshots:
       terser: 5.51.2
       yaml: 2.9.0
 
-  vitefu@1.1.3(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vitefu@1.1.3(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     optionalDependencies:
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
 
-  vitest@5.0.3(@types/node@26.6.4)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.5)(jsdom@30.1.2)(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
+  vitest@5.0.3(@types/node@26.6.5)(@vitest/coverage-istanbul@5.0.3)(@vitest/coverage-v8@5.0.3)(happy-dom@20.14.6)(jsdom@30.1.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.3(vite@8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
+      '@vitest/mocker': 5.0.3(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0))
       chai: 6.2.2
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -13932,13 +13948,13 @@ snapshots:
       tinybench: 6.2.0
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.3(@types/node@26.6.4)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(less@4.9.1(supports-color@7.2.0))(sass@1.105.1)(terser@5.51.2)(yaml@2.9.0)
       why-is-node-running: 3.2.1
     optionalDependencies:
-      '@types/node': 26.6.4
+      '@types/node': 26.6.5
       '@vitest/coverage-istanbul': 5.0.3(vitest@5.0.3)
       '@vitest/coverage-v8': 5.0.3(vitest@5.0.3)
-      happy-dom: 20.14.5
+      happy-dom: 20.14.6
       jsdom: 30.1.2
     transitivePeerDependencies:
       - msw
