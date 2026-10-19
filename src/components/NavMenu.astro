@@ -25,6 +25,8 @@ const links: {
 	href: string;
 	active?: string;
 	name?: string;
+	hreflang?: string;
+	lang?: string;
 }[] = [
 	{
 		href: translatePath('/'),
@@ -45,6 +47,8 @@ const links: {
 		.filter((item) => item !== lang)
 		.map((language) => ({
 			href: translatePath(Astro.url.pathname, language),
+			hreflang: language,
+			lang: language,
       name: new Intl.DisplayNames(language, {type: "language"}).of(language) ?? language,
 		})),
 ];
@@ -57,6 +61,8 @@ const links: {
 					<li class="nav-card gradient-border glass-surface">
 						<a
 							href={item.href}
+							hreflang={item.hreflang}
+							lang={item.lang}
 							class={`${default_class_links} ${activefunc(active, item.active)}`}
 							aria-current={activefunc(active, item.active) ? 'page' : undefined}
 						>{item.name}</a>
