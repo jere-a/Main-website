@@ -1,10 +1,13 @@
 /**
  * PostHog analytics initialization. Configures tracking with privacy-first defaults (opt-out by
  * default). Disables tracking in dev/test environments and for Lighthouse user agents.
+ *
+ * The heavy `posthog-js` bundle is loaded lazily via dynamic import so it stays out of the critical
+ * path. Consumers use the small facade exported as the default value; calls made before the client
+ * finishes loading are queued (feature-flag listeners) or deferred (opt-in).
  */
 
-import type { PostHogConfig, CaptureResult } from "posthog-js";
-import posthogModule from "posthog-js";
+import type { PostHog, PostHogConfig, CaptureResult } from "posthog-js";
 
 import * as siteConfig from "../config.ts" with { type: "macro" };
 
@@ -40,9 +43,29 @@ function posthogSendEvent(event: CaptureResult | null): CaptureResult | null {
   return null;
 }
 
+let client: PostHog | null = null;
+let initialized = false;
+
+/** Feature-flag listeners registered before the client finished loading. */
+const pendingFeatureFlagListeners = new Set<() => void>();
+let pendingOptIn = false;
+
+/** Load the PostHog client on demand. The module is cached by the bundler after the first call. */
+const loadClient = async (): Promise<PostHog> => {
+  if (client) return client;
+
+  const posthogModule = await import("posthog-js");
+  client = posthogModule.default;
+
+  return client;
+};
+
 /** Initialize PostHog. Safe to call multiple times (idempotent). */
 const init = async (): Promise<void> => {
-  if (typeof window === "undefined" || window.__posthog_initialized) return;
+  if (typeof window === "undefined" || initialized) return;
+  initialized = true;
+
+  const posthog = await loadClient();
   window.__posthog_initialized = true;
 
   const isDev = isDevMode();
@@ -66,9 +89,47 @@ const init = async (): Promise<void> => {
     ...(isDev && devConfig),
   } satisfies Partial<PostHogConfig>;
 
-  posthogModule.init(siteConfig.posthogApiKey, config);
+  posthog.init(siteConfig.posthogApiKey, config);
+
+  if (pendingOptIn) {
+    pendingOptIn = false;
+    posthog.opt_in_capturing();
+  }
+
+  for (const listener of pendingFeatureFlagListeners) {
+    posthog.onFeatureFlags(listener);
+  }
+  pendingFeatureFlagListeners.clear();
+};
+
+/**
+ * Lightweight facade over the lazily-loaded PostHog client. All calls are safe before the client is
+ * ready.
+ */
+const analytics = {
+  /** Run a callback once PostHog feature flags are available. */
+  onFeatureFlags(listener: () => void): void {
+    if (client) {
+      client.onFeatureFlags(listener);
+    } else {
+      pendingFeatureFlagListeners.add(listener);
+    }
+  },
+
+  /** Whether a feature flag is enabled. Returns false until the client has loaded. */
+  isFeatureEnabled(flag: string): boolean {
+    return client?.isFeatureEnabled(flag) ?? false;
+  },
+
+  /** Opt the user into capturing. Queued until the client is ready. */
+  opt_in_capturing(): void {
+    if (client) {
+      client.opt_in_capturing();
+    } else {
+      pendingOptIn = true;
+    }
+  },
 };
 
 export { init };
-
-export default posthogModule;
+export default analytics;
