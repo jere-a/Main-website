@@ -58,6 +58,7 @@ const links: {
 						<a
 							href={item.href}
 							class={`${default_class_links} ${activefunc(active, item.active)}`}
+							aria-current={activefunc(active, item.active) ? 'page' : undefined}
 						>{item.name}</a>
 					</li>
 				))
