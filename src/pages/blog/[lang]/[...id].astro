@@ -7,12 +7,12 @@ import { useTranslations, useTranslatedPath } from "@/i18n/utils";
 export async function getStaticPaths() {
   const blogEntries = (await getCollection("blog"));
 
-  const paths = blogEntries.map((entry) => {
-    const [lang, ..._] = entry.id.split("/");
-    return { params: { lang, id: `${entry.data.draft ? 'draft-' : ''}${entry.id.slice(3)}` }, props: entry };
-  });
-
-  return paths;
+  return blogEntries
+    .filter((entry) => import.meta.env.DEV || !entry.data.draft)
+    .map((entry) => {
+      const [lang, ...rest] = entry.id.split("/");
+      return { params: { lang, id: rest.join("/") }, props: entry };
+    });
 }
 
 const entry = Astro.props;
