@@ -1,18 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
+import { getPublishedPosts } from "@/lib/blog";
 import { escapeViewTransitionName } from "@vtbag/utensil-drawer/escape-view-transition-name";
 import { useTranslations, useTranslatedPath } from "@/i18n/utils";
 
 export async function getStaticPaths() {
-  const blogEntries = (await getCollection("blog"));
+  const blogEntries = await getPublishedPosts();
 
-  return blogEntries
-    .filter((entry) => import.meta.env.DEV || !entry.data.draft)
-    .map((entry) => {
-      const [lang, ...rest] = entry.id.split("/");
-      return { params: { lang, id: rest.join("/") }, props: entry };
-    });
+  return blogEntries.map((entry) => {
+    const [lang, ...rest] = entry.id.split("/");
+    return { params: { lang, id: rest.join("/") }, props: entry };
+  });
 }
 
 const entry = Astro.props;
@@ -23,7 +22,15 @@ const translatePath = useTranslatedPath(entry.data.lang);
 const { Content } = await render(entry);
 ---
 
-<Layout title={entry.data.title} activeNav="blog" isSplash={false} lang={entry.data.lang}>
+<Layout
+  title={entry.data.title}
+  activeNav="blog"
+  isSplash={false}
+  lang={entry.data.lang}
+  type="article"
+  pubDate={entry.data.pubDate}
+  updatedDate={entry.data.updatedDate}
+>
   <article>
     <a href={translatePath("/blog")}>{t.nav.blog.back}</a>
     <h1
