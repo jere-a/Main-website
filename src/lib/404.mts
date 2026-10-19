@@ -4,8 +4,6 @@
  */
 
 import posthog from "@lib/analytics";
-import { assertExists } from "@utils/index";
-import * as v from "valibot";
 
 import { fetchData } from "@/lib/cloudflare-trace";
 import { catchErrorTyped } from "@/lib/utils/async.ts";
@@ -17,25 +15,28 @@ const { pathname, search } = window.location;
 const notFoundEl = document.querySelector<HTMLParagraphElement>(".NotFound");
 const infoEl = document.querySelector<HTMLParagraphElement>(".info");
 
-if (!DEBUG_PATHS.includes(pathname) && notFoundEl) {
-  notFoundEl.innerText = `Sivuun ${pathname}${search} ei saatu yhteyttä.`;
-} else if (notFoundEl) {
-  notFoundEl.innerText = `Sivu jota yrität käyttää on tarkoitettu näytettäväksi jos etsimääsi sivua ei löydy.`;
+if (notFoundEl) {
+  notFoundEl.innerText = DEBUG_PATHS.includes(pathname)
+    ? "Sivu jota yrität käyttää on tarkoitettu näytettäväksi jos etsimääsi sivua ei löydy."
+    : `Sivuun ${pathname}${search} ei saatu yhteyttä.`;
+}
+
+/** Best-effort: reveal the visitor's IP when the `fetchipp` feature flag is enabled. */
+async function showVisitorInfo(): Promise<void> {
+  if (!posthog.isFeatureEnabled("fetchipp") || !infoEl) {
+    return;
+  }
+
+  const [error, data] = await catchErrorTyped(fetchData(), [Error]);
+
+  if (error) {
+    console.error("Failed to load Cloudflare trace:", error);
+    return;
+  }
+
+  infoEl.innerText = `Yhteyttä yrittänyt ip osoite: ${data.ip}\nUserAgent: ${data.uag}`;
 }
 
 posthog.onFeatureFlags(() => {
-  void (async () => {
-    if (posthog.isFeatureEnabled("fetchipp")) {
-      const [error, data] = await catchErrorTyped(fetchData(), [v.ValiError]);
-
-      if (error) {
-        console.error("Failed:", error);
-        return;
-      }
-
-      assertExists(infoEl);
-
-      infoEl.innerText = `Yhteyttä yrittänyt ip osoite: ${data.ip}\nUserAgent: ${data.uag}`;
-    }
-  })();
+  void showVisitorInfo();
 });
