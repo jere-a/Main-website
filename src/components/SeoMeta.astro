@@ -1,0 +1,86 @@
+---
+import * as siteConfig from "@/config";
+import {
+	articleJsonLd,
+	getAlternateOgLocales,
+	getOgLocale,
+	serializeJsonLd,
+	websiteJsonLd,
+} from "@/lib/seo";
+
+interface Props {
+	title: string;
+	canonicalURL: URL;
+	lang: string;
+	image?: URL | undefined;
+	type?: "website" | "article" | undefined;
+	pubDate?: Date | undefined;
+	updatedDate?: Date | undefined;
+}
+
+const {
+	title,
+	canonicalURL,
+	lang,
+	image,
+	type = "website",
+	pubDate,
+	updatedDate,
+} = Astro.props;
+
+const description = siteConfig.description;
+const ogImage = image ?? new URL("pwa-512x512.png", siteConfig.url);
+const alternateOgLocales = getAlternateOgLocales(lang);
+
+const structuredData: unknown[] = [
+	websiteJsonLd({
+		url: siteConfig.url,
+		name: siteConfig.title,
+		description,
+		lang,
+		author: siteConfig.mainAuthor,
+	}),
+];
+
+if (type === "article" && pubDate) {
+	structuredData.push(
+		articleJsonLd({
+			url: canonicalURL.href,
+			headline: title,
+			lang,
+			datePublished: pubDate.toISOString(),
+			dateModified: (updatedDate ?? pubDate).toISOString(),
+			author: siteConfig.mainAuthor,
+			image: ogImage.href,
+		}),
+	);
+}
+---
+
+<meta name="description" content={description} />
+<meta name="color-scheme" content="dark light" />
+
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={description} />
+<meta property="og:image:width" content="512" />
+<meta property="og:image:height" content="512" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:locale" content={getOgLocale(lang)} />
+{alternateOgLocales.map((locale) => (
+	<meta property="og:locale:alternate" content={locale} />
+))}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<script
+	is:inline
+	type="application/ld+json"
+	set:html={serializeJsonLd(structuredData)}
+/>
