@@ -1,92 +1,20 @@
 /**
- * Client-side entry point. Runs on every page load: initializes analytics, sets up global event
- * handlers (context menu suppression, Konami code easter egg), and triggers holiday effects when
- * applicable.
+ * Client-side entry point. Composes the small, single-purpose behaviours that run on every page
+ * load. Each behaviour lives in its own module under `./client` so it can be reasoned about (and
+ * tested) in isolation.
  */
 
-import { createSequenceMatcher, type HotkeySequence } from "@tanstack/hotkeys";
+import { runAnalyticsInit } from "./client/analytics-init.ts";
+import { suppressImageContextMenu } from "./client/context-menu.ts";
+import { loadHolidayEffect } from "./client/holiday-effects.ts";
+import { setupKonamiCode } from "./client/konami-code.ts";
+import { setupPreloadRecovery } from "./client/preload-recovery.ts";
 
-import { init } from "./analytics.ts";
-import { on, $holiday } from "./utils/index";
-
-const loadAnalytics = () => {
-  // oxlint-disable-next-line promise/prefer-await-to-then
-  void init().catch((e) => {
-    // oxlint-disable-next-line no-console
-    console.error("posthog init failed", e);
-  });
-};
-
-const runanalyticsInit = () => {
-  // Defer the (heavy) analytics bundle until the browser is idle so it never contends with the
-  // first paint.
-  if (typeof window.requestIdleCallback === "function") {
-    window.requestIdleCallback(loadAnalytics, { timeout: 3000 });
-  } else {
-    window.setTimeout(loadAnalytics, 1000);
-  }
-};
-
-const suppressImageContextMenu = () => {
-  on(
-    document.body,
-    "contextmenu",
-    (e) => {
-      e.preventDefault();
-    },
-    "img, picture",
-  );
-};
-
-const setupKonamiCode = () => {
-  const konamiCode = createSequenceMatcher(
-    [
-      "ArrowUp",
-      "ArrowUp",
-      "ArrowDown",
-      "ArrowDown",
-      "ArrowLeft",
-      "ArrowRight",
-      "ArrowLeft",
-      "ArrowRight",
-      "B",
-      "A",
-    ] satisfies HotkeySequence,
-    { timeout: 2000 },
-  );
-
-  on(document.body, "keydown", (event) => {
-    if (!konamiCode.match(event)) return;
-
-    // oxlint-disable-next-line no-console
-    console.log(atob("S29uYW1pIGNvZGUgYWN0aXZhdGVkLg=="));
-  });
-};
-
-const handleVitePreloadError = () => {
-  addEventListener("vite:preloadError", () => {
-    window.location.reload();
-  });
-};
-
-const loadHolidayEffect = () => {
-  let currentKey: string | null = null;
-
-  return $holiday.subscribe((holiday) => {
-    if (!holiday || holiday.key === currentKey) {
-      return;
-    }
-
-    currentKey = holiday.key;
-    void holiday.runScript();
-  });
-};
-
-const main = () => {
-  runanalyticsInit();
+const main = (): void => {
+  runAnalyticsInit();
   suppressImageContextMenu();
   setupKonamiCode();
-  handleVitePreloadError();
+  setupPreloadRecovery();
   loadHolidayEffect();
 };
 
