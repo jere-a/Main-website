@@ -108,6 +108,10 @@ export default defineConfig({
         "default-src 'self'",
         "img-src 'self' https://res.cloudinary.com",
         "connect-src 'self' https://t.ozze.eu.org",
+        "frame-ancestors 'self'",
+        "default-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
       ],
       styleDirective: {
         hashes: ["sha256-lfvLzRh67u2qNRREwSYQw1jS4uxEC3+oHCb9rqdTDLA="],

@@ -9,3 +9,9 @@ allowBuilds:
 overrides:
   esbuild: ">=0.28.1"
   serialize-javascript: ">=7.0.3"
+
+minimumReleaseAge: 10080
+blockExoticSubdeps: true
+trustPolicy: "no-downgrade"
+strictDepBuilds: true
+ignoreScripts: true

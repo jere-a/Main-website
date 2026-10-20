@@ -26,160 +26,160 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     @view-transition {
       navigation: auto;
     }
-  }
 
-  ::view-transition-group(*) {
-    animation-duration: $page-transition-animation-duration;
-  }
-
-  .main-footer {
-    view-transition-name: main-footer;
-    view-transition-class: slide-bottom;
-  }
-
-  .navmenu {
-    view-transition-name: navmenu;
-    view-transition-class: fade;
-  }
-
-  .hero_text {
-    view-transition-name: hero-text;
-    view-transition-class: slide-top;
-  }
-
-  ::view-transition-group(title) {
-    overflow: clip;
-  }
-  ::view-transition-old(title),
-  ::view-transition-new(title) {
-    block-size: 100%;
-    inline-size: auto;
-  }
-
-  .github-corner {
-    view-transition-name: github;
-    view-transition-class: slide-right;
-  }
-
-  ::view-transition-old(.fade),
-  ::view-transition-new(.fade) {
-    animation-duration: 180ms;
-    animation-timing-function: $astro-ease;
-  }
-
-  ::view-transition-group(.slide-top) {
-    animation-timing-function: var(--overshoot-out-soft);
-    --dir: -1;
-  }
-
-  ::view-transition-old(.slide-top) {
-    animation-name: slide-out-top-bottom;
-  }
-
-  ::view-transition-new(.slide-top) {
-    animation-name: slide-in-top-bottom;
-  }
-
-  ::view-transition-group(.slide-bottom) {
-    animation-timing-function: var(--overshoot-out-soft);
-    --dir: 1;
-  }
-
-  ::view-transition-old(.slide-bottom) {
-    animation-name: slide-out-top-bottom;
-  }
-
-  ::view-transition-new(.slide-bottom) {
-    animation-name: slide-in-top-bottom;
-  }
-
-  @keyframes slide-in-top-bottom {
-    0% {
-      transform: translateY(calc(100% * var(--dir)));
-      opacity: 0;
+    ::view-transition-group(*) {
+      animation-duration: $page-transition-animation-duration;
     }
 
-    100% {
-      transform: translateY(0%);
-    }
-  }
-
-  @keyframes slide-out-top-bottom {
-    0% {
-      transform: translateY(0%);
+    .main-footer {
+      view-transition-name: main-footer;
+      view-transition-class: slide-bottom;
     }
 
-    100% {
-      transform: translateY(calc(100% * var(--dir)));
-      opacity: 0;
-    }
-  }
-
-  ::view-transition-group(.slide-right) {
-    animation-timing-function: var(--overshoot-out-soft);
-  }
-
-  ::view-transition-old(.slide-right) {
-    animation-name: slide-out-right;
-  }
-
-  ::view-transition-new(.slide-right) {
-    animation-name: slide-in-right;
-  }
-
-  @keyframes slide-in-right {
-    0% {
-      transform: translateX(100%);
-      opacity: 0;
+    .navmenu {
+      view-transition-name: navmenu;
+      view-transition-class: fade;
     }
 
-    100% {
-      transform: translateX(0%);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slide-out-right {
-    0% {
-      transform: translateX(0%);
-      opacity: 1;
+    .hero_text {
+      view-transition-name: hero-text;
+      view-transition-class: slide-top;
     }
 
-    100% {
-      transform: translateX(100%);
-      opacity: 0;
+    ::view-transition-group(title) {
+      overflow: clip;
     }
-  }
-
-  ::view-transition-group(.cards) {
-    animation-duration: 0.6s;
-    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  @for $i from 0 through 10 {
-    .card#{$i} {
-      view-transition-name: c#{$i};
+    ::view-transition-old(title),
+    ::view-transition-new(title) {
+      block-size: 100%;
+      inline-size: auto;
     }
 
-    ::view-transition-new(.card#{$i}) {
-      opacity: 0;
-      animation: Bottom-In 0.5s #{$i * 80ms} both;
-    }
-  }
-
-  .fade-transition {
-    view-transition-class: fade;
-  }
-
-  @keyframes Bottom-In {
-    from {
-      transform: translateY(60px);
-      opacity: 0;
+    .github-corner {
+      view-transition-name: github;
+      view-transition-class: slide-right;
     }
 
-    to {
-      transform: translateY(0);
-      opacity: 1;
+    ::view-transition-old(.fade),
+    ::view-transition-new(.fade) {
+      animation-duration: 180ms;
+      animation-timing-function: $astro-ease;
+    }
+
+    ::view-transition-group(.slide-top) {
+      animation-timing-function: var(--overshoot-out-soft);
+      --dir: -1;
+    }
+
+    ::view-transition-old(.slide-top) {
+      animation-name: slide-out-top-bottom;
+    }
+
+    ::view-transition-new(.slide-top) {
+      animation-name: slide-in-top-bottom;
+    }
+
+    ::view-transition-group(.slide-bottom) {
+      animation-timing-function: var(--overshoot-out-soft);
+      --dir: 1;
+    }
+
+    ::view-transition-old(.slide-bottom) {
+      animation-name: slide-out-top-bottom;
+    }
+
+    ::view-transition-new(.slide-bottom) {
+      animation-name: slide-in-top-bottom;
+    }
+
+    @keyframes slide-in-top-bottom {
+      0% {
+        transform: translateY(calc(100% * var(--dir)));
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0%);
+      }
+    }
+
+    @keyframes slide-out-top-bottom {
+      0% {
+        transform: translateY(0%);
+      }
+
+      100% {
+        transform: translateY(calc(100% * var(--dir)));
+        opacity: 0;
+      }
+    }
+
+    ::view-transition-group(.slide-right) {
+      animation-timing-function: var(--overshoot-out-soft);
+    }
+
+    ::view-transition-old(.slide-right) {
+      animation-name: slide-out-right;
+    }
+
+    ::view-transition-new(.slide-right) {
+      animation-name: slide-in-right;
+    }
+
+    @keyframes slide-in-right {
+      0% {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateX(0%);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slide-out-right {
+      0% {
+        transform: translateX(0%);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+
+    ::view-transition-group(.cards) {
+      animation-duration: 0.6s;
+      animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @for $i from 0 through 10 {
+      .card#{$i} {
+        view-transition-name: c#{$i};
+      }
+
+      ::view-transition-new(.card#{$i}) {
+        opacity: 0;
+        animation: Bottom-In 0.5s #{$i * 80ms} both;
+      }
+    }
+
+    .fade-transition {
+      view-transition-class: fade;
+    }
+
+    @keyframes Bottom-In {
+      from {
+        transform: translateY(60px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
   }
 }
