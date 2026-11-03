@@ -36,7 +36,7 @@ const holidays = [
     key: "halloween",
     range: [
       [10, 1],
-      [11, 10],
+      [10, 31],
     ],
     target: [10, 31],
     load: () => import("./halloween.ts").then((m) => m.halloween),
@@ -44,7 +44,7 @@ const holidays = [
   {
     key: "christmas",
     range: [
-      [11, 30],
+      [11, 1],
       [12, 25],
     ],
     target: [12, 24],
