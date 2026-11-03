@@ -2,7 +2,7 @@ import { satteri } from "@astrojs/markdown-satteri";
 import sitemap from "@astrojs/sitemap";
 // import preact from "@astrojs/preact";
 // import svelte from "@astrojs/svelte";
-import AstroPWA from "@vite-pwa/astro";
+import AstroPWAIntegration from "@vite-pwa/astro";
 import embeds from "astro-embed/integration";
 import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
@@ -37,10 +37,15 @@ export default defineConfig({
     embeds(),
     // svelte(),
     // preact({ include: ["**/preact/*", "**/react/*", "**/components/ui/*"], devtools: true }),
-    AstroPWA({
+    AstroPWAIntegration({
       strategies: "injectManifest",
-      srcDir: "src",
       filename: "sw.ts",
+      srcDir: "src",
+      minify: true,
+      injectManifest: {
+        swSrc: "src/sw.ts",
+        minify: "oxc",
+      },
       manifest: {
         name: "Åzze's website",
         short_name: "Åzze",

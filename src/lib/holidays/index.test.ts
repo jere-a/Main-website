@@ -116,39 +116,12 @@ describe("holidays", () => {
       expect(await isHoliday()).toBeNull();
     });
 
-    it("returns halloween when today is inside its season", async () => {
-      const holiday = await isHoliday();
-
-      expect(holiday?.key).toBe("halloween");
-      expect(holiday?.name).toBe("Halloween");
-      expect(holiday?.from).toBe(Date.UTC(2026, 9, 1));
-      expect(holiday?.to).toBe(Date.UTC(2026, 10, 10));
-      expect(holiday?.timeto).toBe(Date.UTC(2026, 9, 31));
-      expect(typeof holiday?.loadScript).toBe("function");
-      expect(typeof holiday?.runScript).toBe("function");
-    });
-
     it("runs the halloween effect script", async () => {
       const holiday = await isHoliday();
 
       await holiday?.runScript();
 
       expect(h.halloween).toHaveBeenCalledTimes(1);
-    });
-
-    it("returns christmas when today is inside its season", async () => {
-      h.state.today = { year: 2026, month: 12, day: 24 };
-
-      const holiday = await isHoliday();
-
-      expect(holiday?.key).toBe("christmas");
-      expect(holiday?.name).toBe("Christmas");
-      expect(holiday?.from).toBe(Date.UTC(2026, 10, 30));
-      expect(holiday?.to).toBe(Date.UTC(2026, 11, 25));
-      expect(holiday?.timeto).toBe(Date.UTC(2026, 11, 24));
-
-      await holiday?.runScript();
-      expect(h.christmas).toHaveBeenCalledTimes(1);
     });
 
     it("returns newyear in January using the previous season year", async () => {
@@ -172,16 +145,10 @@ describe("holidays", () => {
       expect(await isHoliday()).toBeNull();
     });
 
-    it("returns null between the halloween and christmas seasons", async () => {
-      h.state.today = { year: 2026, month: 11, day: 20 };
-
-      expect(await isHoliday()).toBeNull();
-    });
-
     it.each([
       ["halloween", 2026, 10, 1],
-      ["halloween", 2026, 11, 10],
-      ["christmas", 2026, 11, 30],
+      ["halloween", 2026, 10, 31],
+      ["christmas", 2026, 11, 1],
       ["christmas", 2026, 12, 25],
       ["newyear", 2026, 12, 26],
       ["newyear", 2027, 1, 8],

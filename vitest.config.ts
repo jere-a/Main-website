@@ -19,6 +19,7 @@ export default defineConfig({
   test: {
     environment: "happy-dom",
     restoreMocks: true,
+    pool: "vmThreads",
     coverage: {
       provider: "istanbul",
       include: [

@@ -6,12 +6,20 @@ allowBuilds:
   esbuild: true
   puppeteer: false
   workerd: true
-overrides:
-  esbuild: ">=0.28.1"
-  serialize-javascript: ">=7.0.3"
 
 minimumReleaseAge: 10080
 blockExoticSubdeps: true
 trustPolicy: "no-downgrade"
+trustPolicyExclude:
+  - "@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1"
+  - "semver@6.3.1"
+  - "@unpic/astro@0.0.47"
+  - "@unpic/core@0.0.49"
+  - "chokidar@4.0.3"
 strictDepBuilds: true
 ignoreScripts: true
+minimumReleaseAgeExclude:
+  - "@unplugin-pwa/core@0.0.3"
+  - "@unplugin-pwa/inspector@0.0.3"
+  - "@unplugin-pwa/vite@0.0.3"
+  - "@vite-pwa/astro@2.0.0"
