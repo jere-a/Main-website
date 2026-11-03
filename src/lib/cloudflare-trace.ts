@@ -2,6 +2,9 @@
 
 import * as v from "valibot";
 
+const TRACE_PATH = "/cdn-cgi/trace";
+const REQUEST_TIMEOUT_MS = 5000;
+
 const ParsedDataSchema = v.object({
   ip: v.pipe(v.string(), v.ip()),
   uag: v.pipe(v.string(), v.minLength(1)),
@@ -20,7 +23,16 @@ const ParsedDataSchema = v.object({
 export type ParsedData = v.InferInput<typeof ParsedDataSchema>;
 
 export async function fetchData(): Promise<ParsedData> {
-  const text = await fetch(`${window.location.origin}/cdn-cgi/trace`).then((r) => r.text());
+  const response = await fetch(`${window.location.origin}${TRACE_PATH}`, {
+    cache: "no-store",
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Cloudflare trace request failed with status ${response.status}`);
+  }
+
+  const text = await response.text();
 
   const raw = Object.fromEntries(
     text

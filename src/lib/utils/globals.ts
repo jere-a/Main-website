@@ -1,6 +1,6 @@
 /**
- * Backward-compatible re-export hub. Prefer importing from the focused modules directly: dom.ts,
- * async.ts, language.ts, url.ts, temporal.ts
+ * Re-export hub for client-side utilities. Prefer importing from the focused modules directly:
+ * dom.ts, async.ts, language.ts, url.ts
  */
 export { detectLanguage } from "./language.ts";
 export { catchErrorTyped } from "./async.ts";

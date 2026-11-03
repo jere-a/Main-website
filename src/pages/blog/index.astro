@@ -1,7 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getCollection } from 'astro:content';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { getPublishedPostsByLang } from '@/lib/blog';
 import { escapeViewTransitionName } from '@vtbag/utensil-drawer/escape-view-transition-name';
 
 import { JSDOM } from 'jsdom';
@@ -19,9 +19,7 @@ const t = (await useTranslations(lang));
 
 let index = 0;
 
-const blogEntries = (await getCollection('blog')).toSorted((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const blogsFilter = blogEntries.filter(post => (post.data.lang === lang) && (import.meta.env.PROD ? !post.data.draft : true));
+const blogsFilter = await getPublishedPostsByLang(lang);
 ---
 
 <Layout title="Blogs" activeNav="blog" isNavbar={nav} isBanner={banner} isCopyright={false}>

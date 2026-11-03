@@ -82,7 +82,7 @@ const images: {
 		{
 			images.map((image, i) => (
 				<li>
-          <ImageHolder cloudinary_id={image.src} width={image.width} height={image.height} title={image.title} transitionName={`${i}`} />
+          <ImageHolder cloudinary_id={image.src} width={image.width} height={image.height} title={image.title} transitionName={`${i}`} priority={i === 0} />
 				</li>
 			))
 		}

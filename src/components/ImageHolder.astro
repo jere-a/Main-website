@@ -10,9 +10,11 @@ interface Props {
   height: number;
 	alt?: string;
 	transitionName?: string;
+	/** Load eagerly and raise fetch priority. Use only for above-the-fold images. */
+	priority?: boolean;
 }
 
-const { cloudinary_id, width, height, title, body, alt, transitionName } = Astro.props;
+const { cloudinary_id, width, height, title, body, alt, transitionName, priority = false } = Astro.props;
 
 const imageAlt = alt ?? title;
 ---
@@ -25,8 +27,8 @@ const imageAlt = alt ?? title;
         height={height}
         sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, (max-width: 1280px) 33vw, 25vw"
         class={`image`}
-        loading="eager"
-        fetchpriority="high"
+        loading={priority ? "eager" : "lazy"}
+        fetchpriority={priority ? "high" : "low"}
         alt={imageAlt}
       />
     }

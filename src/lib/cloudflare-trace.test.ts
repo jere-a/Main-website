@@ -6,6 +6,7 @@ import { fetchData } from "./cloudflare-trace";
 const mockFetchText = (text: string) =>
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   vi.spyOn(global, "fetch").mockResolvedValue({
+    ok: true,
     text: () => Promise.resolve(text),
   } as Response);
 
@@ -143,9 +144,21 @@ describe("fetchData", () => {
       await expect(fetchData()).rejects.toThrow("network error");
     });
 
+    it("rejects non-ok responses", async () => {
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      vi.spyOn(global, "fetch").mockResolvedValue({
+        ok: false,
+        status: 503,
+        text: () => Promise.resolve(""),
+      } as Response);
+
+      await expect(fetchData()).rejects.toThrow("503");
+    });
+
     it("propagates body errors", async () => {
       // oxlint-disable-next-line typescript/no-unsafe-type-assertion
       vi.spyOn(global, "fetch").mockResolvedValue({
+        ok: true,
         text: () => Promise.reject(new Error("read failed")),
       } as Response);
 
@@ -158,6 +171,9 @@ describe("fetchData", () => {
 
     await fetchData();
 
-    expect(global.fetch).toHaveBeenCalledWith(`${window.location.origin}/cdn-cgi/trace`);
+    expect(global.fetch).toHaveBeenCalledWith(
+      `${window.location.origin}/cdn-cgi/trace`,
+      expect.objectContaining({ cache: "no-store" }),
+    );
   });
 });
