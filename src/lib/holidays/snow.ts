@@ -18,6 +18,11 @@ export const snow = async (): Promise<Container | undefined> => {
 
   return tsParticles.load({
     id: CONTAINER_ID,
-    options: { preset: "snow", detectRetina: true, hdr: true, zLayers: -1000 },
+    options: {
+      preset: "snow",
+      background: {
+        opacity: 0,
+      },
+    },
   });
 };

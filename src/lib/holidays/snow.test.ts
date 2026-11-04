@@ -27,9 +27,9 @@ describe("snow", () => {
       id: CONTAINER_ID,
       options: {
         preset: "snow",
-        detectRetina: true,
-        hdr: true,
-        zLayers: -1000,
+        background: {
+          opacity: 0,
+        },
       },
     };
 
