@@ -16,5 +16,8 @@ export const CONTAINER_ID = "tsparticles";
 export const snow = async (): Promise<Container | undefined> => {
   await loadSnowPreset(tsParticles);
 
-  return tsParticles.load({ id: CONTAINER_ID, options: { preset: "snow" } });
+  return tsParticles.load({
+    id: CONTAINER_ID,
+    options: { preset: "snow", detectRetina: true, hdr: true, zLayers: -1000 },
+  });
 };
