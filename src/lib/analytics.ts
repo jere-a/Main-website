@@ -85,6 +85,7 @@ const init = async (): Promise<void> => {
     strict_script_versioning: true,
     secure_cookie: true,
     opt_out_capturing_by_default: true,
+    respect_dnt: true,
     custom_blocked_useragents: BLOCKED_USER_AGENTS,
     ...(isDev && devConfig),
   } satisfies Partial<PostHogConfig>;

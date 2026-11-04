@@ -49,6 +49,7 @@ $astro-ease: cubic-bezier(0.76, 0, 0.24, 1);
     ::view-transition-group(title) {
       overflow: clip;
     }
+
     ::view-transition-old(title),
     ::view-transition-new(title) {
       block-size: 100%;

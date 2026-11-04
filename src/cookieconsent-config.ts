@@ -1,19 +1,23 @@
-import posthog from "@lib/analytics";
 import * as CookieConsent from "vanilla-cookieconsent";
 
-import "vanilla-cookieconsent/dist/cookieconsent.css";
+import { runAnalyticsInit } from "./lib/client/analytics-init";
+
+//import "vanilla-cookieconsent/dist/cookieconsent.css";
+import cssSheet from "vanilla-cookieconsent/dist/cookieconsent.css?inline" with { type: "css" };
+
+const sheet = new CSSStyleSheet();
+sheet.replaceSync(cssSheet);
 
 await CookieConsent.run({
   onConsent: () => {
     // Opt in only when the visitor actually accepted analytics. "Reject all" must not enable
     // tracking; a returning visitor who rejected is explicitly opted back out.
-    if (CookieConsent.getUserPreferences().acceptType === "all") {
-      posthog.opt_in_capturing();
-    } else {
-      posthog.opt_out_capturing();
+    if (CookieConsent.acceptedCategory("analytics")) {
+      runAnalyticsInit();
     }
   },
   onModalReady: () => {
+    document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
     const documentElementClassList = document.documentElement.classList;
     const ccDarkMode = "cc-darkmode";
     if (!documentElementClassList.contains(ccDarkMode)) documentElementClassList.add(ccDarkMode);
@@ -35,6 +39,9 @@ await CookieConsent.run({
   categories: {
     necessary: {
       readOnly: true,
+    },
+    analytics: {
+      enabled: true,
     },
   },
   language: {
@@ -92,7 +99,7 @@ await CookieConsent.run({
         },
         preferencesModal: {
           title: "Eväste asetukset",
-          closeIconLabel: "Fermer la modale",
+          closeIconLabel: "Sulje ikkuna",
           acceptAllBtn: "Hyväksyn muokatut asetukset",
           acceptNecessaryBtn: "En hyväksy asetuksia",
           savePreferencesBtn: "Tallenna eväste asetukset",

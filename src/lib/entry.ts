@@ -4,18 +4,28 @@
  * tested) in isolation.
  */
 
-import { runAnalyticsInit } from "./client/analytics-init.ts";
 import { suppressImageContextMenu } from "./client/context-menu.ts";
 import { loadHolidayEffect } from "./client/holiday-effects.ts";
 import { setupKonamiCode } from "./client/konami-code.ts";
 import { setupPreloadRecovery } from "./client/preload-recovery.ts";
+import { setupWakeLockOnDev } from "./client/wakelock-dev.ts";
+import { getQueryParam } from "./utils/globals.ts";
 
 const main = (): void => {
-  runAnalyticsInit();
   suppressImageContextMenu();
   setupKonamiCode();
   setupPreloadRecovery();
   loadHolidayEffect();
+  devtools();
+};
+
+const devtools = (): void => {
+  if (
+    ["1", "true"].some((keyword) => getQueryParam("dev")?.includes(keyword)) ||
+    import.meta.env.DEV
+  ) {
+    setupWakeLockOnDev();
+  }
 };
 
 export default main;

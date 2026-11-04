@@ -11,7 +11,6 @@ import type { Lang } from '@/i18n/types';
 
 import '@/styles/view-transition.scss';
 import '@/global.css';
-import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
 interface Props {
   title?: string;
@@ -131,7 +130,9 @@ const kaoid = 'kao';
 <script>
   // oxlint-disable-next-line import/no-unassigned-import
   import "@/pwa";
-  await import("@/cookieconsent-config");
+  if (!navigator.connection?.saveData) {
+    await import("@/cookieconsent-config");
+  }
 	import global from '@/lib/entry';
 	global();
 </script>
