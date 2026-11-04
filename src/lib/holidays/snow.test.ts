@@ -23,14 +23,19 @@ describe("snow", () => {
   it("loads the snow preset into the #tsparticles container", async () => {
     await snow();
 
-    expect(hoisted.preset).toHaveBeenCalledTimes(1);
-    expect(hoisted.load).toHaveBeenCalledWith({
+    const options = {
       id: CONTAINER_ID,
-      options: { preset: "snow" },
-    });
-    expect(hoisted.load).toHaveBeenCalledWith(
-      expect.objectContaining({ id: CONTAINER_ID, options: { preset: "snow" } }),
-    );
+      options: {
+        preset: "snow",
+        detectRetina: true,
+        hdr: true,
+        zLayers: -1000,
+      },
+    };
+
+    expect(hoisted.preset).toHaveBeenCalledTimes(1);
+    expect(hoisted.load).toHaveBeenCalledWith(options);
+    expect(hoisted.load).toHaveBeenCalledWith(expect.objectContaining(options));
   });
 
   it("resolves with the loaded particle container", async () => {
