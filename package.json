@@ -79,7 +79,8 @@
     "workbox-recipes": "^7.4.1",
     "workbox-routing": "^7.4.1",
     "workbox-strategies": "^7.4.1",
-    "workbox-window": "^7.4.1"
+    "workbox-window": "^7.4.1",
+    "wrangler": "^4.154.0"
   },
   "nano-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": "bun run lint"
