@@ -112,9 +112,8 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         "img-src 'self' https://res.cloudinary.com",
-        "connect-src 'self' https://t.ozze.eu.org",
+        "connect-src 'self' https://t.ozze.eu.org https://cdn.jsdelivr.net",
         "frame-ancestors 'self'",
-        "default-src 'none'",
         "base-uri 'self'",
         "form-action 'self'",
       ],
