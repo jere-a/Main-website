@@ -33,7 +33,7 @@
     "@tsparticles/engine": "^4.5.0",
     "@tsparticles/preset-snow": "^4.5.0",
     "@vtbag/utensil-drawer": "^1.2.18",
-    "astro": "^7.4.2",
+    "astro": "^7.4.7",
     "astro-cloudinary": "^1.4.0",
     "astro-embed": "^0.14.0",
     "astro-i18n-aut": "^0.8.1",
